@@ -1,0 +1,21 @@
+
+
+
+read -p 'please set Timezone and hit ENTER' mytmp
+cat /media/user/DEB_STUFF/_bashrc >> ~/.bashrc
+cp /media/user/DEB_STUFF/_vimrc >> ~/.vimrc
+sudo cp /media/user/DEB_STUFF/python4.pl /usr/bin/python4.pl
+ln -s /media/user/DEB_STUFF/dot_steam ~/.steam
+ln -s /media/user/DEB_STUFF/dot_local_share_Steam ~/.local/share/Steam
+ln -s /media/user/DEB_STUFF/dot_cache_mesa_shader_cache ~/.cache/mesa_shader_cache
+ln -s /media/user/DEB_STUFF/dot_local_share_volition ~/.local/share/volition
+sudo dpkg --add-architecture i386
+sudo systemctl stop cups exim4 cups-browsed avahi-daemon avahi-daemon.socket cron anacron.timer
+
+sudo /usr/sbin/swapon /dev/sda2
+sudo apt purge $(dpkg -l | egrep -i 'mozi|fox' | awk '{print $2}' | tr '\n' ' ') epiphany-browser konqueror chromium
+
+rmdir ~/Documents
+ln -s /media/user/DEB_STUFF/Documents ~/Documents
+echo 'now go to /media/user/DEB_STUFF and install all of the software you want'
+echo 'oh yeah, change your wallpaper, remove Desktop icons, and get rid of some ~/ directories'

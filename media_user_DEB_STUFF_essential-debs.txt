@@ -1,0 +1,7 @@
+ls /media/user/DEB_STUFF/essential-debs/ > media_user_DEB_STUFF_essential-debs.txt
+gparted_1.2.0-1_amd64.deb
+gparted-common_1.2.0-1_all.deb
+iotop_0.6-24-g733f3f8-1.1_amd64.deb
+net-tools_1.60+git20181103.0eebece-1_amd64.deb
+perl-doc_5.32.1-4+deb11u2_all.deb
+wget_1.21-1+deb11u1_amd64.deb

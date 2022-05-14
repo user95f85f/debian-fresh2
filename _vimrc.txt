@@ -1,0 +1,6 @@
+
+
+" :syntax on    to enable syntax highlighting supposidly
+:se ts=2
+:se sw=2
+:se expandtab
