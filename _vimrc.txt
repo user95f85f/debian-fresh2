@@ -4,3 +4,10 @@
 :se ts=2
 :se sw=2
 :se expandtab
+
+"I love the arrow keys.
+noremap <right> :bn<CR>
+noremap <left> :bp<CR>
+noremap <up> <PageUp>
+noremap <down> <PageDown>
+
