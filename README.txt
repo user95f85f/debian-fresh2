@@ -1,11 +1,90 @@
+#!/usr/bin/perl
+
+
+use strict;
+use warnings;
+use Data::Dumper;
+$Data::Dumper::Maxdepth = 1;
+use AptPkg::Cache;
+use autodie;
+use List::Util qw/uniq/;
+
+
+#<config>
+my $package_name = $ARGV[0] || 'kate';
+my $target_arch = 'amd64';
+#</config>
+
+my $cache = AptPkg::Cache->new();
+
+sub get_pkgname_depends_list{
+  my ($_pkgname) = @_;
+  if(!defined($_pkgname)){
+    warn "WARNING: package name is undefined........\n";
+    return ();
+  }
+  if(length($_pkgname) == 0){
+    warn "WARNING: package name is empty...........\n";
+    return ();
+  }
+  my $version_list = $cache->get($_pkgname)->{'VersionList'};
+  if(!defined($version_list)){
+    warn "WARNING: Version list for package name $_pkgname is undefined.\n";
+    return ();
+  }
+  if(scalar(@{$version_list}) == 0){
+    warn "WARNING: Version list for package name $_pkgname is empty.\n";
+    return ();
+  }
+  my $dependencies = $version_list->[0]->{'DependsList'};
+  if(!defined($dependencies)){
+    warn "WARNING: Dependencies list for package name $_pkgname is undefined.\n";
+    return ();
+  }
+  if(scalar(@{$dependencies}) == 0){
+    warn "WARNING: Dependencies list for package name $_pkgname is empty.\n";
+    return ();
+  }
+  return @{$dependencies};
+}
+
+
+my @dependencies = get_pkgname_depends_list($package_name);
+my @package_names = ($package_name);
+while(1){
+  $_ = shift(@dependencies) or last;
+  if($_->{'DepType'} ne 'Depends'){next;}
+  my $target_pkg = $_->{'TargetPkg'};
+  if($target_pkg->{'Arch'} ne $target_arch){next;}
+  if($target_pkg->{'CurrentState'} eq 'Installed'){next;}
+  push(@package_names, $target_pkg->{'Name'});
+  push(@dependencies, get_pkgname_depends_list($target_pkg->{'Name'}));
+}
+
+print 'sudo apt download ', join(' ', uniq(sort(@package_names))), "\n";
 
 
 
 export TZ=America/Los_Angeles
 export WINEPREFIX=/media/user/DEB_STUFF/dot-wine
 wow='/media/user/DEB_STUFF/dot-wine/drive_c/Program Files (x86)/Battle.net'
-
-
+alias ..='cd ..'
+watch-dir(){
+  [ -z "$1" ] && return 1
+  [ -d "$1" ] || return 2
+  inotifywait --recursive --monitor --quiet --event create "$1"
+}
+ffplay(){
+  [ -z "$1" ] && return 1
+  [ -f "$1" ] || return 2
+  local filename="$1"
+  local file_extension="${filename##*.}"
+  if [[ $file_extension = 'mp3' || $file_extension = 'wav' || $file_extension = 'ogg' ]]; then
+    /usr/bin/ffplay -nodisp -autoexit "$filename"
+  else
+    /usr/bin/ffplay "$filename"
+  fi
+}
 
 clipart-png
 clipart-png/tools
@@ -411,6 +490,27 @@ Untitled.txt
 python4
 python4/1.py
 python4/1_py3.py
+MIT License
+
+Copyright (c) 2022 user95f85f
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 ls /media/user/DEB_STUFF/essential-debs/ > media_user_DEB_STUFF_essential-debs.txt
 gparted_1.2.0-1_amd64.deb
 gparted-common_1.2.0-1_all.deb
@@ -484,3 +584,10 @@ What I installed in WINE:
 :se ts=2
 :se sw=2
 :se expandtab
+
+"I love the arrow keys.
+noremap <right> :bn<CR>
+noremap <left> :bp<CR>
+noremap <up> <PageUp>
+noremap <down> <PageDown>
+
