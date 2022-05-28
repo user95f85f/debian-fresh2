@@ -5,4 +5,19 @@ export TZ=America/Los_Angeles
 export WINEPREFIX=/media/user/DEB_STUFF/dot-wine
 wow='/media/user/DEB_STUFF/dot-wine/drive_c/Program Files (x86)/Battle.net'
 alias ..='cd ..'
-
+watch-dir(){
+  [ -z "$1" ] && return 1
+  [ -d "$1" ] || return 2
+  inotifywait --recursive --monitor --quiet --event create "$1"
+}
+ffplay(){
+  [ -z "$1" ] && return 1
+  [ -f "$1" ] || return 2
+  local filename="$1"
+  local file_extension="${filename##*.}"
+  if [[ $file_extension = 'mp3' || $file_extension = 'wav' || $file_extension = 'ogg' ]]; then
+    /usr/bin/ffplay -nodisp -autoexit "$filename"
+  else
+    /usr/bin/ffplay "$filename"
+  fi
+}
