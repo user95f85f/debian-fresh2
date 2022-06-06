@@ -4,7 +4,15 @@
 export TZ=America/Los_Angeles
 export WINEPREFIX=/media/user/DEB_STUFF/dot-wine
 wow='/media/user/DEB_STUFF/dot-wine/drive_c/Program Files (x86)/Battle.net'
+www='/home/user/Documents/localhost-httpd/www'
+export todo='/home/user/Documents/TODO/todo.txt'
 alias ..='cd ..'
+alias vi='/usr/bin/vim'
+xclip-cp(){
+  [ -z "$1" ] && return 4
+  [ -f "$1" ] || return 5
+  DISPLAY=:0.0 xclip -selection clipboard "$1"
+}
 watch-dir(){
   [ -z "$1" ] && return 1
   [ -d "$1" ] || return 2
@@ -16,10 +24,67 @@ ffplay(){
   local filename="$1"
   local file_extension="${filename##*.}"
   if [[ $file_extension = 'mp3' || $file_extension = 'wav' || $file_extension = 'ogg' ]]; then
-    /usr/bin/ffplay -nodisp -autoexit "$filename"
+    /usr/bin/ffplay -nodisp -autoexit -hide_banner -v 40 "$filename"  #the -v 40 is a good verbosity I think
   else
-    /usr/bin/ffplay "$filename"
+    /usr/bin/ffplay -hide_banner -v 40 "$filename"
   fi
+}
+# convert spaces in files to underscore
+#while read myf; do [ -f "$myf" ] || break; mv "$myf" "${myf// /_}"; done <<< "$( ls *\ * )"
+# or just convert it into anonymously named/numbered mp3 files.
+#n=1; while read myf; do mv "$myf" "$n.mp3"; (( n++ )); done <<< "$(ls *.mp3)"
+mp3-review(){
+  [[ "$(find -maxdepth 1 -type f -name '* *' | wc -l)" -ne 0 ]] && return 3 #any spaces in files? just exit. fuck it.
+  for i in $(echo *.mp3 | tr ' ' '\n' | shuf | tr '\n' ' '); do ffplay $i; read -n 1 -p 'delete? ' yn; [[ $yn = 'y' ]] && { echo; rm -v $i; echo; } ;  done
+}
+# ( cmd1; cmd2; cmd3; cmd4; ) | zenity --progress --title="fucking wait" --pulsate --autoclose --nocancel
+msgbox(){
+  [ -z "$1" ] && return 3
+  [ -z "$2" ] && return 4
+  zenity --title="$1" --info --text="$2" --no-wrap
+}
+internet-test(){
+  echo "curl --output /dev/null --silent --head --location 'http://people.oregonstate.edu/' -w '%{http_code}'" >&2
+  curl --output /dev/null --silent --head --location 'http://people.oregonstate.edu/' -w '%{http_code}'
+}
+man2txt(){
+  echo 'zcat `man --where bash` | groff -t -e -mandoc -Tascii - | less -R'
+}
+wifi-on(){
+  #disable auto-connect on auto-connect-enabled connection(s)
+  for i in $(nmcli connection show --active | grep wifi | egrep -o '\b[a-f0-9]+-[a-f0-9]+-[^ ]+\b'); do nmcli connection down uuid $i; done
+
+  nmcli radio wifi on
+}
+wifi-off(){
+  #disable auto-connect on auto-connect-enabled connection(s)
+  for i in $(nmcli connection show --active | grep wifi | egrep -o '\b[a-f0-9]+-[a-f0-9]+-[^ ]+\b'); do nmcli connection down uuid $i; done
+
+  nmcli radio wifi off
+}
+#use `sudo iw dev` to list wireless interface names
+wifi-scan(){
+  sudo iw dev wlp1s0 scan | egrep 'SSID: [^ ]+' | awk '-F: ' '{print $2}' | sort 
+}
+wifi-connect(){
+  #[ -z "$1" ] && { echo 'wifi-connect $SSID [$password]'; return 6; }
+  [ -z "$1" ] && { echo 'wifi-connect $SSID'; return 6; }
+  #local pwopt=''
+  #[ -n "$2" ] && pwopt="password $2"
+  #nmcli device wifi connect "$1" $pwopt && \
+  nmcli --wait 20 --ask device wifi connect "$1"  #I'm 30%sure this is right.
+}
+date-toilet(){
+  date | toilet --font term --gay
+}
+debian-forum-open(){
+  [ -z "$1" ] && return 55
+  [ -f "$1" ] || return 56
+  local filename="$(basename "$1")"
+  [[ $filename =~ ^[0-9]+\.txt$ ]] || return 57
+  local topic_id="${filename%%.*}"
+  echo google-chrome "http://forums.debian.net/viewtopic.php?t=$topic_id" 
+  google-chrome "http://forums.debian.net/viewtopic.php?t=$topic_id" 
 }
 excuse(){
   echo "Actually, that's a feature
@@ -146,4 +211,3 @@ You must have the wrong version
 You're doing it wrong
 Your browser must be caching the old content" | shuf -n 1
 }
-

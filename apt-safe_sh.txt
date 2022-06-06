@@ -1,0 +1,96 @@
+#!/bin/bash
+
+#this is a 10%-31% comprehensive debian package management reference.
+#see the man packages for apt apt-cache apt-file apt-get apt-mark dpkg dpkg-query 
+#and debian-reference-en for further inquiry.
+
+#This program just uses `grep` and `egrep` as the only external commands.
+#The rest is pure bash `echo`, `test` 
+
+
+#run with `bash -n` (lint/safe-run) first if you make any changes
+#just to make sure the quotes don't mess up
+
+#somebody better make this a HEREDOC...although it'll make the source -3% easier to read.
+
+if [ -z "$1" ]; then
+echo '
+apt-safe $command
+
+add-repository   - Add entries to apt sources.list
+auto             - Set this installed $package_name to be auto-removed (ie. assuming you went `sudo apt autoremove`) iff the explicitely installed (ie. `sudo apt install $explicitely_installed_package`) is `sudo apt purge $explicitely_installed_package`
+autoclean        - Erase downloaded archive files from /var/cache/apt/archives/*.deb basically except for the ones that are identical to the ones in your live repository /etc/apt/sources.list*
+autopurge        - Remove packages with their configuration files and automatically remove all unused packages (always good after a good `sudo apt purge $package_name` or `sudo dpkg --remove $package_name`)
+autoremove       - Remove automatically all unused packages (always good after a good `sudo apt purge $package_name` or `sudo dpkg --remove $package_name`)
+build            - Download source code for a package into current directory, extract, and build it. `sudo apt builddep $package_name` (? or is it source name?) (to get the source-building-dependency packages necessary a priori building otherwise hope for the best)
+build-dep        - Configure build-dependencies for source packages; to build source code you will require the necessary packages -- they shall be installed
+changelog        - View a packagez changelog
+check            - Verify that there are no broken dependencies; same as `sudo apt -f install` (with no other arguments)
+clean            - Erase downloaded archive files from /var/cache/apt/archives/*.deb basically
+contains         - List packages (that you already have installed) containing a file (eg. `dpkg -S /usr/bin/apt`) (exact filename)
+contains-repo    - List packages (that are anywhere in your live repository) containing a file (eg. `apt-file search "/usr/bin/apt"`) (filename substring match)
+content          - List filelist contained in currently installed $package_name
+deb-install      - Install a .deb package file (does not install dependencies automatically. For that you will need to go `sudo apt -f install` to fix the dependency mess)
+depends          - Show Depends/Recommends/Suggests information for a $repo_package_name
+dist-upgrade     - Upgrade the system by removing/installing/upgrading packages (I have honestly never used this before)
+download         - Download the .deb file for a $package_name into the current working directory
+download-all     - Download the .deb file for a package + all packages that are required that you do not have installed (recursive-dependencies)
+edit-sources     - Edit /etc/apt/sources.list with your preferred text editor
+dselect-upgrade  - Follow dselect selections
+fix-broken-dep   - Try to fix currently installed packages including retrying to install packages that were partially installed (especially if you do `sudo dpkg -i package_name_whatever.deb`)
+full-upgrade     - Same as "dist-upgrade"
+held             - List all held packages
+hold             - Prevent this installed package (from package name) from being installed, upgraded, or removed
+install          - Install/upgrade packages
+list             - List package name/version/architecture based on a package name (can use "*" as a wildcard) that exists in your /etc/apt/sources.list* repositories (same as `apt-cache list`)
+listfiles        - List files in a package
+listallpkgs      - List all installed packages (with a one-lined description for each package) (pipe to grep to search for a package name)
+manual           - Prevent this $installed_package_name from being `sudo apt autoremove` if it was "auto" installed from an explicitely installed package (ie. from `sudo apt get install $explicitely_installed_package && sudo apt purge $explicitely_installed_package`) as dependencies
+moo              - An apt/apt-get easter egg; display a cow with a "moo"
+pkgurl           - Show the URL (basically) where the $repo_package_name is located (from within the places configured in /etc/apt/sources.list*)
+purge            - Remove $installed_package_name and their configuration files
+recommends       - List the recommended packages of all "manually" (ie. explicit apt install or dpkg -i) installed packages
+rdepends         - Show reverse dependency information for a package "what else would make $this_package_name_in_repo be installed"
+reinstall        - Download and (possibly) reinstall a $currently_installed_package
+remove           - Remove packages (as a list of one or more package names you have currently installed)
+searchforfile    - $Search_for_a_file in all packages in your live repository /etc/apt/sources.list*
+show             - Display detailed information about a package that doesnt have to be already installed.
+showhold         - Same as "held"
+showmanual       - Show packages that you have explicitely `sudo apt install $package_name` OR `sudo dpkg -i $deb_file #package`
+showsrc          - Display all the source package records that match the given package name (requires you have a "^deb-src" line in your /etc/apt/sources.list* I am 90% sure..it looks virtually identical to the "^deb" line)
+source           - Download source archives to current directory, apply all patches, extracts the source to a directory
+sources          - Same as "edit-sources"
+unhold           - Unhold a package
+update           - Download lists of new/upgradable packages
+upgrade          - Perform a safe upgrade
+version          - Show the installed version of a package
+' | egrep --color '^[a-z\-]+'
+else
+echo '
+`apt-cache` depends rdepends stats list show
+`apt-cache policy` pkgurl
+`apt-file search` contains-repo
+`apt` list show download moo showsrc source
+`apt-mark` showhold showmanual
+`dpkg -L` content
+`dpkg -l` listallpkgs
+`# I have a bash "one-liner" that can do this, request as necessary` recommends
+`dpkg-query -f "\${Version}" -W` version
+`dpkg -S` contains
+`sudo apt` autoremove install autoclean build-dep clean dselect-upgrade edit-sources full-upgrade purge remove update upgrade
+`sudo apt --build source` build
+`sudo apt --purge autoremove` autopurge
+`sudo apt edit-sources` sources
+`sudo apt -f install` fix-broken-dep
+`sudo apt full-upgrade` dist-upgrade
+`sudo apt-get` check
+`sudo apt install apt-file && apt-file list` listfiles
+`sudo apt install apt-file && apt-file search` searchforfile
+`sudo apt install aptitude && aptitude` changelog
+`sudo apt install aptitude && sudo aptitude` reinstall
+`sudo apt install apt-rdepends && man apt-rdepends` download-all
+`sudo apt install software-properties-common && man add-apt-repository` add-repository
+`sudo apt-mark` hold unhold manual auto
+`sudo dpkg -i` deb-install
+' | grep --color "$1"
+fi

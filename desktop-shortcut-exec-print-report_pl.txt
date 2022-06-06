@@ -1,0 +1,52 @@
+#!/usr/bin/perl
+
+use warnings;
+use strict;
+
+#converts '/whatever/bin/app-name -option1 -option2' into 'appname'
+sub exec2appname{
+  my ($exec) = @_;
+  my $appname = $exec;
+  undef $exec;
+  $appname =~ s# .*$##; 
+  (undef,$appname) = ($appname =~ m{^(.*/)?(.*)}s); #ripped from /usr/share/perl/5.32.1/File/Basename.pm
+  return $appname;
+}
+
+binmode(STDOUT, ':unix'); #a trick to make STDERR/warnings print in-sync with STDOUT
+                          #(copied from `perldoc -q flush`)
+
+
+
+
+my @desktop_files = </usr/share/applications/*.desktop>;
+for my $desktop_filename (@desktop_files){
+  open(my ${f}, "<$desktop_filename") or die $!;
+  my $exec = '';
+  my $appname = '';
+  my $icon = '';
+  while(<$f>){ #read line-by-line
+    chomp;
+    if(/^Exec=(.*)/){
+      $exec = $1;
+      if($exec eq ''){
+        warn "WARNING: File '$desktop_filename' has an empty Exec=    ...ignoring this desktop file";
+        next;
+      }
+      $appname = exec2appname($exec); 
+    }
+    if(/^Icon=(.*)/){$icon = $1;}
+  } 
+  close(${f}) or die $!;
+  if($exec eq ''){
+    warn "WARNING: File '$desktop_filename' has no Exec=    ...ignoring this desktop file";
+    next;
+  }
+  if($appname eq ''){
+    die "CRITICAL: My conversion of '${desktop_filename}'s Exec= to an app name 900\%failed ...critical error";
+  }
+  if($icon eq ''){
+    warn "WARNING: File '$desktop_filename' has no Icon=    ...continuing anyway";
+  }
+  print qq/$appname, $icon\n/;
+}

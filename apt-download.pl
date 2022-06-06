@@ -3,8 +3,8 @@
 
 use strict;
 use warnings;
-use Data::Dumper;
-$Data::Dumper::Maxdepth = 1;
+#use Data::Dumper;
+#$Data::Dumper::Maxdepth = 1;
 use AptPkg::Cache;
 use autodie;
 use List::Util qw/uniq/;

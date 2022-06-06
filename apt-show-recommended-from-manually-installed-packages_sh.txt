@@ -1,0 +1,3 @@
+#!/bin/bash
+
+for i in `apt-mark showmanual`; do rec="$(dpkg-query -f '${Recommends}' -W $i)"; [ -n "$rec" ] && echo "$i: $rec"; done

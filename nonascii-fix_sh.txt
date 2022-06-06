@@ -1,0 +1,5 @@
+#!/bin/bash
+
+
+#PUT ME IN /usr/bin/
+perl -pi~ -e 's/[^[:ascii:]]+//g' "$1"
