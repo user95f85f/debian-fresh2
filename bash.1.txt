@@ -1,6 +1,10 @@
 
+SOME ARRAY AND STRING PUSH/APPEND SHIT
 
-
+  str='123'
+  arr=(1 2 3)
+  str+=4      #1234
+  arr+=(4)    #(1 2 3 4)
 
 FILE GLOB FILENAME PATTERN EXPANSION TO ARRAY AND LOOP THROUGH
 
@@ -12,6 +16,89 @@ FILE GLOB FILENAME PATTERN EXPANSION TO ARRAY AND LOOP THROUGH
   echo $var
   echo ${var[@]}
   for i in "${var[@]}"; do echo "$i"; done
+
+BASH LIMITATIONS
+
+  #for CSV/JSON/proper-XML/proper-HTML/proper-XHTML/mySQL/postgresSQL/binary-data-processing/floating-point-numbers/array-sorting/list-sorting
+  sudo apt install jq bc sql xslt tidy xmlstarlet perl python gcc sort
+  #gcc is for 'C'
+
+MAN2TXT
+
+  man bash | col -bx > bash.1.txt
+
+
+POSSIBLY USEFUL GIT COMMANDS
+
+  git clone https://github.com/whatever_person/whatever_repo
+  git commit -m 'commit message' #3%sure this will work
+  git push #7%sure this will work
+  git pull #update local files in case the remote updated
+  git log #view changes (3%chance will work)
+  git config #???
+
+
+PASSIVE FOR LOOP WITH ARRAY AS AN ARGUMENT
+
+  files_in_pwd=(*)  #this is a file glob.
+  printf -- '- %s\n' "${files_in_pwd[@]}"
+  #output:
+  #- deleteme.txt
+  #- Desktop
+  #- Documents
+  #- Downloads
+  #- jason.jpg
+  #- jason.v01.jpg
+  #- test.sh
+  #- windowsxp-wallpaper
+
+ULTIMATE TIME STAMPED FILENAME VARIABLE GENERATOR
+
+  rsync_log_location="$HOME/rsync_$(date +%Y%m%d_%H%M%S).log"
+
+ULTIMATE SINGLE-CHARACTER INPUT HANDLING
+
+  read -n 1 -p '? (Y/n) ' myv
+  echo
+
+  case "$myv" in
+    [Yy]|'') echo deleting everything.;;
+    [Nn]*)   echo everything has been saved.;;
+  esac
+
+
+THIS IS SAFE EVEN IF THE DIRECTORIES IN PWD HAVE WHITESPACE
+
+  n=0
+  for myf in */; do
+    (( n++ ))
+    echo "$n) $myf" 
+  done
+
+THIS IS SAFE EVEN IF THE FILES/DIR IN PWD HAVE WHITESPACE
+
+  n=0
+  for myf in *; do
+    (( n++ ))
+    echo "$n) $myf" 
+  done
+
+
+COMMAND ARGUMENT AS MULTI-LINED HERE-DOC
+
+  this_gets_expanded=1
+  { python -c "$(</dev/stdin)"; } <<EOF
+  print("Hello $this_gets_expanded");
+  print("world");
+  EOF
+
+  this_is_a_word=2
+  { python -c "$(</dev/stdin)"; } <<\EOF
+  print("Hello $this_is_a_word");
+  print("world");
+  EOF
+
+
 
 TESTING TO SEE IF YOU'RE IN A TERMINAL
 
@@ -41,29 +128,29 @@ STDIN FROM A FILE
 
 SLURP A FILE INTO A VARIABLE
 
-  file_get_contents_var=`<my_file_name.txt`
+  file_get_contents_var=$(<my_file_name.txt)  #the quotes are 0%necessary for simple assignment.
 
-SLURP A FILE INTO A VARIABLE LINE-BY-LINE
+THIS SCRIPTS CONTENTS
 
-  array_slurped
+  this_scripts_file_contents_string=$(<$0)
 
 STDIN READ-IN LINE BY LINE
 
   while read myline; do
     echo $myline
-  done <<< "$(cat /etc/apt/sources.list)"
+  done <<< "$(</etc/apt/sources.list)"
+
+USING MAPFILE TO SLURP A FILE INTO A BASH ARRAY
+
+  echo 123 > hello.txt; mapfile < <(cat hello.txt); echo "${MAPFILE[@]}"
 
 PRINTF MATH HEXADECIMAL N-BASE ARITHMETIC
 
   hexnum=ee3;decnum=500;printf '0x%08x\n' $(( 16#$hexnum + $decnum )) #0x000010d7
 
-THIS SCRIPTS CONTENTS
-
-  this_scripts_file_contents_string=`<$0`
-
 IMAGE MAGICK CONVERT MOGRIFY COMMANDS
   
-  -flip -flop -grayscale -rotate 90
+  #-flip -flop -grayscale -rotate 90
 
 WATCH A DIRECTORY FOR CREATED FILES ALL IN ALL OF ITS SUB-DIRECTORIES
 
@@ -76,6 +163,39 @@ DEBIAN PACKAGE TIP: REMOVING CERTAIN PACKAGES THAT ARE DEPENDENTS OF A META PACK
 
   sudo dpkg --force-depends --remove xfburn xfce4-dict xfce4-goodies
   sudo apt-mark hold $packages_that_can_be_autoremoved-get_from_apt-finstall_output
+
+
+PYTHON3 `paste` PYTHON3 EQUIVALENT
+
+  #!/usr/bin/python4.pl
+
+
+  #zip() is like `paste abc.txt 123.txt zyx.txt`
+  print(list(zip('abcde','12345','zyxwv')));
+
+  #output:
+  #[('a', '1', 'z'), ('b', '2', 'y'), ('c', '3', 'x'), ('d', '4', 'w'), ('e', '5', 'v')]
+
+
+PYTHON3 SLURP AND PROCESS A BINARY FILE'S CONTENTS
+
+  #!/usr/bin/python4.pl
+
+  import sys
+
+  #open this script's filename and print out its binary representation as a string
+  with open(sys.argv[0], 'rb') as my_file_handle:
+  {
+    my_file_handle.seek(0, 2) #IE. seek from offset 0 to SEEK_END
+    all_data_bytearray = bytearray(my_file_handle.tell())
+    my_file_handle.seek(0)
+    my_file_handle.readinto(all_data_bytearray)
+    print(all_data_bytearray.hex())
+  }
+
+
+
+
 
 JAVASCRIPT USE STRICT LIKE PERL
 
@@ -97,5 +217,5 @@ IMGUR UPLOAD
 
 POPULAR WINE NAME
   
-  Gewurztraminer
+  echo Gewurztraminer
     # very sweet (sometimes/rarely dry)
