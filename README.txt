@@ -62,48 +62,6 @@ while(1){
 }
 
 print 'sudo apt download ', join(' ', uniq(sort(@package_names))), "\n";
-ack
-apt-file
-arandr
-atool
-cloc
-debian-reference-en
-debianutils
-epiphany-browser
-ffmpeg
-fotoxx
-gawk
-golang
-golang-doc
-google-chrome-stable
-gparted
-hexchat
-imagemagick
-imagemagick-6-doc
-info
-inotify-tools
-iotop
-jpegoptim
-links
-links2
-lynx
-net-tools
-nmap
-optipng
-perl-doc
-php-cli
-pinfo
-python3-doc
-python3-examples
-python3-tk
-toilet
-txt2man
-vim
-vim-doc
-vlc
-wget
-xchm
-xclip
 #!/bin/bash
 
 #this is a 10%-31% comprehensive debian package management reference.
@@ -248,8 +206,24 @@ essential-debs/txt2man_1.7.1-1+deb11u1_all.deb
 essential-debs/wget_1.21-1+deb11u1_amd64.deb
 essential-debs/xclip_0.13-2_amd64.deb
 
+CHOPPING LEFT OF A STRING REFERENCE
+
+  str='123123123123'
+  echo "${str#*3}"  #start from the furthest RIGHT. and CHOP LEFT. SUPER GREEDY.
+  echo "${str##*3}" #start from the furthest LEFT. and CHOP LEFT. MINIMAL.
 
 
+-z and -n ALTERNATIVE
+
+  [[ "" ]] || echo "this is false. all empty strings are false"
+
+
+SOME ARRAY AND STRING PUSH/APPEND SHIT
+
+  str='123'
+  arr=(1 2 3)
+  str+=4      #1234
+  arr+=(4)    #(1 2 3 4)
 
 FILE GLOB FILENAME PATTERN EXPANSION TO ARRAY AND LOOP THROUGH
 
@@ -261,6 +235,89 @@ FILE GLOB FILENAME PATTERN EXPANSION TO ARRAY AND LOOP THROUGH
   echo $var
   echo ${var[@]}
   for i in "${var[@]}"; do echo "$i"; done
+
+BASH LIMITATIONS
+
+  #for CSV/JSON/proper-XML/proper-HTML/proper-XHTML/mySQL/postgresSQL/binary-data-processing/floating-point-numbers/array-sorting/list-sorting
+  sudo apt install jq bc sql xslt tidy xmlstarlet perl python gcc sort
+  #gcc is for 'C'
+
+MAN2TXT
+
+  man bash | col -bx > bash.1.txt
+
+
+POSSIBLY USEFUL GIT COMMANDS
+
+  git clone https://github.com/whatever_person/whatever_repo
+  git commit -m 'commit message' #3%sure this will work
+  git push #7%sure this will work
+  git pull #update local files in case the remote updated
+  git log #view changes (3%chance will work)
+  git config #???
+
+
+PASSIVE FOR LOOP WITH ARRAY AS AN ARGUMENT
+
+  files_in_pwd=(*)  #this is a file glob.
+  printf -- '- %s\n' "${files_in_pwd[@]}"
+  #output:
+  #- deleteme.txt
+  #- Desktop
+  #- Documents
+  #- Downloads
+  #- jason.jpg
+  #- jason.v01.jpg
+  #- test.sh
+  #- windowsxp-wallpaper
+
+ULTIMATE TIME STAMPED FILENAME VARIABLE GENERATOR
+
+  rsync_log_location="$HOME/rsync_$(date +%Y%m%d_%H%M%S).log"
+
+ULTIMATE SINGLE-CHARACTER INPUT HANDLING
+
+  read -n 1 -p '? (Y/n) ' myv
+  echo
+
+  case "$myv" in
+    [Yy]|'') echo deleting everything.;;
+    [Nn]*)   echo everything has been saved.;;
+  esac
+
+
+THIS IS SAFE EVEN IF THE DIRECTORIES IN PWD HAVE WHITESPACE
+
+  n=0
+  for myf in */; do
+    (( n++ ))
+    echo "$n) $myf" 
+  done
+
+THIS IS SAFE EVEN IF THE FILES/DIR IN PWD HAVE WHITESPACE
+
+  n=0
+  for myf in *; do
+    (( n++ ))
+    echo "$n) $myf" 
+  done
+
+
+COMMAND ARGUMENT AS MULTI-LINED HERE-DOC
+
+  this_gets_expanded=1
+  { python -c "$(</dev/stdin)"; } <<EOF
+  print("Hello $this_gets_expanded");
+  print("world");
+  EOF
+
+  this_is_a_word=2
+  { python -c "$(</dev/stdin)"; } <<\EOF
+  print("Hello $this_is_a_word");
+  print("world");
+  EOF
+
+
 
 TESTING TO SEE IF YOU'RE IN A TERMINAL
 
@@ -290,29 +347,29 @@ STDIN FROM A FILE
 
 SLURP A FILE INTO A VARIABLE
 
-  file_get_contents_var=`<my_file_name.txt`
+  file_get_contents_var=$(<my_file_name.txt)  #the quotes are 0%necessary for simple assignment.
 
-SLURP A FILE INTO A VARIABLE LINE-BY-LINE
+THIS SCRIPTS CONTENTS
 
-  array_slurped
+  this_scripts_file_contents_string=$(<$0)
 
 STDIN READ-IN LINE BY LINE
 
   while read myline; do
     echo $myline
-  done <<< "$(cat /etc/apt/sources.list)"
+  done <<< "$(</etc/apt/sources.list)"
+
+USING MAPFILE TO SLURP A FILE INTO A BASH ARRAY
+
+  echo 123 > hello.txt; mapfile < <(cat hello.txt); echo "${MAPFILE[@]}"
 
 PRINTF MATH HEXADECIMAL N-BASE ARITHMETIC
 
   hexnum=ee3;decnum=500;printf '0x%08x\n' $(( 16#$hexnum + $decnum )) #0x000010d7
 
-THIS SCRIPTS CONTENTS
-
-  this_scripts_file_contents_string=`<$0`
-
 IMAGE MAGICK CONVERT MOGRIFY COMMANDS
   
-  -flip -flop -grayscale -rotate 90
+  #-flip -flop -grayscale -rotate 90
 
 WATCH A DIRECTORY FOR CREATED FILES ALL IN ALL OF ITS SUB-DIRECTORIES
 
@@ -325,6 +382,55 @@ DEBIAN PACKAGE TIP: REMOVING CERTAIN PACKAGES THAT ARE DEPENDENTS OF A META PACK
 
   sudo dpkg --force-depends --remove xfburn xfce4-dict xfce4-goodies
   sudo apt-mark hold $packages_that_can_be_autoremoved-get_from_apt-finstall_output
+
+
+PYTHON3 `paste` PYTHON3 EQUIVALENT
+
+  #!/usr/bin/python4.pl
+
+
+  #zip() is like `paste abc.txt 123.txt zyx.txt`
+  print(list(zip('abcde','12345','zyxwv')));
+
+  #output:
+  #[('a', '1', 'z'), ('b', '2', 'y'), ('c', '3', 'x'), ('d', '4', 'w'), ('e', '5', 'v')]
+
+
+PYTHON3 SLURP AND PROCESS A BINARY FILE'S CONTENTS
+
+  #!/usr/bin/python4.pl
+
+  import sys
+
+  #open this script's filename and print out its binary representation as a string
+  with open(sys.argv[0], 'rb') as my_file_handle:
+  {
+    my_file_handle.seek(0, 2) #IE. seek from offset 0 to SEEK_END
+    all_data_bytearray = bytearray(my_file_handle.tell())
+    my_file_handle.seek(0)
+    my_file_handle.readinto(all_data_bytearray)
+    print(all_data_bytearray.hex())
+  }
+
+
+GITHUB SHIT
+
+  git clone https://github.com/user95f85f/fresh-debian2
+  git clone https://github.com/user95f85f/fresh-windows
+  git clone https://github.com/user95f85f/fresh-debian
+  git status
+  git add bash.1.txt _bashrc.txt
+  git rm python-cheat-cheet.txt 
+  git commit
+  git-token-xclip-cp 
+  git push
+  #rm *; git stash
+  #git whatchanged
+  #git pull
+  #git restore LICENSE on-first-boot.txt preREADME.txt
+  #git config --global user.name 'user95f85f_cli'
+  #sudo git config --system user.name 'user95f85f_cli'
+
 
 JAVASCRIPT USE STRICT LIKE PERL
 
@@ -344,11 +450,21 @@ IMGUR UPLOAD
                 --form 'image=@your_image_filename_local.jpg' \
                 https://api.imgur.com/3/image.xml > ~/out2.txt
 
+
 POPULAR WINE NAME
   
-  Gewurztraminer
+  echo Gewurztraminer
     # very sweet (sometimes/rarely dry)
 
+
+URBANDICTIONARY JSON (API) REQUEST TO GET DEFINITIONS
+
+  wget -O - 'https://api.urbandictionary.com/v0/define?term=bird' | jq | less -R
+  wget -O - 'https://api.urbandictionary.com/v0/define?term=success' | grep -i definition
+
+
+#PUT IN BASH HISTORY TO take list of URL links and wget them into 001.txt .. 999.txt
+#n=0; while read myLine; do (( n++ )); wget_out_file=$(printf '%03d.txt' $n); echo "$wget_out_file $myLine" >> wget-MAP.txt; echo "wget -O $wget_out_file '$myLine'" >> wget-TODO.sh; done <<< "$(cat novaks-LINKs.txt)"
 
 
 export TZ=America/Los_Angeles
@@ -373,7 +489,7 @@ ffplay(){
   [ -f "$1" ] || return 2
   local filename="$1"
   local file_extension="${filename##*.}"
-  if [[ $file_extension = 'mp3' || $file_extension = 'wav' || $file_extension = 'ogg' ]]; then
+  if [[ $file_extension = 'mp3' || $file_extension = 'wav' || $file_extension = 'ogg' || $file_extension = 'm4a' ]]; then
     /usr/bin/ffplay -nodisp -autoexit -hide_banner -v 40 "$filename"  #the -v 40 is a good verbosity I think
   else
     /usr/bin/ffplay -hide_banner -v 40 "$filename"
@@ -385,7 +501,7 @@ ffplay(){
 #n=1; while read myf; do mv "$myf" "$n.mp3"; (( n++ )); done <<< "$(ls *.mp3)"
 mp3-review(){
   [[ "$(find -maxdepth 1 -type f -name '* *' | wc -l)" -ne 0 ]] && return 3 #any spaces in files? just exit. fuck it.
-  for i in $(echo *.mp3 | tr ' ' '\n' | shuf | tr '\n' ' '); do ffplay $i; read -n 1 -p 'delete? ' yn; [[ $yn = 'y' ]] && { echo; rm -v $i; echo; } ;  done
+  for i in $(echo *.mp3 | tr ' ' '\n' | shuf | tr '\n' ' '); do ffplay $i; read -n 1 -p 'delete? (y/N) ' yn; [[ $yn = 'y' ]] && { echo; rm -v $i; echo; } ;  done
 }
 # ( cmd1; cmd2; cmd3; cmd4; ) | zenity --progress --title="fucking wait" --pulsate --autoclose --nocancel
 msgbox(){
@@ -422,7 +538,7 @@ wifi-connect(){
   #local pwopt=''
   #[ -n "$2" ] && pwopt="password $2"
   #nmcli device wifi connect "$1" $pwopt && \
-  nmcli --wait 20 --ask device wifi connect "$1"  #I'm 30%sure this is right.
+  nmcli --wait 20 --ask device wifi connect "$*"  #I'm 30%sure this is right.
 }
 date-toilet(){
   date | toilet --font term --gay
@@ -618,6 +734,14 @@ for my $desktop_filename (@desktop_files){
 
 
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+#!/bin/bash
+
+[ -f ~/README.txt ] && exit 2
+
+rm -v README.txt
+echo 'cat *.txt > README.txt'
+cat *.txt > ~/README.txt
+mv -v ~/README.txt ./
 #!/bin/bash
 
 

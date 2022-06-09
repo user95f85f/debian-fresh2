@@ -1,4 +1,16 @@
 
+CHOPPING LEFT OF A STRING REFERENCE
+
+  str='123123123123'
+  echo "${str#*3}"  #start from the furthest RIGHT. and CHOP LEFT. SUPER GREEDY.
+  echo "${str##*3}" #start from the furthest LEFT. and CHOP LEFT. MINIMAL.
+
+
+-z and -n ALTERNATIVE
+
+  [[ "" ]] || echo "this is false. all empty strings are false"
+
+
 SOME ARRAY AND STRING PUSH/APPEND SHIT
 
   str='123'
@@ -194,7 +206,23 @@ PYTHON3 SLURP AND PROCESS A BINARY FILE'S CONTENTS
   }
 
 
+GITHUB SHIT
 
+  git clone https://github.com/user95f85f/fresh-debian2
+  git clone https://github.com/user95f85f/fresh-windows
+  git clone https://github.com/user95f85f/fresh-debian
+  git status
+  git add bash.1.txt _bashrc.txt
+  git rm python-cheat-cheet.txt 
+  git commit
+  git-token-xclip-cp 
+  git push
+  #rm *; git stash
+  #git whatchanged
+  #git pull
+  #git restore LICENSE on-first-boot.txt preREADME.txt
+  #git config --global user.name 'user95f85f_cli'
+  #sudo git config --system user.name 'user95f85f_cli'
 
 
 JAVASCRIPT USE STRICT LIKE PERL
@@ -215,7 +243,14 @@ IMGUR UPLOAD
                 --form 'image=@your_image_filename_local.jpg' \
                 https://api.imgur.com/3/image.xml > ~/out2.txt
 
+
 POPULAR WINE NAME
   
   echo Gewurztraminer
     # very sweet (sometimes/rarely dry)
+
+
+URBANDICTIONARY JSON (API) REQUEST TO GET DEFINITIONS
+
+  wget -O - 'https://api.urbandictionary.com/v0/define?term=bird' | jq | less -R
+  wget -O - 'https://api.urbandictionary.com/v0/define?term=success' | grep -i definition
