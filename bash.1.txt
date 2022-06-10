@@ -1,3 +1,9 @@
+SUPER HERE-DOC FOR A COMMAND ARGUMENT
+
+  { perl -e "$(</dev/stdin)" kate; } <<\EOF
+  print("package: ${ARGV[0]}\n");
+  print("Hello world\n");
+  EOF
 
 CHOPPING LEFT OF A STRING REFERENCE
 
@@ -254,3 +260,154 @@ URBANDICTIONARY JSON (API) REQUEST TO GET DEFINITIONS
 
   wget -O - 'https://api.urbandictionary.com/v0/define?term=bird' | jq | less -R
   wget -O - 'https://api.urbandictionary.com/v0/define?term=success' | grep -i definition
+
+WORD WRAP STDIN TO STDOUT
+
+  #default width is 75 if not set explicitely
+  #--uniform-spacing is 1 space between words
+  #                     2 spaces after periods
+  bash whatever | fmt --uniform-spacing --width=72 > out.txt
+
+HERE-DOC AS STDIN INPUT TO A COMMAND
+
+  perl -ne 'BEGIN{@map = qw/areaid systemid netid/;} chomp; if ($_ !~ /^ /) { $dict = {router => $_}; push(@list, $dict); $n = 3; } else { $n--; $dict->{$map[$n]} = $_; } END { use Data::Dumper qw/Dumper/; print Dumper @list;}' <<'DATA'
+  Paris
+   00.0001
+   0000.3090.6756
+   00.0001.0000.3090.6756.00
+  Berlin
+   00.0001
+   0000.3090.c7df
+   00.0001.0000.3090.c7df.00
+  London
+   00.0001
+   0000.0c0a.2c51
+   00.0001.0000.0c0a.2c51.00
+  Rome
+   00.0001
+   0000.0c0a.2aa9
+   00.0001.0000.0c0a.2aa9.00
+  Brussels
+   00.0002
+   0000.0c76.5b7c
+   00.0002.0000.0c76.5b7c.00
+  Amsterdam
+   00.0002
+   0000.0c04.dcc0
+   00.0002.0000.0c04.dcc0.00
+  DATA
+
+WGET FOR WHEN WE MIGHT BE HITTING A DEAD WEB SERVER
+
+  wget --tries=1 --timeout=8 --output-document=201.dat 'https://nexus-censored.censored.net:8443/repository/apt-censored-releases'
+
+HOLY SHIT
+
+  #!/usr/bin/env bash
+
+  command -v aptitude &>/dev/null || exit 69
+
+  declare -a DEPS MANUALS PKDEPS
+  export LANG="C"  ### better performances and no UTF-8 expected
+
+
+  #note: this list is newline segregated/separated/tokened
+  #watch out: this list includes i386 and all AND amd64 architecture packages (assuming you have i386 enabled)
+  #watch out: this list may have dulicate listings from mixed i386 AND amd64 packages (assuming you have i386 enabled)
+  str_installed_package_list="$(dpkg --list | mawk 'FNR>5{if (/^.i. /){$0=$2; sub(/:.+$/,""); print " "$0" "}}')"
+
+  #%p is package name
+
+  #38000+ packages are virtual?!
+  #the `| egrep -v ':'` filters out the :i386 and :any packages. (so all we have are :amd64 virtual packages)
+  #note: this stringed-list is newline tokened/segregated/separated
+  str_virtual_package_list="$(aptitude --display-format ' %p ' search '?virtual(^)' | grep -v ':')"
+
+
+  ar_manually_installed_packages=()
+  # -r: avoid backslashes from creating escaped characters from the input
+  # -d '': slurp the whole input versus just accepting one line
+  read -d '' -ra ar_manually_installed_packages < <(apt-mark showmanual)
+  ar_recommends_output_mess=()
+  #very much some ${binary:Package} have explicit   :i386   or   :amd64  appended to their ${binary:Package} name
+  #however, ironically, the list in the ${Recommends} never says if the Recommended_package is :i386 or :amd64
+  # -t: chomp()
+  readarray -t ar_recommends_output_mess < <(dpkg-query --showformat='${binary:Package}: ${Recommends}\n' --show "${ar_manually_installed_packages[@]}" |\
+                          sed 's/ ([^)]\+)//g') #this sed is to strip the required package version in parenthesis that sometimes appears in the Recommended list.
+
+  for PKG in "${PKDEPS[@]}"; do
+
+     [[ "${PKG#* }" ]] || continue
+     echo -en "${PKG%% *}  "
+     read -d '' -ra DEPS <<<"${PKG#* }"
+     for DEP in "${DEPS[@]}"; do
+
+        [[ "$DEP" == "|" ]] && { echo -en "\e[0;33m$DEP\e[0m"; SPACE=""; continue; }
+        [[ "$INSTALLEDPKGS" =~ " ${DEP%,} " ]] && { echo -en "$SPACE\e[0;37m$DEP\e[0m"; SPACE=" "; continue; }
+        [[ "$VIRTUALS" =~ " ${DEP%,} " ]] && { echo -en "$SPACE\e[38;5;21m$DEP\e[0m"; SPACE=" "; continue; }
+        echo -en "$SPACE\e[1m$DEP\e[0m"; SPACE=" "
+
+     done
+     echo
+
+  done
+
+IMAGE MAGICK RESEARCH WITH OVERLAPPING TWO IMAGES TO CREATE PIXEL-PARSEABLE OUTPUT
+
+  #!/bin/bash
+
+  #misc screenshot difference through composite automator
+  #purpose: seek the image that can be used pixel-by-pixel to seek:
+
+  #- location of cursor (i.e., x=342;y=420)
+  #- location of crop (i.e., x=200;y=231;width=140;height=230)
+
+  #<CONFIGURE>
+  branches=(
+  screenshot_over_blank
+  blank_over_screenshot
+  )
+  colors=255
+  modes=(
+  exclusion
+  difference
+  subtract
+  minus
+  divide
+  bumpmap
+  )
+  #</CONFIGURE>
+
+  for main_dir in ${branches[*]} ; do
+    for mode in ${modes[*]} ; do 
+      location=$main_dir/$mode
+      mkdir -p $location
+      n=0
+      for i in Screenshot*.jpg ; do 
+        let n++
+        [ `echo "$n % 2" | bc` -eq 1 ] && {
+          last_jpeg=$i
+          continue
+        }
+        if [ $main_dir = screenshot_over_blank ] ; then
+          command="composite -compose $mode $i $last_jpeg $location/$n.png"
+          echo $command > $location/readme.txt
+          eval $command
+        elif [ $main_dir = blank_over_screenshot ] ; then
+          command="composite -compose $mode $last_jpeg $i $location/$n.png"
+          echo $command > $location/readme.txt
+          eval $command
+        fi
+      done
+    done
+  done
+
+STRIP NON-ASCII CHARACTERS FROM A TEXT FILE
+
+  #strip non-ASCII characters from the filename stored in variable $1
+  perl -pi~ -e 's/[^[:ascii:]]+//g' "$1"
+
+  #detect non-ASCII characters from the filename stored in variable $1
+  perl -ne 'if(/[^[:ascii:]]/){print "found some non ascii";exit 1;}' "$1" && exit 0
+
+ffmpeg -loop 1 -i video-background.png -i Necro-killed-by-sorc.mp3 -shortest video.mp4
