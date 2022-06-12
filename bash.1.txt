@@ -410,4 +410,12 @@ STRIP NON-ASCII CHARACTERS FROM A TEXT FILE
   #detect non-ASCII characters from the filename stored in variable $1
   perl -ne 'if(/[^[:ascii:]]/){print "found some non ascii";exit 1;}' "$1" && exit 0
 
-ffmpeg -loop 1 -i video-background.png -i Necro-killed-by-sorc.mp3 -shortest video.mp4
+MP3 INTO A VIDEO WITH A STILL IMAGE (400x300)
+
+  ffmpeg -loop 1 -i video-background.png -i Necro-killed-by-sorc.mp3 -shortest video.mp4
+
+/bin/sh VS /bin/bash SHE-BANGS WITH EXECUTABLES IN (/usr)?/bin/*
+
+  grep /bin/sh | wc -l    #215
+  grep /bin/bash | wc -l  #33
+  file /bin/sh            #dash

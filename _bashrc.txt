@@ -32,6 +32,7 @@ ffplay(){
     /usr/bin/ffplay -hide_banner -v 40 "$filename"
   fi
 }
+alias ffplayer=ffplay
 # convert spaces in files to underscore
 #while read myf; do [ -f "$myf" ] || break; mv "$myf" "${myf// /_}"; done <<< "$( ls *\ * )"
 # or just convert it into anonymously named/numbered mp3 files.

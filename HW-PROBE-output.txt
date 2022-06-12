@@ -1,0 +1,60 @@
+sudo -E hw-probe -all -show
+exit 0
+
+
+Host Info
+=========
+
+System: debian
+Arch:   x86_64
+Kernel: 5.10.0-13-amd64
+Vendor: Dell Inc.
+Model:  Inspiron 5566
+Year:   2019
+Type:   docking station
+Hwaddr: 8da44ed9a44619834fdc8fb5bc1bf619
+
+
+Devices (35)
+============
+
++------+---------------------+------------------+-------------------------------------+--------------+
+| Bus  | ID                  | Vendor           | Device                              | Type         |
++------+---------------------+------------------+-------------------------------------+--------------+
+| PCI  | 8086-5916-1028-07de | Intel Corpora... | HD Graphics 620                     | graphics ... |
+| PCI  | 8086-9d71-1028-07de | Intel Corpora... | Sunrise Point-LP HD Audio           | sound        |
+| PCI  | 10ec-8136-1028-07de | Realtek Semic... | RTL810xE PCI Express Fast Ethern... | network      |
+| PCI  | 168c-0036-1028-020e | Qualcomm Atheros | QCA9565 / AR9565 Wireless Networ... | network      |
+| PCI  | 8086-9d03-1028-07de | Intel Corpora... | Sunrise Point-LP SATA Controller... | storage      |
+| PCI  | 8086-5904-1028-07de | Intel Corpora... | Xeon E3-1200 v6/7th Gen Core Pro... | bridge       |
+| PCI  | 8086-9d14-1028-07de | Intel Corpora... | Sunrise Point-LP PCI Express Roo... | bridge       |
+| PCI  | 8086-9d15-1028-07de | Intel Corpora... | Sunrise Point-LP PCI Express Roo... | bridge       |
+| PCI  | 8086-9d58-1028-07de | Intel Corpora... | Sunrise Point-LP LPC Controller     | bridge       |
+| PCI  | 8086-9d3a-1028-07de | Intel Corpora... | Sunrise Point-LP CSME HECI #1       | communica... |
+| PCI  | 8086-9d21-1028-07de | Intel Corpora... | Sunrise Point-LP PMC                | memory co... |
+| PCI  | 8086-9d31-1028-07de | Intel Corpora... | Sunrise Point-LP Thermal subsystem  | signal pr... |
+| PCI  | 8086-9d60-1028-07de | Intel Corpora... | Sunrise Point-LP Serial IO I2C C... | signal pr... |
+| PCI  | 8086-9d61-1028-07de | Intel Corpora... | Sunrise Point-LP Serial IO I2C C... | signal pr... |
+| PCI  | 8086-9d23-1028-07de | Intel Corpora... | Sunrise Point-LP SMBus              | smbus        |
+| PCI  | 8086-9d2f-1028-07de | Intel Corpora... | Sunrise Point-LP USB 3.0 xHCI Co... | usb contr... |
+| USB  | 0cf3-e005           | Qualcomm Athe... | Qualcomm Atheros Bluetooth Device   | bluetooth    |
+| USB  | 0c45-6712           | Microdia         | Integrated Webcam HD                | camera       |
+| USB  | 0bda-0129           | Realtek Semic... | RTS5129 Card Reader Controller      | card reader  |
+| USB  | 1d6b-0002           | Linux Foundation | 2.0 root hub                        | hub          |
+| USB  | 1d6b-0003           | Linux Foundation | 3.0 root hub                        | hub          |
+| EISA | au-optronics-auo... | AU Optronics     | LCD Monitor AUO70EC 1366x768 344... | monitor      |
+| SYS  | lgc-lgc2-80-dell... | LGC-LGC2.80      | Battery DELL 991XP82 Li-ion 41.4 Wh | battery      |
+| SYS  | dell-1-11-0-12-0... | Dell Inc.        | BIOS 1.11.0 12/04/2019              | bios         |
+| SYS  | intel-6-142-9-co... | Intel            | Core i7-7500U CPU @ 2.70GHz         | cpu          |
+| SYS  | intel-6-142-9-co... | Intel            | Core i7-7500U CPU @ 2.70GHz         | cpu          |
+| SYS  | intel-6-142-9-co... | Intel            | Core i7-7500U CPU @ 2.70GHz         | cpu          |
+| SYS  | intel-6-142-9-co... | Intel            | Core i7-7500U CPU @ 2.70GHz         | cpu          |
+| SYS  | sk-hynix-hma81gs... | SK Hynix         | RAM HMA81GS6AFR8N-UH 8GB SODIMM ... | memory       |
+| SYS  | dell-0nwjdc-a00     | Dell Inc.        | Motherboard 0NWJDC A00              | motherboard  |
+| PS/2 | ps/2:0001-0001-a... |                  | AT Translated Set 2 keyboard        | keyboard     |
+| PS/2 | ps/2:06cb-75c5-d... |                  | DELL07DE:00 06CB:75C5 Mouse         | mouse        |
+| PS/2 | ps/2:75c5-75c5-d... | 75C5             | DELL07DE:00 06CB:Touchpad           | touchpad     |
+| SCSI | hl-dt-st-dvd-rw-... | HL-DT-ST         | DVD+-RW GU90N                       | cdrom        |
+| IDE  | seagate-st1000lm... | Seagate          | ST1000LM035-1RK172 1TB              | disk         |
++------+---------------------+------------------+-------------------------------------+--------------+
+
