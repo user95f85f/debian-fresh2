@@ -1,3 +1,53 @@
+SHOW ALL IMAGES WITHIN THE CURRENTLY DIRECTORY SUPER FAST
+  
+  #in XFCE close the windows successfully with Alt+F4
+  for i in *.jpg; do tkjpeg $i & done
+
+CONVERT A STRING TO MAYBE SUCCESSFUL FILENAME. AUTO-BACKSLASH BULLSHIT CHARACTERS.
+
+  #the -l chomp(<STDIN>) and auto-newline for the print
+  echo -n 'NORMAL_   BACKSLASHED :-!@#$%^&*()~<>?:"{}[];,./+' | perl -l -ne 'print qq(\Q$_\E)'
+
+STRIPPING JPEG (PNG?????) EXIF DATA INFORMATION
+
+  man exiftool #search 'all'
+  man jpegoptim
+
+GET ALL OF THE CAMERA STATS AND PHOTO/IMAGE EDITOR STATS OF A JPEG MAYBE A PNG
+
+  curl -s http://a.domain.com/bigfile.jpg | exiftool -
+
+CURL POST FORMS BASICALLY TO DO NOTHING JUST TO SEE IF THERE IS AN ERROR OR NOT IN THE RESPONSE I GUESS
+
+  #--show-error forces to show error EVEN when --silent
+  #--fail exits 22 with 0 error messages on SERVER errors (eg. 404 and 403)
+  #--header is extra headers. I believe with Expect: you can put a URL
+  #--location redirects if you get a 3XX error message from the target web page with a redirect URL in its Header or whatever the fuck
+  curl --silent --show-error --location --fail -POST --form get=group --form email=whatever --form tool_ver=whatever --header Expect:whatever
+  curl --silent --show-error --location --fail -POST --form hwaddr=whatever --header Expect:whatever
+
+THE BEST WAY TO DETECT IF A COMMAND EXISTS
+
+  command_available() {
+    if [ -x "$1" ]; then return 0; fi
+    # command -v "$1" >/dev/null 2>&1 # not required by policy, see #747320
+    # which "$1" >/dev/null 2>&1 # is in debianutils (essential) but not on non-debian systems
+    local OLDIFS="$IFS"
+    IFS=:
+    for p in $PATH; do
+      if [ -x "${p}/${1}" ]; then
+        IFS="$OLDIFS"
+        return 0
+      fi
+    done
+    IFS="$OLDIFS"
+    return 1
+  }
+  if ! command_available 'wget'; then
+    echo 'ERROR: wget is required for a network-based update, but it is not installed' 1>&2
+    exit 5
+  fi
+
 SUPER HERE-DOC FOR A COMMAND ARGUMENT
 
   { perl -e "$(</dev/stdin)" kate; } <<\EOF
@@ -419,3 +469,37 @@ MP3 INTO A VIDEO WITH A STILL IMAGE (400x300)
   grep /bin/sh | wc -l    #215
   grep /bin/bash | wc -l  #33
   file /bin/sh            #dash
+
+WAIT UNTIL A SPECIFIC DAY OF THE MONTH AND ALERT YOURSELF OF THE NEW IMPROVED YOU
+
+  while :; do [[ "$(date +%d)" = '12' ]] && { wall 'hell yeah'; DISPLAY=:0.0 zenity --title="I'm free!" --info --text='We made it' --no-wrap ; break; }; sleep 1h; done
+
+INSTALL A DESKTOP ENVIRONMENT ON YOUR DEBIAN
+
+  tasksel --list-tasks
+  #i desktop	Debian desktop environment
+  #u gnome-desktop	GNOME
+  #i xfce-desktop	Xfce
+  #u gnome-flashback-desktop	GNOME Flashback
+  #u kde-desktop	KDE Plasma
+  #u cinnamon-desktop	Cinnamon
+  #u mate-desktop	MATE
+  #u lxde-desktop	LXDE
+  #u lxqt-desktop	LXQt
+  #u web-server	web server
+  #u ssh-server	SSH server
+  #i laptop	laptop
+
+PERL/TK SHOW-CASE SHOWS YOU WHAT YOU CAN DO WITH PERL/TK!!!!
+
+  widget #show perl/tk show-case that shows you all the cool things perl/Tk can do.
+
+CREATE YOUR FUCKING LIVE-OS YOU DUMB BITCH
+
+  LANGUAGE=C LANG=C LC_ALL=C perl << EOF
+  open LOOP, '</dev/loop0' or die $!;
+  open DEST, '</tmp/live' or die $!;
+  ioctl(LOOP, 0x4C06, fileno(DEST)) or die $!; #0x4C06 on loop.h is: LOOP_CHANGE_FD
+  close LOOP;
+  close DEST;
+  EOF

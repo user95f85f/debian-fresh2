@@ -9,6 +9,9 @@ export WINEPREFIX=/media/user/DEB_STUFF/dot-wine
 wow='/media/user/DEB_STUFF/dot-wine/drive_c/Program Files (x86)/Battle.net'
 www='/home/user/Documents/localhost-httpd/www'
 export todo='/home/user/Documents/TODO/todo.txt'
+export bash1='/home/user/Documents/bash.1.txt'
+export perl_cheatsheet='/home/user/Documents/GITHUB-repos/fresh-debian/perl-cheat-sheet.txt'
+export python_cheatsheet='/home/user/Documents/GITHUB-repos/fresh-debian/python-cheat-sheet.txt'
 alias ..='cd ..'
 alias vi='/usr/bin/vim'
 xclip-cp(){
@@ -68,7 +71,8 @@ wifi-off(){
 }
 #use `sudo iw dev` to list wireless interface names
 wifi-scan(){
-  sudo iw dev wlp1s0 scan | egrep 'SSID: [^ ]+' | awk '-F: ' '{print $2}' | sort 
+  #sudo iw dev wlp1s0 scan | egrep 'SSID: [^ ]+' | awk '-F: ' '{print $2}' | sort 
+  nmcli device wifi
 }
 wifi-connect(){
   #[ -z "$1" ] && { echo 'wifi-connect $SSID [$password]'; return 6; }
