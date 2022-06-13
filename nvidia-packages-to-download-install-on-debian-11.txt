@@ -1,3 +1,8 @@
+apt -s install nvidia-tesla-460-driver
+
+
+
+
 NOTE: This is only a simulation!
       apt needs root privileges for real execution.
       Keep also in mind that locking is deactivated,

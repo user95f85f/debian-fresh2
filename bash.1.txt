@@ -1,3 +1,8 @@
+SED DELETE LINES THAT DO NOT MATCH
+
+  echo 123 | sed '/123/!d'
+  echo 123 | grep -v '123'
+
 SHOW ALL IMAGES WITHIN THE CURRENTLY DIRECTORY SUPER FAST
   
   #in XFCE close the windows successfully with Alt+F4
@@ -503,3 +508,7 @@ CREATE YOUR FUCKING LIVE-OS YOU DUMB BITCH
   close LOOP;
   close DEST;
   EOF
+
+FFMPEG SLOW AUDIO BY A PERCENTAGE/%
+
+  ffmpeg -i track_11_pitch2.mp3 -filter:a 'atempo=0.86' track_11_pitch2_slowed.mp3

@@ -14,4 +14,3 @@ noremap <down> <PageDown>
 "searching in your file should be case insensitive
 :se ignorecase
 
-

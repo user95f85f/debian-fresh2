@@ -1,0 +1,2 @@
+'e' at boot menu -->  ^linux .* systemd.unit=multi-user.target
+                                nomodeset                       (maybe)

@@ -1,8 +1,6 @@
 
-
 #PUT IN BASH HISTORY TO take list of URL links and wget them into 001.txt .. 999.txt
 #n=0; while read myLine; do (( n++ )); wget_out_file=$(printf '%03d.txt' $n); echo "$wget_out_file $myLine" >> wget-MAP.txt; echo "wget -O $wget_out_file '$myLine'" >> wget-TODO.sh; done <<< "$(cat novaks-LINKs.txt)"
-
 
 export TZ=America/Los_Angeles
 export WINEPREFIX=/media/user/DEB_STUFF/dot-wine
@@ -14,6 +12,35 @@ export perl_cheatsheet='/home/user/Documents/GITHUB-repos/fresh-debian/perl-chea
 export python_cheatsheet='/home/user/Documents/GITHUB-repos/fresh-debian/python-cheat-sheet.txt'
 alias ..='cd ..'
 alias vi='/usr/bin/vim'
+alias weechat='/usr/bin/weechat -a -p --plugins irc,logger' #no auto-connect to a server and no plug-ins automatically loaded
+alias suspend='echo systemctl suspend'
+alias battery='echo acpitool -b'
+alias eject='echo "udisksctl unmount --block-device /dev/sdb1; udisksctl power-off --block-device /dev/sdb"'
+alias check-network='echo "ip route; ip mroute; curl -I http://nmcheck.gnome.org/check_network_status.txt"'
+vol-up(){
+  local myv
+  while :; do
+    read -n 1 -p '+5%? (Y/n) ' myv
+    echo
+
+    case "$myv" in
+      [Yy]|'') pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo +5%;;
+      [Nn]*)   break;;
+    esac
+  done
+}
+vol-down(){
+  local myv
+  while :; do
+    read -n 1 -p '-5%? (Y/n) ' myv
+    echo
+
+    case "$myv" in
+      [Yy]|'') pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo -5%;;
+      [Nn]*)   break;;
+    esac
+  done
+}
 xclip-cp(){
   [ -z "$1" ] && return 4
   [ -f "$1" ] || return 5
@@ -219,3 +246,4 @@ You must have the wrong version
 You're doing it wrong
 Your browser must be caching the old content" | shuf -n 1
 }
+

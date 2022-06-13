@@ -1,0 +1,18 @@
+dmesg | grep iwlwifi #show possible wireless driver-related debugging information (or `iwevent` to watch)
+
+lshw -C network
+lspci | vim - #look up iwlwifi to see if it's loaded by kernel
+sudo iw dev #list wireless interfaces
+lsmod | vim - #look up iwlwifi to see if it's loaded by kernel
+sudo rm /etc/NetworkManager/system-connections/* #remove wireless AP stored information
+sudo ifconfig wlp1s0 #bring up stats
+sudo iw reg get #840 is USA, 00 probably works
+sudo nano /etc/defaults/crda #REGDOMAIN=US
+
+#try disabling IPv6 somehow (lol)
+
+sudo modprobe -r ath9k; sleep 3.2s; sudo modprobe ath9k
+sudo modprobe -r iwlwifi; sleep 3.2s; sudo modprobe iwlwifi 11n_disable=8
+sudo modprobe -r iwlwifi; sleep 3.2s; sudo modprobe iwlwifi 11n_disable=1
+
+sudo systemctl restart networking NetworkManager wpa_supplicant systemd-modules-load
