@@ -284,6 +284,7 @@ GITHUB SHIT
   #git restore LICENSE on-first-boot.txt preREADME.txt
   #git config --global user.name 'user95f85f_cli'
   #sudo git config --system user.name 'user95f85f_cli'
+  #git config --global core.askPass '/path/to/executable/that/echos/the/password/hehe.sh' 
 
 
 JAVASCRIPT USE STRICT LIKE PERL
