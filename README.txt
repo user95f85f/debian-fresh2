@@ -729,17 +729,40 @@ wow='/media/user/DEB_STUFF/dot-wine/drive_c/Program Files (x86)/Battle.net'
 www='/home/user/Documents/localhost-httpd/www'
 export todo='/home/user/Documents/TODO/todo.txt'
 export bash1='/home/user/Documents/bash.1.txt'
-export perl_cheatsheet='/home/user/Documents/GITHUB-repos/fresh-debian/perl-cheat-sheet.txt'
-export python_cheatsheet='/home/user/Documents/GITHUB-repos/fresh-debian/python-cheat-sheet.txt'
+export perl_cheatsheet='/home/user/Documents/GITHUB-repos/debian-fresh1/perl-cheat-sheet.txt'
+export python_cheatsheet='/home/user/Documents/GITHUB-repos/debian-fresh2/python-cheat-sheet.txt'
 alias ..='cd ..'
 alias vi='/usr/bin/vim'
-alias weechat='/usr/bin/weechat -a -p --plugins irc,logger' #no auto-connect to a server and no plug-ins automatically loaded
+alias bitchx='/usr/bin/weechat -a -p --plugins irc,logger' #no auto-connect to a server and no plug-ins automatically loaded
+alias weechat='echo bitchx'
+alias bash++='/usr/bin/perl'
 alias suspend='echo systemctl suspend'
 alias battery='echo acpitool -b'
 alias eject='echo "udisksctl unmount --block-device /dev/sdb1; udisksctl power-off --block-device /dev/sdb"'
-alias check-network='echo "ip route; ip mroute; curl -I http://nmcheck.gnome.org/check_network_status.txt"'
+alias check-network='bash -c "ip route; curl -IL http://nmcheck.gnome.org/check_network_status.txt"'
+sync-all(){
+  [ -f ~/.bashrc_user ] || return 3
+  [ -f /media/user/DEB_STUFF/_bashrc ] || return 4
+  [ -f ~/.vimrc ] || return 5
+  [ -f /media/user/DEB_STUFF/_vimrc ] || return 6
+  [ -f ~/Documents/GITHUB-repos/debian-fresh2/_bashrc.txt ] || return 7
+  [ -f ~/Documents/GITHUB-repos/debian-fresh2/_vimrc.txt ] || return 8
+  [ -f ~/Documents/bash.1.txt ] || return 9
+  [ -f ~/Documents/GITHUB-repos/debian-fresh2/bash.1.txt ] || return 10
+
+  diff ~/.bashrc_user /media/user/DEB_STUFF/_bashrc || \
+    cp -vi ~/.bashrc_user /media/user/DEB_STUFF/_bashrc
+  diff ~/.vimrc /media/user/DEB_STUFF/_vimrc || \
+    cp -vi ~/.vimrc /media/user/DEB_STUFF/_vimrc
+  diff ~/.bashrc_user ~/Documents/GITHUB-repos/debian-fresh2/_bashrc.txt || \
+    cp -vi ~/.bashrc_user ~/Documents/GITHUB-repos/debian-fresh2/_bashrc.txt
+  diff ~/Documents/bash.1.txt ~/Documents/GITHUB-repos/debian-fresh2/bash.1.txt || \
+    cp -vi ~/Documents/bash.1.txt ~/Documents/GITHUB-repos/debian-fresh2/bash.1.txt
+}
 vol-up(){
   local myv
+  echo '+5%'
+  pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo +5%
   while :; do
     read -n 1 -p '+5%? (Y/n) ' myv
     echo
@@ -752,6 +775,8 @@ vol-up(){
 }
 vol-down(){
   local myv
+  echo '-5%'
+  pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo -5%
   while :; do
     read -n 1 -p '-5%? (Y/n) ' myv
     echo
@@ -1945,6 +1970,9 @@ for(@args){s#'#'\\''#g;s/^/'/;s/$/'/;}
 my $args = join ' ', @args;
 @args = ();
 system("python3 $python3_script $args");
+1.6M	dash-0.5.11+git20200708+dd9ef66/
+39M	bash-5.1/
+109M	perl-5.32.1/
 
 
 " :syntax on    to enable syntax highlighting supposidly
