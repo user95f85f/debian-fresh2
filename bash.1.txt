@@ -517,3 +517,17 @@ CREATE YOUR FUCKING LIVE-OS YOU DUMB BITCH
 FFMPEG SLOW AUDIO BY A PERCENTAGE/%
 
   ffmpeg -i track_11_pitch2.mp3 -filter:a 'atempo=0.86' track_11_pitch2_slowed.mp3
+
+TMUX QUICK REFERENCE GUIDE
+
+  tmux
+  tmux attach #ie. restore-pane-(settings-)session
+  CTRL+B, "   OPEN(horizontal pane)
+  CTRL+B, %   OPEN(vertical pane)
+  CTRL+B, ARROW KEYS      SWITCH(active/current pane)
+  CTRL+B, x   CLOSE(active/current pane)
+  CTRL+D      (same thing as above)
+  exit        (same thing as above)
+  
+  CTRL+B, z   ZOOM(current pane)
+  CTRL+B, z   ZOOM-OUT(to all panes)

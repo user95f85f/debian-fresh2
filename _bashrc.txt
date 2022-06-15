@@ -3,13 +3,14 @@
 #n=0; while read myLine; do (( n++ )); wget_out_file=$(printf '%03d.txt' $n); echo "$wget_out_file $myLine" >> wget-MAP.txt; echo "wget -O $wget_out_file '$myLine'" >> wget-TODO.sh; done <<< "$(cat novaks-LINKs.txt)"
 
 export TZ=America/Los_Angeles
+export EDITOR=/usr/bin/vim
 export WINEPREFIX=/media/user/DEB_STUFF/dot-wine
 wow='/media/user/DEB_STUFF/dot-wine/drive_c/Program Files (x86)/Battle.net'
 www='/home/user/Documents/localhost-httpd/www'
 export todo='/home/user/Documents/TODO/todo.txt'
 export bash1='/home/user/Documents/bash.1.txt'
-export perl_cheatsheet='/home/user/Documents/GITHUB-repos/debian-fresh1/perl-cheat-sheet.txt'
-export python_cheatsheet='/home/user/Documents/GITHUB-repos/debian-fresh2/python-cheat-sheet.txt'
+export perl_cheatsheet='/home/user/Documents/Github-repos/debian-fresh1/perl-cheat-sheet.txt'
+export python_cheatsheet='/home/user/Documents/Github-repos/debian-fresh2/python-cheat-sheet.txt'
 alias ..='cd ..'
 alias vi='/usr/bin/vim'
 alias bitchx='/usr/bin/weechat -a -p --plugins irc,logger,alias' #no auto-connect to a server and no plug-ins automatically loaded
@@ -17,30 +18,43 @@ alias weechat='echo bitchx'
 alias bash++='/usr/bin/perl'
 alias suspend='echo systemctl suspend'
 alias battery='echo acpitool -b'
-alias eject='echo "udisksctl unmount --block-device /dev/sdb1; udisksctl power-off --block-device /dev/sdb"'
+alias eject='bash -c "udisksctl unmount --block-device /dev/sdb1; udisksctl power-off --block-device /dev/sdb"'
 alias check-network='bash -c "ip route; curl -IL http://nmcheck.gnome.org/check_network_status.txt"'
 alias tty-silence='sudo dmesg -n 1'
-alias tty-silence-restore='sudo dmesg -n 9'
-alias sync='echo sync-all'
+alias tty-silence-restore='sudo dmesg -n 8'
+vim-pm(){
+  [ -z "$1" ] && return 3
+  $EDITOR $(find $(perl -e 'for(@INC){print $_, " ";}') -type f -name $1 -printf '%p ' 2>/dev/null )
+}
+git-push(){ [ -f genREADME_sh.txt -a -n "$(find -mindepth 1 -newer README.txt)" ] && bash genREADME_sh.txt; git push; }
+lucky(){ s="$*"; [ -z "$s" ] && return 3; echo $s | perl -ne 'BEGIN{undef $/;}if(m#(https?://[a-zA-Z0-9/.:?_\-]+)#){print $1;}'; }
+cd-git(){
+  [ -n "$1" ] || return 3
+  [[ $1 =~ ^win.* ]] && { cd ~/Documents/Github-repos/windows-fresh; return 0; }
+  [[ $1 =~ ^deb1.* ]] && { cd ~/Documents/Github-repos/debian-fresh1; return 0; }
+  [[ $1 =~ ^deb2.* ]] && { cd ~/Documents/Github-repos/debian-fresh2; return 0; }
+  return 4
+}
 goog(){ local s="$*"; links "https://google.com/search?q=${s// /+}"; }
+alias sync='echo sync-all'
 sync-all(){
   [ -f ~/.bashrc_user ] || return 3
   [ -f /media/user/DEB_STUFF/_bashrc ] || return 4
   [ -f ~/.vimrc ] || return 5
   [ -f /media/user/DEB_STUFF/_vimrc ] || return 6
-  [ -f ~/Documents/GITHUB-repos/debian-fresh2/_bashrc.txt ] || return 7
-  [ -f ~/Documents/GITHUB-repos/debian-fresh2/_vimrc.txt ] || return 8
+  [ -f ~/Documents/Github-repos/debian-fresh2/_bashrc.txt ] || return 7
+  [ -f ~/Documents/Github-repos/debian-fresh2/_vimrc.txt ] || return 8
   [ -f ~/Documents/bash.1.txt ] || return 9
-  [ -f ~/Documents/GITHUB-repos/debian-fresh2/bash.1.txt ] || return 10
+  [ -f ~/Documents/Github-repos/debian-fresh2/bash.1.txt ] || return 10
 
   diff ~/.bashrc_user /media/user/DEB_STUFF/_bashrc || \
     cp -vi ~/.bashrc_user /media/user/DEB_STUFF/_bashrc
   diff ~/.vimrc /media/user/DEB_STUFF/_vimrc || \
     cp -vi ~/.vimrc /media/user/DEB_STUFF/_vimrc
-  diff ~/.bashrc_user ~/Documents/GITHUB-repos/debian-fresh2/_bashrc.txt || \
-    cp -vi ~/.bashrc_user ~/Documents/GITHUB-repos/debian-fresh2/_bashrc.txt
-  diff ~/Documents/bash.1.txt ~/Documents/GITHUB-repos/debian-fresh2/bash.1.txt || \
-    cp -vi ~/Documents/bash.1.txt ~/Documents/GITHUB-repos/debian-fresh2/bash.1.txt
+  diff ~/.bashrc_user ~/Documents/Github-repos/debian-fresh2/_bashrc.txt || \
+    cp -vi ~/.bashrc_user ~/Documents/Github-repos/debian-fresh2/_bashrc.txt
+  diff ~/Documents/bash.1.txt ~/Documents/Github-repos/debian-fresh2/bash.1.txt || \
+    cp -vi ~/Documents/bash.1.txt ~/Documents/Github-repos/debian-fresh2/bash.1.txt
 }
 vol-up(){
   local myv
