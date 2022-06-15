@@ -1,0 +1,21 @@
+sudo fdisk -l
+
+
+
+Disk /dev/sda: 931.51 GiB, 1000204886016 bytes, 1953525168 sectors
+Disk model: ST1000LM035-1RK1
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 4096 bytes
+I/O size (minimum/optimal): 4096 bytes / 4096 bytes
+Disklabel type: gpt
+Disk identifier: 01EA0B1E-A254-44C5-B3DF-061B4120BD39
+
+Device         Start       End   Sectors  Size Type
+/dev/sda1       2048 614402047 614400000  293G Linux filesystem
+/dev/sda2  614402048 634882047  20480000  9.8G Linux swap
+
+
+Disk /dev/loop0: 2.09 GiB, 2240999424 bytes, 4376952 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes

@@ -762,6 +762,10 @@ alias eject='bash -c "udisksctl unmount --block-device /dev/sdb1; udisksctl powe
 alias check-network='bash -c "ip route; curl -IL http://nmcheck.gnome.org/check_network_status.txt"'
 alias tty-silence='sudo dmesg -n 1'
 alias tty-silence-restore='sudo dmesg -n 8'
+pm-finder(){
+  [ -z "$1" ] && return 3
+  find $(perl -e 'for(@INC){print $_, " ";}') -type f -name "*$1*" -printf '%p ' 2>/dev/null
+}
 vim-pm(){
   [ -z "$1" ] && return 3
   $EDITOR $(find $(perl -e 'for(@INC){print $_, " ";}') -type f -name $1 -printf '%p ' 2>/dev/null )
@@ -1245,6 +1249,27 @@ for my $desktop_filename (@desktop_files){
 
 
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo fdisk -l
+
+
+
+Disk /dev/sda: 931.51 GiB, 1000204886016 bytes, 1953525168 sectors
+Disk model: ST1000LM035-1RK1
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 4096 bytes
+I/O size (minimum/optimal): 4096 bytes / 4096 bytes
+Disklabel type: gpt
+Disk identifier: 01EA0B1E-A254-44C5-B3DF-061B4120BD39
+
+Device         Start       End   Sectors  Size Type
+/dev/sda1       2048 614402047 614400000  293G Linux filesystem
+/dev/sda2  614402048 634882047  20480000  9.8G Linux swap
+
+
+Disk /dev/loop0: 2.09 GiB, 2240999424 bytes, 4376952 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
 #!/bin/bash
 
 [ -f ~/README.txt ] && exit 2
@@ -1313,6 +1338,13 @@ Devices (35)
 | IDE  | seagate-st1000lm... | Seagate          | ST1000LM035-1RK172 1TB              | disk         |
 +------+---------------------+------------------+-------------------------------------+--------------+
 
+sudo lsblk --list --output-all /dev/sda | tr '\t' ' ' | sed 's/ \{2,\}/ /g'
+
+
+NAME KNAME PATH MAJ:MIN FSAVAIL FSSIZE FSTYPE FSUSED FSUSE% FSVER MOUNTPOINT LABEL UUID PTUUID PTTYPE PARTTYPE PARTTYPENAME PARTLABEL PARTUUID PARTFLAGS RA RO RM HOTPLUG MODEL SERIAL SIZE STATE OWNER GROUP MODE ALIGNMENT MIN-IO OPT-IO PHY-SEC LOG-SEC ROTA SCHED RQ-SIZE TYPE DISC-ALN DISC-GRAN DISC-MAX DISC-ZERO WSAME WWN RAND PKNAME HCTL TRAN SUBSYSTEMS REV VENDOR ZONED DAX
+sda sda /dev/sda 8:0 01ea0b1e-a254-44c5-b3df-061b4120bd39 gpt 128 0 0 0 ST1000LM035-1RK172 WL127AV7 931.5G running root disk brw-rw---- 0 4096 0 4096 512 1 mq-deadline 64 disk 0 0B 0B 0 0B 0x5000c500b919327a 1 0:0:0:0 sata block:scsi:pci SDM3 ATA none 0
+sda1 sda1 /dev/sda1 8:1 76.6G 287.9G ext4 196.6G 68% 1.0 /media/user/DEB_STUFF DEB_STUFF 15753af0-daad-4cbd-bd97-0ac76cb6dbbe 01ea0b1e-a254-44c5-b3df-061b4120bd39 gpt 0fc63daf-8483-4772-8e79-3d69d8477de4 Linux filesystem DEB_STUFF b239907a-b449-4189-a365-e3cd8bd0ec03 128 0 0 0 293G root disk brw-rw---- 0 4096 0 4096 512 1 mq-deadline 64 part 0 0B 0B 0 0B 0x5000c500b919327a 1 sda block:scsi:pci none 0
+sda2 sda2 /dev/sda2 8:2 swap 1 [SWAP] DEB_SWAP 87e82457-cfe9-427e-8d60-e8abc41f2fd4 01ea0b1e-a254-44c5-b3df-061b4120bd39 gpt 0657fd6d-a4ab-43c4-84e5-0933c84b4f4f Linux swap DEB_SWAP c1352856-794d-47ed-8cf9-819133a923c1 128 0 0 0 9.8G root disk brw-rw---- 0 4096 0 4096 512 1 mq-deadline 64 part 0 0B 0B 0 0B 0x5000c500b919327a 1 sda block:scsi:pci none 0
 #!/bin/bash
 
 

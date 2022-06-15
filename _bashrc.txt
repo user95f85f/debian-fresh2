@@ -22,6 +22,10 @@ alias eject='bash -c "udisksctl unmount --block-device /dev/sdb1; udisksctl powe
 alias check-network='bash -c "ip route; curl -IL http://nmcheck.gnome.org/check_network_status.txt"'
 alias tty-silence='sudo dmesg -n 1'
 alias tty-silence-restore='sudo dmesg -n 8'
+pm-finder(){
+  [ -z "$1" ] && return 3
+  find $(perl -e 'for(@INC){print $_, " ";}') -type f -name "*$1*" -printf '%p ' 2>/dev/null
+}
 vim-pm(){
   [ -z "$1" ] && return 3
   $EDITOR $(find $(perl -e 'for(@INC){print $_, " ";}') -type f -name $1 -printf '%p ' 2>/dev/null )
