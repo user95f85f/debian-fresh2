@@ -496,6 +496,8 @@ GITHUB SHIT
   #git config --global user.name 'user95f85f_cli'
   #sudo git config --system user.name 'user95f85f_cli'
   #git config --global core.askPass '/path/to/executable/that/echos/the/password/hehe.sh' 
+  #git config --global credential.username 'user95f85f'
+  #git config --global user.email 'user9de1d@gmail.com'
 
 
 JAVASCRIPT USE STRICT LIKE PERL
