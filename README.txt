@@ -205,6 +205,10 @@ essential-debs/toilet-fonts_0.3-1.3_all.deb
 essential-debs/txt2man_1.7.1-1+deb11u1_all.deb
 essential-debs/wget_1.21-1+deb11u1_amd64.deb
 essential-debs/xclip_0.13-2_amd64.deb
+GO THROUGH INSIDE OF ONE-LEVEL SUBDIR AND DO SOMETHING
+
+  for d in */; do ( if cd -- "$d"; then git status >/dev/null 2>&1; if [ $? = 128 ]; then printf '%s\n' "$d isn't a valid git repo"; fi; fi ); done
+
 SED DELETE LINES THAT DO NOT MATCH
 
   echo 123 | sed '/123/!d'
@@ -491,6 +495,7 @@ GITHUB SHIT
   #git restore LICENSE on-first-boot.txt preREADME.txt
   #git config --global user.name 'user95f85f_cli'
   #sudo git config --system user.name 'user95f85f_cli'
+  #git config --global core.askPass '/path/to/executable/that/echos/the/password/hehe.sh' 
 
 
 JAVASCRIPT USE STRICT LIKE PERL
@@ -733,13 +738,17 @@ export perl_cheatsheet='/home/user/Documents/GITHUB-repos/debian-fresh1/perl-che
 export python_cheatsheet='/home/user/Documents/GITHUB-repos/debian-fresh2/python-cheat-sheet.txt'
 alias ..='cd ..'
 alias vi='/usr/bin/vim'
-alias bitchx='/usr/bin/weechat -a -p --plugins irc,logger' #no auto-connect to a server and no plug-ins automatically loaded
+alias bitchx='/usr/bin/weechat -a -p --plugins irc,logger,alias' #no auto-connect to a server and no plug-ins automatically loaded
 alias weechat='echo bitchx'
 alias bash++='/usr/bin/perl'
 alias suspend='echo systemctl suspend'
 alias battery='echo acpitool -b'
 alias eject='echo "udisksctl unmount --block-device /dev/sdb1; udisksctl power-off --block-device /dev/sdb"'
 alias check-network='bash -c "ip route; curl -IL http://nmcheck.gnome.org/check_network_status.txt"'
+alias tty-silence='sudo dmesg -n 1'
+alias tty-silence-restore='sudo dmesg -n 9'
+alias sync='echo sync-all'
+goog(){ local s="$*"; links "https://google.com/search?q=${s// /+}"; }
 sync-all(){
   [ -f ~/.bashrc_user ] || return 3
   [ -f /media/user/DEB_STUFF/_bashrc ] || return 4
