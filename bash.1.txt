@@ -290,7 +290,7 @@ GITHUB SHIT
   #sudo git config --system user.name 'user95f85f_cli'
   #git config --global core.askPass '/path/to/executable/that/echos/the/password/hehe.sh' 
   #git config --global credential.username 'user95f85f'
-  #git config --global user.email 'user9de1d@gmail.com'
+  #git config --global user.email 'user9de1d@gmail.com' #--required on the github for contributions to show up on your main page to show your activity on github
 
 
 JAVASCRIPT USE STRICT LIKE PERL
