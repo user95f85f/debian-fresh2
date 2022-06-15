@@ -13,7 +13,7 @@ export perl_cheatsheet='/home/user/Documents/Github-repos/debian-fresh1/perl-che
 export python_cheatsheet='/home/user/Documents/Github-repos/debian-fresh2/python-cheat-sheet.txt'
 alias ..='cd ..'
 alias vi='/usr/bin/vim'
-alias bitchx='/usr/bin/weechat -a -p --plugins irc,logger,alias' #no auto-connect to a server and no plug-ins automatically loaded
+alias bitchx='/usr/bin/weechat -a -p --plugins irc,logger,alias,exec' #no auto-connect to a server and no plug-ins automatically loaded
 alias weechat='echo bitchx'
 alias bash++='/usr/bin/perl'
 alias suspend='echo systemctl suspend'
@@ -35,6 +35,7 @@ cd-git(){
   [[ $1 =~ ^deb2.* ]] && { cd ~/Documents/Github-repos/debian-fresh2; return 0; }
   return 4
 }
+alias cdgit='cd-git'
 goog(){ local s="$*"; links "https://google.com/search?q=${s// /+}"; }
 alias sync='echo sync-all'
 sync-all(){
