@@ -12,14 +12,17 @@ export perl_cheatsheet='/home/user/Documents/GITHUB-repos/debian-fresh1/perl-che
 export python_cheatsheet='/home/user/Documents/GITHUB-repos/debian-fresh2/python-cheat-sheet.txt'
 alias ..='cd ..'
 alias vi='/usr/bin/vim'
-alias bitchx='/usr/bin/weechat -a -p --plugins irc,logger' #no auto-connect to a server and no plug-ins automatically loaded
+alias bitchx='/usr/bin/weechat -a -p --plugins irc,logger,alias' #no auto-connect to a server and no plug-ins automatically loaded
 alias weechat='echo bitchx'
 alias bash++='/usr/bin/perl'
 alias suspend='echo systemctl suspend'
 alias battery='echo acpitool -b'
 alias eject='echo "udisksctl unmount --block-device /dev/sdb1; udisksctl power-off --block-device /dev/sdb"'
 alias check-network='bash -c "ip route; curl -IL http://nmcheck.gnome.org/check_network_status.txt"'
+alias tty-silence='sudo dmesg -n 1'
+alias tty-silence-restore='sudo dmesg -n 9'
 alias sync='echo sync-all'
+goog(){ local s="$*"; links "https://google.com/search?q=${s// /+}"; }
 sync-all(){
   [ -f ~/.bashrc_user ] || return 3
   [ -f /media/user/DEB_STUFF/_bashrc ] || return 4

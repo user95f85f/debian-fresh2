@@ -1,3 +1,7 @@
+GO THROUGH INSIDE OF ONE-LEVEL SUBDIR AND DO SOMETHING
+
+  for d in */; do ( if cd -- "$d"; then git status >/dev/null 2>&1; if [ $? = 128 ]; then printf '%s\n' "$d isn't a valid git repo"; fi; fi ); done
+
 SED DELETE LINES THAT DO NOT MATCH
 
   echo 123 | sed '/123/!d'
