@@ -1,0 +1,9 @@
+
+0 firefox
+0 perl5
+0 python3
+8 golang-1.15
+9 php-cli
+17 rustc 
+26 default-jdk
+176 mono-mcs

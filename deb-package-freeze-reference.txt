@@ -1,4 +1,7 @@
 echo *-debs essential-debs/* | tr ' ' '\n'
+
+
+
 apt-container-debs
 atool-debs
 audacity-debs
@@ -19,6 +22,8 @@ nmap-debs
 php-debs
 python3-doc-debs
 python3-tk-debs
+reportbug-debs
+rustc-debs
 steam-debs
 vim-debs
 w3c-css-validator-debs
@@ -49,8 +54,10 @@ essential-debs/optipng_0.7.7-1+b1_amd64.deb
 essential-debs/perl-doc_5.32.1-4+deb11u2_all.deb
 essential-debs/pinfo_0.6.13-1.1_amd64.deb
 essential-debs/strace_5.10-1_amd64.deb
+essential-debs/tmux_3.1c-1+deb11u1_amd64.deb
 essential-debs/toilet_0.3-1.3_amd64.deb
 essential-debs/toilet-fonts_0.3-1.3_all.deb
 essential-debs/txt2man_1.7.1-1+deb11u1_all.deb
+essential-debs/weechat-doc_3.0-1+deb11u1_all.deb
 essential-debs/wget_1.21-1+deb11u1_amd64.deb
 essential-debs/xclip_0.13-2_amd64.deb

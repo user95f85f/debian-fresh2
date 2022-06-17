@@ -7,6 +7,7 @@ export EDITOR=/usr/bin/vim
 export WINEPREFIX=/media/user/DEB_STUFF/dot-wine
 wow='/media/user/DEB_STUFF/dot-wine/drive_c/Program Files (x86)/Battle.net'
 www='/home/user/Documents/localhost-httpd/www'
+git='/home/user/Documents/Github-repos'
 export todo='/home/user/Documents/TODO/todo.txt'
 export bash1='/home/user/Documents/bash.1.txt'
 export perl_cheatsheet='/home/user/Documents/Github-repos/debian-fresh1/perl-cheat-sheet.txt'
@@ -30,16 +31,7 @@ vim-pm(){
   [ -z "$1" ] && return 3
   $EDITOR $(find $(perl -e 'for(@INC){print $_, " ";}') -type f -name $1 -printf '%p ' 2>/dev/null )
 }
-git-push(){ [ -f genREADME_sh.txt -a -n "$(find -mindepth 1 -newer README.txt)" ] && bash genREADME_sh.txt; git push; }
 lucky(){ s="$*"; [ -z "$s" ] && return 3; echo $s | perl -ne 'BEGIN{undef $/;}if(m#(https?://[a-zA-Z0-9/.:?_\-]+)#){print $1;}'; }
-cd-git(){
-  [ -n "$1" ] || return 3
-  [[ $1 =~ ^win.* ]] && { cd ~/Documents/Github-repos/windows-fresh; return 0; }
-  [[ $1 =~ ^deb1.* ]] && { cd ~/Documents/Github-repos/debian-fresh1; return 0; }
-  [[ $1 =~ ^deb2.* ]] && { cd ~/Documents/Github-repos/debian-fresh2; return 0; }
-  return 4
-}
-alias cdgit='cd-git'
 goog(){ local s="$*"; links "https://google.com/search?q=${s// /+}"; }
 alias sync='echo sync-all'
 sync-all(){
