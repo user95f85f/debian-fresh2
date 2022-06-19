@@ -23,6 +23,9 @@ alias eject='bash -c "udisksctl unmount --block-device /dev/sdb1; udisksctl powe
 alias check-network='bash -c "ip route; curl -IL http://nmcheck.gnome.org/check_network_status.txt"'
 alias tty-silence='sudo dmesg -n 1'
 alias tty-silence-restore='sudo dmesg -n 8'
+apt-non-debian-packages-installed(){
+  aptitude search '?narrow(?installed, ?not(?origin(Debian)))'
+}
 pm-finder(){
   [ -z "$1" ] && return 3
   find $(perl -e 'for(@INC){print $_, " ";}') -type f -name "*$1*" -printf '%p ' 2>/dev/null
@@ -52,6 +55,28 @@ sync-all(){
     cp -vi ~/.bashrc_user ~/Documents/Github-repos/debian-fresh2/_bashrc.txt
   diff ~/Documents/bash.1.txt ~/Documents/Github-repos/debian-fresh2/bash.1.txt || \
     cp -vi ~/Documents/bash.1.txt ~/Documents/Github-repos/debian-fresh2/bash.1.txt
+}
+tarhelp(){
+  cat <<EOFFFFFFFF
+1) tar
+2) tar.gz
+3) tar.bz2
+4) zip
+5) tar.xz
+
+EOFFFFFFFF
+  local myv
+  read -n 1 -p '? ' myv
+  echo
+
+  case "$myv" in
+    1) echo tar cvf create-me.tar 1 2 3 4;;
+    2) echo tar cvzf create-me.tar.gz 1 2 3 4;;
+    3) echo tar cvf create-me.tar.bz2 --bzip2 1 2 3 4;;
+    4) echo zip -r create-me.zip 1 2 3 4;;
+    5) echo 'tar cvf - 1 2 3 4 | xz -c > create-me.tar.xz';;
+  esac
+
 }
 vol-up(){
   local myv

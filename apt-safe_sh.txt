@@ -22,6 +22,7 @@ auto             - Set this installed $package_name to be auto-removed (ie. assu
 autoclean        - Erase downloaded archive files from /var/cache/apt/archives/*.deb basically except for the ones that are identical to the ones in your live repository /etc/apt/sources.list*
 autopurge        - Remove packages with their configuration files and automatically remove all unused packages (always good after a good `sudo apt purge $package_name` or `sudo dpkg --remove $package_name`)
 autoremove       - Remove automatically all unused packages (always good after a good `sudo apt purge $package_name` or `sudo dpkg --remove $package_name`)
+autosourceslist  - Generate an automated sources.list file that selects the fastest mirror to `sudo apt install` from
 build            - Download source code for a package into current directory, extract, and build it. `sudo apt builddep $package_name` (? or is it source name?) (to get the source-building-dependency packages necessary a priori building otherwise hope for the best)
 build-dep        - Configure build-dependencies for source packages; to build source code you will require the necessary packages -- they shall be installed
 changelog        - View a packagez changelog
@@ -70,14 +71,14 @@ echo '
 `apt-cache` depends rdepends stats list show
 `apt-cache policy` pkgurl
 `apt-file search` contains-repo
-`apt` list show download moo showsrc source
+`apt` depends download list moo show showsrc source 
 `apt-mark` showhold showmanual
 `dpkg -L` content
 `dpkg -l` listallpkgs
 `# I have a bash "one-liner" that can do this, request as necessary` recommends
 `dpkg-query -f "\${Version}" -W` version
 `dpkg -S` contains
-`sudo apt` autoremove install autoclean build-dep clean dselect-upgrade edit-sources full-upgrade purge remove update upgrade
+`sudo apt` autoremove --reinstall install autoclean build-dep clean dselect-upgrade edit-sources full-upgrade purge remove update upgrade
 `sudo apt --build source` build
 `sudo apt --purge autoremove` autopurge
 `sudo apt edit-sources` sources
@@ -89,6 +90,7 @@ echo '
 `sudo apt install aptitude && aptitude` changelog
 `sudo apt install aptitude && sudo aptitude` reinstall
 `sudo apt install apt-rdepends && man apt-rdepends` download-all
+`sudo apt install netselect-apt && sudo netselect-apt` autosourceslist
 `sudo apt install software-properties-common && man add-apt-repository` add-repository
 `sudo apt-mark` hold unhold manual auto
 `sudo dpkg -i` deb-install

@@ -1,3 +1,37 @@
+LINUX USER/GROUP MANAGMENT BULLSHIT
+
+  #change a user's username/login name
+  man usermod | grep -i login
+
+  #add/append valid users to a group
+  man usermod | grep -i -- '-g|append'
+
+  #lock a user account
+  man usermod | grep -i lock
+
+  #move home directory for a user
+  man usermod | grep -i home
+
+  #add a new group to the system
+  man groupadd | grep groupadd
+
+DIFFERENCE PWD and CWD
+  
+  CWD (ie. CURRENT WORKING DIRECTORY) can change (ie. is dynamic) in/within the process that is ran.
+  PWD (ie. PRINT WORK DIRECTORY) is constant.
+
+  "Changes" Working Directory: CWD
+  "Permanent" Working Directory: PWD
+
+MOUNT A PARTITION WITHIN A FILESYSTEM BUT YOU CAN'T REMEMBER IF IT'S EXT4 or FAT32/VFAT???
+
+  mount -t auto /dev/sdb1 /media/whatever11111111111111111111111
+
+CLEAR/RESET/EMPTY A FILE
+
+  #this is like:    echo -n '' > ~/hello.txt
+  :>~/hello.txt
+
 GO THROUGH INSIDE OF ONE-LEVEL SUBDIR AND DO SOMETHING
 
   for d in */; do ( if cd -- "$d"; then git status >/dev/null 2>&1; if [ $? = 128 ]; then printf '%s\n' "$d isn't a valid git repo"; fi; fi ); done
@@ -533,3 +567,16 @@ TMUX QUICK REFERENCE GUIDE
   
   CTRL+B, z   ZOOM(current pane)
   CTRL+B, z   ZOOM-OUT(to all panes)
+
+RUST CARGO "CRATE" BULLSHIT
+
+  #assuming the source code you want to compile is in ~/source-code.c
+  cat ~/source-code.c | xclip -selection clipboard
+  epiphany https://rust2c.com   #CTRL+V code in here
+                                #put code ~/source-code.rs
+  cd ~ && {
+    sed -i '/register_tool/d;/feature(main/d;/^#\[main\]$/d' source-code.rs && \
+    cargo new temp1111 && \
+    mv -iv ~/source-code.rs temp1111/src/main.rs && \
+    cd temp1111 && echo -e "\nlibc = \"0.2\"" >> Cargo.toml && cargo fetch && cargo build && cargo run
+  }
