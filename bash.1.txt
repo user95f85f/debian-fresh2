@@ -1,3 +1,70 @@
+OPEN CONNECTIONS TWO WAYS OF DOING IT BOTH BENEFICIAL
+
+  sudo netstat -anpl --inet   #IP addresses and your IP address (3%sure)
+  sudo netstat -tapdu         #hostnames of the foreign places
+
+EXTERNAL IP ADDRESS RESEARCH
+
+  #(ie. modem/router/ISP-hardware IP)
+  curl --silent http://smart-ip.net/myip
+  #TODO: try google searching 'my ip' 13%chance you'll get it
+
+DEBIAN SOURCE CODE COMPILATION FUN
+
+  apt --simulate build-dep vim
+  sudo apt build-dep vim
+  mkdir -pv ~/Downloads/vim-src && cd ~/Downloads/vim-src && {
+    apt source --build vim #have fun
+  }
+  #<OPTIONAL>
+  #TODO: figure out a way to undo the build-dep package installation (by purging all of those packages or whatever)
+  #</OPTIONAL>
+
+VERIZON USB/DONGLE WIRELESS INTERNET
+
+  Verizon 4G LTE USB Modem UML295
+
+  Needs a SIM card that's activated.
+  access via:
+    http://192.168.32.2:4330
+    http://mbb.vzw.com
+
+  Let the Verizon Store setup a valid SIM card & put it in the USB modem.  
+
+DEBIAN NOTES
+
+  echo Debian has 51,000 amd64/pre-compiled packages
+
+DEBIAN TTY/VIRTUAL-CONSOLE THINGS TO TRY IN LIVEOS/LIVEISO/LIVEUSB
+
+  sudo $EDITOR /etc/systemd/logind.conf
+  #set NAutoVTs=8
+  sudo systemctl restart logind #or find out how to do a daemon-reload `man systemctl`
+
+LINUX LOG FILES LOOKING AT BULLSHIT
+
+  #look at the log file of when your computer first boots:
+  #all of those kernel messages like:
+  #your BIOS version (eg. BIOS 1.11.0 12/04/2019),
+  #your PC's model number (eg. Dell Inc. Inspiron 5566/0NWJDC),
+  #your boot image (eg. /boot/vmlinuz-5.10.0-13-amd64),
+  #your boot image's options (like toram and pcie_aspm=off)
+  #the company that created your EFI in BIOS (eg. American Megatrends)
+  #your processor's speed: (eg. 2900 MHz)
+  #your kernel build date (eg. January 10th, 2021)
+  man journalctl | grep -- --boot
+
+  #know when you last booted
+  uptime --since; uptime --pretty; sudo journalctl --list-boots | cat -
+
+  #watch for new journalctl messages:
+  sudo journalctl -n30 --follow
+
+  #make/free more free? space on you DISK/SWAP:
+  sudo journalctl --disk-usage | tr ' ' '\n' | egrep '^[0-9]'
+  #224.0M  (for example)
+  sudo journalctl --vacuum-size=100M
+
 LINUX USER/GROUP MANAGMENT BULLSHIT
 
   #change a user's username/login name
@@ -55,6 +122,43 @@ STRIPPING JPEG (PNG?????) EXIF DATA INFORMATION
 
   man exiftool #search 'all'
   man jpegoptim
+
+CURL _VS_ WGET EQUIVALENCY COMPARISON
+
+  #curl: --max-time SECONDS IN DECIMAL BEFORE BAIL.
+  #wget: --timeout
+
+  #curl: --disable    IGNORE all of the curl.conf files everywhere...
+
+  #curl: --silent     DISABLE progress bar BS, informational shit, and error shit
+  #curl: --show-error SHOW ERROR message iff --silent is given AND there is a 404/403/whatever.  (TODO: STDERR?)
+  #TODO: is the progress bar screwy sent to STDERR to a file????
+  #curl: --fail       INSTEAD of 404/403 HTML output, give nothing
+  #TODO: is -POST necessary if I have "--form" options? Shouldn't POST be defaulted?
+  #wget: '--post-data=name1=value1&name2=value2&name3=value3&name4=value4'
+
+  #wget: --server-response print HTTP header (TODO: to stderr or stdout??)
+  #curl: --head            "" (stdout 90%sure)
+
+  curl --max-time 2.3 --disable --silent --show-error --fail -POST --form name1=value1 --form name2=value2 --form name3=value3 --form name4=value4
+
+  #wget: --quiet          TODO all STDERR gone???? yup.
+  #wget: --timestamping   TODO set the mod file date/time to whatever it is on the server???????
+  wget --quiet --timestamping --output-document=tmp_output_file.dat
+
+CURL VS WGET SUPER EQUIVALENCY EXAMPLES
+
+  #the wget is +30% (more) verbose
+  wget --output-document=- http://localhost:8080/wget-curl-me.php | grep Hello
+  curl --output - http://localhost:8080/wget-curl-me.php | grep Hello
+
+  wget --quiet  --output-document=- http://localhost:8080/wget-curl-me.php | grep Hello
+  curl --silent --output - http://localhost:8080/wget-curl-me.php | grep Hello
+
+  wget --quiet  --output-document=- http://localhost:8080/DNE.php | grep Hello
+  echo $? #1
+  curl --silent --output - http://localhost:8080/DNE.php | grep Hello
+  echo $? #1
 
 GET ALL OF THE CAMERA STATS AND PHOTO/IMAGE EDITOR STATS OF A JPEG MAYBE A PNG
 
@@ -558,15 +662,15 @@ TMUX QUICK REFERENCE GUIDE
 
   tmux
   tmux attach #ie. restore-pane-(settings-)session
+  CTRL+B, d   DDDetach() from session
   CTRL+B, "   OPEN(horizontal pane)
   CTRL+B, %   OPEN(vertical pane)
   CTRL+B, ARROW KEYS      SWITCH(active/current pane)
   CTRL+B, x   CLOSE(active/current pane)
   CTRL+D      (same thing as above)
   exit        (same thing as above)
-  
-  CTRL+B, z   ZOOM(current pane)
-  CTRL+B, z   ZOOM-OUT(to all panes)
+
+  `top`, `tail -f /var/log/syslog`, `watch-home`, `watch-logs-global-journalctl`
 
 RUST CARGO "CRATE" BULLSHIT
 
@@ -579,4 +683,43 @@ RUST CARGO "CRATE" BULLSHIT
     cargo new temp1111 && \
     mv -iv ~/source-code.rs temp1111/src/main.rs && \
     cd temp1111 && echo -e "\nlibc = \"0.2\"" >> Cargo.toml && cargo fetch && cargo build && cargo run
+  }
+
+PWD ASSESSMENT RESEARCH
+
+  du -S
+  492	./data/global/excel
+  4	./data/global
+  4	./data
+  600	.
+
+  du
+  492	./data/global/excel
+  496	./data/global
+  500	./data
+  1100	.
+
+  du -h --max-depth=1
+  500K	./data
+  1.1M	.
+
+CHROOT INTO A LINUX DISTRIBUTION THAT IS INSTALLED AT AN EXT4 PARTITION ON AN HDD/SSD/USB-HDD AND
+  RUN A GOOD/SOLID RECOVERY BASH SHELL IN THERE
+
+  #TODO make sure we're running this as root..
+  MOUNT_POINT=/root/mounted_ext4_partition_to_recover_here
+  chroot-recoveryshell-automount-inherit-current-system-state(){
+    mkdir -v $MOUNT_POINT || return 4
+    #TODO mount the actual ext4 here...
+    for i in dev{,pts} proc sys; do
+      mount --bind /$i $MOUNT_POINT/$i
+    done
+    chroot $MOUNT_POINT #TODO: OR:  chroot $MOUNT_POINT /bin/su -
+    echo REMEMBER to call chroot-recoveryshell-dismantle
+    echo "OR you'll be sooooooooooorry"
+  }
+  chroot-recoveryshell-dismantle(){
+    for i in dev{,pts} proc sys; do
+      umount $MOUNT_POINT/$i
+    done
   }

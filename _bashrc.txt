@@ -2,11 +2,16 @@
 #PUT IN BASH HISTORY TO take list of URL links and wget them into 001.txt .. 999.txt
 #n=0; while read myLine; do (( n++ )); wget_out_file=$(printf '%03d.txt' $n); echo "$wget_out_file $myLine" >> wget-MAP.txt; echo "wget -O $wget_out_file '$myLine'" >> wget-TODO.sh; done <<< "$(cat novaks-LINKs.txt)"
 
+#prevents CTRL+S freezing the tty/virtual-console (ie. until CTRL+Q is hit)
+#see:   stty -a | egrep 'start|stop'
+stty start undef
+stty stop undef
+
 export TZ=America/Los_Angeles
 export EDITOR=/usr/bin/vim
 export WINEPREFIX=/media/user/DEB_STUFF/dot-wine
 wow='/media/user/DEB_STUFF/dot-wine/drive_c/Program Files (x86)/Battle.net'
-www='/home/user/Documents/localhost-httpd/www'
+www='/home/user/Documents/Github-repos/localhost-httpd/www'
 git='/home/user/Documents/Github-repos'
 export todo='/home/user/Documents/TODO/todo.txt'
 export bash1='/home/user/Documents/bash.1.txt'
@@ -19,10 +24,64 @@ alias weechat='echo bitchx'
 alias bash++='/usr/bin/perl'
 alias suspend='echo systemctl suspend'
 alias battery='echo acpitool -b'
-alias eject='bash -c "udisksctl unmount --block-device /dev/sdb1; udisksctl power-off --block-device /dev/sdb"'
 alias check-network='bash -c "ip route; curl -IL http://nmcheck.gnome.org/check_network_status.txt"'
 alias tty-silence='sudo dmesg -n 1'
 alias tty-silence-restore='sudo dmesg -n 8'
+alias df='df --human-readable --print-type 2>/dev/null'
+alias tty-exec-desktop-program='echo "DISPLAY=:0.0 google-chrome http://people.oregonstate.edu"'
+remind-me(){
+  [ $# -ge 2 ] || return 4
+  local sleep_for="$1"
+  shift
+  echo "sleep $sleep_for && wall '$*'"
+  sleep "$sleep_for" && wall "$*"
+}
+up(){
+  local levels="$1"
+  [ -z "$levels" ] && levels=2
+  [[ "$levels" =~ ^[0-9]$ ]] || return 4
+  while [ "$levels" -gt 0 ]; do
+    (( levels-- ))
+    cd ..
+  done
+}
+str_trim(){
+  local args="$*"
+  [ -z "$args" ] && return 0
+  args="${args#"${args%%[![:space:]]*}"}"
+  args="${args%"${args##*[![:space:]]}"}"
+  echo -n "$args"
+}
+str_tolowercase(){
+  echo "$*" | tr A-Z a-z
+}
+str_touppercase(){
+  echo "$*" | tr a-z A-Z
+}
+cd2(){
+  [ $# -eq 1 ] || return 4
+  if [ -z "$1" ]; then
+    cd
+  elif [ -d "$1" ]; then
+    cd "$1"
+  else
+    mkdir -pv "$1" && cd "$1"
+  fi
+}
+is_desktop_running(){
+  if systemctl status lightdm; then return 0; else return 1; fi
+}
+eject(){
+  if [ -d /media/user/MYFAT34 ]; then
+    udisksctl unmount --block-device /dev/sdb1
+    udisksctl power-off --block-device /dev/sdb
+  else
+    /usr/bin/eject
+  fi
+}
+Z(){
+  cd ~/Documents && unzip Z.zip && shred -uv Z.zip && $EDITOR Z && zip --encrypt Z.zip Z && shred -uv Z
+}
 apt-non-debian-packages-installed(){
   aptitude search '?narrow(?installed, ?not(?origin(Debian)))'
 }
@@ -36,7 +95,6 @@ vim-pm(){
 }
 lucky(){ s="$*"; [ -z "$s" ] && return 3; echo $s | perl -ne 'BEGIN{undef $/;}if(m#(https?://[a-zA-Z0-9/.:?_\-]+)#){print $1;}'; }
 goog(){ local s="$*"; links "https://google.com/search?q=${s// /+}"; }
-alias sync='echo sync-all'
 sync-all(){
   [ -f ~/.bashrc_user ] || return 3
   [ -f /media/user/DEB_STUFF/_bashrc ] || return 4
@@ -47,21 +105,21 @@ sync-all(){
   [ -f ~/Documents/bash.1.txt ] || return 9
   [ -f ~/Documents/Github-repos/debian-fresh2/bash.1.txt ] || return 10
 
-  diff ~/.bashrc_user /media/user/DEB_STUFF/_bashrc || \
+  diff /media/user/DEB_STUFF/_bashrc ~/.bashrc_user || \
     cp -vi ~/.bashrc_user /media/user/DEB_STUFF/_bashrc
-  diff ~/.vimrc /media/user/DEB_STUFF/_vimrc || \
+  diff /media/user/DEB_STUFF/_vimrc ~/.vimrc || \
     cp -vi ~/.vimrc /media/user/DEB_STUFF/_vimrc
-  diff ~/.bashrc_user ~/Documents/Github-repos/debian-fresh2/_bashrc.txt || \
+  diff ~/Documents/Github-repos/debian-fresh2/_bashrc.txt ~/.bashrc_user || \
     cp -vi ~/.bashrc_user ~/Documents/Github-repos/debian-fresh2/_bashrc.txt
-  diff ~/Documents/bash.1.txt ~/Documents/Github-repos/debian-fresh2/bash.1.txt || \
+  diff ~/Documents/Github-repos/debian-fresh2/bash.1.txt ~/Documents/bash.1.txt || \
     cp -vi ~/Documents/bash.1.txt ~/Documents/Github-repos/debian-fresh2/bash.1.txt
 }
 tarhelp(){
   cat <<EOFFFFFFFF
-1) tar
-2) tar.gz
-3) tar.bz2
-4) zip
+1) tar.gz
+2) tar.bz2
+3) zip
+4) tar
 5) tar.xz
 
 EOFFFFFFFF
@@ -70,10 +128,10 @@ EOFFFFFFFF
   echo
 
   case "$myv" in
-    1) echo tar cvf create-me.tar 1 2 3 4;;
-    2) echo tar cvzf create-me.tar.gz 1 2 3 4;;
-    3) echo tar cvf create-me.tar.bz2 --bzip2 1 2 3 4;;
-    4) echo zip -r create-me.zip 1 2 3 4;;
+    1) echo tar cvzf create-me.tar.gz 1 2 3 4;;
+    2) echo tar cvf create-me.tar.bz2 --bzip2 1 2 3 4;;
+    3) echo zip -r create-me.zip 1 2 3 4;;
+    4) echo tar cvf create-me.tar 1 2 3 4;;
     5) echo 'tar cvf - 1 2 3 4 | xz -c > create-me.tar.xz';;
   esac
 
@@ -111,10 +169,11 @@ xclip-cp(){
   [ -f "$1" ] || return 5
   DISPLAY=:0.0 xclip -selection clipboard "$1"
 }
-watch-dir(){
-  [ -z "$1" ] && return 1
-  [ -d "$1" ] || return 2
-  inotifywait --recursive --monitor --quiet --event create "$1"
+watch-home(){
+  inotifywait --recursive --monitor --quiet --event create ~/.config ~/.local
+}
+watch-logs-global-journalctl(){
+  sudo journalctl -n30 --follow
 }
 ffplay(){
   [ -z "$1" ] && return 1

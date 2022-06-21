@@ -2,7 +2,8 @@
 
 
 read -p 'please set Timezone and hit ENTER' mytmp
-cat /media/user/DEB_STUFF/_bashrc >> ~/.bashrc
+cat /media/user/DEB_STUFF/_bashrc >> ~/.bashrc_user
+echo -e "\n\n\n[ -f ~/.bashrc_user ] && . ~/.bashrc_user\n\n\n" >> ~/.bashrc
 cp /media/user/DEB_STUFF/_vimrc >> ~/.vimrc
 sudo cp /media/user/DEB_STUFF/python4.pl /usr/bin/python4.pl
 ln -s /media/user/DEB_STUFF/dot_steam ~/.steam
@@ -11,11 +12,24 @@ ln -s /media/user/DEB_STUFF/dot_cache_mesa_shader_cache ~/.cache/mesa_shader_cac
 ln -s /media/user/DEB_STUFF/dot_local_share_volition ~/.local/share/volition
 sudo dpkg --add-architecture i386
 sudo systemctl stop cups exim4 cups-browsed avahi-daemon avahi-daemon.socket cron anacron.timer
+sudo systemctl stop bluetooth && sudo systemctl disable bluetooth
+sudo systemctl stop apt-daily-upgrade.timer apt-daily.timer sysstat-summary.timer
+sudo systemctl disable apt-daily-upgrade.timer apt-daily.timer sysstat-summary.timer
 
 sudo /usr/sbin/swapon /dev/sda2
 sudo apt purge $(dpkg -l | egrep -i 'mozi|fox' | awk '{print $2}' | tr '\n' ' ') epiphany-browser konqueror chromium
+sudo apt purge goldendict exfalso parole quodlibet
+sudo apt --purge autoremove
+
+#30%sure this is OK
+sudo systemctl stop sysstat-collect.timer sysstat-collect
+sudo systemctl disable sysstat-collect.timer sysstat-collect
 
 rmdir ~/Documents
 ln -s /media/user/DEB_STUFF/Documents ~/Documents
 echo 'now go to /media/user/DEB_STUFF and install all of the software you want'
 echo 'oh yeah, change your wallpaper, remove Desktop icons, and get rid of some ~/ directories'
+echo
+echo
+echo 'sudo dpkg --force-depends --remove xfburn xfce4-dict xfce4-goodies'
+sudo 'apt-mark hold $packages_that_can_be_autoremoved-get_from_apt-finstall_output'

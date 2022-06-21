@@ -86,6 +86,7 @@ auto             - Set this installed $package_name to be auto-removed (ie. assu
 autoclean        - Erase downloaded archive files from /var/cache/apt/archives/*.deb basically except for the ones that are identical to the ones in your live repository /etc/apt/sources.list*
 autopurge        - Remove packages with their configuration files and automatically remove all unused packages (always good after a good `sudo apt purge $package_name` or `sudo dpkg --remove $package_name`)
 autoremove       - Remove automatically all unused packages (always good after a good `sudo apt purge $package_name` or `sudo dpkg --remove $package_name`)
+autosourceslist  - Generate an automated sources.list file that selects the fastest mirror to `sudo apt install` from
 build            - Download source code for a package into current directory, extract, and build it. `sudo apt builddep $package_name` (? or is it source name?) (to get the source-building-dependency packages necessary a priori building otherwise hope for the best)
 build-dep        - Configure build-dependencies for source packages; to build source code you will require the necessary packages -- they shall be installed
 changelog        - View a packagez changelog
@@ -134,14 +135,14 @@ echo '
 `apt-cache` depends rdepends stats list show
 `apt-cache policy` pkgurl
 `apt-file search` contains-repo
-`apt` list show download moo showsrc source
+`apt` depends download list moo show showsrc source 
 `apt-mark` showhold showmanual
 `dpkg -L` content
 `dpkg -l` listallpkgs
 `# I have a bash "one-liner" that can do this, request as necessary` recommends
 `dpkg-query -f "\${Version}" -W` version
 `dpkg -S` contains
-`sudo apt` autoremove install autoclean build-dep clean dselect-upgrade edit-sources full-upgrade purge remove update upgrade
+`sudo apt` autoremove --reinstall install autoclean build-dep clean dselect-upgrade edit-sources full-upgrade purge remove update upgrade
 `sudo apt --build source` build
 `sudo apt --purge autoremove` autopurge
 `sudo apt edit-sources` sources
@@ -153,6 +154,7 @@ echo '
 `sudo apt install aptitude && aptitude` changelog
 `sudo apt install aptitude && sudo aptitude` reinstall
 `sudo apt install apt-rdepends && man apt-rdepends` download-all
+`sudo apt install netselect-apt && sudo netselect-apt` autosourceslist
 `sudo apt install software-properties-common && man add-apt-repository` add-repository
 `sudo apt-mark` hold unhold manual auto
 `sudo dpkg -i` deb-install
@@ -205,6 +207,107 @@ essential-debs/toilet-fonts_0.3-1.3_all.deb
 essential-debs/txt2man_1.7.1-1+deb11u1_all.deb
 essential-debs/wget_1.21-1+deb11u1_amd64.deb
 essential-debs/xclip_0.13-2_amd64.deb
+OPEN CONNECTIONS TWO WAYS OF DOING IT BOTH BENEFICIAL
+
+  sudo netstat -anpl --inet   #IP addresses and your IP address (3%sure)
+  sudo netstat -tapdu         #hostnames of the foreign places
+
+EXTERNAL IP ADDRESS RESEARCH
+
+  #(ie. modem/router/ISP-hardware IP)
+  curl --silent http://smart-ip.net/myip
+  #TODO: try google searching 'my ip' 13%chance you'll get it
+
+DEBIAN SOURCE CODE COMPILATION FUN
+
+  apt --simulate build-dep vim
+  sudo apt build-dep vim
+  mkdir -pv ~/Downloads/vim-src && cd ~/Downloads/vim-src && {
+    apt source --build vim #have fun
+  }
+  #<OPTIONAL>
+  #TODO: figure out a way to undo the build-dep package installation (by purging all of those packages or whatever)
+  #</OPTIONAL>
+
+VERIZON USB/DONGLE WIRELESS INTERNET
+
+  Verizon 4G LTE USB Modem UML295
+
+  Needs a SIM card that's activated.
+  access via:
+    http://192.168.32.2:4330
+    http://mbb.vzw.com
+
+  Let the Verizon Store setup a valid SIM card & put it in the USB modem.  
+
+DEBIAN NOTES
+
+  echo Debian has 51,000 amd64/pre-compiled packages
+
+DEBIAN TTY/VIRTUAL-CONSOLE THINGS TO TRY IN LIVEOS/LIVEISO/LIVEUSB
+
+  sudo $EDITOR /etc/systemd/logind.conf
+  #set NAutoVTs=8
+  sudo systemctl restart logind #or find out how to do a daemon-reload `man systemctl`
+
+LINUX LOG FILES LOOKING AT BULLSHIT
+
+  #look at the log file of when your computer first boots:
+  #all of those kernel messages like:
+  #your BIOS version (eg. BIOS 1.11.0 12/04/2019),
+  #your PC's model number (eg. Dell Inc. Inspiron 5566/0NWJDC),
+  #your boot image (eg. /boot/vmlinuz-5.10.0-13-amd64),
+  #your boot image's options (like toram and pcie_aspm=off)
+  #the company that created your EFI in BIOS (eg. American Megatrends)
+  #your processor's speed: (eg. 2900 MHz)
+  #your kernel build date (eg. January 10th, 2021)
+  man journalctl | grep -- --boot
+
+  #know when you last booted
+  uptime --since; uptime --pretty; sudo journalctl --list-boots | cat -
+
+  #watch for new journalctl messages:
+  sudo journalctl -n30 --follow
+
+  #make/free more free? space on you DISK/SWAP:
+  sudo journalctl --disk-usage | tr ' ' '\n' | egrep '^[0-9]'
+  #224.0M  (for example)
+  sudo journalctl --vacuum-size=100M
+
+LINUX USER/GROUP MANAGMENT BULLSHIT
+
+  #change a user's username/login name
+  man usermod | grep -i login
+
+  #add/append valid users to a group
+  man usermod | grep -i -- '-g|append'
+
+  #lock a user account
+  man usermod | grep -i lock
+
+  #move home directory for a user
+  man usermod | grep -i home
+
+  #add a new group to the system
+  man groupadd | grep groupadd
+
+DIFFERENCE PWD and CWD
+  
+  CWD (ie. CURRENT WORKING DIRECTORY) can change (ie. is dynamic) in/within the process that is ran.
+  PWD (ie. PRINT WORK DIRECTORY) is constant.
+
+  "Changes" Working Directory: CWD
+  "Permanent" Working Directory: PWD
+
+MOUNT A PARTITION WITHIN A FILESYSTEM BUT YOU CAN'T REMEMBER IF IT'S EXT4 or FAT32/VFAT???
+
+  mount -t auto /dev/sdb1 /media/whatever11111111111111111111111
+
+CLEAR/RESET/EMPTY A FILE
+
+  #this is like:    echo -n '' > ~/hello.txt
+  :>~/hello.txt
+
 GO THROUGH INSIDE OF ONE-LEVEL SUBDIR AND DO SOMETHING
 
   for d in */; do ( if cd -- "$d"; then git status >/dev/null 2>&1; if [ $? = 128 ]; then printf '%s\n' "$d isn't a valid git repo"; fi; fi ); done
@@ -228,6 +331,43 @@ STRIPPING JPEG (PNG?????) EXIF DATA INFORMATION
 
   man exiftool #search 'all'
   man jpegoptim
+
+CURL _VS_ WGET EQUIVALENCY COMPARISON
+
+  #curl: --max-time SECONDS IN DECIMAL BEFORE BAIL.
+  #wget: --timeout
+
+  #curl: --disable    IGNORE all of the curl.conf files everywhere...
+
+  #curl: --silent     DISABLE progress bar BS, informational shit, and error shit
+  #curl: --show-error SHOW ERROR message iff --silent is given AND there is a 404/403/whatever.  (TODO: STDERR?)
+  #TODO: is the progress bar screwy sent to STDERR to a file????
+  #curl: --fail       INSTEAD of 404/403 HTML output, give nothing
+  #TODO: is -POST necessary if I have "--form" options? Shouldn't POST be defaulted?
+  #wget: '--post-data=name1=value1&name2=value2&name3=value3&name4=value4'
+
+  #wget: --server-response print HTTP header (TODO: to stderr or stdout??)
+  #curl: --head            "" (stdout 90%sure)
+
+  curl --max-time 2.3 --disable --silent --show-error --fail -POST --form name1=value1 --form name2=value2 --form name3=value3 --form name4=value4
+
+  #wget: --quiet          TODO all STDERR gone???? yup.
+  #wget: --timestamping   TODO set the mod file date/time to whatever it is on the server???????
+  wget --quiet --timestamping --output-document=tmp_output_file.dat
+
+CURL VS WGET SUPER EQUIVALENCY EXAMPLES
+
+  #the wget is +30% (more) verbose
+  wget --output-document=- http://localhost:8080/wget-curl-me.php | grep Hello
+  curl --output - http://localhost:8080/wget-curl-me.php | grep Hello
+
+  wget --quiet  --output-document=- http://localhost:8080/wget-curl-me.php | grep Hello
+  curl --silent --output - http://localhost:8080/wget-curl-me.php | grep Hello
+
+  wget --quiet  --output-document=- http://localhost:8080/DNE.php | grep Hello
+  echo $? #1
+  curl --silent --output - http://localhost:8080/DNE.php | grep Hello
+  echo $? #1
 
 GET ALL OF THE CAMERA STATS AND PHOTO/IMAGE EDITOR STATS OF A JPEG MAYBE A PNG
 
@@ -731,24 +871,81 @@ TMUX QUICK REFERENCE GUIDE
 
   tmux
   tmux attach #ie. restore-pane-(settings-)session
+  CTRL+B, d   DDDetach() from session
   CTRL+B, "   OPEN(horizontal pane)
   CTRL+B, %   OPEN(vertical pane)
   CTRL+B, ARROW KEYS      SWITCH(active/current pane)
   CTRL+B, x   CLOSE(active/current pane)
   CTRL+D      (same thing as above)
   exit        (same thing as above)
-  
-  CTRL+B, z   ZOOM(current pane)
-  CTRL+B, z   ZOOM-OUT(to all panes)
+
+  `top`, `tail -f /var/log/syslog`, `watch-home`, `watch-logs-global-journalctl`
+
+RUST CARGO "CRATE" BULLSHIT
+
+  #assuming the source code you want to compile is in ~/source-code.c
+  cat ~/source-code.c | xclip -selection clipboard
+  epiphany https://rust2c.com   #CTRL+V code in here
+                                #put code ~/source-code.rs
+  cd ~ && {
+    sed -i '/register_tool/d;/feature(main/d;/^#\[main\]$/d' source-code.rs && \
+    cargo new temp1111 && \
+    mv -iv ~/source-code.rs temp1111/src/main.rs && \
+    cd temp1111 && echo -e "\nlibc = \"0.2\"" >> Cargo.toml && cargo fetch && cargo build && cargo run
+  }
+
+PWD ASSESSMENT RESEARCH
+
+  du -S
+  492	./data/global/excel
+  4	./data/global
+  4	./data
+  600	.
+
+  du
+  492	./data/global/excel
+  496	./data/global
+  500	./data
+  1100	.
+
+  du -h --max-depth=1
+  500K	./data
+  1.1M	.
+
+CHROOT INTO A LINUX DISTRIBUTION THAT IS INSTALLED AT AN EXT4 PARTITION ON AN HDD/SSD/USB-HDD AND
+  RUN A GOOD/SOLID RECOVERY BASH SHELL IN THERE
+
+  #TODO make sure we're running this as root..
+  MOUNT_POINT=/root/mounted_ext4_partition_to_recover_here
+  chroot-recoveryshell-automount-inherit-current-system-state(){
+    mkdir -v $MOUNT_POINT || return 4
+    #TODO mount the actual ext4 here...
+    for i in dev{,pts} proc sys; do
+      mount --bind /$i $MOUNT_POINT/$i
+    done
+    chroot $MOUNT_POINT #TODO: OR:  chroot $MOUNT_POINT /bin/su -
+    echo REMEMBER to call chroot-recoveryshell-dismantle
+    echo "OR you'll be sooooooooooorry"
+  }
+  chroot-recoveryshell-dismantle(){
+    for i in dev{,pts} proc sys; do
+      umount $MOUNT_POINT/$i
+    done
+  }
 
 #PUT IN BASH HISTORY TO take list of URL links and wget them into 001.txt .. 999.txt
 #n=0; while read myLine; do (( n++ )); wget_out_file=$(printf '%03d.txt' $n); echo "$wget_out_file $myLine" >> wget-MAP.txt; echo "wget -O $wget_out_file '$myLine'" >> wget-TODO.sh; done <<< "$(cat novaks-LINKs.txt)"
+
+#prevents CTRL+S freezing the tty/virtual-console (ie. until CTRL+Q is hit)
+#see:   stty -a | egrep 'start|stop'
+stty start undef
+stty stop undef
 
 export TZ=America/Los_Angeles
 export EDITOR=/usr/bin/vim
 export WINEPREFIX=/media/user/DEB_STUFF/dot-wine
 wow='/media/user/DEB_STUFF/dot-wine/drive_c/Program Files (x86)/Battle.net'
-www='/home/user/Documents/localhost-httpd/www'
+www='/home/user/Documents/Github-repos/localhost-httpd/www'
 git='/home/user/Documents/Github-repos'
 export todo='/home/user/Documents/TODO/todo.txt'
 export bash1='/home/user/Documents/bash.1.txt'
@@ -761,10 +958,67 @@ alias weechat='echo bitchx'
 alias bash++='/usr/bin/perl'
 alias suspend='echo systemctl suspend'
 alias battery='echo acpitool -b'
-alias eject='bash -c "udisksctl unmount --block-device /dev/sdb1; udisksctl power-off --block-device /dev/sdb"'
 alias check-network='bash -c "ip route; curl -IL http://nmcheck.gnome.org/check_network_status.txt"'
 alias tty-silence='sudo dmesg -n 1'
 alias tty-silence-restore='sudo dmesg -n 8'
+alias df='df --human-readable --print-type 2>/dev/null'
+alias tty-exec-desktop-program='echo "DISPLAY=:0.0 google-chrome http://people.oregonstate.edu"'
+remind-me(){
+  [ $# -ge 2 ] || return 4
+  local sleep_for="$1"
+  shift
+  echo "sleep $sleep_for && wall '$*'"
+  sleep "$sleep_for" && wall "$*"
+}
+up(){
+  local levels="$1"
+  [ -z "$levels" ] && levels=2
+  [[ "$levels" =~ ^[0-9]$ ]] || return 4
+  while [ "$levels" -gt 0 ]; do
+    (( levels-- ))
+    cd ..
+  done
+}
+str_trim(){
+  local args="$*"
+  [ -z "$args" ] && return 0
+  args="${args#"${args%%[![:space:]]*}"}"
+  args="${args%"${args##*[![:space:]]}"}"
+  echo -n "$args"
+}
+str_tolowercase(){
+  echo "$*" | tr A-Z a-z
+}
+str_touppercase(){
+  echo "$*" | tr a-z A-Z
+}
+cd2(){
+  [ $# -eq 1 ] || return 4
+  if [ -z "$1" ]; then
+    cd
+  elif [ -d "$1" ]; then
+    cd "$1"
+  else
+    mkdir -pv "$1" && cd "$1"
+  fi
+}
+is_desktop_running(){
+  if systemctl status lightdm; then return 0; else return 1; fi
+}
+eject(){
+  if [ -d /media/user/MYFAT34 ]; then
+    udisksctl unmount --block-device /dev/sdb1
+    udisksctl power-off --block-device /dev/sdb
+  else
+    /usr/bin/eject
+  fi
+}
+Z(){
+  cd ~/Documents && unzip Z.zip && shred -uv Z.zip && $EDITOR Z && zip --encrypt Z.zip Z && shred -uv Z
+}
+apt-non-debian-packages-installed(){
+  aptitude search '?narrow(?installed, ?not(?origin(Debian)))'
+}
 pm-finder(){
   [ -z "$1" ] && return 3
   find $(perl -e 'for(@INC){print $_, " ";}') -type f -name "*$1*" -printf '%p ' 2>/dev/null
@@ -775,7 +1029,6 @@ vim-pm(){
 }
 lucky(){ s="$*"; [ -z "$s" ] && return 3; echo $s | perl -ne 'BEGIN{undef $/;}if(m#(https?://[a-zA-Z0-9/.:?_\-]+)#){print $1;}'; }
 goog(){ local s="$*"; links "https://google.com/search?q=${s// /+}"; }
-alias sync='echo sync-all'
 sync-all(){
   [ -f ~/.bashrc_user ] || return 3
   [ -f /media/user/DEB_STUFF/_bashrc ] || return 4
@@ -786,14 +1039,36 @@ sync-all(){
   [ -f ~/Documents/bash.1.txt ] || return 9
   [ -f ~/Documents/Github-repos/debian-fresh2/bash.1.txt ] || return 10
 
-  diff ~/.bashrc_user /media/user/DEB_STUFF/_bashrc || \
+  diff /media/user/DEB_STUFF/_bashrc ~/.bashrc_user || \
     cp -vi ~/.bashrc_user /media/user/DEB_STUFF/_bashrc
-  diff ~/.vimrc /media/user/DEB_STUFF/_vimrc || \
+  diff /media/user/DEB_STUFF/_vimrc ~/.vimrc || \
     cp -vi ~/.vimrc /media/user/DEB_STUFF/_vimrc
-  diff ~/.bashrc_user ~/Documents/Github-repos/debian-fresh2/_bashrc.txt || \
+  diff ~/Documents/Github-repos/debian-fresh2/_bashrc.txt ~/.bashrc_user || \
     cp -vi ~/.bashrc_user ~/Documents/Github-repos/debian-fresh2/_bashrc.txt
-  diff ~/Documents/bash.1.txt ~/Documents/Github-repos/debian-fresh2/bash.1.txt || \
+  diff ~/Documents/Github-repos/debian-fresh2/bash.1.txt ~/Documents/bash.1.txt || \
     cp -vi ~/Documents/bash.1.txt ~/Documents/Github-repos/debian-fresh2/bash.1.txt
+}
+tarhelp(){
+  cat <<EOFFFFFFFF
+1) tar.gz
+2) tar.bz2
+3) zip
+4) tar
+5) tar.xz
+
+EOFFFFFFFF
+  local myv
+  read -n 1 -p '? ' myv
+  echo
+
+  case "$myv" in
+    1) echo tar cvzf create-me.tar.gz 1 2 3 4;;
+    2) echo tar cvf create-me.tar.bz2 --bzip2 1 2 3 4;;
+    3) echo zip -r create-me.zip 1 2 3 4;;
+    4) echo tar cvf create-me.tar 1 2 3 4;;
+    5) echo 'tar cvf - 1 2 3 4 | xz -c > create-me.tar.xz';;
+  esac
+
 }
 vol-up(){
   local myv
@@ -828,10 +1103,11 @@ xclip-cp(){
   [ -f "$1" ] || return 5
   DISPLAY=:0.0 xclip -selection clipboard "$1"
 }
-watch-dir(){
-  [ -z "$1" ] && return 1
-  [ -d "$1" ] || return 2
-  inotifywait --recursive --monitor --quiet --event create "$1"
+watch-home(){
+  inotifywait --recursive --monitor --quiet --event create ~/.config ~/.local
+}
+watch-logs-global-journalctl(){
+  sudo journalctl -n30 --follow
 }
 ffplay(){
   [ -z "$1" ] && return 1
@@ -1174,19 +1450,23 @@ essential-debs/install-info_6.7.0.dfsg.2-6_amd64.deb
 essential-debs/iotop_0.6-24-g733f3f8-1.1_amd64.deb
 essential-debs/jpegoptim_1.4.6-1_amd64.deb
 essential-debs/jq_1.6-2.1_amd64.deb
+essential-debs/libevent-core-2.1-7_2.1.12-stable-1_amd64.deb
 essential-debs/libfile-next-perl_1.18-1_all.deb
 essential-debs/libinotifytools0_3.14-8.1_amd64.deb
 essential-debs/libjq1_1.6-2.1_amd64.deb
 essential-debs/libjs-underscore_1.9.1~dfsg-3_all.deb
 essential-debs/libonig5_6.9.6-1.1_amd64.deb
+essential-debs/ncal_12.1.7+nmu3_amd64.deb
 essential-debs/netcat_1.10-46_all.deb
 essential-debs/netcat-openbsd_1.217-3_amd64.deb
+essential-debs/netselect_0.3.ds1-29_amd64.deb
+essential-debs/netselect-apt_0.3.ds1-29_all.deb
 essential-debs/net-tools_1.60+git20181103.0eebece-1_amd64.deb
 essential-debs/optipng_0.7.7-1+b1_amd64.deb
 essential-debs/perl-doc_5.32.1-4+deb11u2_all.deb
 essential-debs/pinfo_0.6.13-1.1_amd64.deb
 essential-debs/strace_5.10-1_amd64.deb
-essential-debs/tmux_3.1c-1+deb11u1_amd64.deb
+essential-debs/tmux_3.3a-1_bpo11+1_amd64.deb
 essential-debs/toilet_0.3-1.3_amd64.deb
 essential-debs/toilet-fonts_0.3-1.3_all.deb
 essential-debs/txt2man_1.7.1-1+deb11u1_all.deb
@@ -1987,7 +2267,8 @@ Conf libopengl0:i386 (1.3.2-1 Debian:11.3/stable [i386])
 
 
 read -p 'please set Timezone and hit ENTER' mytmp
-cat /media/user/DEB_STUFF/_bashrc >> ~/.bashrc
+cat /media/user/DEB_STUFF/_bashrc >> ~/.bashrc_user
+echo -e "\n\n\n[ -f ~/.bashrc_user ] && . ~/.bashrc_user\n\n\n" >> ~/.bashrc
 cp /media/user/DEB_STUFF/_vimrc >> ~/.vimrc
 sudo cp /media/user/DEB_STUFF/python4.pl /usr/bin/python4.pl
 ln -s /media/user/DEB_STUFF/dot_steam ~/.steam
@@ -1996,14 +2277,27 @@ ln -s /media/user/DEB_STUFF/dot_cache_mesa_shader_cache ~/.cache/mesa_shader_cac
 ln -s /media/user/DEB_STUFF/dot_local_share_volition ~/.local/share/volition
 sudo dpkg --add-architecture i386
 sudo systemctl stop cups exim4 cups-browsed avahi-daemon avahi-daemon.socket cron anacron.timer
+sudo systemctl stop bluetooth && sudo systemctl disable bluetooth
+sudo systemctl stop apt-daily-upgrade.timer apt-daily.timer sysstat-summary.timer
+sudo systemctl disable apt-daily-upgrade.timer apt-daily.timer sysstat-summary.timer
 
 sudo /usr/sbin/swapon /dev/sda2
 sudo apt purge $(dpkg -l | egrep -i 'mozi|fox' | awk '{print $2}' | tr '\n' ' ') epiphany-browser konqueror chromium
+sudo apt purge goldendict exfalso parole quodlibet
+sudo apt --purge autoremove
+
+#30%sure this is OK
+sudo systemctl stop sysstat-collect.timer sysstat-collect
+sudo systemctl disable sysstat-collect.timer sysstat-collect
 
 rmdir ~/Documents
 ln -s /media/user/DEB_STUFF/Documents ~/Documents
 echo 'now go to /media/user/DEB_STUFF and install all of the software you want'
 echo 'oh yeah, change your wallpaper, remove Desktop icons, and get rid of some ~/ directories'
+echo
+echo
+echo 'sudo dpkg --force-depends --remove xfburn xfce4-dict xfce4-goodies'
+sudo 'apt-mark hold $packages_that_can_be_autoremoved-get_from_apt-finstall_output'
 
 w3c-linkchecker w3c-markup-validator #requires apache2, ugh.
 translate-shell #google-translate-cli
@@ -2054,6 +2348,19 @@ Congratulations python, you're the leader in malware shit:    9:deb, 218:pm, 107
 1.6M	dash-0.5.11+git20200708+dd9ef66/
 39M	bash-5.1/
 109M	perl-5.32.1/
+
+
+unbind C-b
+set -g prefix C-Space
+bind C-Space send-prefix
+
+set -g status "off"
+set -g pane-border-status "off"
+set -g pane-border-format "hidden"
+set -g pane-border-lines "number"
+set -g pane-active-border-style "hidden"
+set -g pane-border-style "hidden"
+
 
 
 " :syntax on    to enable syntax highlighting supposidly
