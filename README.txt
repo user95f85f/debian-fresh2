@@ -998,8 +998,8 @@ WICKED FILE MANAGEMENT OBSERVATION WITHIN DIRECTORIES!! RESEARCH
 
 PASTEBIN RESEARCH
 
-  #supposidly the pastes are stored for 14 days
-  alias qbin="curl https://qbin.io --silent --upload-file -"
+  curl --data-binary @file.txt https://paste.rs/
+  curl -F 'f:1=@file.ext' ix.io
 
 #PUT IN BASH HISTORY TO take list of URL links and wget them into 001.txt .. 999.txt
 #n=0; while read myLine; do (( n++ )); wget_out_file=$(printf '%03d.txt' $n); echo "$wget_out_file $myLine" >> wget-MAP.txt; echo "wget -O $wget_out_file '$myLine'" >> wget-TODO.sh; done <<< "$(cat novaks-LINKs.txt)"

@@ -789,5 +789,5 @@ WICKED FILE MANAGEMENT OBSERVATION WITHIN DIRECTORIES!! RESEARCH
 
 PASTEBIN RESEARCH
 
-  #supposidly the pastes are stored for 14 days
-  alias qbin="curl https://qbin.io --silent --upload-file -"
+  curl --data-binary @file.txt https://paste.rs/
+  curl -F 'f:1=@file.ext' ix.io
