@@ -1,3 +1,15 @@
+BINARY FILE SERVER WEBSITES TO UPLOAD TO EASILY WITH CLI/SHELL/CURL/WGET
+
+  https://transfer.sh #your file is there for 14 days. TODO: filename restrictions? filesize restrictions?
+  #using this service is a 0.3%good idea
+
+  #EG. with:
+  #curl --progress-bar --upload-file
+  #or --form 'file=@filename.tar.gz' --form 'file2=@filename2.tar.gz'
+  #or --form 'file=@"filename3.tar.gz";filename="whatever.dat"'
+  #or wget --post-file=filename.tar.gz
+
+
 OPEN CONNECTIONS TWO WAYS OF DOING IT BOTH BENEFICIAL
 
   sudo netstat -anpl --inet   #IP addresses and your IP address (3%sure)
@@ -315,16 +327,29 @@ COMMAND ARGUMENT AS MULTI-LINED HERE-DOC
 
 
 
-TESTING TO SEE IF YOU'RE IN A TERMINAL
+TESTING TO SEE IF YOU'RE IN A TERMINAL RESEARCH
 
   if test -t 1; then
     echo we are in a TTY/terminal
   fi
+  if ! tty -s; then #external command
+    echo we are receiving STDIN through this function-call
+  fi
+
+CREATING A TEMPORARY FILE
+
+  tmpfilename=$( mktemp -t whateverXXX )  #e.g. /tmp/whatever0S8; empty file.
+  #-t is for "TEMPLATE" filename. It is a deprecated feature xD
 
 USING NETCAT
 
   #on Debian/Listener:
-  nc -l -p 1234 > $(mktemp -p .)
+  nc -l -p 1234 > $(mktemp --tmpdir=.)  #ie. ./tmp.05guYTU4jR; empty file.
+    #if --tmpdir is set with no directory exported $TMPDIR is used, else /tmp/
+    #however, without a TEMPLATE set (as per default, and expressed here-in with this command),
+    #--tmpdir is default IMPLIED. Therefore in this case if '.' was not specified as the
+    #temporary-target-directory (via i.e. --tmpdir=.) then $TMPDIR (unlikely) then
+    #/tmp/ would be used.
   #on Pop/   Sender:
   nc -w 3 10.42.0.52 1234 < /etc/apt/sources.list
   #Android was @ 10.42.0.177
@@ -429,6 +454,17 @@ GITHUB SHIT
   #git config --global core.askPass '/path/to/executable/that/echos/the/password/hehe.sh' 
   #git config --global credential.username 'user95f85f'
   #git config --global user.email 'user9de1d@gmail.com' #--required on the github for contributions to show up on your main page to show your activity on github
+
+  #your global git config settings:
+  cat <<EOF >~/.gitconfig
+[user]
+	name = ${GITHUB_USERNAME}_cli
+	email = ${GITHUB_REGISTERED_EMAIL_FOR_CONTRIBUTION_ON_GITHUB_TRACKING}
+[core]
+	askPass = ${CHMOD_X_STDOUT_YOUR_TOKEN}
+[credential]
+	username = ${GITHUB_USERNAME}
+EOF
 
 
 JAVASCRIPT USE STRICT LIKE PERL
@@ -750,3 +786,8 @@ WICKED FILE MANAGEMENT OBSERVATION WITHIN DIRECTORIES!! RESEARCH
       └── global
           └── excel
   3 directories
+
+PASTEBIN RESEARCH
+
+  #supposidly the pastes are stored for 14 days
+  alias qbin="curl https://qbin.io --silent --upload-file -"

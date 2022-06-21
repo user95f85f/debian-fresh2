@@ -207,6 +207,18 @@ essential-debs/toilet-fonts_0.3-1.3_all.deb
 essential-debs/txt2man_1.7.1-1+deb11u1_all.deb
 essential-debs/wget_1.21-1+deb11u1_amd64.deb
 essential-debs/xclip_0.13-2_amd64.deb
+BINARY FILE SERVER WEBSITES TO UPLOAD TO EASILY WITH CLI/SHELL/CURL/WGET
+
+  https://transfer.sh #your file is there for 14 days. TODO: filename restrictions? filesize restrictions?
+  #using this service is a 0.3%good idea
+
+  #EG. with:
+  #curl --progress-bar --upload-file
+  #or --form 'file=@filename.tar.gz' --form 'file2=@filename2.tar.gz'
+  #or --form 'file=@"filename3.tar.gz";filename="whatever.dat"'
+  #or wget --post-file=filename.tar.gz
+
+
 OPEN CONNECTIONS TWO WAYS OF DOING IT BOTH BENEFICIAL
 
   sudo netstat -anpl --inet   #IP addresses and your IP address (3%sure)
@@ -524,16 +536,29 @@ COMMAND ARGUMENT AS MULTI-LINED HERE-DOC
 
 
 
-TESTING TO SEE IF YOU'RE IN A TERMINAL
+TESTING TO SEE IF YOU'RE IN A TERMINAL RESEARCH
 
   if test -t 1; then
     echo we are in a TTY/terminal
   fi
+  if ! tty -s; then #external command
+    echo we are receiving STDIN through this function-call
+  fi
+
+CREATING A TEMPORARY FILE
+
+  tmpfilename=$( mktemp -t whateverXXX )  #e.g. /tmp/whatever0S8; empty file.
+  #-t is for "TEMPLATE" filename. It is a deprecated feature xD
 
 USING NETCAT
 
   #on Debian/Listener:
-  nc -l -p 1234 > $(mktemp -p .)
+  nc -l -p 1234 > $(mktemp --tmpdir=.)  #ie. ./tmp.05guYTU4jR; empty file.
+    #if --tmpdir is set with no directory exported $TMPDIR is used, else /tmp/
+    #however, without a TEMPLATE set (as per default, and expressed here-in with this command),
+    #--tmpdir is default IMPLIED. Therefore in this case if '.' was not specified as the
+    #temporary-target-directory (via i.e. --tmpdir=.) then $TMPDIR (unlikely) then
+    #/tmp/ would be used.
   #on Pop/   Sender:
   nc -w 3 10.42.0.52 1234 < /etc/apt/sources.list
   #Android was @ 10.42.0.177
@@ -638,6 +663,17 @@ GITHUB SHIT
   #git config --global core.askPass '/path/to/executable/that/echos/the/password/hehe.sh' 
   #git config --global credential.username 'user95f85f'
   #git config --global user.email 'user9de1d@gmail.com' #--required on the github for contributions to show up on your main page to show your activity on github
+
+  #your global git config settings:
+  cat <<EOF >~/.gitconfig
+[user]
+	name = ${GITHUB_USERNAME}_cli
+	email = ${GITHUB_REGISTERED_EMAIL_FOR_CONTRIBUTION_ON_GITHUB_TRACKING}
+[core]
+	askPass = ${CHMOD_X_STDOUT_YOUR_TOKEN}
+[credential]
+	username = ${GITHUB_USERNAME}
+EOF
 
 
 JAVASCRIPT USE STRICT LIKE PERL
@@ -960,6 +996,11 @@ WICKED FILE MANAGEMENT OBSERVATION WITHIN DIRECTORIES!! RESEARCH
           └── excel
   3 directories
 
+PASTEBIN RESEARCH
+
+  #supposidly the pastes are stored for 14 days
+  alias qbin="curl https://qbin.io --silent --upload-file -"
+
 #PUT IN BASH HISTORY TO take list of URL links and wget them into 001.txt .. 999.txt
 #n=0; while read myLine; do (( n++ )); wget_out_file=$(printf '%03d.txt' $n); echo "$wget_out_file $myLine" >> wget-MAP.txt; echo "wget -O $wget_out_file '$myLine'" >> wget-TODO.sh; done <<< "$(cat novaks-LINKs.txt)"
 
@@ -990,6 +1031,8 @@ alias tty-silence='sudo dmesg -n 1'
 alias tty-silence-restore='sudo dmesg -n 8'
 alias df='df --human-readable --print-type 2>/dev/null'
 alias tty-exec-desktop-program='echo "DISPLAY=:0.0 google-chrome http://people.oregonstate.edu"'
+alias lightdm-off='is_desktop_running && sudo systemctl stop lightdm'
+alias lightdm-on='is_desktop_running || sudo systemctl start lightdm'
 remind-me(){
   [ $# -ge 2 ] || return 4
   local sleep_for="$1"

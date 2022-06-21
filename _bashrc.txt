@@ -29,6 +29,8 @@ alias tty-silence='sudo dmesg -n 1'
 alias tty-silence-restore='sudo dmesg -n 8'
 alias df='df --human-readable --print-type 2>/dev/null'
 alias tty-exec-desktop-program='echo "DISPLAY=:0.0 google-chrome http://people.oregonstate.edu"'
+alias lightdm-off='is_desktop_running && sudo systemctl stop lightdm'
+alias lightdm-on='is_desktop_running || sudo systemctl start lightdm'
 remind-me(){
   [ $# -ge 2 ] || return 4
   local sleep_for="$1"
