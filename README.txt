@@ -933,6 +933,33 @@ CHROOT INTO A LINUX DISTRIBUTION THAT IS INSTALLED AT AN EXT4 PARTITION ON AN HD
     done
   }
 
+WICKED FILE MANAGEMENT OBSERVATION WITHIN DIRECTORIES!! RESEARCH
+
+  tree -CAhF --dirsfirst
+  ├── [4.0K]  data/
+  │   └── [4.0K]  global/
+  │       └── [4.0K]  excel/
+  │           ├── [ 74K]  armor.txt
+  │           ├── [ 56K]  MagicPrefix.txt
+  │           ├── [ 64K]  MagicSuffix.txt
+  │           ├── [ 54K]  misc.txt
+  │           ├── [ 20K]  Runes.txt
+  │           ├── [ 86K]  TreasureClassEx.txt
+  │           └── [115K]  weapons.txt
+  ├── [100K]  All-Diablo2-patch-history.txt
+  ├── [ 882]  CMod-README.txt
+  ├── [267K]  d2s_save_example2_JSON_colored.txt
+  ├── [147K]  d2s_save_example_JSON_colored.txt
+  ├── [ 245]  diablo-2-rings-x5-mod-creator.pl
+  └── [ 67K]  Necro-killed-by-sorc.mp3
+  3 directories, 13 files
+
+  tree -CAFd
+  └── data
+      └── global
+          └── excel
+  3 directories
+
 #PUT IN BASH HISTORY TO take list of URL links and wget them into 001.txt .. 999.txt
 #n=0; while read myLine; do (( n++ )); wget_out_file=$(printf '%03d.txt' $n); echo "$wget_out_file $myLine" >> wget-MAP.txt; echo "wget -O $wget_out_file '$myLine'" >> wget-TODO.sh; done <<< "$(cat novaks-LINKs.txt)"
 
