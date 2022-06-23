@@ -9,6 +9,7 @@ export TZ=America/Los_Angeles
 export WINEPREFIX=/media/user/DEB_STUFF/dot-wine
 apt='apt apt-cache apt-file apt-get apt-mark aptitude dpkg dpkg-query' 
 wow='/media/user/DEB_STUFF/dot-wine/drive_c/Program Files (x86)/Battle.net'
+shield_mount_dir='/home/user/Documents/shield_mapper_mount'
 www='/home/user/Documents/Github-repos/localhost-httpd/www'
 export bash1='/home/user/Documents/bash.1.txt'
 export git='/home/user/Documents/Github-repos'
@@ -116,6 +117,10 @@ EOFFFFFFFF
   esac
 
 }
+vol-low-set(){
+  echo pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo 20%
+  pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo 20%
+}
 vol-up(){
   local myv
   echo '+5%'
@@ -172,7 +177,7 @@ alias ffplayer=ffplay
 # or just convert it into anonymously named/numbered mp3 files.
 #n=1; while read myf; do mv "$myf" "$n.mp3"; (( n++ )); done <<< "$(ls *.mp3)"
 mp3-review(){
-  [[ "$(find -maxdepth 1 -type f -name '* *' | wc -l)" -ne 0 ]] && return 3 #any spaces in files? just exit. fuck it.
+  [[ "$(find -maxdepth 1 -type f -name '* *' | wc -l)" -ne 0 ]] && return 3 #any spaces in files? just exit. f*** it.
   for i in $(echo *.mp3 | tr ' ' '\n' | shuf | tr '\n' ' '); do ffplay $i; read -n 1 -p 'delete? (y/N) ' yn; [[ $yn = 'y' ]] && { echo; rm -v $i; echo; } ;  done
 }
 alert-me(){
