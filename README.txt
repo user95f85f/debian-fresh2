@@ -1169,6 +1169,7 @@ alias tty-silence='sudo dmesg -n 1'
 alias udisks='/usr/bin/udisksctl'
 alias vi='/usr/bin/vim'
 alias weechat='echo bitchx'
+alias myip='bash -c "wget --quiet -O - -4 ifconfig.io; wget --quiet -O - -6 ifconfig.io"'
 mp3_add(){
   if is_desktop_running; then
     DISPLAY=:0.0 mousepad '/home/user/Documents/youtube-downloads/download.sh' &
@@ -1213,7 +1214,7 @@ cd2(){
   fi
 }
 is_desktop_running(){
-  if systemctl status lightdm; then return 0; else return 1; fi
+  if systemctl status --no-pager lightdm; then return 0; else return 1; fi
 }
 eject(){
   if [ -d /media/user/MYFAT34 ]; then
