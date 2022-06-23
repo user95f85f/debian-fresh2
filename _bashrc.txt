@@ -1,42 +1,45 @@
 
-#PUT IN BASH HISTORY TO take list of URL links and wget them into 001.txt .. 999.txt
-#n=0; while read myLine; do (( n++ )); wget_out_file=$(printf '%03d.txt' $n); echo "$wget_out_file $myLine" >> wget-MAP.txt; echo "wget -O $wget_out_file '$myLine'" >> wget-TODO.sh; done <<< "$(cat novaks-LINKs.txt)"
-
 #prevents CTRL+S freezing the tty/virtual-console (ie. until CTRL+Q is hit)
 #see:   stty -a | egrep 'start|stop'
 stty start undef
 stty stop undef
 
-export TZ=America/Los_Angeles
 export EDITOR=/usr/bin/vim
+export TZ=America/Los_Angeles
 export WINEPREFIX=/media/user/DEB_STUFF/dot-wine
+apt='apt apt-cache apt-file apt-get apt-mark aptitude dpkg dpkg-query' 
 wow='/media/user/DEB_STUFF/dot-wine/drive_c/Program Files (x86)/Battle.net'
 www='/home/user/Documents/Github-repos/localhost-httpd/www'
-git='/home/user/Documents/Github-repos'
-export todo='/home/user/Documents/TODO/todo.txt'
 export bash1='/home/user/Documents/bash.1.txt'
+export git='/home/user/Documents/Github-repos'
 export perl_cheatsheet='/home/user/Documents/Github-repos/debian-fresh1/perl-cheat-sheet.txt'
-export python_cheatsheet='/home/user/Documents/Github-repos/debian-fresh2/python-cheat-sheet.txt'
+export python_cheatsheet='/home/user/Documents/Github-repos/debian-fresh1/python-cheat-sheet.txt'
+export todo='/home/user/Documents/TODO/todo.txt'
 alias ..='cd ..'
-alias vi='/usr/bin/vim'
-alias bitchx='/usr/bin/weechat -a -p --plugins irc,logger,alias,exec' #no auto-connect to a server and no plug-ins automatically loaded
-alias weechat='echo bitchx'
 alias bash++='/usr/bin/perl'
-alias suspend='echo systemctl suspend'
 alias battery='echo acpitool -b'
+alias bitchx='/usr/bin/weechat -a -p --plugins irc,logger,alias,exec' #no auto-connect to a server and no plug-ins automatically loaded
 alias check-network='bash -c "ip route; curl -IL http://nmcheck.gnome.org/check_network_status.txt"'
-alias tty-silence='sudo dmesg -n 1'
-alias tty-silence-restore='sudo dmesg -n 8'
 alias df='df --human-readable --print-type 2>/dev/null'
+alias lightdm-stop='is_desktop_running && sudo systemctl stop lightdm'
+alias lightdm-start='is_desktop_running || sudo systemctl start lightdm'
+alias suspend='echo systemctl suspend'
 alias tty-exec-desktop-program='echo "DISPLAY=:0.0 google-chrome http://people.oregonstate.edu"'
-alias lightdm-off='is_desktop_running && sudo systemctl stop lightdm'
-alias lightdm-on='is_desktop_running || sudo systemctl start lightdm'
-remind-me(){
-  [ $# -ge 2 ] || return 4
-  local sleep_for="$1"
-  shift
-  echo "sleep $sleep_for && wall '$*'"
-  sleep "$sleep_for" && wall "$*"
+alias tty-silence-restore='sudo dmesg -n 8'
+alias tty-silence='sudo dmesg -n 1'
+alias udisks='/usr/bin/udisksctl'
+alias vi='/usr/bin/vim'
+alias weechat='echo bitchx'
+mp3_add(){
+  if is_desktop_running; then
+    DISPLAY=:0.0 mousepad '/home/user/Documents/youtube-downloads/download.sh' &
+    DISPLAY=:0.0 epiphany https://youtube.com/search #TODO needs testing? 404?
+  else
+    exit 9
+  fi
+}
+bashrc(){
+  egrep '^(alias|[a-zA-Z_\-]+\(\){)' ~/.bashrc_user | sort
 }
 up(){
   local levels="$1"
@@ -87,35 +90,8 @@ Z(){
 apt-non-debian-packages-installed(){
   aptitude search '?narrow(?installed, ?not(?origin(Debian)))'
 }
-pm-finder(){
-  [ -z "$1" ] && return 3
-  find $(perl -e 'for(@INC){print $_, " ";}') -type f -name "*$1*" -printf '%p ' 2>/dev/null
-}
-vim-pm(){
-  [ -z "$1" ] && return 3
-  $EDITOR $(find $(perl -e 'for(@INC){print $_, " ";}') -type f -name $1 -printf '%p ' 2>/dev/null )
-}
 lucky(){ s="$*"; [ -z "$s" ] && return 3; echo $s | perl -ne 'BEGIN{undef $/;}if(m#(https?://[a-zA-Z0-9/.:?_\-]+)#){print $1;}'; }
 goog(){ local s="$*"; links "https://google.com/search?q=${s// /+}"; }
-sync-all(){
-  [ -f ~/.bashrc_user ] || return 3
-  [ -f /media/user/DEB_STUFF/_bashrc ] || return 4
-  [ -f ~/.vimrc ] || return 5
-  [ -f /media/user/DEB_STUFF/_vimrc ] || return 6
-  [ -f ~/Documents/Github-repos/debian-fresh2/_bashrc.txt ] || return 7
-  [ -f ~/Documents/Github-repos/debian-fresh2/_vimrc.txt ] || return 8
-  [ -f ~/Documents/bash.1.txt ] || return 9
-  [ -f ~/Documents/Github-repos/debian-fresh2/bash.1.txt ] || return 10
-
-  diff /media/user/DEB_STUFF/_bashrc ~/.bashrc_user || \
-    cp -vi ~/.bashrc_user /media/user/DEB_STUFF/_bashrc
-  diff /media/user/DEB_STUFF/_vimrc ~/.vimrc || \
-    cp -vi ~/.vimrc /media/user/DEB_STUFF/_vimrc
-  diff ~/Documents/Github-repos/debian-fresh2/_bashrc.txt ~/.bashrc_user || \
-    cp -vi ~/.bashrc_user ~/Documents/Github-repos/debian-fresh2/_bashrc.txt
-  diff ~/Documents/Github-repos/debian-fresh2/bash.1.txt ~/Documents/bash.1.txt || \
-    cp -vi ~/Documents/bash.1.txt ~/Documents/Github-repos/debian-fresh2/bash.1.txt
-}
 tarhelp(){
   cat <<EOFFFFFFFF
 1) tar.gz
@@ -197,18 +173,19 @@ mp3-review(){
   [[ "$(find -maxdepth 1 -type f -name '* *' | wc -l)" -ne 0 ]] && return 3 #any spaces in files? just exit. fuck it.
   for i in $(echo *.mp3 | tr ' ' '\n' | shuf | tr '\n' ' '); do ffplay $i; read -n 1 -p 'delete? (y/N) ' yn; [[ $yn = 'y' ]] && { echo; rm -v $i; echo; } ;  done
 }
-# ( cmd1; cmd2; cmd3; cmd4; ) | zenity --progress --title="fucking wait" --pulsate --autoclose --nocancel
-msgbox(){
+alert-me(){
   [ -z "$1" ] && return 3
-  [ -z "$2" ] && return 4
-  zenity --title="$1" --info --text="$2" --no-wrap
+  is_desktop_running && {
+    DISPLAY=:0.0 zenity --title="$*" --info --text="$*" --no-wrap
+  }
+  wall "$*"
 }
-internet-test(){
-  echo "curl --output /dev/null --silent --head --location 'http://people.oregonstate.edu/' -w '%{http_code}'" >&2
-  curl --output /dev/null --silent --head --location 'http://people.oregonstate.edu/' -w '%{http_code}'
-}
-man2txt(){
-  echo 'zcat `man --where bash` | groff -t -e -mandoc -Tascii - | less -R'
+remind-me(){
+  [ $# -ge 2 ] || return 4
+  local sleep_for="$1"
+  shift
+  echo "sleep $sleep_for && alert-me '$*'"
+  sleep "$sleep_for" && alert-me "$*"
 }
 wifi-on(){
   #disable auto-connect on auto-connect-enabled connection(s)
@@ -238,34 +215,25 @@ wifi-connect(){
 date-toilet(){
   date | toilet --font term --gay
 }
-debian-forum-open(){
-  [ -z "$1" ] && return 55
-  [ -f "$1" ] || return 56
-  local filename="$(basename "$1")"
-  [[ $filename =~ ^[0-9]+\.txt$ ]] || return 57
-  local topic_id="${filename%%.*}"
-  echo google-chrome "http://forums.debian.net/viewtopic.php?t=$topic_id" 
-  google-chrome "http://forums.debian.net/viewtopic.php?t=$topic_id" 
-}
 excuse(){
-  echo "Actually, that's a feature
-Don't worry, that value is only wrong half of the time
-Even though it doesn't work, how does it feel?
-Everything looks fine my end
-How is that possible?
-I broke that deliberately to do some testing
-I can have a look but there's a lot of if statements in that code!
-I can't make that a priority right now
-I can't test everything
-I couldn't find any examples of how that can be done anywhere else in the project
-I couldn't find any examples of how that can be done anywhere online
-I couldn't find any library that can even do that
-I did a quick fix last time but it broke when we rebooted
-I didn't anticipate that I would make any errors
-I didn't create that part of the program
-I didn't receive a ticket for it
-I forgot to commit the code that fixes that
-I had to do the project backwards as people demanded results out of order
+  echo "Actually, that's a feature; I 0.000000000000%agree
+Don't worry, that value is only wrong half of the time; I 98%agree
+Even though it doesn't work, how does it feel?; LMAO
+Everything looks fine my end; I 0.2%agree
+How is that possible?; *silence*
+I broke that deliberately to do some testing; *silence*
+I can have a look but there's a lot of if statements in that code!; *silence*
+I can't make that a priority right now; 17%agreed
+I can't test everything; *silence*
+I couldn't find any examples of how that can be done anywhere else in the project; 17%true
+I couldn't find any examples of how that can be done anywhere online; 19%true
+I couldn't find any library that can even do that; lol
+I did a quick fix last time but it broke when we rebooted; rofl
+I didn't anticipate that I would make any errors; lol
+I didn't create that part of the program; what?
+I didn't receive a ticket for it; hmm...
+I forgot to commit the code that fixes that; lol
+I had to do the project backwards as people demanded results out of order; ok?
 I have never seen that before in my life
 I haven't been able to reproduce that
 I haven't had any experience with that before
@@ -336,7 +304,7 @@ The client must have been hacked
 The client wanted it changed at the last minute
 The code is compiling
 The download must have been corrupted
-The existing design makes it difficult to do the right thing
+The existing design makes it difficult to do the right thing; I 7% agree
 The marketing department made us put that there
 The original specification contained conflicting requirements
 The person responsible doesn't work here anymore
@@ -355,21 +323,21 @@ There were too many developers working on that same thing
 There's currently a problem with our hosting company
 This code was not supposed to go in to production yet
 This is a previously known bug you told me not to work on yet
-We didn't have enough time to peer review the final changes
-We outsourced that months ago
-We should have updated our software years ago
-We spent three months debugging it because we only had one month to build it
-Well at least we know not to try that again
-Well done, you found my easter egg!
-Well, at least it displays a very pretty error
-Well, that's a first
-What did you type in wrong to get it to crash?
-Where were you when the program blew up?
-You can't use that version on your system
-You must be missing some of the dependencies
-You must have done something wrong
-You must have the wrong version
-You're doing it wrong
-Your browser must be caching the old content" | shuf -n 1
+We didn't have enough time to peer review the final changes; lol
+We outsourced that months ago; lol
+We should have updated our software years ago; eh
+We spent three months debugging it because we only had one month to build it; eesh
+Well at least we know not to try that again; :(
+Well done, you found my easter egg!; eegh
+Well, at least it displays a very pretty error; lol
+Well, that's a first; *silence*
+What did you type in wrong to get it to crash?; what to crash?
+Where were you when the program blew up?; lol
+You can't use that version on your system; for 93% of all men you're average 71%right
+You must be missing some of the dependencies; I'm 3%sure that is right
+You must have done something wrong; I'm 0%sure of that
+You must have the wrong version; ok?
+You're doing it wrong; I'm 3%sure you are 900%right
+Your browser must be caching the old content; what" | shuf -n 1
 }
 

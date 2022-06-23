@@ -1,7 +1,8 @@
 
 
+#'e' at boot menu -->  ^linux .* systemd.unit=multi-user.target toram pcie_aspm=off
+#the first custom option avoids `sudo systemctl start lightdm` which allows you to set things up before starting the X server
 
-read -p 'please set Timezone and hit ENTER' mytmp
 cat /media/user/DEB_STUFF/_bashrc >> ~/.bashrc_user
 echo -e "\n\n\n[ -f ~/.bashrc_user ] && . ~/.bashrc_user\n\n\n" >> ~/.bashrc
 cp /media/user/DEB_STUFF/_vimrc >> ~/.vimrc
@@ -25,6 +26,9 @@ sudo apt --purge autoremove
 sudo systemctl stop sysstat-collect.timer sysstat-collect
 sudo systemctl disable sysstat-collect.timer sysstat-collect
 
+#XFCE4 auto-services are disabled/removed-from-start-of-lightdm-service
+for i in calamares-desktop-icon geoclue-demo-agent orca-autostart print-applet xdg-user-dirs xfce4-clipman-plugin-autostart xscreensaver; do sudo rm -iv /etc/xdg/autostart/$i.desktop; done
+
 rmdir ~/Documents
 ln -s /media/user/DEB_STUFF/Documents ~/Documents
 echo 'now go to /media/user/DEB_STUFF and install all of the software you want'
@@ -32,4 +36,6 @@ echo 'oh yeah, change your wallpaper, remove Desktop icons, and get rid of some 
 echo
 echo
 echo 'sudo dpkg --force-depends --remove xfburn xfce4-dict xfce4-goodies'
-sudo 'apt-mark hold $packages_that_can_be_autoremoved-get_from_apt-finstall_output'
+echo sudo 'apt-mark hold $packages_that_can_be_autoremoved-get_from_apt-finstall_output'
+echo
+echo you might need to set your timezone in XFCE

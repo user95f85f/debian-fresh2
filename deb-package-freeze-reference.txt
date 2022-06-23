@@ -61,7 +61,9 @@ essential-debs/strace_5.10-1_amd64.deb
 essential-debs/tmux_3.3a-1_bpo11+1_amd64.deb
 essential-debs/toilet_0.3-1.3_amd64.deb
 essential-debs/toilet-fonts_0.3-1.3_all.deb
+essential-debs/tree_1.8.0-1+b1_amd64.deb
 essential-debs/txt2man_1.7.1-1+deb11u1_all.deb
 essential-debs/weechat-doc_3.0-1+deb11u1_all.deb
 essential-debs/wget_1.21-1+deb11u1_amd64.deb
+essential-debs/whois_5.5.10_amd64.deb
 essential-debs/xclip_0.13-2_amd64.deb

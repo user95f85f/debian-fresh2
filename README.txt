@@ -218,7 +218,6 @@ BINARY FILE SERVER WEBSITES TO UPLOAD TO EASILY WITH CLI/SHELL/CURL/WGET
   #or --form 'file=@"filename3.tar.gz";filename="whatever.dat"'
   #or wget --post-file=filename.tar.gz
 
-
 OPEN CONNECTIONS TWO WAYS OF DOING IT BOTH BENEFICIAL
 
   sudo netstat -anpl --inet   #IP addresses and your IP address (3%sure)
@@ -241,7 +240,92 @@ DEBIAN SOURCE CODE COMPILATION FUN
   #TODO: figure out a way to undo the build-dep package installation (by purging all of those packages or whatever)
   #</OPTIONAL>
 
-VERIZON USB/DONGLE WIRELESS INTERNET
+VERIZON AIRSPEED JETPACK
+
+  Verizon Airspeed Jetpack $60 (Prepaid version) (4G) (2.4Ghz/5Ghz) (requires no credit check)
+    (ie. Airspeed mobile [wifi] hotspot)
+    (battery powered and/or AC + AC battery charged)
+    (battery lasts about 4 hours)
+    (the Jetpack is about 2x the size of a wallet)
+    (comes with battery, SIM-card-pre-installed, and USB-based AC charger)
+  $30-$60 25GB of data from Verizon for 1 month
+    When you stop paying the service transparently gets dropped.
+    Can pay with 100%cash forever at the Verizon Store.
+    Don't need to pay anything in advance (except of course the Jetpack + 
+  $name, $phone, $email, $physical_address (ie. mailing or home 90%sure), $4Digit_PIN_number
+
+  Extra information:
+    - at least with 2.4GHz the Wi-Fi of the Verizon Airspeed Jetpack
+      it can do: 802.11b 802.11g or 802.11n
+      (or it just chooses something automatically)
+    - it does IPv6 + IPv4
+    - it has a default IPv4 DNS and IPv6 DNS
+    - you can use the charger's head (ie. the power plug-in part) and take
+      it off to have a USB 2.0 [?] connection to plug-in to a
+      laptop/computer/PC to connect to the Internet without
+      wifi/802.*/2.4GHz/5GHz/SSID/password
+        (to enable this feature login to the Jetpack's website & go
+        System->Power Saving->USB Mode
+        to activate this setting (because the default is to use the plug-in
+        as a Charger, not an Internet providing "service")
+  
+  Setup: insert battery. The thing 90%sure will just auto-turn-on...I guess?
+         Otherwise hold power button on the side for 2 seconds
+         wait a little while for activation. 
+
+  http://192.168.1.1     OR
+  http://my.mobilehotspot
+  {
+    default username = admin
+    default password = (same as the wifi password)
+    default SSID     = Verizon-RC400L-*
+  }
+
+  MODEL:  VZW-ASMHS01PP
+  MODEL2:     ASMHS01PP
+  MODEL3:     ASMHS01  
+  SKU:          6482753
+  IMEI:   ******************************************** (hehe)
+  JETPACK HARDWARE-SOFTWARE VERSION:  airspeed_0.01.51
+  JETPACK HARDWARE-SOFTWARE VERSION2: airspeed_0.01.52
+                                      (after Software Update released on June 2nd, 2022 38%sure)
+  
+  goto 2.4GHz WiFi info screen:
+    extract(password) #it's located next to the lock icon
+
+  change_credentials(): #eg. username/password
+    Settings -> Management page
+             -> System Admin
+    (then log out)
+
+  My Verizon Login:
+    https://www.verizonwireless.com/b2c/myverizonlp/
+    (some cool stuff: Account -> My Devices (see account plan)
+
+  turn_off_data_on_jetpack():
+    Advanced Settings -> Network Settings
+
+  power_off_jetpack():
+    *hold 3 seconds power button*
+
+  power_on_jetpack():
+    *hold power button until display turns on*
+
+  reset_jetpack_device_physically(): #resets SSID-name/wifi-username/wifi-password
+                                     #TODO: what else does the reset reset??? the software updates too?
+    *remove battery cover*
+    with device still powered on:
+      *paper-clip reset hole ~6 seconds*
+
+  if(jetpack_responsive == FALSE):
+    reboot() #*hold power button for 8 seconds*
+    restore_factory_settings() #90%sure this is the reset_jetpack_device_physically()
+
+  wifi-on():
+    *hold power for 3 seconds* #I'm 90%sure this is 0%right.....
+
+
+VERIZON USB/DONGLE WIRELESS INTERNET (OBSOLETE/DEPRACATED HARDWARE)
 
   Verizon 4G LTE USB Modem UML295
 
@@ -251,6 +335,8 @@ VERIZON USB/DONGLE WIRELESS INTERNET
     http://mbb.vzw.com
 
   Let the Verizon Store setup a valid SIM card & put it in the USB modem.  
+  
+  
 
 DEBIAN NOTES
 
@@ -262,7 +348,7 @@ DEBIAN TTY/VIRTUAL-CONSOLE THINGS TO TRY IN LIVEOS/LIVEISO/LIVEUSB
   #set NAutoVTs=8
   sudo systemctl restart logind #or find out how to do a daemon-reload `man systemctl`
 
-LINUX LOG FILES LOOKING AT BULLSHIT
+GNU/LINUX LOG FILES LOOKING AT BULLSHIT
 
   #look at the log file of when your computer first boots:
   #all of those kernel messages like:
@@ -286,7 +372,7 @@ LINUX LOG FILES LOOKING AT BULLSHIT
   #224.0M  (for example)
   sudo journalctl --vacuum-size=100M
 
-LINUX USER/GROUP MANAGMENT BULLSHIT
+GNU/LINUX USER/GROUP MANAGMENT BULLSHIT
 
   #change a user's username/login name
   man usermod | grep -i login
@@ -459,10 +545,12 @@ BASH LIMITATIONS
   sudo apt install jq bc sql xslt tidy xmlstarlet perl python gcc sort
   #gcc is for 'C'
 
-MAN2TXT
+MAN2TXT RESEARCH
 
+  #I guess any of these would work *shrugs*
   man bash | col -bx > bash.1.txt
-
+  man bash > bash.1.txt #TODO: need to test
+  zcat `man --where bash` | groff -t -e -mandoc -Tascii - | less -R #has special escapes in the text *shrugs*
 
 POSSIBLY USEFUL GIT COMMANDS
 
@@ -519,7 +607,6 @@ THIS IS SAFE EVEN IF THE FILES/DIR IN PWD HAVE WHITESPACE
     echo "$n) $myf" 
   done
 
-
 COMMAND ARGUMENT AS MULTI-LINED HERE-DOC
 
   this_gets_expanded=1
@@ -533,8 +620,6 @@ COMMAND ARGUMENT AS MULTI-LINED HERE-DOC
   print("Hello $this_is_a_word");
   print("world");
   EOF
-
-
 
 TESTING TO SEE IF YOU'RE IN A TERMINAL RESEARCH
 
@@ -869,6 +954,10 @@ WAIT UNTIL A SPECIFIC DAY OF THE MONTH AND ALERT YOURSELF OF THE NEW IMPROVED YO
 
   while :; do [[ "$(date +%d)" = '12' ]] && { wall 'hell yeah'; DISPLAY=:0.0 zenity --title="I'm free!" --info --text='We made it' --no-wrap ; break; }; sleep 1h; done
 
+SHOW A PROGRESS BAR WHILE COMMANDS EXECUTE IN A GUI
+
+  ( cmd1; cmd2; cmd3; cmd4; ) | zenity --progress --title="fucking wait" --pulsate --autoclose --nocancel
+
 INSTALL A DESKTOP ENVIRONMENT ON YOUR DEBIAN
 
   tasksel --list-tasks
@@ -930,6 +1019,21 @@ RUST CARGO "CRATE" BULLSHIT
     cd temp1111 && echo -e "\nlibc = \"0.2\"" >> Cargo.toml && cargo fetch && cargo build && cargo run
   }
 
+MASS RENAME FILES RESEARCH
+
+  #TODO: use this way instead of `ls *` to get directory/file-glob-based file listings.
+  a=(dir/*)
+  for file in "${a[@]}"; do echo $file; done
+  dir/0 0 0 0.txt
+  dir/1 1 1 1.txt
+  dir/2 2 2 2.txt
+  dir/3 3 3 3.txt
+
+  # convert spaces in files to underscore
+  while read myf; do [ -f "$myf" ] || break; mv "$myf" "${myf// /_}"; done <<< "$( ls *\ * )"
+  # or just convert it into anonymously named/numbered mp3 files.
+  n=1; while read myf; do mv "$myf" "$n.mp3"; (( n++ )); done <<< "$(ls *.mp3)"
+
 PWD ASSESSMENT RESEARCH
 
   du -S
@@ -948,7 +1052,7 @@ PWD ASSESSMENT RESEARCH
   500K	./data
   1.1M	.
 
-CHROOT INTO A LINUX DISTRIBUTION THAT IS INSTALLED AT AN EXT4 PARTITION ON AN HDD/SSD/USB-HDD AND
+CHROOT INTO A GNU/LINUX DISTRIBUTION THAT IS INSTALLED AT AN EXT4 PARTITION ON AN HDD/SSD/USB-HDD AND
   RUN A GOOD/SOLID RECOVERY BASH SHELL IN THERE
 
   #TODO make sure we're running this as root..
@@ -1001,44 +1105,80 @@ PASTEBIN RESEARCH
   curl --data-binary @file.txt https://paste.rs/
   curl -F 'f:1=@file.ext' ix.io
 
-#PUT IN BASH HISTORY TO take list of URL links and wget them into 001.txt .. 999.txt
-#n=0; while read myLine; do (( n++ )); wget_out_file=$(printf '%03d.txt' $n); echo "$wget_out_file $myLine" >> wget-MAP.txt; echo "wget -O $wget_out_file '$myLine'" >> wget-TODO.sh; done <<< "$(cat novaks-LINKs.txt)"
+CURL RESEARCH
+
+  #outputs: 000
+  curl --output /dev/null --silent --head --location 'http://people.oregonstate.edu/' -w '%{http_code}'
+
+FUNNY
+
+  #python3 C compiler: (lol)
+  echo -e "#include <stdio.h>\nint main(void){puts(\"Ran from python3 BABY\");return 0;}" > C.c; python3 -c 'import os;os.system("gcc C.c && ./a.out")'
+
+USING FILENAMES TO OPEN YOUR WEB BROWSER RESEARCH
+
+  debian-forum-open(){
+    [ -z "$1" ] && return 55
+    [ -f "$1" ] || return 56
+    local filename="$(basename "$1")"
+    [[ $filename =~ ^[0-9]+\.txt$ ]] || return 57
+    local topic_id="${filename%%.*}"
+    echo google-chrome "http://forums.debian.net/viewtopic.php?t=$topic_id" 
+    google-chrome "http://forums.debian.net/viewtopic.php?t=$topic_id" 
+  }
+
+URL FETCHING RESEARCH RESEARCH
+
+  #take a list of a URLs in a text file line-by-line and put them into 001.txt .. 999.txt
+  n=0
+  while read myLine; do
+    (( n++ ))
+    wget_out_file=$(printf '%03d.txt' $n)
+    echo "$wget_out_file $myLine" >> wget-MAP.txt
+    echo "wget -O $wget_out_file '$myLine'" >> wget-TODO.sh
+  done <<< "$(<novaks-LINKs.txt)"
 
 #prevents CTRL+S freezing the tty/virtual-console (ie. until CTRL+Q is hit)
 #see:   stty -a | egrep 'start|stop'
 stty start undef
 stty stop undef
 
-export TZ=America/Los_Angeles
 export EDITOR=/usr/bin/vim
+export TZ=America/Los_Angeles
 export WINEPREFIX=/media/user/DEB_STUFF/dot-wine
+apt='apt apt-cache apt-file apt-get apt-mark aptitude dpkg dpkg-query' 
 wow='/media/user/DEB_STUFF/dot-wine/drive_c/Program Files (x86)/Battle.net'
 www='/home/user/Documents/Github-repos/localhost-httpd/www'
-git='/home/user/Documents/Github-repos'
-export todo='/home/user/Documents/TODO/todo.txt'
 export bash1='/home/user/Documents/bash.1.txt'
+export git='/home/user/Documents/Github-repos'
 export perl_cheatsheet='/home/user/Documents/Github-repos/debian-fresh1/perl-cheat-sheet.txt'
-export python_cheatsheet='/home/user/Documents/Github-repos/debian-fresh2/python-cheat-sheet.txt'
+export python_cheatsheet='/home/user/Documents/Github-repos/debian-fresh1/python-cheat-sheet.txt'
+export todo='/home/user/Documents/TODO/todo.txt'
 alias ..='cd ..'
-alias vi='/usr/bin/vim'
-alias bitchx='/usr/bin/weechat -a -p --plugins irc,logger,alias,exec' #no auto-connect to a server and no plug-ins automatically loaded
-alias weechat='echo bitchx'
 alias bash++='/usr/bin/perl'
-alias suspend='echo systemctl suspend'
 alias battery='echo acpitool -b'
+alias bitchx='/usr/bin/weechat -a -p --plugins irc,logger,alias,exec' #no auto-connect to a server and no plug-ins automatically loaded
 alias check-network='bash -c "ip route; curl -IL http://nmcheck.gnome.org/check_network_status.txt"'
-alias tty-silence='sudo dmesg -n 1'
-alias tty-silence-restore='sudo dmesg -n 8'
 alias df='df --human-readable --print-type 2>/dev/null'
+alias lightdm-stop='is_desktop_running && sudo systemctl stop lightdm'
+alias lightdm-start='is_desktop_running || sudo systemctl start lightdm'
+alias suspend='echo systemctl suspend'
 alias tty-exec-desktop-program='echo "DISPLAY=:0.0 google-chrome http://people.oregonstate.edu"'
-alias lightdm-off='is_desktop_running && sudo systemctl stop lightdm'
-alias lightdm-on='is_desktop_running || sudo systemctl start lightdm'
-remind-me(){
-  [ $# -ge 2 ] || return 4
-  local sleep_for="$1"
-  shift
-  echo "sleep $sleep_for && wall '$*'"
-  sleep "$sleep_for" && wall "$*"
+alias tty-silence-restore='sudo dmesg -n 8'
+alias tty-silence='sudo dmesg -n 1'
+alias udisks='/usr/bin/udisksctl'
+alias vi='/usr/bin/vim'
+alias weechat='echo bitchx'
+mp3_add(){
+  if is_desktop_running; then
+    DISPLAY=:0.0 mousepad '/home/user/Documents/youtube-downloads/download.sh' &
+    DISPLAY=:0.0 epiphany https://youtube.com/search #TODO needs testing? 404?
+  else
+    exit 9
+  fi
+}
+bashrc(){
+  egrep '^(alias|[a-zA-Z_\-]+\(\){)' ~/.bashrc_user | sort
 }
 up(){
   local levels="$1"
@@ -1089,35 +1229,8 @@ Z(){
 apt-non-debian-packages-installed(){
   aptitude search '?narrow(?installed, ?not(?origin(Debian)))'
 }
-pm-finder(){
-  [ -z "$1" ] && return 3
-  find $(perl -e 'for(@INC){print $_, " ";}') -type f -name "*$1*" -printf '%p ' 2>/dev/null
-}
-vim-pm(){
-  [ -z "$1" ] && return 3
-  $EDITOR $(find $(perl -e 'for(@INC){print $_, " ";}') -type f -name $1 -printf '%p ' 2>/dev/null )
-}
 lucky(){ s="$*"; [ -z "$s" ] && return 3; echo $s | perl -ne 'BEGIN{undef $/;}if(m#(https?://[a-zA-Z0-9/.:?_\-]+)#){print $1;}'; }
 goog(){ local s="$*"; links "https://google.com/search?q=${s// /+}"; }
-sync-all(){
-  [ -f ~/.bashrc_user ] || return 3
-  [ -f /media/user/DEB_STUFF/_bashrc ] || return 4
-  [ -f ~/.vimrc ] || return 5
-  [ -f /media/user/DEB_STUFF/_vimrc ] || return 6
-  [ -f ~/Documents/Github-repos/debian-fresh2/_bashrc.txt ] || return 7
-  [ -f ~/Documents/Github-repos/debian-fresh2/_vimrc.txt ] || return 8
-  [ -f ~/Documents/bash.1.txt ] || return 9
-  [ -f ~/Documents/Github-repos/debian-fresh2/bash.1.txt ] || return 10
-
-  diff /media/user/DEB_STUFF/_bashrc ~/.bashrc_user || \
-    cp -vi ~/.bashrc_user /media/user/DEB_STUFF/_bashrc
-  diff /media/user/DEB_STUFF/_vimrc ~/.vimrc || \
-    cp -vi ~/.vimrc /media/user/DEB_STUFF/_vimrc
-  diff ~/Documents/Github-repos/debian-fresh2/_bashrc.txt ~/.bashrc_user || \
-    cp -vi ~/.bashrc_user ~/Documents/Github-repos/debian-fresh2/_bashrc.txt
-  diff ~/Documents/Github-repos/debian-fresh2/bash.1.txt ~/Documents/bash.1.txt || \
-    cp -vi ~/Documents/bash.1.txt ~/Documents/Github-repos/debian-fresh2/bash.1.txt
-}
 tarhelp(){
   cat <<EOFFFFFFFF
 1) tar.gz
@@ -1199,18 +1312,19 @@ mp3-review(){
   [[ "$(find -maxdepth 1 -type f -name '* *' | wc -l)" -ne 0 ]] && return 3 #any spaces in files? just exit. fuck it.
   for i in $(echo *.mp3 | tr ' ' '\n' | shuf | tr '\n' ' '); do ffplay $i; read -n 1 -p 'delete? (y/N) ' yn; [[ $yn = 'y' ]] && { echo; rm -v $i; echo; } ;  done
 }
-# ( cmd1; cmd2; cmd3; cmd4; ) | zenity --progress --title="fucking wait" --pulsate --autoclose --nocancel
-msgbox(){
+alert-me(){
   [ -z "$1" ] && return 3
-  [ -z "$2" ] && return 4
-  zenity --title="$1" --info --text="$2" --no-wrap
+  is_desktop_running && {
+    DISPLAY=:0.0 zenity --title="$*" --info --text="$*" --no-wrap
+  }
+  wall "$*"
 }
-internet-test(){
-  echo "curl --output /dev/null --silent --head --location 'http://people.oregonstate.edu/' -w '%{http_code}'" >&2
-  curl --output /dev/null --silent --head --location 'http://people.oregonstate.edu/' -w '%{http_code}'
-}
-man2txt(){
-  echo 'zcat `man --where bash` | groff -t -e -mandoc -Tascii - | less -R'
+remind-me(){
+  [ $# -ge 2 ] || return 4
+  local sleep_for="$1"
+  shift
+  echo "sleep $sleep_for && alert-me '$*'"
+  sleep "$sleep_for" && alert-me "$*"
 }
 wifi-on(){
   #disable auto-connect on auto-connect-enabled connection(s)
@@ -1240,34 +1354,25 @@ wifi-connect(){
 date-toilet(){
   date | toilet --font term --gay
 }
-debian-forum-open(){
-  [ -z "$1" ] && return 55
-  [ -f "$1" ] || return 56
-  local filename="$(basename "$1")"
-  [[ $filename =~ ^[0-9]+\.txt$ ]] || return 57
-  local topic_id="${filename%%.*}"
-  echo google-chrome "http://forums.debian.net/viewtopic.php?t=$topic_id" 
-  google-chrome "http://forums.debian.net/viewtopic.php?t=$topic_id" 
-}
 excuse(){
-  echo "Actually, that's a feature
-Don't worry, that value is only wrong half of the time
-Even though it doesn't work, how does it feel?
-Everything looks fine my end
-How is that possible?
-I broke that deliberately to do some testing
-I can have a look but there's a lot of if statements in that code!
-I can't make that a priority right now
-I can't test everything
-I couldn't find any examples of how that can be done anywhere else in the project
-I couldn't find any examples of how that can be done anywhere online
-I couldn't find any library that can even do that
-I did a quick fix last time but it broke when we rebooted
-I didn't anticipate that I would make any errors
-I didn't create that part of the program
-I didn't receive a ticket for it
-I forgot to commit the code that fixes that
-I had to do the project backwards as people demanded results out of order
+  echo "Actually, that's a feature; I 0.000000000000%agree
+Don't worry, that value is only wrong half of the time; I 98%agree
+Even though it doesn't work, how does it feel?; LMAO
+Everything looks fine my end; I 0.2%agree
+How is that possible?; *silence*
+I broke that deliberately to do some testing; *silence*
+I can have a look but there's a lot of if statements in that code!; *silence*
+I can't make that a priority right now; 17%agreed
+I can't test everything; *silence*
+I couldn't find any examples of how that can be done anywhere else in the project; 17%true
+I couldn't find any examples of how that can be done anywhere online; 19%true
+I couldn't find any library that can even do that; lol
+I did a quick fix last time but it broke when we rebooted; rofl
+I didn't anticipate that I would make any errors; lol
+I didn't create that part of the program; what?
+I didn't receive a ticket for it; hmm...
+I forgot to commit the code that fixes that; lol
+I had to do the project backwards as people demanded results out of order; ok?
 I have never seen that before in my life
 I haven't been able to reproduce that
 I haven't had any experience with that before
@@ -1338,7 +1443,7 @@ The client must have been hacked
 The client wanted it changed at the last minute
 The code is compiling
 The download must have been corrupted
-The existing design makes it difficult to do the right thing
+The existing design makes it difficult to do the right thing; I 7% agree
 The marketing department made us put that there
 The original specification contained conflicting requirements
 The person responsible doesn't work here anymore
@@ -1357,22 +1462,22 @@ There were too many developers working on that same thing
 There's currently a problem with our hosting company
 This code was not supposed to go in to production yet
 This is a previously known bug you told me not to work on yet
-We didn't have enough time to peer review the final changes
-We outsourced that months ago
-We should have updated our software years ago
-We spent three months debugging it because we only had one month to build it
-Well at least we know not to try that again
-Well done, you found my easter egg!
-Well, at least it displays a very pretty error
-Well, that's a first
-What did you type in wrong to get it to crash?
-Where were you when the program blew up?
-You can't use that version on your system
-You must be missing some of the dependencies
-You must have done something wrong
-You must have the wrong version
-You're doing it wrong
-Your browser must be caching the old content" | shuf -n 1
+We didn't have enough time to peer review the final changes; lol
+We outsourced that months ago; lol
+We should have updated our software years ago; eh
+We spent three months debugging it because we only had one month to build it; eesh
+Well at least we know not to try that again; :(
+Well done, you found my easter egg!; eegh
+Well, at least it displays a very pretty error; lol
+Well, that's a first; *silence*
+What did you type in wrong to get it to crash?; what to crash?
+Where were you when the program blew up?; lol
+You can't use that version on your system; for 93% of all men you're average 71%right
+You must be missing some of the dependencies; I'm 3%sure that is right
+You must have done something wrong; I'm 0%sure of that
+You must have the wrong version; ok?
+You're doing it wrong; I'm 3%sure you are 900%right
+Your browser must be caching the old content; what" | shuf -n 1
 }
 
 
@@ -1539,9 +1644,11 @@ essential-debs/strace_5.10-1_amd64.deb
 essential-debs/tmux_3.3a-1_bpo11+1_amd64.deb
 essential-debs/toilet_0.3-1.3_amd64.deb
 essential-debs/toilet-fonts_0.3-1.3_all.deb
+essential-debs/tree_1.8.0-1+b1_amd64.deb
 essential-debs/txt2man_1.7.1-1+deb11u1_all.deb
 essential-debs/weechat-doc_3.0-1+deb11u1_all.deb
 essential-debs/wget_1.21-1+deb11u1_amd64.deb
+essential-debs/whois_5.5.10_amd64.deb
 essential-debs/xclip_0.13-2_amd64.deb
 #!/usr/bin/perl
 
@@ -2335,8 +2442,9 @@ Conf nvidia-tesla-460-vulkan-icd (460.91.03-1 Debian:11.3/stable [amd64])
 Conf libopengl0:i386 (1.3.2-1 Debian:11.3/stable [i386])
 
 
+#'e' at boot menu -->  ^linux .* systemd.unit=multi-user.target toram pcie_aspm=off
+#the first custom option avoids `sudo systemctl start lightdm` which allows you to set things up before starting the X server
 
-read -p 'please set Timezone and hit ENTER' mytmp
 cat /media/user/DEB_STUFF/_bashrc >> ~/.bashrc_user
 echo -e "\n\n\n[ -f ~/.bashrc_user ] && . ~/.bashrc_user\n\n\n" >> ~/.bashrc
 cp /media/user/DEB_STUFF/_vimrc >> ~/.vimrc
@@ -2360,6 +2468,9 @@ sudo apt --purge autoremove
 sudo systemctl stop sysstat-collect.timer sysstat-collect
 sudo systemctl disable sysstat-collect.timer sysstat-collect
 
+#XFCE4 auto-services are disabled/removed-from-start-of-lightdm-service
+for i in calamares-desktop-icon geoclue-demo-agent orca-autostart print-applet xdg-user-dirs xfce4-clipman-plugin-autostart xscreensaver; do sudo rm -iv /etc/xdg/autostart/$i.desktop; done
+
 rmdir ~/Documents
 ln -s /media/user/DEB_STUFF/Documents ~/Documents
 echo 'now go to /media/user/DEB_STUFF and install all of the software you want'
@@ -2367,7 +2478,9 @@ echo 'oh yeah, change your wallpaper, remove Desktop icons, and get rid of some 
 echo
 echo
 echo 'sudo dpkg --force-depends --remove xfburn xfce4-dict xfce4-goodies'
-sudo 'apt-mark hold $packages_that_can_be_autoremoved-get_from_apt-finstall_output'
+echo sudo 'apt-mark hold $packages_that_can_be_autoremoved-get_from_apt-finstall_output'
+echo
+echo you might need to set your timezone in XFCE
 
 w3c-linkchecker w3c-markup-validator #requires apache2, ugh.
 translate-shell #google-translate-cli
