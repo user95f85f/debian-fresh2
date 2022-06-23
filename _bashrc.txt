@@ -23,14 +23,15 @@ alias check-network='bash -c "ip route; curl -IL http://nmcheck.gnome.org/check_
 alias df='df --human-readable --print-type 2>/dev/null'
 alias lightdm-stop='is_desktop_running && sudo systemctl stop lightdm'
 alias lightdm-start='is_desktop_running || sudo systemctl start lightdm'
+alias myip='bash -c "wget --quiet -O - -4 ifconfig.io; wget --quiet -O - -6 ifconfig.io"'
 alias suspend='echo systemctl suspend'
+alias tree='/usr/bin/tree -A'
 alias tty-exec-desktop-program='echo "DISPLAY=:0.0 google-chrome http://people.oregonstate.edu"'
 alias tty-silence-restore='sudo dmesg -n 8'
 alias tty-silence='sudo dmesg -n 1'
 alias udisks='/usr/bin/udisksctl'
 alias vi='/usr/bin/vim'
 alias weechat='echo bitchx'
-alias myip='bash -c "wget --quiet -O - -4 ifconfig.io; wget --quiet -O - -6 ifconfig.io"'
 mp3_add(){
   if is_desktop_running; then
     DISPLAY=:0.0 mousepad '/home/user/Documents/youtube-downloads/download.sh' &
