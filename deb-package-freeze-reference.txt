@@ -16,6 +16,7 @@ go-debs
 hexchat-debs
 imagemagick-debs
 jdk-debs
+libnet-imap-perl-debs
 links-links2-lynx-debs
 mono-cs-debs
 nmap-debs
