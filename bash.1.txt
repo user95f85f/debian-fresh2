@@ -266,6 +266,9 @@ CURL VS WGET SUPER EQUIVALENCY EXAMPLES
 GET ALL OF THE CAMERA STATS AND PHOTO/IMAGE EDITOR STATS OF A JPEG MAYBE A PNG
 
   curl -s http://a.domain.com/bigfile.jpg | exiftool -
+  #TODO how do you delete a certain "Comment" or entry or whatever
+  #in your JPEG file EXIF data? man exiftool | grep -i remove
+  #doesn't even give an example! (3%sure)
 
 CURL POST FORMS BASICALLY TO DO NOTHING JUST TO SEE IF THERE IS AN ERROR OR NOT IN THE RESPONSE I GUESS
 
@@ -375,6 +378,10 @@ PASSIVE FOR LOOP WITH ARRAY AS AN ARGUMENT
 ULTIMATE TIME STAMPED FILENAME VARIABLE GENERATOR
 
   rsync_log_location="$HOME/rsync_$(date +%Y%m%d_%H%M%S).log"
+
+RSYNC RESEARCH
+
+  rsync -avxKSH root@oldsystem:/home/ /home/
 
 ULTIMATE SINGLE-CHARACTER INPUT HANDLING
 
@@ -584,7 +591,7 @@ POPULAR WINE NAME
 
 URBANDICTIONARY JSON (API) REQUEST TO GET DEFINITIONS
 
-  wget -O - 'https://api.urbandictionary.com/v0/define?term=bird' | jq | less -R
+  wget -O - 'https://api.urbandictionary.com/v0/define?term=bird' | jq -C | less -R
   wget -O - 'https://api.urbandictionary.com/v0/define?term=success' | grep -i definition
 
 WORD WRAP STDIN TO STDOUT
@@ -896,10 +903,13 @@ WICKED FILE MANAGEMENT OBSERVATION WITHIN DIRECTORIES!! RESEARCH
           └── excel
   3 directories
 
-PASTEBIN RESEARCH
+PASTEBIN / FILE UPLOAD RESEARCH
 
   curl --data-binary @file.txt https://paste.rs/
   curl -F 'f:1=@file.ext' ix.io
+  #'zippyshare' use this to download:
+  #https://github.com/mansuf/zippyshare-downloader
+  #TODO: how to upload? xD
 
 CURL RESEARCH
 
@@ -990,3 +1000,61 @@ ENCRYPTED FILESYSTEM WITHIN A FILE USED WITH A "LOOP DEVICE" TO MAINTAIN ITS INT
   sudo umount ~/Documents/shield_mapper_mount
   sudo cryptsetup close shield_map_name
   sudo losetup --detach /dev/loop4
+
+
+DD RESEARCH
+  
+  oflags=sync,direct preferred rather than conv=sync
+
+GNU USERLAND RESEARCH
+
+  realpath ~/Documents/Github-repos #resolves even the softlink
+  readlink ~/Documents              #resolves this specific symlink/true-path
+
+SECURE / LIGHTWEIGHT LINUX STUFF RESEARCH
+
+  https://musl.libc.org/
+
+WEB BROWSERS RESEARCH
+
+  #SUPER re-inserts passwords into your inputs as-needed:
+  google-chrome
+
+  #alts to chrome
+  chromium
+
+  #a little bit of a step down:
+  epiphany
+
+  #Super basic GUI-based non-JavaScript web browsers:
+  dillo
+  netsurf
+
+  #TTY/virtual-console/terminal non-JavaScript non-Image-viewing web browsers:
+  lynx
+  links2
+  links
+
+BEST RECURSIVE GREP
+
+  sudo grep -EIrni --extended-regex --binary-files=without-match --recursive --line-number --ignore-case 'libinput|synaptic' /var/log
+
+FFMPEG COMMAND SHIT
+
+  #400x285 image
+  #Necro-killed-by-sorc.mp3: Audio file with ID3 version 2.4.0, contains:MPEG ADTS, layer III, v2,  56 kbps, 22.05 kHz, Monaural
+  ffmpeg -loop 1 -i video-background.png -i Necro-killed-by-sorc.mp3 -shortest video.mp4
+
+  #first one is PERFECT
+  time ffmpeg -i female_duck_bathing_boyfriend_comes.mp4 -c:v vp9 -b:v 2.2k -c:a libopus out3.webm #>5minutes
+  time ffmpeg -i female_duck_bathing_boyfriend_comes.mp4 -c:v vp9 -b:v 2.2k -c:a opus -strict -2 out2.webm
+  ffmpeg -i female_duck_bathing_boyfriend_comes.mp4 -s 640x360 -r 15  resized.mp4
+  du -h *.mp4 *.webm
+  #108M	female_duck_bathing_boyfriend_comes.mp4
+  #5.7M	out3.webm
+  #6.0M	out2.webm
+  #27M	female_duck_bathing_boyfriend_comes_resized.mp4
+  #125M	out.webm
+
+  #experimental shit: (haven't tried)
+  time ffmpeg -hwaccel vaapi -vaapi_device /dev/dri/renderD128 -i female_duck_bathing_boyfriend_comes.mp4 -c:v vp9 -c:a opus -strict -2 out.webm

@@ -10,6 +10,7 @@ export WINEPREFIX=/media/user/DEB_STUFF/dot-wine
 apt='apt apt-cache apt-file apt-get apt-mark aptitude dpkg dpkg-query' 
 wow='/media/user/DEB_STUFF/dot-wine/drive_c/Program Files (x86)/Battle.net'
 shield_mount_dir='/home/user/Documents/shield_mapper_mount'
+urban_url='https://api.urbandictionary.com/v0/define?term='
 www='/home/user/Documents/Github-repos/localhost-httpd/www'
 export bash1='/home/user/Documents/bash.1.txt'
 export git='/home/user/Documents/Github-repos'
@@ -122,31 +123,21 @@ vol-low-set(){
   pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo 20%
 }
 vol-up(){
-  local myv
-  echo '+5%'
+  echo pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo +5%
   pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo +5%
   while :; do
-    read -n 1 -p '+5%? (Y/n) ' myv
-    echo
-
-    case "$myv" in
-      [Yy]|'') pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo +5%;;
-      [Nn]*)   break;;
-    esac
+    read -p 'more? '
+    echo pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo +5%
+    pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo +5%
   done
 }
 vol-down(){
-  local myv
-  echo '-5%'
+  echo pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo -5%
   pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo -5%
   while :; do
-    read -n 1 -p '-5%? (Y/n) ' myv
-    echo
-
-    case "$myv" in
-      [Yy]|'') pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo -5%;;
-      [Nn]*)   break;;
-    esac
+    read -p 'more? '
+    echo pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo -5%
+    pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo -5%
   done
 }
 xclip-cp(){

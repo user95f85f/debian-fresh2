@@ -16,7 +16,6 @@ go-debs
 hexchat-debs
 imagemagick-debs
 jdk-debs
-libnet-imap-perl-debs
 links-links2-lynx-debs
 mono-cs-debs
 nmap-debs
@@ -34,7 +33,11 @@ xchm-debs
 essential-debs/ack_3.4.0-1_all.deb
 essential-debs/acpitool_0.5.1-6_amd64.deb
 essential-debs/bind9-dnsutils_1%3a9.16.27-1~deb11u1_amd64.deb
+essential-debs/dillo_3.0.5-7_amd64.deb
 essential-debs/gawk_1%3a5.1.0-1_amd64.deb
+essential-debs/gcc-10-doc_10.2.0-1_all.deb
+essential-debs/gcc-doc_5%3a10.1.0-1_amd64.deb
+essential-debs/gcc-doc-base_10.1.0-1_all.deb
 essential-debs/gparted_1.2.0-1_amd64.deb
 essential-debs/gparted-common_1.2.0-1_all.deb
 essential-debs/info_6.7.0.dfsg.2-6_amd64.deb
@@ -45,6 +48,7 @@ essential-debs/jpegoptim_1.4.6-1_amd64.deb
 essential-debs/jq_1.6-2.1_amd64.deb
 essential-debs/libevent-core-2.1-7_2.1.12-stable-1_amd64.deb
 essential-debs/libfile-next-perl_1.18-1_all.deb
+essential-debs/libfltk1.3_1.3.5-3_amd64.deb
 essential-debs/libinotifytools0_3.14-8.1_amd64.deb
 essential-debs/libjq1_1.6-2.1_amd64.deb
 essential-debs/libjs-underscore_1.9.1~dfsg-3_all.deb
@@ -54,10 +58,14 @@ essential-debs/netcat_1.10-46_all.deb
 essential-debs/netcat-openbsd_1.217-3_amd64.deb
 essential-debs/netselect_0.3.ds1-29_amd64.deb
 essential-debs/netselect-apt_0.3.ds1-29_all.deb
+essential-debs/netsurf-common_3.10-1_all.deb
+essential-debs/netsurf-gtk_3.10-1+b1_amd64.deb
 essential-debs/net-tools_1.60+git20181103.0eebece-1_amd64.deb
 essential-debs/optipng_0.7.7-1+b1_amd64.deb
 essential-debs/perl-doc_5.32.1-4+deb11u2_all.deb
 essential-debs/pinfo_0.6.13-1.1_amd64.deb
+essential-debs/python3-astral_1.6.1-2_all.deb
+essential-debs/python3-tz_2021.1-1_all.deb
 essential-debs/strace_5.10-1_amd64.deb
 essential-debs/tmux_3.3a-1_bpo11+1_amd64.deb
 essential-debs/toilet_0.3-1.3_amd64.deb
