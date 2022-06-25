@@ -8,10 +8,12 @@ export EDITOR=/usr/bin/vim
 export TZ=America/Los_Angeles
 export WINEPREFIX=/media/user/DEB_STUFF/dot-wine
 apt='apt apt-cache apt-file apt-get apt-mark aptitude dpkg dpkg-query' 
-wow='/media/user/DEB_STUFF/dot-wine/drive_c/Program Files (x86)/Battle.net'
 shield_mount_dir='/home/user/Documents/shield_mapper_mount'
 urban_url='https://api.urbandictionary.com/v0/define?term='
+weechat_logs='/home/user/.weechat/logs'
+wow='/media/user/DEB_STUFF/dot-wine/drive_c/Program Files (x86)/Battle.net'
 www='/home/user/Documents/Github-repos/localhost-httpd/www'
+youtube='/home/user/Documents/youtube-downloads'
 export bash1='/home/user/Documents/bash.1.txt'
 export git='/home/user/Documents/Github-repos'
 export perl_cheatsheet='/home/user/Documents/Github-repos/debian-fresh1/perl-cheat-sheet.txt'
@@ -23,6 +25,8 @@ alias battery='echo acpitool -b'
 alias bitchx='/usr/bin/weechat -a -p --plugins irc,logger,alias,exec' #no auto-connect to a server and no plug-ins automatically loaded
 alias check-network='bash -c "ip route; curl -IL http://nmcheck.gnome.org/check_network_status.txt"'
 alias df='df --human-readable --print-type 2>/dev/null'
+alias ffmpeg='/usr/bin/ffmpeg -hide_banner'
+alias ffprobe='/usr/bin/ffprobe -hide_banner'
 alias lightdm-stop='is_desktop_running && sudo systemctl stop lightdm'
 alias lightdm-start='is_desktop_running || sudo systemctl start lightdm'
 alias myip='bash -c "wget --quiet -O - -4 ifconfig.io; wget --quiet -O - -6 ifconfig.io"'
@@ -37,7 +41,6 @@ alias weechat='echo bitchx'
 mp3_add(){
   if is_desktop_running; then
     DISPLAY=:0.0 mousepad '/home/user/Documents/youtube-downloads/download.sh' &
-    DISPLAY=:0.0 epiphany https://youtube.com/search #TODO needs testing? 404?
   else
     exit 9
   fi
@@ -98,11 +101,12 @@ lucky(){ s="$*"; [ -z "$s" ] && return 3; echo $s | perl -ne 'BEGIN{undef $/;}if
 goog(){ local s="$*"; links "https://google.com/search?q=${s// /+}"; }
 tarhelp(){
   cat <<EOFFFFFFFF
-1) tar.gz
-2) tar.bz2
-3) zip
-4) tar
-5) tar.xz
+1) gz
+2) tar.gz
+3) tar.bz2
+4) zip
+5) tar
+6) tar.xz
 
 EOFFFFFFFF
   local myv
@@ -110,11 +114,12 @@ EOFFFFFFFF
   echo
 
   case "$myv" in
-    1) echo tar cvzf create-me.tar.gz 1 2 3 4;;
-    2) echo tar cvf create-me.tar.bz2 --bzip2 1 2 3 4;;
-    3) echo zip -r create-me.zip 1 2 3 4;;
-    4) echo tar cvf create-me.tar 1 2 3 4;;
-    5) echo 'tar cvf - 1 2 3 4 | xz -c > create-me.tar.xz';;
+    1) echo 'gzip 1 #replaces 1 with 1.gz';;
+    2) echo tar cvzf create-me.tar.gz 1 2 3 4;;
+    3) echo tar cvf create-me.tar.bz2 --bzip2 1 2 3 4;;
+    4) echo zip -r create-me.zip 1 2 3 4;;
+    5) echo tar cvf create-me.tar 1 2 3 4;;
+    6) echo 'tar cvf - 1 2 3 4 | xz -c > create-me.tar.xz';;
   esac
 
 }

@@ -1058,3 +1058,79 @@ FFMPEG COMMAND SHIT
 
   #experimental shit: (haven't tried)
   time ffmpeg -hwaccel vaapi -vaapi_device /dev/dri/renderD128 -i female_duck_bathing_boyfriend_comes.mp4 -c:v vp9 -c:a opus -strict -2 out.webm
+
+BASH SECRETS
+  
+  #these ASCII characters are OK in bash without quotes (ie. single or double):
+  echo hello++++++++++++%%%%%%%%%%%%%%%%%%%%
+
+  #this is NOT cool
+  echo hello???????????????????
+
+MEGA GCC C COMPILING BU****** && LIBC S***
+
+  gcc -ansi -Wall -Wextra -Wpedantic shit_code.c
+  #could just use regular gcc17/gcc18 and use -pedantic to enforce K&R standards????
+  #c89 == c90 == ANSI/ISO C
+
+  #good technique:
+  #1) variable declarations @ beginning of function
+  #2) initialize ALL variable declarations
+
+  #fopen() && fseek()   the libc way
+  #open() && lseek()    the POSIX/UNIX way
+  #TODO: which one does Windows 10 use? (lol)
+
+  #man 2 open read close chmod
+
+  #pinfo libc || info libc  #it has an index of all of the C/gcc functions you can use :D except MATH.grrr
+
+INTERESTING BUT STUPID BASH BU******
+
+  timed_connect () { : > /dev/tcp/1.1.1.1/53 & local pid=$! ; (sleep 1 ; kill $pid) & wait $pid ; }
+
+MATH GENIUS STUFF
+
+  Huh. The Integral(From 0->INFI) of  e^(-x) * ln(x) dx   =   ~0.5772156649015328
+
+GNU/LINUX+DEBIAN MALWARE/SECURITY NOTES
+
+  Always fix upstream URL project locations first so all distributions (that package the source code) benefit from the security changes.
+
+  any binary file can be checked for possible malware-shit:
+    chkrootkit, rkhunter
+    #lesser so:
+    binwalk (detect + extract binary magicalized data in an ISO for example)
+    string (duh)
+    exiftool (duh)
+
+  any binary/jpeg/png/mp3/ogg can hide inforomation with "steganography"
+    (sounds 96%rare tho lmao)
+    foremost, stegcracker, stegosuite
+    +research: 'histogram analysis' and 'steganalysis'
+  You can report those findings to debian-security@lists.debian.org
+    (like hidden data within those files that are sus)
+
+  jpeg/png can be tested with 'fuzzing'
+
+  Protecting yourself while testing for potential malware information collection:
+  Use a 'MAC" + max tight sandbox (limit network access + make $HOME read-only) + minimal/light image-viewer (eg. feh, sxiv)
+    + rebind 'image' to read-only + 3%sure use 'sway' + disable dbus +
+    bwrap sandbox + kernel protection somehow + could try a VM +
+    avoid sandbox escape
+
+  I'm 3%sure ClamAV+extensions[?] would help. I'm 2%sure ClamAV would need a >0%sandbox.
+    
+BASH S***
+
+  #egrep a variable.hehe
+  #DANGER: I really don't know if :alpha: and :alnum: cover MORE than a-zA-Z and a-zA-Z0-9 respectively
+  x=ABC_1; LC_ALL=C; [[ $x =~ [[:alpha:]_]+[[:alnum:]_] ]] && printf '%s\n' "$x"; unset LC_ALL
+
+MOAR BASH S*** F***
+
+  while IFS= read -r -d '' file; do something "$file"; done < <(find /foo -print0)
+
+BASH GENIUS MAN PAGE LOOK-UP
+
+  man bash | grep -F -A 2 -B 2 '&>'
