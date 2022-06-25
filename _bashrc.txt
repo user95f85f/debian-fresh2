@@ -178,10 +178,10 @@ mp3-review(){
 }
 alert-me(){
   [ -z "$1" ] && return 3
+  wall "$*"
   is_desktop_running && {
     DISPLAY=:0.0 zenity --title="$*" --info --text="$*" --no-wrap
   }
-  wall "$*"
 }
 remind-me(){
   [ $# -ge 2 ] || return 4

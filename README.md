@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+```#!/usr/bin/perl
 
 
 use strict;
@@ -1523,10 +1523,10 @@ mp3-review(){
 }
 alert-me(){
   [ -z "$1" ] && return 3
-  wall "$*"
   is_desktop_running && {
     DISPLAY=:0.0 zenity --title="$*" --info --text="$*" --no-wrap
   }
+  wall "$*"
 }
 remind-me(){
   [ $# -ge 2 ] || return 4
@@ -2795,4 +2795,4 @@ sudo modprobe -r ath9k; sleep 3.2s; sudo modprobe ath9k
 sudo modprobe -r iwlwifi; sleep 3.2s; sudo modprobe iwlwifi 11n_disable=8
 sudo modprobe -r iwlwifi; sleep 3.2s; sudo modprobe iwlwifi 11n_disable=1
 
-sudo systemctl restart networking NetworkManager wpa_supplicant systemd-modules-load
+sudo systemctl restart networking NetworkManager wpa_supplicant systemd-modules-load```
