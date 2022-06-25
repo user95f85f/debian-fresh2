@@ -243,6 +243,7 @@ DEBIAN SOURCE CODE COMPILATION FUN
 VERIZON AIRSPEED JETPACK
 
   Verizon Airspeed Jetpack $60 (Prepaid version) (4G) (2.4Ghz/5Ghz) (requires no credit check)
+    (aka. Prepaid - Airspeed 4G Mobile Hotspot)
     (ie. Airspeed mobile [wifi] hotspot)
     (battery powered and/or AC + AC battery charged)
     (battery lasts about 4 hours)
@@ -251,7 +252,10 @@ VERIZON AIRSPEED JETPACK
   $30-$60 25GB of data from Verizon for 1 month
     When you stop paying the service transparently gets dropped.
     Can pay with 100%cash forever at the Verizon Store.
-    Don't need to pay anything in advance (except of course the Jetpack + 
+    Don't need to pay anything in advance (unlike AT&T for some of their data-only pre-paid plans)
+      (except of course the Jetpack + the 1 month of pre-paid data-only "plan" [ie. "Prepaid Plan" [aka?? "Prepaid Internet"]])
+  There is a $15 fee for "Set Up And Go Service"
+  Verizon Store asks for this information as a new Verizon customer:
   $name, $phone, $email, $physical_address (ie. mailing or home 90%sure), $4Digit_PIN_number
 
   Extra information:
@@ -298,9 +302,10 @@ VERIZON AIRSPEED JETPACK
              -> System Admin
     (then log out)
 
-  My Verizon Login:
+  My Verizon Login: (TODO: requires testing)
     https://www.verizonwireless.com/b2c/myverizonlp/
     (some cool stuff: Account -> My Devices (see account plan)
+    https://vzw.com/prepaid
 
   turn_off_data_on_jetpack():
     Advanced Settings -> Network Settings
@@ -348,7 +353,7 @@ DEBIAN TTY/VIRTUAL-CONSOLE THINGS TO TRY IN LIVEOS/LIVEISO/LIVEUSB
   #set NAutoVTs=8
   sudo systemctl restart logind #or find out how to do a daemon-reload `man systemctl`
 
-GNU/LINUX LOG FILES LOOKING AT BULLSHIT
+GNU/LINUX LOG FILES LOOKING AT BULLS***
 
   #look at the log file of when your computer first boots:
   #all of those kernel messages like:
@@ -372,7 +377,7 @@ GNU/LINUX LOG FILES LOOKING AT BULLSHIT
   #224.0M  (for example)
   sudo journalctl --vacuum-size=100M
 
-GNU/LINUX USER/GROUP MANAGMENT BULLSHIT
+GNU/LINUX USER/GROUP MANAGMENT BULLS***
 
   #change a user's username/login name
   man usermod | grep -i login
@@ -420,7 +425,7 @@ SHOW ALL IMAGES WITHIN THE CURRENTLY DIRECTORY SUPER FAST
   #in XFCE close the windows successfully with Alt+F4
   for i in *.jpg; do tkjpeg $i & done
 
-CONVERT A STRING TO MAYBE SUCCESSFUL FILENAME. AUTO-BACKSLASH BULLSHIT CHARACTERS.
+CONVERT A STRING TO MAYBE SUCCESSFUL FILENAME. AUTO-BACKSLASH BULLS*** CHARACTERS.
 
   #the -l chomp(<STDIN>) and auto-newline for the print
   echo -n 'NORMAL_   BACKSLASHED :-!@#$%^&*()~<>?:"{}[];,./+' | perl -l -ne 'print qq(\Q$_\E)'
@@ -437,7 +442,7 @@ CURL _VS_ WGET EQUIVALENCY COMPARISON
 
   #curl: --disable    IGNORE all of the curl.conf files everywhere...
 
-  #curl: --silent     DISABLE progress bar BS, informational shit, and error shit
+  #curl: --silent     DISABLE progress bar BS, informational sh**, and error sh**
   #curl: --show-error SHOW ERROR message iff --silent is given AND there is a 404/403/whatever.  (TODO: STDERR?)
   #TODO: is the progress bar screwy sent to STDERR to a file????
   #curl: --fail       INSTEAD of 404/403 HTML output, give nothing
@@ -470,13 +475,16 @@ CURL VS WGET SUPER EQUIVALENCY EXAMPLES
 GET ALL OF THE CAMERA STATS AND PHOTO/IMAGE EDITOR STATS OF A JPEG MAYBE A PNG
 
   curl -s http://a.domain.com/bigfile.jpg | exiftool -
+  #TODO how do you delete a certain "Comment" or entry or whatever
+  #in your JPEG file EXIF data? man exiftool | grep -i remove
+  #doesn't even give an example! (3%sure)
 
 CURL POST FORMS BASICALLY TO DO NOTHING JUST TO SEE IF THERE IS AN ERROR OR NOT IN THE RESPONSE I GUESS
 
   #--show-error forces to show error EVEN when --silent
   #--fail exits 22 with 0 error messages on SERVER errors (eg. 404 and 403)
   #--header is extra headers. I believe with Expect: you can put a URL
-  #--location redirects if you get a 3XX error message from the target web page with a redirect URL in its Header or whatever the fuck
+  #--location redirects if you get a 3XX error message from the target web page with a redirect URL in its Header or whatever the f***
   curl --silent --show-error --location --fail -POST --form get=group --form email=whatever --form tool_ver=whatever --header Expect:whatever
   curl --silent --show-error --location --fail -POST --form hwaddr=whatever --header Expect:whatever
 
@@ -521,7 +529,7 @@ CHOPPING LEFT OF A STRING REFERENCE
   [[ "" ]] || echo "this is false. all empty strings are false"
 
 
-SOME ARRAY AND STRING PUSH/APPEND SHIT
+SOME ARRAY AND STRING PUSH/APPEND SH**
 
   str='123'
   arr=(1 2 3)
@@ -579,6 +587,10 @@ PASSIVE FOR LOOP WITH ARRAY AS AN ARGUMENT
 ULTIMATE TIME STAMPED FILENAME VARIABLE GENERATOR
 
   rsync_log_location="$HOME/rsync_$(date +%Y%m%d_%H%M%S).log"
+
+RSYNC RESEARCH
+
+  rsync -avxKSH root@oldsystem:/home/ /home/
 
 ULTIMATE SINGLE-CHARACTER INPUT HANDLING
 
@@ -728,7 +740,7 @@ PYTHON3 SLURP AND PROCESS A BINARY FILE'S CONTENTS
   }
 
 
-GITHUB SHIT
+GITHUB SH**
 
   git clone https://github.com/user95f85f/fresh-debian2
   git clone https://github.com/user95f85f/fresh-windows
@@ -788,7 +800,7 @@ POPULAR WINE NAME
 
 URBANDICTIONARY JSON (API) REQUEST TO GET DEFINITIONS
 
-  wget -O - 'https://api.urbandictionary.com/v0/define?term=bird' | jq | less -R
+  wget -O - 'https://api.urbandictionary.com/v0/define?term=bird' | jq -C | less -R
   wget -O - 'https://api.urbandictionary.com/v0/define?term=success' | grep -i definition
 
 WORD WRAP STDIN TO STDOUT
@@ -831,7 +843,7 @@ WGET FOR WHEN WE MIGHT BE HITTING A DEAD WEB SERVER
 
   wget --tries=1 --timeout=8 --output-document=201.dat 'https://nexus-censored.censored.net:8443/repository/apt-censored-releases'
 
-HOLY SHIT
+HOLY SH**
 
   #!/usr/bin/env bash
 
@@ -956,7 +968,7 @@ WAIT UNTIL A SPECIFIC DAY OF THE MONTH AND ALERT YOURSELF OF THE NEW IMPROVED YO
 
 SHOW A PROGRESS BAR WHILE COMMANDS EXECUTE IN A GUI
 
-  ( cmd1; cmd2; cmd3; cmd4; ) | zenity --progress --title="fucking wait" --pulsate --autoclose --nocancel
+  ( cmd1; cmd2; cmd3; cmd4; ) | zenity --progress --title="f***ing wait" --pulsate --autoclose --nocancel
 
 INSTALL A DESKTOP ENVIRONMENT ON YOUR DEBIAN
 
@@ -978,7 +990,7 @@ PERL/TK SHOW-CASE SHOWS YOU WHAT YOU CAN DO WITH PERL/TK!!!!
 
   widget #show perl/tk show-case that shows you all the cool things perl/Tk can do.
 
-CREATE YOUR FUCKING LIVE-OS YOU DUMB BITCH
+CREATE YOUR F***ING LIVE-OS YOU DUMB BI***
 
   LANGUAGE=C LANG=C LC_ALL=C perl << EOF
   open LOOP, '</dev/loop0' or die $!;
@@ -1006,7 +1018,7 @@ TMUX QUICK REFERENCE GUIDE
 
   `top`, `tail -f /var/log/syslog`, `watch-home`, `watch-logs-global-journalctl`
 
-RUST CARGO "CRATE" BULLSHIT
+RUST CARGO "CRATE" BULLSH**
 
   #assuming the source code you want to compile is in ~/source-code.c
   cat ~/source-code.c | xclip -selection clipboard
@@ -1100,10 +1112,13 @@ WICKED FILE MANAGEMENT OBSERVATION WITHIN DIRECTORIES!! RESEARCH
           └── excel
   3 directories
 
-PASTEBIN RESEARCH
+PASTEBIN / FILE UPLOAD RESEARCH
 
   curl --data-binary @file.txt https://paste.rs/
   curl -F 'f:1=@file.ext' ix.io
+  #'zippyshare' use this to download:
+  #https://github.com/mansuf/zippyshare-downloader
+  #TODO: how to upload? xD
 
 CURL RESEARCH
 
@@ -1138,6 +1153,197 @@ URL FETCHING RESEARCH RESEARCH
     echo "wget -O $wget_out_file '$myLine'" >> wget-TODO.sh
   done <<< "$(<novaks-LINKs.txt)"
 
+SOUNDCARD IMPORTANT INFORMATION
+
+  pactl list sinks | egrep 'Name:|Headphones|Speakers|driver_name'
+    Name: alsa_output.pci-0000_00_1f.3.analog-stereo
+      alsa.driver_name = "snd_hda_intel"
+      analog-output-speaker: Speakers (type: Speaker, priority: 10000, availability unknown)
+      analog-output-headphones: Headphones (type: Headphones, priority: 9900, availability group: Legacy 2, availability unknown)
+
+  man pactl | fgrep sink | fgrep port
+         set-sink-port SINK PORT
+                Set the specified sink (identified by its symbolic name or numerical index) to the specified port (identified by its symbolic name).
+                Set  the supported formats of the specified sink (identified by its numerical index) if supported by the sink. FORMATS is specified as a semi-colon (;)
+
+  Sometimes when the soundcard stops playing sound..it's because you have Headphones (ie. the one of two available ports) plugged in,
+    but for some reason pulse-audio switched the active port for your sink (ie. your soundcard output) to Speakers.
+
+  So you need to toggle it:  pactl set-sink-port $SINK_NAME $PORT_NAME
+  Or in this case:           pactl set-sink-port alsa_output.pci-0000_00_1f.3.analog-stereo analog-output-headphones
+  (Or if that doesn't work): pactl set-sink-port alsa_output.pci-0000_00_1f.3.analog-stereo analog-output-speaker
+
+ENCRYPTED FILESYSTEM WITHIN A FILE USED WITH A "LOOP DEVICE" TO MAINTAIN ITS INTEGRITY AS ENCRYPTED
+
+  #TODO: why sh** needs sudo and what doesn't????????????
+  #there's a 3% chance this is all gonna work *sobs*
+
+  #setup
+  head -c 100M /dev/zero > ~/Documents/shield.img
+  sudo losetup /dev/loop4 ~/Documents/shield.img #TODO: 0.2%chance need to create a fresh/ready loop device: losetup --find
+  sudo cryptsetup luksFormat /dev/loop4 ~/Documents/shield-passphrase-key-whatever.txt  #be 900%sure this shield-key.txt has no newline bulls***.
+  sudo cryptsetup isLuks /dev/loop4 && echo yay
+  #generates /dev/mapper/shield_map_name as a real cleared partition...
+  sudo cryptsetup open --type luks /dev/loop4 shield_map_name --key-file ~/Documents/shield-key.txt  
+  sudo mkfs.ext4 /dev/mapper/shield_map_name  #I'm 30%sure this will work..lol
+  #OMFG this better work. We should get a /dev/mapper/shield_map_name1 ???????UGH MOTHER F***
+  #or wait it already was a partition...just cleared. huh I'm 3%sure anyways
+  ls /dev/mapper/
+  mkdir ~/Documents/shield_mapper_mount
+  sudo mount -t ext4 /dev/mapper/shield_map_name ~/Documents/shield_mapper_mount
+  sudo chmod g+rwx ~/Documents/shield_mapper_mount
+  sudo chown :user ~/Documents/shield_mapper_mount
+  touch ~/Documents/shield_mapper_mount/hello-world.txt
+  file ~/Documents/shield_mapper_mount/hello-world.txt
+  echo 'OK looks good. setup is done. time to get the f*** out.'
+  sudo umount ~/Documents/shield_mapper_mount
+  sudo cryptsetup close shield_map_name
+  sudo losetup --detach /dev/loop4
+
+  #now and forever
+  sudo losetup /dev/loop4 ~/Documents/shield.img
+  sudo cryptsetup isLuks /dev/loop4 && echo yay
+  sudo cryptsetup open --type luks /dev/loop4 shield_map_name --key-file ~/Documents/shield-key.txt  
+  sudo mount -t ext4 /dev/mapper/shield_map_name ~/Documents/shield_mapper_mount
+  echo Time to do work now. Then we gtfo.
+  sudo umount ~/Documents/shield_mapper_mount
+  sudo cryptsetup close shield_map_name
+  sudo losetup --detach /dev/loop4
+
+
+DD RESEARCH
+  
+  oflags=sync,direct preferred rather than conv=sync
+
+GNU USERLAND RESEARCH
+
+  realpath ~/Documents/Github-repos #resolves even the softlink
+  readlink ~/Documents              #resolves this specific symlink/true-path
+
+SECURE / LIGHTWEIGHT LINUX STUFF RESEARCH
+
+  https://musl.libc.org/
+
+WEB BROWSERS RESEARCH
+
+  #SUPER re-inserts passwords into your inputs as-needed:
+  google-chrome
+
+  #alts to chrome
+  chromium
+
+  #a little bit of a step down:
+  epiphany
+
+  #Super basic GUI-based non-JavaScript web browsers:
+  dillo
+  netsurf
+
+  #TTY/virtual-console/terminal non-JavaScript non-Image-viewing web browsers:
+  lynx
+  links2
+  links
+
+BEST RECURSIVE GREP
+
+  sudo grep -EIrni --extended-regex --binary-files=without-match --recursive --line-number --ignore-case 'libinput|synaptic' /var/log
+
+FFMPEG COMMAND S***
+
+  #400x285 image
+  #Necro-killed-by-sorc.mp3: Audio file with ID3 version 2.4.0, contains:MPEG ADTS, layer III, v2,  56 kbps, 22.05 kHz, Monaural
+  ffmpeg -loop 1 -i video-background.png -i Necro-killed-by-sorc.mp3 -shortest video.mp4
+
+  #first one is PERFECT
+  time ffmpeg -i female_duck_bathing_boyfriend_comes.mp4 -c:v vp9 -b:v 2.2k -c:a libopus out3.webm #>5minutes
+  time ffmpeg -i female_duck_bathing_boyfriend_comes.mp4 -c:v vp9 -b:v 2.2k -c:a opus -strict -2 out2.webm
+  ffmpeg -i female_duck_bathing_boyfriend_comes.mp4 -s 640x360 -r 15  resized.mp4
+  du -h *.mp4 *.webm
+  #108M	female_duck_bathing_boyfriend_comes.mp4
+  #5.7M	out3.webm
+  #6.0M	out2.webm
+  #27M	female_duck_bathing_boyfriend_comes_resized.mp4
+  #125M	out.webm
+
+  #experimental s***: (haven't tried)
+  time ffmpeg -hwaccel vaapi -vaapi_device /dev/dri/renderD128 -i female_duck_bathing_boyfriend_comes.mp4 -c:v vp9 -c:a opus -strict -2 out.webm
+
+BASH SECRETS
+  
+  #these ASCII characters are OK in bash without quotes (ie. single or double):
+  echo hello++++++++++++%%%%%%%%%%%%%%%%%%%%
+
+  #this is NOT cool
+  echo hello???????????????????
+
+MEGA GCC C COMPILING BU****** && LIBC S***
+
+  gcc -ansi -Wall -Wextra -Wpedantic sh17_code.c
+  #could just use regular gcc17/gcc18 and use -pedantic to enforce K&R standards????
+  #c89 == c90 == ANSI/ISO C
+
+  #good technique:
+  #1) variable declarations @ beginning of function
+  #2) initialize ALL variable declarations
+
+  #fopen() && fseek()   the libc way
+  #open() && lseek()    the POSIX/UNIX way
+  #TODO: which one does Windows 10 use? (lol)
+
+  #man 2 open read close chmod
+
+  #pinfo libc || info libc  #it has an index of all of the C/gcc functions you can use :D except MATH.grrr
+
+INTERESTING BUT STUPID BASH BU******
+
+  timed_connect () { : > /dev/tcp/1.1.1.1/53 & local pid=$! ; (sleep 1 ; kill $pid) & wait $pid ; }
+
+MATH GENIUS STUFF
+
+  Huh. The Integral(From 0->INFI) of  e^(-x) * ln(x) dx   =   ~0.5772156649015328
+
+GNU/LINUX+DEBIAN MALWARE/SECURITY NOTES
+
+  Always fix upstream URL project locations first so all distributions (that package the source code) benefit from the security changes.
+
+  any binary file can be checked for possible malware-s***:
+    chkrootkit, rkhunter
+    #lesser so:
+    binwalk (detect + extract binary magicalized data in an ISO for example)
+    string (duh)
+    exiftool (duh)
+
+  any binary/jpeg/png/mp3/ogg can hide inforomation with "steganography"
+    (sounds 96%rare tho lmao)
+    foremost, stegcracker, stegosuite
+    +research: 'histogram analysis' and 'steganalysis'
+  You can report those findings to debian-security@lists.debian.org
+    (like hidden data within those files that are sus)
+
+  jpeg/png can be tested with 'fuzzing'
+
+  Protecting yourself while testing for potential malware information collection:
+  Use a 'MAC" + max tight sandbox (limit network access + make $HOME read-only) + minimal/light image-viewer (eg. feh, sxiv)
+    + rebind 'image' to read-only + 3%sure use 'sway' + disable dbus +
+    bwrap sandbox + kernel protection somehow + could try a VM +
+    avoid sandbox escape
+
+  I'm 3%sure ClamAV+extensions[?] would help. I'm 2%sure ClamAV would need a >0%sandbox.
+    
+BASH S***
+
+  #egrep a variable.hehe
+  #DANGER: I really don't know if :alpha: and :alnum: cover MORE than a-zA-Z and a-zA-Z0-9 respectively
+  x=ABC_1; LC_ALL=C; [[ $x =~ [[:alpha:]_]+[[:alnum:]_] ]] && printf '%s\n' "$x"; unset LC_ALL
+
+MOAR BASH S*** F***
+
+  while IFS= read -r -d '' file; do something "$file"; done < <(find /foo -print0)
+
+BASH GENIUS MAN PAGE LOOK-UP
+
+  man bash | grep -F -A 2 -B 2 '&>'
+
 #prevents CTRL+S freezing the tty/virtual-console (ie. until CTRL+Q is hit)
 #see:   stty -a | egrep 'start|stop'
 stty start undef
@@ -1147,8 +1353,12 @@ export EDITOR=/usr/bin/vim
 export TZ=America/Los_Angeles
 export WINEPREFIX=/media/user/DEB_STUFF/dot-wine
 apt='apt apt-cache apt-file apt-get apt-mark aptitude dpkg dpkg-query' 
+shield_mount_dir='/home/user/Documents/shield_mapper_mount'
+urban_url='https://api.urbandictionary.com/v0/define?term='
+weechat_logs='/home/user/.weechat/logs'
 wow='/media/user/DEB_STUFF/dot-wine/drive_c/Program Files (x86)/Battle.net'
 www='/home/user/Documents/Github-repos/localhost-httpd/www'
+youtube='/home/user/Documents/youtube-downloads'
 export bash1='/home/user/Documents/bash.1.txt'
 export git='/home/user/Documents/Github-repos'
 export perl_cheatsheet='/home/user/Documents/Github-repos/debian-fresh1/perl-cheat-sheet.txt'
@@ -1160,20 +1370,22 @@ alias battery='echo acpitool -b'
 alias bitchx='/usr/bin/weechat -a -p --plugins irc,logger,alias,exec' #no auto-connect to a server and no plug-ins automatically loaded
 alias check-network='bash -c "ip route; curl -IL http://nmcheck.gnome.org/check_network_status.txt"'
 alias df='df --human-readable --print-type 2>/dev/null'
+alias ffmpeg='/usr/bin/ffmpeg -hide_banner'
+alias ffprobe='/usr/bin/ffprobe -hide_banner'
 alias lightdm-stop='is_desktop_running && sudo systemctl stop lightdm'
 alias lightdm-start='is_desktop_running || sudo systemctl start lightdm'
+alias myip='bash -c "wget --quiet -O - -4 ifconfig.io; wget --quiet -O - -6 ifconfig.io"'
 alias suspend='echo systemctl suspend'
+alias tree='/usr/bin/tree -A'
 alias tty-exec-desktop-program='echo "DISPLAY=:0.0 google-chrome http://people.oregonstate.edu"'
 alias tty-silence-restore='sudo dmesg -n 8'
 alias tty-silence='sudo dmesg -n 1'
 alias udisks='/usr/bin/udisksctl'
 alias vi='/usr/bin/vim'
 alias weechat='echo bitchx'
-alias myip='bash -c "wget --quiet -O - -4 ifconfig.io; wget --quiet -O - -6 ifconfig.io"'
 mp3_add(){
   if is_desktop_running; then
     DISPLAY=:0.0 mousepad '/home/user/Documents/youtube-downloads/download.sh' &
-    DISPLAY=:0.0 epiphany https://youtube.com/search #TODO needs testing? 404?
   else
     exit 9
   fi
@@ -1230,15 +1442,16 @@ Z(){
 apt-non-debian-packages-installed(){
   aptitude search '?narrow(?installed, ?not(?origin(Debian)))'
 }
-lucky(){ s="$*"; [ -z "$s" ] && return 3; echo $s | perl -ne 'BEGIN{undef $/;}if(m#(https?://[a-zA-Z0-9/.:?_\-]+)#){print $1;}'; }
+lucky(){ s="$*"; [ -z "$s" ] && return 3; echo $s | perl -ne 'BEGIN{undef $/;}if(m#(https?://[a-zA-Z0-9=/.:?_&\-]+)#){print $1;}'; }
 goog(){ local s="$*"; links "https://google.com/search?q=${s// /+}"; }
 tarhelp(){
   cat <<EOFFFFFFFF
-1) tar.gz
-2) tar.bz2
-3) zip
-4) tar
-5) tar.xz
+1) gz
+2) tar.gz
+3) tar.bz2
+4) zip
+5) tar
+6) tar.xz
 
 EOFFFFFFFF
   local myv
@@ -1246,40 +1459,35 @@ EOFFFFFFFF
   echo
 
   case "$myv" in
-    1) echo tar cvzf create-me.tar.gz 1 2 3 4;;
-    2) echo tar cvf create-me.tar.bz2 --bzip2 1 2 3 4;;
-    3) echo zip -r create-me.zip 1 2 3 4;;
-    4) echo tar cvf create-me.tar 1 2 3 4;;
-    5) echo 'tar cvf - 1 2 3 4 | xz -c > create-me.tar.xz';;
+    1) echo 'gzip 1 #replaces 1 with 1.gz';;
+    2) echo tar cvzf create-me.tar.gz 1 2 3 4;;
+    3) echo tar cvf create-me.tar.bz2 --bzip2 1 2 3 4;;
+    4) echo zip -r create-me.zip 1 2 3 4;;
+    5) echo tar cvf create-me.tar 1 2 3 4;;
+    6) echo 'tar cvf - 1 2 3 4 | xz -c > create-me.tar.xz';;
   esac
 
 }
+vol-low-set(){
+  echo pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo 20%
+  pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo 20%
+}
 vol-up(){
-  local myv
-  echo '+5%'
+  echo pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo +5%
   pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo +5%
   while :; do
-    read -n 1 -p '+5%? (Y/n) ' myv
-    echo
-
-    case "$myv" in
-      [Yy]|'') pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo +5%;;
-      [Nn]*)   break;;
-    esac
+    read -p 'more? '
+    echo pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo +5%
+    pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo +5%
   done
 }
 vol-down(){
-  local myv
-  echo '-5%'
+  echo pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo -5%
   pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo -5%
   while :; do
-    read -n 1 -p '-5%? (Y/n) ' myv
-    echo
-
-    case "$myv" in
-      [Yy]|'') pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo -5%;;
-      [Nn]*)   break;;
-    esac
+    read -p 'more? '
+    echo pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo -5%
+    pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo -5%
   done
 }
 xclip-cp(){
@@ -1310,7 +1518,7 @@ alias ffplayer=ffplay
 # or just convert it into anonymously named/numbered mp3 files.
 #n=1; while read myf; do mv "$myf" "$n.mp3"; (( n++ )); done <<< "$(ls *.mp3)"
 mp3-review(){
-  [[ "$(find -maxdepth 1 -type f -name '* *' | wc -l)" -ne 0 ]] && return 3 #any spaces in files? just exit. fuck it.
+  [[ "$(find -maxdepth 1 -type f -name '* *' | wc -l)" -ne 0 ]] && return 3 #any spaces in files? just exit. f*** it.
   for i in $(echo *.mp3 | tr ' ' '\n' | shuf | tr '\n' ' '); do ffplay $i; read -n 1 -p 'delete? (y/N) ' yn; [[ $yn = 'y' ]] && { echo; rm -v $i; echo; } ;  done
 }
 alert-me(){
@@ -1617,7 +1825,11 @@ xchm-debs
 essential-debs/ack_3.4.0-1_all.deb
 essential-debs/acpitool_0.5.1-6_amd64.deb
 essential-debs/bind9-dnsutils_1%3a9.16.27-1~deb11u1_amd64.deb
+essential-debs/dillo_3.0.5-7_amd64.deb
 essential-debs/gawk_1%3a5.1.0-1_amd64.deb
+essential-debs/gcc-10-doc_10.2.0-1_all.deb
+essential-debs/gcc-doc_5%3a10.1.0-1_amd64.deb
+essential-debs/gcc-doc-base_10.1.0-1_all.deb
 essential-debs/gparted_1.2.0-1_amd64.deb
 essential-debs/gparted-common_1.2.0-1_all.deb
 essential-debs/info_6.7.0.dfsg.2-6_amd64.deb
@@ -1628,6 +1840,7 @@ essential-debs/jpegoptim_1.4.6-1_amd64.deb
 essential-debs/jq_1.6-2.1_amd64.deb
 essential-debs/libevent-core-2.1-7_2.1.12-stable-1_amd64.deb
 essential-debs/libfile-next-perl_1.18-1_all.deb
+essential-debs/libfltk1.3_1.3.5-3_amd64.deb
 essential-debs/libinotifytools0_3.14-8.1_amd64.deb
 essential-debs/libjq1_1.6-2.1_amd64.deb
 essential-debs/libjs-underscore_1.9.1~dfsg-3_all.deb
@@ -1637,10 +1850,14 @@ essential-debs/netcat_1.10-46_all.deb
 essential-debs/netcat-openbsd_1.217-3_amd64.deb
 essential-debs/netselect_0.3.ds1-29_amd64.deb
 essential-debs/netselect-apt_0.3.ds1-29_all.deb
+essential-debs/netsurf-common_3.10-1_all.deb
+essential-debs/netsurf-gtk_3.10-1+b1_amd64.deb
 essential-debs/net-tools_1.60+git20181103.0eebece-1_amd64.deb
 essential-debs/optipng_0.7.7-1+b1_amd64.deb
 essential-debs/perl-doc_5.32.1-4+deb11u2_all.deb
 essential-debs/pinfo_0.6.13-1.1_amd64.deb
+essential-debs/python3-astral_1.6.1-2_all.deb
+essential-debs/python3-tz_2021.1-1_all.deb
 essential-debs/strace_5.10-1_amd64.deb
 essential-debs/tmux_3.3a-1_bpo11+1_amd64.deb
 essential-debs/toilet_0.3-1.3_amd64.deb
@@ -2528,7 +2745,7 @@ for(@args){s#'#'\\''#g;s/^/'/;s/$/'/;}
 my $args = join ' ', @args;
 @args = ();
 system("python3 $python3_script $args");
-Congratulations python, you're the leader in malware shit:    9:deb, 218:pm, 1073:perl, 2238:php, 2809:bash, 4860:html, 5694:C++, 12158:C, 13332:go, 28078:java, 39536:py
+Congratulations python, you're the leader in malware sh**:    9:deb, 218:pm, 1073:perl, 2238:php, 2809:bash, 4860:html, 5694:C++, 12158:C, 13332:go, 28078:java, 39536:py
 1.6M	dash-0.5.11+git20200708+dd9ef66/
 39M	bash-5.1/
 109M	perl-5.32.1/

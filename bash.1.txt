@@ -1039,7 +1039,7 @@ BEST RECURSIVE GREP
 
   sudo grep -EIrni --extended-regex --binary-files=without-match --recursive --line-number --ignore-case 'libinput|synaptic' /var/log
 
-FFMPEG COMMAND SHIT
+FFMPEG COMMAND S***
 
   #400x285 image
   #Necro-killed-by-sorc.mp3: Audio file with ID3 version 2.4.0, contains:MPEG ADTS, layer III, v2,  56 kbps, 22.05 kHz, Monaural
@@ -1056,7 +1056,7 @@ FFMPEG COMMAND SHIT
   #27M	female_duck_bathing_boyfriend_comes_resized.mp4
   #125M	out.webm
 
-  #experimental shit: (haven't tried)
+  #experimental s***: (haven't tried)
   time ffmpeg -hwaccel vaapi -vaapi_device /dev/dri/renderD128 -i female_duck_bathing_boyfriend_comes.mp4 -c:v vp9 -c:a opus -strict -2 out.webm
 
 BASH SECRETS
@@ -1069,7 +1069,7 @@ BASH SECRETS
 
 MEGA GCC C COMPILING BU****** && LIBC S***
 
-  gcc -ansi -Wall -Wextra -Wpedantic shit_code.c
+  gcc -ansi -Wall -Wextra -Wpedantic sh17_code.c
   #could just use regular gcc17/gcc18 and use -pedantic to enforce K&R standards????
   #c89 == c90 == ANSI/ISO C
 
@@ -1097,7 +1097,7 @@ GNU/LINUX+DEBIAN MALWARE/SECURITY NOTES
 
   Always fix upstream URL project locations first so all distributions (that package the source code) benefit from the security changes.
 
-  any binary file can be checked for possible malware-shit:
+  any binary file can be checked for possible malware-s***:
     chkrootkit, rkhunter
     #lesser so:
     binwalk (detect + extract binary magicalized data in an ISO for example)
