@@ -1069,9 +1069,11 @@ BASH SECRETS
 
 MEGA GCC C COMPILING BU****** && LIBC S***
 
-  gcc -ansi -Wall -Wextra -Wpedantic sh17_code.c
-  #could just use regular gcc17/gcc18 and use -pedantic to enforce K&R standards????
-  #c89 == c90 == ANSI/ISO C
+  gcc -ggdb3 -Wall -Wextra -Wpedantic sh17_code.c
+  #TODO: does it even f***ing matter what C specification I use? UGH bulls***.
+  #      I'm 90% sure default is 93% good...right???RIGHT?!!!
+  #could use -pedantic to enforce K&R standards????
+  #-ansi:  c89 == c90 == ANSI/ISO C
 
   #good technique:
   #1) variable declarations @ beginning of function
@@ -1087,7 +1089,7 @@ MEGA GCC C COMPILING BU****** && LIBC S***
 
   #man 2 open read close chmod
 
-  pinfo libc #brilliant.
+  pinfo libc #brilliant. requires:   sudo apt install glibc-doc-reference 
 
 INTERESTING BUT STUPID BASH BU******
 
