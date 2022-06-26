@@ -1,8 +1,7 @@
 #!/bin/bash
 
-[ -f ~/README.txt ] && exit 2
+[ -f ~/README.md ] && exit 2
 
-rm -v README.txt
-echo 'cat *.txt > README.txt'
-cat *.txt > ~/README.txt
-mv -v ~/README.txt ./
+echo 'cat *.txt > README.md'
+cat *.txt > README.md
+perl -i -pe 'BEGIN{undef $/;}s/^/\`\`\`/;s/$/\`\`\`/' README.md

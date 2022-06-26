@@ -1,68 +1,4 @@
-```#!/usr/bin/perl
-
-
-use strict;
-use warnings;
-#use Data::Dumper;
-#$Data::Dumper::Maxdepth = 1;
-use AptPkg::Cache;
-use autodie;
-use List::Util qw/uniq/;
-
-
-#<config>
-my $package_name = $ARGV[0] || 'kate';
-my $target_arch = 'amd64';
-#</config>
-
-my $cache = AptPkg::Cache->new();
-
-sub get_pkgname_depends_list{
-  my ($_pkgname) = @_;
-  if(!defined($_pkgname)){
-    warn "WARNING: package name is undefined........\n";
-    return ();
-  }
-  if(length($_pkgname) == 0){
-    warn "WARNING: package name is empty...........\n";
-    return ();
-  }
-  my $version_list = $cache->get($_pkgname)->{'VersionList'};
-  if(!defined($version_list)){
-    warn "WARNING: Version list for package name $_pkgname is undefined.\n";
-    return ();
-  }
-  if(scalar(@{$version_list}) == 0){
-    warn "WARNING: Version list for package name $_pkgname is empty.\n";
-    return ();
-  }
-  my $dependencies = $version_list->[0]->{'DependsList'};
-  if(!defined($dependencies)){
-    warn "WARNING: Dependencies list for package name $_pkgname is undefined.\n";
-    return ();
-  }
-  if(scalar(@{$dependencies}) == 0){
-    warn "WARNING: Dependencies list for package name $_pkgname is empty.\n";
-    return ();
-  }
-  return @{$dependencies};
-}
-
-
-my @dependencies = get_pkgname_depends_list($package_name);
-my @package_names = ($package_name);
-while(1){
-  $_ = shift(@dependencies) or last;
-  if($_->{'DepType'} ne 'Depends'){next;}
-  my $target_pkg = $_->{'TargetPkg'};
-  if($target_pkg->{'Arch'} ne $target_arch){next;}
-  if($target_pkg->{'CurrentState'} eq 'Installed'){next;}
-  push(@package_names, $target_pkg->{'Name'});
-  push(@dependencies, get_pkgname_depends_list($target_pkg->{'Name'}));
-}
-
-print 'sudo apt download ', join(' ', uniq(sort(@package_names))), "\n";
-#!/bin/bash
+```#!/bin/bash
 
 #this is a 10%-31% comprehensive debian package management reference.
 #see the man packages for apt apt-cache apt-file apt-get apt-mark dpkg dpkg-query 
@@ -163,50 +99,6 @@ fi
 #!/bin/bash
 
 for i in `apt-mark showmanual`; do rec="$(dpkg-query -f '${Recommends}' -W $i)"; [ -n "$rec" ] && echo "$i: $rec"; done
-android-usb-debs
-apt-container-debs
-atool-debs
-cloc-debs
-epiphany-browser-debs
-ffmpeg-libdvdcss2-vlc-debs
-fotoxx-debs
-go-debs
-hexchat-debs
-imagemagick-debs
-jdk-debs
-links-links2-lynx-debs
-mono-cs-debs
-nmap-debs
-php-debs
-python3-doc-debs
-python3-tk-debs
-steam-debs
-vim-debs
-wine-debs
-xchm-debs
-essential-debs/ack_3.4.0-1_all.deb
-essential-debs/gawk_1%3a5.1.0-1_amd64.deb
-essential-debs/gparted_1.2.0-1_amd64.deb
-essential-debs/gparted-common_1.2.0-1_all.deb
-essential-debs/info_6.7.0.dfsg.2-6_amd64.deb
-essential-debs/inotify-tools_3.14-8.1_amd64.deb
-essential-debs/install-info_6.7.0.dfsg.2-6_amd64.deb
-essential-debs/iotop_0.6-24-g733f3f8-1.1_amd64.deb
-essential-debs/jpegoptim_1.4.6-1_amd64.deb
-essential-debs/libfile-next-perl_1.18-1_all.deb
-essential-debs/libinotifytools0_3.14-8.1_amd64.deb
-essential-debs/libjs-underscore_1.9.1~dfsg-3_all.deb
-essential-debs/netcat_1.10-46_all.deb
-essential-debs/netcat-openbsd_1.217-3_amd64.deb
-essential-debs/net-tools_1.60+git20181103.0eebece-1_amd64.deb
-essential-debs/optipng_0.7.7-1+b1_amd64.deb
-essential-debs/perl-doc_5.32.1-4+deb11u2_all.deb
-essential-debs/pinfo_0.6.13-1.1_amd64.deb
-essential-debs/toilet_0.3-1.3_amd64.deb
-essential-debs/toilet-fonts_0.3-1.3_all.deb
-essential-debs/txt2man_1.7.1-1+deb11u1_all.deb
-essential-debs/wget_1.21-1+deb11u1_amd64.deb
-essential-debs/xclip_0.13-2_amd64.deb
 BINARY FILE SERVER WEBSITES TO UPLOAD TO EASILY WITH CLI/SHELL/CURL/WGET
 
   https://transfer.sh #your file is there for 14 days. TODO: filename restrictions? filesize restrictions?
@@ -1286,13 +1178,17 @@ MEGA GCC C COMPILING BU****** && LIBC S***
   #1) variable declarations @ beginning of function
   #2) initialize ALL variable declarations
 
+  #to avoid buffer overflows and Segmentation Faults
+  #look up:  address sanitation, asan, gcc asan, address sanitizer
+  #(as software packages or gcc options [eg. -fsanitize=address])
+
   #fopen() && fseek()   the libc way
   #open() && lseek()    the POSIX/UNIX way
   #TODO: which one does Windows 10 use? (lol)
 
   #man 2 open read close chmod
 
-  #pinfo libc || info libc  #it has an index of all of the C/gcc functions you can use :D except MATH.grrr
+  pinfo libc #brilliant.
 
 INTERESTING BUT STUPID BASH BU******
 
@@ -1343,6 +1239,10 @@ MOAR BASH S*** F***
 BASH GENIUS MAN PAGE LOOK-UP
 
   man bash | grep -F -A 2 -B 2 '&>'
+
+DEBIAN RECEIVE / SEND MAIL FROM GMAIL VIA POP3 (RECEIVE) AND SMTP (SEND) RESEARCH
+
+  sudo apt install mpop msmtp #and good f***in' luck
 
 #prevents CTRL+S freezing the tty/virtual-console (ie. until CTRL+Q is hit)
 #see:   stty -a | egrep 'start|stop'
@@ -1442,7 +1342,7 @@ Z(){
 apt-non-debian-packages-installed(){
   aptitude search '?narrow(?installed, ?not(?origin(Debian)))'
 }
-lucky(){ s="$*"; [ -z "$s" ] && return 3; echo $s | perl -ne 'BEGIN{undef $/;}if(m#(https?://[a-zA-Z0-9=/.:?_&\-]+)#){print $1;}'; }
+lucky(){ s="$*"; [ -z "$s" ] && return 3; echo $s | perl -ne 'BEGIN{undef $/;}if(m#(https?://[a-zA-Z0-9,%=/.:?_&\-]+)#){print $1;}'; }
 goog(){ local s="$*"; links "https://google.com/search?q=${s// /+}"; }
 tarhelp(){
   cat <<EOFFFFFFFF
@@ -1810,6 +1710,7 @@ imagemagick-debs
 jdk-debs
 links-links2-lynx-debs
 mono-cs-debs
+mpv-debs
 nmap-debs
 php-debs
 python3-doc-debs
@@ -1830,6 +1731,7 @@ essential-debs/gawk_1%3a5.1.0-1_amd64.deb
 essential-debs/gcc-10-doc_10.2.0-1_all.deb
 essential-debs/gcc-doc_5%3a10.1.0-1_amd64.deb
 essential-debs/gcc-doc-base_10.1.0-1_all.deb
+essential-debs/glibc-doc-reference_2.31-1_all.deb
 essential-debs/gparted_1.2.0-1_amd64.deb
 essential-debs/gparted-common_1.2.0-1_all.deb
 essential-debs/info_6.7.0.dfsg.2-6_amd64.deb
@@ -1845,6 +1747,8 @@ essential-debs/libinotifytools0_3.14-8.1_amd64.deb
 essential-debs/libjq1_1.6-2.1_amd64.deb
 essential-debs/libjs-underscore_1.9.1~dfsg-3_all.deb
 essential-debs/libonig5_6.9.6-1.1_amd64.deb
+essential-debs/make-doc_4.3-2_all.deb
+essential-debs/manpages-posix_2017a-2_all.deb
 essential-debs/ncal_12.1.7+nmu3_amd64.deb
 essential-debs/netcat_1.10-46_all.deb
 essential-debs/netcat-openbsd_1.217-3_amd64.deb
@@ -1946,14 +1850,21 @@ Disk /dev/loop0: 2.09 GiB, 2240999424 bytes, 4376952 sectors
 Units: sectors of 1 * 512 = 512 bytes
 Sector size (logical/physical): 512 bytes / 512 bytes
 I/O size (minimum/optimal): 512 bytes / 512 bytes
+What I installed in Steam:
+  Team Fortress 2 (FREE)
+  Left 4 Dead 2
+  Torchlight 2
+  Saints Row 2 (actually runs native!)
+What I installed in WINE:
+  Battle.net app and then through that got World of Warcraft working
+  I plan on installing Diablo II && Diablo II: LoD
 #!/bin/bash
 
-[ -f ~/README.txt ] && exit 2
+[ -f ~/README.md ] && exit 2
 
-rm -v README.txt
-echo 'cat *.txt > README.txt'
-cat *.txt > ~/README.txt
-mv -v ~/README.txt ./
+echo 'cat *.txt > README.md'
+cat *.txt > README.md
+perl -i -pe 'BEGIN{undef $/;}s/^/\`\`\`/;s/$/\`\`\`/' README.md
 sudo -E hw-probe -all -show
 exit 0
 
@@ -2014,6 +1925,70 @@ Devices (35)
 | IDE  | seagate-st1000lm... | Seagate          | ST1000LM035-1RK172 1TB              | disk         |
 +------+---------------------+------------------+-------------------------------------+--------------+
 
+#!/usr/bin/perl
+
+
+use strict;
+use warnings;
+#use Data::Dumper;
+#$Data::Dumper::Maxdepth = 1;
+use AptPkg::Cache;
+use autodie;
+use List::Util qw/uniq/;
+
+
+#<config>
+my $package_name = $ARGV[0] || 'kate';
+my $target_arch = 'amd64';
+#</config>
+
+my $cache = AptPkg::Cache->new();
+
+sub get_pkgname_depends_list{
+  my ($_pkgname) = @_;
+  if(!defined($_pkgname)){
+    warn "WARNING: package name is undefined........\n";
+    return ();
+  }
+  if(length($_pkgname) == 0){
+    warn "WARNING: package name is empty...........\n";
+    return ();
+  }
+  my $version_list = $cache->get($_pkgname)->{'VersionList'};
+  if(!defined($version_list)){
+    warn "WARNING: Version list for package name $_pkgname is undefined.\n";
+    return ();
+  }
+  if(scalar(@{$version_list}) == 0){
+    warn "WARNING: Version list for package name $_pkgname is empty.\n";
+    return ();
+  }
+  my $dependencies = $version_list->[0]->{'DependsList'};
+  if(!defined($dependencies)){
+    warn "WARNING: Dependencies list for package name $_pkgname is undefined.\n";
+    return ();
+  }
+  if(scalar(@{$dependencies}) == 0){
+    warn "WARNING: Dependencies list for package name $_pkgname is empty.\n";
+    return ();
+  }
+  return @{$dependencies};
+}
+
+
+my @dependencies = get_pkgname_depends_list($package_name);
+my @package_names = ($package_name);
+while(1){
+  $_ = shift(@dependencies) or last;
+  if($_->{'DepType'} ne 'Depends'){next;}
+  my $target_pkg = $_->{'TargetPkg'};
+  if($target_pkg->{'Arch'} ne $target_arch){next;}
+  if($target_pkg->{'CurrentState'} eq 'Installed'){next;}
+  push(@package_names, $target_pkg->{'Name'});
+  push(@dependencies, get_pkgname_depends_list($target_pkg->{'Name'}));
+}
+
+print 'sudo apt download ', join(' ', uniq(sort(@package_names))), "\n";
 sudo lsblk --list --output-all /dev/sda | tr '\t' ' ' | sed 's/ \{2,\}/ /g'
 
 
@@ -2038,316 +2013,6 @@ apt -s install nvidia-tesla-460-driver
 
 
 
-NOTE: This is only a simulation!
-      apt needs root privileges for real execution.
-      Keep also in mind that locking is deactivated,
-      so don't depend on the relevance to the real current situation!
-Reading package lists...
-Building dependency tree...
-Reading state information...
-The following additional packages will be installed:
-  glx-alternative-mesa glx-alternative-nvidia glx-diversions libatomic1:i386
-  libbsd0:i386 libdrm-amdgpu1:i386 libdrm-intel1:i386 libdrm-nouveau2:i386
-  libdrm-radeon1:i386 libdrm2:i386 libedit2:i386 libegl-mesa0:i386
-  libegl-nvidia-tesla-460-0 libegl-nvidia-tesla-460-0:i386 libegl1:i386
-  libelf1:i386 libexpat1:i386 libffi7:i386 libgbm1:i386 libgl1:i386
-  libgl1-mesa-dri:i386 libgl1-nvidia-tesla-460-glvnd-glx
-  libgl1-nvidia-tesla-460-glvnd-glx:i386 libglapi-mesa:i386
-  libgles-nvidia-tesla-460-1 libgles-nvidia-tesla-460-1:i386
-  libgles-nvidia-tesla-460-2 libgles-nvidia-tesla-460-2:i386 libgles1
-  libgles1:i386 libgles2:i386 libglvnd0:i386 libglx-mesa0:i386
-  libglx-nvidia-tesla-460-0 libglx-nvidia-tesla-460-0:i386 libglx0:i386
-  libllvm11:i386 libmd0:i386 libnvidia-tesla-460-cbl libnvidia-tesla-460-cfg1
-  libnvidia-tesla-460-cuda1 libnvidia-tesla-460-cuda1:i386
-  libnvidia-tesla-460-eglcore libnvidia-tesla-460-eglcore:i386
-  libnvidia-tesla-460-encode1 libnvidia-tesla-460-encode1:i386
-  libnvidia-tesla-460-glcore libnvidia-tesla-460-glcore:i386
-  libnvidia-tesla-460-glvkspirv libnvidia-tesla-460-glvkspirv:i386
-  libnvidia-tesla-460-ml1 libnvidia-tesla-460-nvcuvid1
-  libnvidia-tesla-460-nvcuvid1:i386 libnvidia-tesla-460-ptxjitcompiler1
-  libnvidia-tesla-460-ptxjitcompiler1:i386 libnvidia-tesla-460-rtcore
-  libopengl0:i386 libpciaccess0:i386 libsensors5:i386 libstdc++6:i386
-  libtinfo6:i386 libvulkan1:i386 libwayland-client0:i386
-  libwayland-server0:i386 libx11-6:i386 libx11-xcb1:i386 libxau6:i386
-  libxcb-dri2-0:i386 libxcb-dri3-0:i386 libxcb-glx0:i386 libxcb-present0:i386
-  libxcb-randr0:i386 libxcb-shm0:i386 libxcb-sync1:i386 libxcb-xfixes0:i386
-  libxcb1:i386 libxdamage1:i386 libxdmcp6:i386 libxext6:i386 libxfixes3:i386
-  libxshmfence1:i386 libxxf86vm1:i386 libz3-4:i386 libzstd1:i386
-  mesa-vulkan-drivers:i386 nvidia-egl-common nvidia-installer-cleanup
-  nvidia-kernel-common nvidia-modprobe nvidia-persistenced
-  nvidia-settings-tesla-460 nvidia-support nvidia-tesla-460-alternative
-  nvidia-tesla-460-driver-bin nvidia-tesla-460-driver-libs
-  nvidia-tesla-460-driver-libs:i386 nvidia-tesla-460-egl-icd
-  nvidia-tesla-460-egl-icd:i386 nvidia-tesla-460-kernel-dkms
-  nvidia-tesla-460-kernel-support nvidia-tesla-460-smi
-  nvidia-tesla-460-vdpau-driver nvidia-tesla-460-vulkan-icd
-  nvidia-tesla-460-vulkan-icd:i386 nvidia-vulkan-common update-glx
-  xserver-xorg-video-nvidia-tesla-460 zlib1g:i386
-Suggested packages:
-  nvidia-cuda-mps lm-sensors:i386 libegl-nvidia0 | libegl-nvidia-tesla-450-0
-  | libegl-nvidia-tesla-440-0 | libegl-nvidia-tesla-418-0
-  | libegl-nvidia-legacy-390xx0 vulkan-utils vulkan-utils:i386
-  nvidia-vulkan-icd | nvidia-tesla-450-vulkan-icd
-  | nvidia-tesla-440-vulkan-icd | nvidia-tesla-418-vulkan-icd
-  | nvidia-legacy-390xx-vulkan-icd
-The following NEW packages will be installed:
-  glx-alternative-mesa glx-alternative-nvidia glx-diversions libatomic1:i386
-  libbsd0:i386 libdrm-amdgpu1:i386 libdrm-intel1:i386 libdrm-nouveau2:i386
-  libdrm-radeon1:i386 libdrm2:i386 libedit2:i386 libegl-mesa0:i386
-  libegl-nvidia-tesla-460-0 libegl-nvidia-tesla-460-0:i386 libegl1:i386
-  libelf1:i386 libexpat1:i386 libffi7:i386 libgbm1:i386 libgl1:i386
-  libgl1-mesa-dri:i386 libgl1-nvidia-tesla-460-glvnd-glx
-  libgl1-nvidia-tesla-460-glvnd-glx:i386 libglapi-mesa:i386
-  libgles-nvidia-tesla-460-1 libgles-nvidia-tesla-460-1:i386
-  libgles-nvidia-tesla-460-2 libgles-nvidia-tesla-460-2:i386 libgles1
-  libgles1:i386 libgles2:i386 libglvnd0:i386 libglx-mesa0:i386
-  libglx-nvidia-tesla-460-0 libglx-nvidia-tesla-460-0:i386 libglx0:i386
-  libllvm11:i386 libmd0:i386 libnvidia-tesla-460-cbl libnvidia-tesla-460-cfg1
-  libnvidia-tesla-460-cuda1 libnvidia-tesla-460-cuda1:i386
-  libnvidia-tesla-460-eglcore libnvidia-tesla-460-eglcore:i386
-  libnvidia-tesla-460-encode1 libnvidia-tesla-460-encode1:i386
-  libnvidia-tesla-460-glcore libnvidia-tesla-460-glcore:i386
-  libnvidia-tesla-460-glvkspirv libnvidia-tesla-460-glvkspirv:i386
-  libnvidia-tesla-460-ml1 libnvidia-tesla-460-nvcuvid1
-  libnvidia-tesla-460-nvcuvid1:i386 libnvidia-tesla-460-ptxjitcompiler1
-  libnvidia-tesla-460-ptxjitcompiler1:i386 libnvidia-tesla-460-rtcore
-  libopengl0:i386 libpciaccess0:i386 libsensors5:i386 libstdc++6:i386
-  libtinfo6:i386 libvulkan1:i386 libwayland-client0:i386
-  libwayland-server0:i386 libx11-6:i386 libx11-xcb1:i386 libxau6:i386
-  libxcb-dri2-0:i386 libxcb-dri3-0:i386 libxcb-glx0:i386 libxcb-present0:i386
-  libxcb-randr0:i386 libxcb-shm0:i386 libxcb-sync1:i386 libxcb-xfixes0:i386
-  libxcb1:i386 libxdamage1:i386 libxdmcp6:i386 libxext6:i386 libxfixes3:i386
-  libxshmfence1:i386 libxxf86vm1:i386 libz3-4:i386 libzstd1:i386
-  mesa-vulkan-drivers:i386 nvidia-egl-common nvidia-installer-cleanup
-  nvidia-kernel-common nvidia-modprobe nvidia-persistenced
-  nvidia-settings-tesla-460 nvidia-support nvidia-tesla-460-alternative
-  nvidia-tesla-460-driver nvidia-tesla-460-driver-bin
-  nvidia-tesla-460-driver-libs nvidia-tesla-460-driver-libs:i386
-  nvidia-tesla-460-egl-icd nvidia-tesla-460-egl-icd:i386
-  nvidia-tesla-460-kernel-dkms nvidia-tesla-460-kernel-support
-  nvidia-tesla-460-smi nvidia-tesla-460-vdpau-driver
-  nvidia-tesla-460-vulkan-icd nvidia-tesla-460-vulkan-icd:i386
-  nvidia-vulkan-common update-glx xserver-xorg-video-nvidia-tesla-460
-  zlib1g:i386
-0 upgraded, 109 newly installed, 0 to remove and 0 not upgraded.
-Inst update-glx (1.2.1~deb11u1 Debian:11.3/stable [amd64])
-Inst glx-alternative-mesa (1.2.1~deb11u1 Debian:11.3/stable [amd64])
-Inst nvidia-installer-cleanup (20151021+13 Debian:11.3/stable [amd64])
-Conf nvidia-installer-cleanup (20151021+13 Debian:11.3/stable [amd64])
-Inst glx-diversions (1.2.1~deb11u1 Debian:11.3/stable [amd64])
-Inst glx-alternative-nvidia (1.2.1~deb11u1 Debian:11.3/stable [amd64])
-Inst nvidia-tesla-460-alternative (460.91.03-1 Debian:11.3/stable [amd64])
-Inst libnvidia-tesla-460-cfg1 (460.91.03-1 Debian:11.3/stable [amd64])
-Inst nvidia-persistenced (460.32.03-1 Debian:11.3/stable [amd64])
-Inst nvidia-settings-tesla-460 (460.91.03-1 Debian:11.3/stable [amd64])
-Inst libnvidia-tesla-460-glcore (460.91.03-1 Debian:11.3/stable [amd64])
-Inst libglx-nvidia-tesla-460-0 (460.91.03-1 Debian:11.3/stable [amd64])
-Inst libgl1-nvidia-tesla-460-glvnd-glx (460.91.03-1 Debian:11.3/stable [amd64])
-Inst nvidia-egl-common (460.91.03-1 Debian:11.3/stable [amd64])
-Inst libnvidia-tesla-460-eglcore (460.91.03-1 Debian:11.3/stable [amd64])
-Inst libegl-nvidia-tesla-460-0 (460.91.03-1 Debian:11.3/stable [amd64])
-Inst nvidia-tesla-460-egl-icd (460.91.03-1 Debian:11.3/stable [amd64])
-Inst nvidia-tesla-460-driver-libs (460.91.03-1 Debian:11.3/stable [amd64])
-Inst libnvidia-tesla-460-ml1 (460.91.03-1 Debian:11.3/stable [amd64])
-Inst nvidia-tesla-460-driver-bin (460.91.03-1 Debian:11.3/stable [amd64])
-Inst nvidia-support (20151021+13 Debian:11.3/stable [amd64])
-Inst xserver-xorg-video-nvidia-tesla-460 (460.91.03-1 Debian:11.3/stable [amd64])
-Inst nvidia-tesla-460-vdpau-driver (460.91.03-1 Debian:11.3/stable [amd64])
-Inst nvidia-kernel-common (20151021+13 Debian:11.3/stable [amd64])
-Inst nvidia-modprobe (470.103.01-1~deb11u1 Debian:11.3/stable [amd64])
-Inst nvidia-tesla-460-kernel-support (460.91.03-1 Debian:11.3/stable [amd64])
-Inst nvidia-tesla-460-kernel-dkms (460.91.03-1 Debian:11.3/stable [amd64])
-Inst nvidia-tesla-460-driver (460.91.03-1 Debian:11.3/stable [amd64])
-Inst libatomic1:i386 (10.2.1-6 Debian:11.3/stable [i386])
-Inst libmd0:i386 (1.0.3-3 Debian:11.3/stable [i386])
-Inst libbsd0:i386 (0.11.3-1 Debian:11.3/stable [i386])
-Inst libdrm2:i386 (2.4.104-1 Debian:11.3/stable [i386])
-Inst libdrm-amdgpu1:i386 (2.4.104-1 Debian:11.3/stable [i386])
-Inst zlib1g:i386 (1:1.2.11.dfsg-2 Debian:11.3/stable [i386])
-Inst libpciaccess0:i386 (0.16-1 Debian:11.3/stable [i386])
-Inst libdrm-intel1:i386 (2.4.104-1 Debian:11.3/stable [i386])
-Inst libdrm-nouveau2:i386 (2.4.104-1 Debian:11.3/stable [i386])
-Inst libdrm-radeon1:i386 (2.4.104-1 Debian:11.3/stable [i386])
-Inst libtinfo6:i386 (6.2+20201114-2 Debian:11.3/stable [i386])
-Inst libedit2:i386 (3.1-20191231-2+b1 Debian:11.3/stable [i386])
-Inst libexpat1:i386 (2.2.10-2+deb11u3 Debian:11.3/stable [i386])
-Inst libffi7:i386 (3.3-6 Debian:11.3/stable [i386])
-Inst libwayland-server0:i386 (1.18.0-2~exp1.1 Debian:11.3/stable [i386])
-Inst libgbm1:i386 (20.3.5-1 Debian:11.3/stable [i386])
-Inst libglapi-mesa:i386 (20.3.5-1 Debian:11.3/stable [i386])
-Inst libwayland-client0:i386 (1.18.0-2~exp1.1 Debian:11.3/stable [i386])
-Inst libxau6:i386 (1:1.0.9-1 Debian:11.3/stable [i386])
-Inst libxdmcp6:i386 (1:1.1.2-3 Debian:11.3/stable [i386])
-Inst libxcb1:i386 (1.14-3 Debian:11.3/stable [i386])
-Inst libx11-6:i386 (2:1.7.2-1 Debian:11.3/stable [i386])
-Inst libx11-xcb1:i386 (2:1.7.2-1 Debian:11.3/stable [i386])
-Inst libxcb-dri2-0:i386 (1.14-3 Debian:11.3/stable [i386])
-Inst libxcb-dri3-0:i386 (1.14-3 Debian:11.3/stable [i386])
-Inst libxcb-present0:i386 (1.14-3 Debian:11.3/stable [i386])
-Inst libxcb-sync1:i386 (1.14-3 Debian:11.3/stable [i386])
-Inst libxcb-xfixes0:i386 (1.14-3 Debian:11.3/stable [i386])
-Inst libxshmfence1:i386 (1.3-1 Debian:11.3/stable [i386])
-Inst libegl-mesa0:i386 (20.3.5-1 Debian:11.3/stable [i386])
-Inst libnvidia-tesla-460-eglcore:i386 (460.91.03-1 Debian:11.3/stable [i386])
-Inst libegl-nvidia-tesla-460-0:i386 (460.91.03-1 Debian:11.3/stable [i386])
-Inst libelf1:i386 (0.183-1 Debian:11.3/stable [i386])
-Inst libstdc++6:i386 (10.2.1-6 Debian:11.3/stable [i386])
-Inst libz3-4:i386 (4.8.10-1 Debian:11.3/stable [i386])
-Inst libllvm11:i386 (1:11.0.1-2 Debian:11.3/stable [i386])
-Inst libsensors5:i386 (1:3.6.0-7 Debian:11.3/stable [i386])
-Inst libvulkan1:i386 (1.2.162.0-1 Debian:11.3/stable [i386])
-Inst libzstd1:i386 (1.4.8+dfsg-2.1 Debian:11.3/stable [i386])
-Inst libgl1-mesa-dri:i386 (20.3.5-1 Debian:11.3/stable [i386])
-Inst libglvnd0:i386 (1.3.2-1 Debian:11.3/stable [i386])
-Inst libxcb-glx0:i386 (1.14-3 Debian:11.3/stable [i386])
-Inst libxcb-shm0:i386 (1.14-3 Debian:11.3/stable [i386])
-Inst libxdamage1:i386 (1:1.1.5-2 Debian:11.3/stable [i386])
-Inst libxext6:i386 (2:1.3.3-1.1 Debian:11.3/stable [i386])
-Inst libxfixes3:i386 (1:5.0.3-2 Debian:11.3/stable [i386])
-Inst libxxf86vm1:i386 (1:1.1.4-1+b2 Debian:11.3/stable [i386])
-Inst libglx-mesa0:i386 (20.3.5-1 Debian:11.3/stable [i386])
-Inst libglx0:i386 (1.3.2-1 Debian:11.3/stable [i386])
-Inst libgl1:i386 (1.3.2-1 Debian:11.3/stable [i386])
-Inst libnvidia-tesla-460-glcore:i386 (460.91.03-1 Debian:11.3/stable [i386])
-Inst libglx-nvidia-tesla-460-0:i386 (460.91.03-1 Debian:11.3/stable [i386])
-Inst libgl1-nvidia-tesla-460-glvnd-glx:i386 (460.91.03-1 Debian:11.3/stable [i386])
-Inst libgles1:i386 (1.3.2-1 Debian:11.3/stable [i386])
-Inst libgles-nvidia-tesla-460-1:i386 (460.91.03-1 Debian:11.3/stable [i386])
-Inst libgles1 (1.3.2-1 Debian:11.3/stable [amd64])
-Inst libgles-nvidia-tesla-460-1 (460.91.03-1 Debian:11.3/stable [amd64])
-Inst libgles-nvidia-tesla-460-2 (460.91.03-1 Debian:11.3/stable [amd64])
-Inst libgles2:i386 (1.3.2-1 Debian:11.3/stable [i386])
-Inst libgles-nvidia-tesla-460-2:i386 (460.91.03-1 Debian:11.3/stable [i386])
-Inst libnvidia-tesla-460-cbl (460.91.03-1 Debian:11.3/stable [amd64])
-Inst libnvidia-tesla-460-ptxjitcompiler1:i386 (460.91.03-1 Debian:11.3/stable [i386])
-Inst libnvidia-tesla-460-cuda1:i386 (460.91.03-1 Debian:11.3/stable [i386])
-Inst libnvidia-tesla-460-ptxjitcompiler1 (460.91.03-1 Debian:11.3/stable [amd64])
-Inst libnvidia-tesla-460-cuda1 (460.91.03-1 Debian:11.3/stable [amd64])
-Inst libnvidia-tesla-460-nvcuvid1 (460.91.03-1 Debian:11.3/stable [amd64])
-Inst libnvidia-tesla-460-encode1 (460.91.03-1 Debian:11.3/stable [amd64])
-Inst libnvidia-tesla-460-nvcuvid1:i386 (460.91.03-1 Debian:11.3/stable [i386])
-Inst libnvidia-tesla-460-encode1:i386 (460.91.03-1 Debian:11.3/stable [i386])
-Inst libnvidia-tesla-460-glvkspirv:i386 (460.91.03-1 Debian:11.3/stable [i386])
-Inst libnvidia-tesla-460-glvkspirv (460.91.03-1 Debian:11.3/stable [amd64])
-Inst libnvidia-tesla-460-rtcore (460.91.03-1 Debian:11.3/stable [amd64])
-Inst libxcb-randr0:i386 (1.14-3 Debian:11.3/stable [i386])
-Inst mesa-vulkan-drivers:i386 (20.3.5-1 Debian:11.3/stable [i386])
-Inst libegl1:i386 (1.3.2-1 Debian:11.3/stable [i386])
-Inst nvidia-tesla-460-egl-icd:i386 (460.91.03-1 Debian:11.3/stable [i386])
-Inst nvidia-tesla-460-driver-libs:i386 (460.91.03-1 Debian:11.3/stable [i386])
-Inst nvidia-tesla-460-smi (460.91.03-1 Debian:11.3/stable [amd64])
-Inst nvidia-vulkan-common (460.91.03-1 Debian:11.3/stable [amd64])
-Inst nvidia-tesla-460-vulkan-icd:i386 (460.91.03-1 Debian:11.3/stable [i386])
-Inst nvidia-tesla-460-vulkan-icd (460.91.03-1 Debian:11.3/stable [amd64])
-Inst libopengl0:i386 (1.3.2-1 Debian:11.3/stable [i386])
-Conf update-glx (1.2.1~deb11u1 Debian:11.3/stable [amd64])
-Conf glx-alternative-mesa (1.2.1~deb11u1 Debian:11.3/stable [amd64])
-Conf glx-diversions (1.2.1~deb11u1 Debian:11.3/stable [amd64])
-Conf glx-alternative-nvidia (1.2.1~deb11u1 Debian:11.3/stable [amd64])
-Conf nvidia-tesla-460-alternative (460.91.03-1 Debian:11.3/stable [amd64])
-Conf libnvidia-tesla-460-cfg1 (460.91.03-1 Debian:11.3/stable [amd64])
-Conf nvidia-persistenced (460.32.03-1 Debian:11.3/stable [amd64])
-Conf nvidia-settings-tesla-460 (460.91.03-1 Debian:11.3/stable [amd64])
-Conf libnvidia-tesla-460-glcore (460.91.03-1 Debian:11.3/stable [amd64])
-Conf libglx-nvidia-tesla-460-0 (460.91.03-1 Debian:11.3/stable [amd64])
-Conf libgl1-nvidia-tesla-460-glvnd-glx (460.91.03-1 Debian:11.3/stable [amd64])
-Conf nvidia-egl-common (460.91.03-1 Debian:11.3/stable [amd64])
-Conf libnvidia-tesla-460-eglcore (460.91.03-1 Debian:11.3/stable [amd64])
-Conf libegl-nvidia-tesla-460-0 (460.91.03-1 Debian:11.3/stable [amd64])
-Conf nvidia-tesla-460-egl-icd (460.91.03-1 Debian:11.3/stable [amd64])
-Conf nvidia-tesla-460-driver-libs (460.91.03-1 Debian:11.3/stable [amd64])
-Conf libnvidia-tesla-460-ml1 (460.91.03-1 Debian:11.3/stable [amd64])
-Conf nvidia-tesla-460-driver-bin (460.91.03-1 Debian:11.3/stable [amd64])
-Conf nvidia-support (20151021+13 Debian:11.3/stable [amd64])
-Conf xserver-xorg-video-nvidia-tesla-460 (460.91.03-1 Debian:11.3/stable [amd64])
-Conf nvidia-tesla-460-vdpau-driver (460.91.03-1 Debian:11.3/stable [amd64])
-Conf nvidia-kernel-common (20151021+13 Debian:11.3/stable [amd64])
-Conf nvidia-modprobe (470.103.01-1~deb11u1 Debian:11.3/stable [amd64])
-Conf nvidia-tesla-460-kernel-support (460.91.03-1 Debian:11.3/stable [amd64])
-Conf nvidia-tesla-460-kernel-dkms (460.91.03-1 Debian:11.3/stable [amd64])
-Conf nvidia-tesla-460-driver (460.91.03-1 Debian:11.3/stable [amd64])
-Conf libatomic1:i386 (10.2.1-6 Debian:11.3/stable [i386])
-Conf libmd0:i386 (1.0.3-3 Debian:11.3/stable [i386])
-Conf libbsd0:i386 (0.11.3-1 Debian:11.3/stable [i386])
-Conf libdrm2:i386 (2.4.104-1 Debian:11.3/stable [i386])
-Conf libdrm-amdgpu1:i386 (2.4.104-1 Debian:11.3/stable [i386])
-Conf zlib1g:i386 (1:1.2.11.dfsg-2 Debian:11.3/stable [i386])
-Conf libpciaccess0:i386 (0.16-1 Debian:11.3/stable [i386])
-Conf libdrm-intel1:i386 (2.4.104-1 Debian:11.3/stable [i386])
-Conf libdrm-nouveau2:i386 (2.4.104-1 Debian:11.3/stable [i386])
-Conf libdrm-radeon1:i386 (2.4.104-1 Debian:11.3/stable [i386])
-Conf libtinfo6:i386 (6.2+20201114-2 Debian:11.3/stable [i386])
-Conf libedit2:i386 (3.1-20191231-2+b1 Debian:11.3/stable [i386])
-Conf libexpat1:i386 (2.2.10-2+deb11u3 Debian:11.3/stable [i386])
-Conf libffi7:i386 (3.3-6 Debian:11.3/stable [i386])
-Conf libwayland-server0:i386 (1.18.0-2~exp1.1 Debian:11.3/stable [i386])
-Conf libgbm1:i386 (20.3.5-1 Debian:11.3/stable [i386])
-Conf libglapi-mesa:i386 (20.3.5-1 Debian:11.3/stable [i386])
-Conf libwayland-client0:i386 (1.18.0-2~exp1.1 Debian:11.3/stable [i386])
-Conf libxau6:i386 (1:1.0.9-1 Debian:11.3/stable [i386])
-Conf libxdmcp6:i386 (1:1.1.2-3 Debian:11.3/stable [i386])
-Conf libxcb1:i386 (1.14-3 Debian:11.3/stable [i386])
-Conf libx11-6:i386 (2:1.7.2-1 Debian:11.3/stable [i386])
-Conf libx11-xcb1:i386 (2:1.7.2-1 Debian:11.3/stable [i386])
-Conf libxcb-dri2-0:i386 (1.14-3 Debian:11.3/stable [i386])
-Conf libxcb-dri3-0:i386 (1.14-3 Debian:11.3/stable [i386])
-Conf libxcb-present0:i386 (1.14-3 Debian:11.3/stable [i386])
-Conf libxcb-sync1:i386 (1.14-3 Debian:11.3/stable [i386])
-Conf libxcb-xfixes0:i386 (1.14-3 Debian:11.3/stable [i386])
-Conf libxshmfence1:i386 (1.3-1 Debian:11.3/stable [i386])
-Conf libegl-mesa0:i386 (20.3.5-1 Debian:11.3/stable [i386])
-Conf libnvidia-tesla-460-eglcore:i386 (460.91.03-1 Debian:11.3/stable [i386])
-Conf libegl-nvidia-tesla-460-0:i386 (460.91.03-1 Debian:11.3/stable [i386])
-Conf libelf1:i386 (0.183-1 Debian:11.3/stable [i386])
-Conf libstdc++6:i386 (10.2.1-6 Debian:11.3/stable [i386])
-Conf libz3-4:i386 (4.8.10-1 Debian:11.3/stable [i386])
-Conf libllvm11:i386 (1:11.0.1-2 Debian:11.3/stable [i386])
-Conf libsensors5:i386 (1:3.6.0-7 Debian:11.3/stable [i386])
-Conf libvulkan1:i386 (1.2.162.0-1 Debian:11.3/stable [i386])
-Conf libzstd1:i386 (1.4.8+dfsg-2.1 Debian:11.3/stable [i386])
-Conf libgl1-mesa-dri:i386 (20.3.5-1 Debian:11.3/stable [i386])
-Conf libglvnd0:i386 (1.3.2-1 Debian:11.3/stable [i386])
-Conf libxcb-glx0:i386 (1.14-3 Debian:11.3/stable [i386])
-Conf libxcb-shm0:i386 (1.14-3 Debian:11.3/stable [i386])
-Conf libxdamage1:i386 (1:1.1.5-2 Debian:11.3/stable [i386])
-Conf libxext6:i386 (2:1.3.3-1.1 Debian:11.3/stable [i386])
-Conf libxfixes3:i386 (1:5.0.3-2 Debian:11.3/stable [i386])
-Conf libxxf86vm1:i386 (1:1.1.4-1+b2 Debian:11.3/stable [i386])
-Conf libglx-mesa0:i386 (20.3.5-1 Debian:11.3/stable [i386])
-Conf libglx0:i386 (1.3.2-1 Debian:11.3/stable [i386])
-Conf libgl1:i386 (1.3.2-1 Debian:11.3/stable [i386])
-Conf libnvidia-tesla-460-glcore:i386 (460.91.03-1 Debian:11.3/stable [i386])
-Conf libglx-nvidia-tesla-460-0:i386 (460.91.03-1 Debian:11.3/stable [i386])
-Conf libgl1-nvidia-tesla-460-glvnd-glx:i386 (460.91.03-1 Debian:11.3/stable [i386])
-Conf libgles1:i386 (1.3.2-1 Debian:11.3/stable [i386])
-Conf libgles-nvidia-tesla-460-1:i386 (460.91.03-1 Debian:11.3/stable [i386])
-Conf libgles1 (1.3.2-1 Debian:11.3/stable [amd64])
-Conf libgles-nvidia-tesla-460-1 (460.91.03-1 Debian:11.3/stable [amd64])
-Conf libgles-nvidia-tesla-460-2 (460.91.03-1 Debian:11.3/stable [amd64])
-Conf libgles2:i386 (1.3.2-1 Debian:11.3/stable [i386])
-Conf libgles-nvidia-tesla-460-2:i386 (460.91.03-1 Debian:11.3/stable [i386])
-Conf libnvidia-tesla-460-cbl (460.91.03-1 Debian:11.3/stable [amd64])
-Conf libnvidia-tesla-460-ptxjitcompiler1:i386 (460.91.03-1 Debian:11.3/stable [i386])
-Conf libnvidia-tesla-460-cuda1:i386 (460.91.03-1 Debian:11.3/stable [i386])
-Conf libnvidia-tesla-460-ptxjitcompiler1 (460.91.03-1 Debian:11.3/stable [amd64])
-Conf libnvidia-tesla-460-cuda1 (460.91.03-1 Debian:11.3/stable [amd64])
-Conf libnvidia-tesla-460-nvcuvid1 (460.91.03-1 Debian:11.3/stable [amd64])
-Conf libnvidia-tesla-460-encode1 (460.91.03-1 Debian:11.3/stable [amd64])
-Conf libnvidia-tesla-460-nvcuvid1:i386 (460.91.03-1 Debian:11.3/stable [i386])
-Conf libnvidia-tesla-460-encode1:i386 (460.91.03-1 Debian:11.3/stable [i386])
-Conf libnvidia-tesla-460-glvkspirv:i386 (460.91.03-1 Debian:11.3/stable [i386])
-Conf libnvidia-tesla-460-glvkspirv (460.91.03-1 Debian:11.3/stable [amd64])
-Conf libnvidia-tesla-460-rtcore (460.91.03-1 Debian:11.3/stable [amd64])
-Conf libxcb-randr0:i386 (1.14-3 Debian:11.3/stable [i386])
-Conf mesa-vulkan-drivers:i386 (20.3.5-1 Debian:11.3/stable [i386])
-Conf libegl1:i386 (1.3.2-1 Debian:11.3/stable [i386])
-Conf nvidia-tesla-460-egl-icd:i386 (460.91.03-1 Debian:11.3/stable [i386])
-Conf nvidia-tesla-460-driver-libs:i386 (460.91.03-1 Debian:11.3/stable [i386])
-Conf nvidia-tesla-460-smi (460.91.03-1 Debian:11.3/stable [amd64])
-Conf nvidia-vulkan-common (460.91.03-1 Debian:11.3/stable [amd64])
-Conf nvidia-tesla-460-vulkan-icd:i386 (460.91.03-1 Debian:11.3/stable [i386])
-Conf nvidia-tesla-460-vulkan-icd (460.91.03-1 Debian:11.3/stable [amd64])
-Conf libopengl0:i386 (1.3.2-1 Debian:11.3/stable [i386])
 NOTE: This is only a simulation!
       apt needs root privileges for real execution.
       Keep also in mind that locking is deactivated,
@@ -2702,14 +2367,6 @@ echo you might need to set your timezone in XFCE
 
 w3c-linkchecker w3c-markup-validator #requires apache2, ugh.
 translate-shell #google-translate-cli
-What I installed in Steam:
-  Team Fortress 2 (FREE)
-  Left 4 Dead 2
-  Torchlight 2
-  Saints Row 2 (actually runs native!)
-What I installed in WINE:
-  Battle.net app and then through that got World of Warcraft working
-  I plan on installing Diablo II && Diablo II: LoD
 
 0 firefox
 0 perl5
