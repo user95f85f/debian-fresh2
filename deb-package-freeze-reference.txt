@@ -18,6 +18,7 @@ imagemagick-debs
 jdk-debs
 links-links2-lynx-debs
 mono-cs-debs
+mpv-debs
 nmap-debs
 php-debs
 python3-doc-debs
@@ -38,6 +39,7 @@ essential-debs/gawk_1%3a5.1.0-1_amd64.deb
 essential-debs/gcc-10-doc_10.2.0-1_all.deb
 essential-debs/gcc-doc_5%3a10.1.0-1_amd64.deb
 essential-debs/gcc-doc-base_10.1.0-1_all.deb
+essential-debs/glibc-doc-reference_2.31-1_all.deb
 essential-debs/gparted_1.2.0-1_amd64.deb
 essential-debs/gparted-common_1.2.0-1_all.deb
 essential-debs/info_6.7.0.dfsg.2-6_amd64.deb
@@ -53,6 +55,8 @@ essential-debs/libinotifytools0_3.14-8.1_amd64.deb
 essential-debs/libjq1_1.6-2.1_amd64.deb
 essential-debs/libjs-underscore_1.9.1~dfsg-3_all.deb
 essential-debs/libonig5_6.9.6-1.1_amd64.deb
+essential-debs/make-doc_4.3-2_all.deb
+essential-debs/manpages-posix_2017a-2_all.deb
 essential-debs/ncal_12.1.7+nmu3_amd64.deb
 essential-debs/netcat_1.10-46_all.deb
 essential-debs/netcat-openbsd_1.217-3_amd64.deb
