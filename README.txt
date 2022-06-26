@@ -1286,6 +1286,10 @@ MEGA GCC C COMPILING BU****** && LIBC S***
   #1) variable declarations @ beginning of function
   #2) initialize ALL variable declarations
 
+  #to avoid buffer overflows and Segmentation Faults
+  #look up:  address sanitation, asan, gcc asan, address sanitizer
+  #(as software packages or gcc options [eg. -fsanitize=address])
+
   #fopen() && fseek()   the libc way
   #open() && lseek()    the POSIX/UNIX way
   #TODO: which one does Windows 10 use? (lol)
