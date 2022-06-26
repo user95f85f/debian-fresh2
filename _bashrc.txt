@@ -97,7 +97,7 @@ Z(){
 apt-non-debian-packages-installed(){
   aptitude search '?narrow(?installed, ?not(?origin(Debian)))'
 }
-lucky(){ s="$*"; [ -z "$s" ] && return 3; echo $s | perl -ne 'BEGIN{undef $/;}if(m#(https?://[a-zA-Z0-9=/.:?_&\-]+)#){print $1;}'; }
+lucky(){ s="$*"; [ -z "$s" ] && return 3; echo $s | perl -ne 'BEGIN{undef $/;}if(m#(https?://[a-zA-Z0-9,%=/.:?_&\-]+)#){print $1;}'; }
 goog(){ local s="$*"; links "https://google.com/search?q=${s// /+}"; }
 tarhelp(){
   cat <<EOFFFFFFFF

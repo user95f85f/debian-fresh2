@@ -1292,7 +1292,7 @@ MEGA GCC C COMPILING BU****** && LIBC S***
 
   #man 2 open read close chmod
 
-  #pinfo libc || info libc  #it has an index of all of the C/gcc functions you can use :D except MATH.grrr
+  pinfo libc #brilliant.
 
 INTERESTING BUT STUPID BASH BU******
 
@@ -1343,6 +1343,10 @@ MOAR BASH S*** F***
 BASH GENIUS MAN PAGE LOOK-UP
 
   man bash | grep -F -A 2 -B 2 '&>'
+
+DEBIAN RECEIVE / SEND MAIL FROM GMAIL VIA POP3 (RECEIVE) AND SMTP (SEND) RESEARCH
+
+  sudo apt install mpop msmtp #and good f***in' luck
 
 #prevents CTRL+S freezing the tty/virtual-console (ie. until CTRL+Q is hit)
 #see:   stty -a | egrep 'start|stop'
@@ -1442,7 +1446,7 @@ Z(){
 apt-non-debian-packages-installed(){
   aptitude search '?narrow(?installed, ?not(?origin(Debian)))'
 }
-lucky(){ s="$*"; [ -z "$s" ] && return 3; echo $s | perl -ne 'BEGIN{undef $/;}if(m#(https?://[a-zA-Z0-9=/.:?_&\-]+)#){print $1;}'; }
+lucky(){ s="$*"; [ -z "$s" ] && return 3; echo $s | perl -ne 'BEGIN{undef $/;}if(m#(https?://[a-zA-Z0-9,%=/.:?_&\-]+)#){print $1;}'; }
 goog(){ local s="$*"; links "https://google.com/search?q=${s// /+}"; }
 tarhelp(){
   cat <<EOFFFFFFFF

@@ -1083,7 +1083,7 @@ MEGA GCC C COMPILING BU****** && LIBC S***
 
   #man 2 open read close chmod
 
-  #pinfo libc || info libc  #it has an index of all of the C/gcc functions you can use :D except MATH.grrr
+  pinfo libc #brilliant.
 
 INTERESTING BUT STUPID BASH BU******
 
@@ -1134,3 +1134,7 @@ MOAR BASH S*** F***
 BASH GENIUS MAN PAGE LOOK-UP
 
   man bash | grep -F -A 2 -B 2 '&>'
+
+DEBIAN RECEIVE / SEND MAIL FROM GMAIL VIA POP3 (RECEIVE) AND SMTP (SEND) RESEARCH
+
+  sudo apt install mpop msmtp #and good f***in' luck
