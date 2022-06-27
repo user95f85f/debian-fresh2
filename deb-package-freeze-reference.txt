@@ -33,6 +33,7 @@ wine-debs
 xchm-debs
 essential-debs/ack_3.4.0-1_all.deb
 essential-debs/acpitool_0.5.1-6_amd64.deb
+essential-debs/apt-show-versions_0.22.12_all.deb
 essential-debs/bind9-dnsutils_1%3a9.16.27-1~deb11u1_amd64.deb
 essential-debs/dillo_3.0.5-7_amd64.deb
 essential-debs/gawk_1%3a5.1.0-1_amd64.deb
@@ -66,6 +67,7 @@ essential-debs/netsurf-common_3.10-1_all.deb
 essential-debs/netsurf-gtk_3.10-1+b1_amd64.deb
 essential-debs/net-tools_1.60+git20181103.0eebece-1_amd64.deb
 essential-debs/optipng_0.7.7-1+b1_amd64.deb
+essential-debs/parallel_20161222-1.1_all.deb
 essential-debs/perl-doc_5.32.1-4+deb11u2_all.deb
 essential-debs/pinfo_0.6.13-1.1_amd64.deb
 essential-debs/python3-astral_1.6.1-2_all.deb

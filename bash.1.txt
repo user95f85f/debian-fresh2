@@ -1144,3 +1144,40 @@ BASH GENIUS MAN PAGE LOOK-UP
 DEBIAN RECEIVE / SEND MAIL FROM GMAIL VIA POP3 (RECEIVE) AND SMTP (SEND) RESEARCH
 
   sudo apt install mpop msmtp #and good f***in' luck
+
+DATE-BASED CHARACTER SEQUENCES TO SHOW DATE/DATETIME INFORMATION LIKE MINUTES SECONDS DAY OF MONTH 12HOUR 24HOUR AMPM NAME OF MONTH YEAR IN LIKE THREE FORMATS
+
+  man strftime | grep -F -A 111 'ordinary character sequences'
+  man date | grep -F -A 111 'Interpreted sequences are:'
+  #TODO: now do printf lol
+
+WHAT A GOOD COPYRIGHT NOTICE EXAMPLE
+
+  Copyright (c) user95f85f
+
+  Permission to use, copy, modify, and/or distribute this software for any
+  purpose with or without fee is hereby granted.
+
+  THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+  REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+  AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+  INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+  LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+  OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+  PERFORMANCE OF THIS SOFTWARE.
+
+COLOR/COLOUR MASSIVE PARALLEL BASH SCRIPT EXECUTING BULL**** PLUS LOCAL MULTI-LINED VARIABLE DECLARATION
+
+  ###F*** TODO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  #gotta replace 'echo -n' and 'echo -e' and 'echo -ne' and 'echo -en' with printf SH**
+  #</TODO>
+  red=$(tput setaf 1) #notice: no double quotes! Huh. Must be a simple variable declaration.
+  reset=$(tput sgr0)
+
+  do_parallel(){
+    local total=100 DL='echo -n wget'
+    cat .links | parallel -j "$2" --jobs "$2" "echo -ne \"\\r\"; echo -n \"Jobs: ${red}${2}${reset}; Link: ${red}${1}${reset}; {#}/$total \"; $DL {}; echo -n '          '"
+  }
+
+  do_parallel something-special-here jobs_proc_file.txt
+  echo #a basic newline at the end of the program

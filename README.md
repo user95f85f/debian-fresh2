@@ -1246,6 +1246,43 @@ DEBIAN RECEIVE / SEND MAIL FROM GMAIL VIA POP3 (RECEIVE) AND SMTP (SEND) RESEARC
 
   sudo apt install mpop msmtp #and good f***in' luck
 
+DATE-BASED CHARACTER SEQUENCES TO SHOW DATE/DATETIME INFORMATION LIKE MINUTES SECONDS DAY OF MONTH 12HOUR 24HOUR AMPM NAME OF MONTH YEAR IN LIKE THREE FORMATS
+
+  man strftime | grep -F -A 111 'ordinary character sequences'
+  man date | grep -F -A 111 'Interpreted sequences are:'
+  #TODO: now do printf lol
+
+WHAT A GOOD COPYRIGHT NOTICE EXAMPLE
+
+  Copyright (c) user95f85f
+
+  Permission to use, copy, modify, and/or distribute this software for any
+  purpose with or without fee is hereby granted.
+
+  THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+  REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+  AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+  INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+  LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+  OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+  PERFORMANCE OF THIS SOFTWARE.
+
+COLOR/COLOUR MASSIVE PARALLEL BASH SCRIPT EXECUTING BULL**** PLUS LOCAL MULTI-LINED VARIABLE DECLARATION
+
+  ###F*** TODO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  #gotta replace 'echo -n' and 'echo -e' and 'echo -ne' and 'echo -en' with printf SH**
+  #</TODO>
+  red=$(tput setaf 1) #notice: no double quotes! Huh. Must be a simple variable declaration.
+  reset=$(tput sgr0)
+
+  do_parallel(){
+    local total=100 DL='echo -n wget'
+    cat .links | parallel -j "$2" --jobs "$2" "echo -ne \"\\r\"; echo -n \"Jobs: ${red}${2}${reset}; Link: ${red}${1}${reset}; {#}/$total \"; $DL {}; echo -n '          '"
+  }
+
+  do_parallel something-special-here jobs_proc_file.txt
+  echo #a basic newline at the end of the program
+
 #prevents CTRL+S freezing the tty/virtual-console (ie. until CTRL+Q is hit)
 #see:   stty -a | egrep 'start|stop'
 stty start undef
@@ -1256,7 +1293,7 @@ export TZ=America/Los_Angeles
 export WINEPREFIX=/media/user/DEB_STUFF/dot-wine
 apt='apt apt-cache apt-file apt-get apt-mark aptitude dpkg dpkg-query' 
 shield_mount_dir='/home/user/Documents/shield_mapper_mount'
-urban_url='https://api.urbandictionary.com/v0/define?term='
+urban_url='https://api.urbandictionary.com/v0/define?term'
 weechat_logs='/home/user/.weechat/logs'
 wow='/media/user/DEB_STUFF/dot-wine/drive_c/Program Files (x86)/Battle.net'
 www='/home/user/Documents/Github-repos/localhost-httpd/www'
@@ -1727,6 +1764,7 @@ wine-debs
 xchm-debs
 essential-debs/ack_3.4.0-1_all.deb
 essential-debs/acpitool_0.5.1-6_amd64.deb
+essential-debs/apt-show-versions_0.22.12_all.deb
 essential-debs/bind9-dnsutils_1%3a9.16.27-1~deb11u1_amd64.deb
 essential-debs/dillo_3.0.5-7_amd64.deb
 essential-debs/gawk_1%3a5.1.0-1_amd64.deb
@@ -1760,6 +1798,7 @@ essential-debs/netsurf-common_3.10-1_all.deb
 essential-debs/netsurf-gtk_3.10-1+b1_amd64.deb
 essential-debs/net-tools_1.60+git20181103.0eebece-1_amd64.deb
 essential-debs/optipng_0.7.7-1+b1_amd64.deb
+essential-debs/parallel_20161222-1.1_all.deb
 essential-debs/perl-doc_5.32.1-4+deb11u2_all.deb
 essential-debs/pinfo_0.6.13-1.1_amd64.deb
 essential-debs/python3-astral_1.6.1-2_all.deb

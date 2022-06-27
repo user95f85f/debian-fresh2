@@ -9,7 +9,7 @@ export TZ=America/Los_Angeles
 export WINEPREFIX=/media/user/DEB_STUFF/dot-wine
 apt='apt apt-cache apt-file apt-get apt-mark aptitude dpkg dpkg-query' 
 shield_mount_dir='/home/user/Documents/shield_mapper_mount'
-urban_url='https://api.urbandictionary.com/v0/define?term='
+urban_url='https://api.urbandictionary.com/v0/define?term'
 weechat_logs='/home/user/.weechat/logs'
 wow='/media/user/DEB_STUFF/dot-wine/drive_c/Program Files (x86)/Battle.net'
 www='/home/user/Documents/Github-repos/localhost-httpd/www'
