@@ -74,6 +74,7 @@ essential-debs/pinfo_0.6.13-1.1_amd64.deb
 essential-debs/python3-astral_1.6.1-2_all.deb
 essential-debs/python3-tz_2021.1-1_all.deb
 essential-debs/strace_5.10-1_amd64.deb
+essential-debs/tcpdump_4.99.0-2_amd64.deb
 essential-debs/tmux_3.3a-1_bpo11+1_amd64.deb
 essential-debs/toilet_0.3-1.3_amd64.deb
 essential-debs/toilet-fonts_0.3-1.3_all.deb

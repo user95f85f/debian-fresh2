@@ -99,6 +99,10 @@ fi
 #!/bin/bash
 
 for i in `apt-mark showmanual`; do rec="$(dpkg-query -f '${Recommends}' -W $i)"; [ -n "$rec" ] && echo "$i: $rec"; done
+YET ANOTHER BULL**** ISO BURNING TO A LIVEOS DEBIAN-BASED S***
+
+  https://grml.org/features/
+
 BINARY FILE SERVER WEBSITES TO UPLOAD TO EASILY WITH CLI/SHELL/CURL/WGET
 
   https://transfer.sh #your file is there for 14 days. TODO: filename restrictions? filesize restrictions?
@@ -1289,6 +1293,27 @@ EOF454545
   do_parallel something-special-here jobs_proc_file.txt
   echo #a basic newline at the end of the program
 
+SUPER SYSTEM SUSTAIN/BACKUP
+
+  rsync -aAXHSv /* /path/to/shared/folder \
+    --exclude={/dev/*,/proc/*,/sys/*,/tmp/*,/run/*,/mnt/*,/media/*,/lost+found,/home/*/.gvfs}
+sudo tcpdump -i any -U 'src port 53 or dst port 53' > out.dat
+#!/bin/bash
+
+
+
+tail -f out.dat | grep --line-buffered -E 'my\.jetpack\.domain.* (A\?|AAAA\?|CNAME) ' | cut --characters=24-
+watch-logs-global-journalctl is a function
+watch-logs-global-journalctl () 
+{ 
+    sudo journalctl -n30 --follow
+}
+watch-home is a function
+watch-home () 
+{ 
+    inotifywait --recursive --monitor --quiet --event create ~/.config ~/.local
+}
+
 #prevents CTRL+S freezing the tty/virtual-console (ie. until CTRL+Q is hit)
 #see:   stty -a | egrep 'start|stop'
 stty start undef
@@ -1811,6 +1836,7 @@ essential-debs/pinfo_0.6.13-1.1_amd64.deb
 essential-debs/python3-astral_1.6.1-2_all.deb
 essential-debs/python3-tz_2021.1-1_all.deb
 essential-debs/strace_5.10-1_amd64.deb
+essential-debs/tcpdump_4.99.0-2_amd64.deb
 essential-debs/tmux_3.3a-1_bpo11+1_amd64.deb
 essential-debs/toilet_0.3-1.3_amd64.deb
 essential-debs/toilet-fonts_0.3-1.3_all.deb
