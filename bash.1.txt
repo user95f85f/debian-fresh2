@@ -320,12 +320,16 @@ CHOPPING LEFT OF A STRING REFERENCE
   [[ "" ]] || echo "this is false. all empty strings are false"
 
 
-SOME ARRAY AND STRING PUSH/APPEND SH**
+SOME ARRAY AND STRING PUSH/APPEND SH** AND A WEIRD LOOP-PRINT RESEARCH
 
   str='123'
   arr=(1 2 3)
   str+=4      #1234
   arr+=(4)    #(1 2 3 4)
+
+  ar=(1 2 3 4 5 6 7 8 9)
+  printf '<%s>\t' "${ar[@]}"
+  #<1>   <2>   <3>   <4>   <5>   <6>   <7>   
 
 FILE GLOB FILENAME PATTERN EXPANSION TO ARRAY AND LOOP THROUGH
 
@@ -555,12 +559,12 @@ GITHUB SH**
   #your global git config settings:
   cat <<EOF >~/.gitconfig
 [user]
-	name = ${GITHUB_USERNAME}_cli
-	email = ${GITHUB_REGISTERED_EMAIL_FOR_CONTRIBUTION_ON_GITHUB_TRACKING}
+  name = ${GITHUB_USERNAME}_cli
+  email = ${GITHUB_REGISTERED_EMAIL_FOR_CONTRIBUTION_ON_GITHUB_TRACKING}
 [core]
-	askPass = ${CHMOD_X_STDOUT_YOUR_TOKEN}
+  askPass = ${CHMOD_X_STDOUT_YOUR_TOKEN}
 [credential]
-	username = ${GITHUB_USERNAME}
+  username = ${GITHUB_USERNAME}
 EOF
 
 
@@ -764,18 +768,18 @@ SHOW A PROGRESS BAR WHILE COMMANDS EXECUTE IN A GUI
 INSTALL A DESKTOP ENVIRONMENT ON YOUR DEBIAN
 
   tasksel --list-tasks
-  #i desktop	Debian desktop environment
-  #u gnome-desktop	GNOME
-  #i xfce-desktop	Xfce
-  #u gnome-flashback-desktop	GNOME Flashback
-  #u kde-desktop	KDE Plasma
-  #u cinnamon-desktop	Cinnamon
-  #u mate-desktop	MATE
-  #u lxde-desktop	LXDE
-  #u lxqt-desktop	LXQt
-  #u web-server	web server
-  #u ssh-server	SSH server
-  #i laptop	laptop
+  #i desktop                  Debian desktop environment
+  #u gnome-desktop            GNOME
+  #i xfce-desktop             Xfce
+  #u gnome-flashback-desktop  GNOME Flashback
+  #u kde-desktop              KDE Plasma
+  #u cinnamon-desktop         Cinnamon
+  #u mate-desktop             MATE
+  #u lxde-desktop             LXDE
+  #u lxqt-desktop             LXQt
+  #u web-server               web server
+  #u ssh-server               SSH server
+  #i laptop                   laptop
 
 PERL/TK SHOW-CASE SHOWS YOU WHAT YOU CAN DO WITH PERL/TK!!!!
 
@@ -840,20 +844,20 @@ MASS RENAME FILES RESEARCH
 PWD ASSESSMENT RESEARCH
 
   du -S
-  492	./data/global/excel
-  4	./data/global
-  4	./data
-  600	.
+  492   ./data/global/excel
+  4     ./data/global
+  4     ./data
+  600   .
 
   du
-  492	./data/global/excel
-  496	./data/global
-  500	./data
-  1100	.
+  492   ./data/global/excel
+  496   ./data/global
+  500   ./data
+  1100  .
 
   du -h --max-depth=1
-  500K	./data
-  1.1M	.
+  500K  ./data
+  1.1M  .
 
 CHROOT INTO A GNU/LINUX DISTRIBUTION THAT IS INSTALLED AT AN EXT4 PARTITION ON AN HDD/SSD/USB-HDD AND
   RUN A GOOD/SOLID RECOVERY BASH SHELL IN THERE
@@ -966,9 +970,6 @@ SOUNDCARD IMPORTANT INFORMATION
 
 ENCRYPTED FILESYSTEM WITHIN A FILE USED WITH A "LOOP DEVICE" TO MAINTAIN ITS INTEGRITY AS ENCRYPTED
 
-  #TODO: why sh** needs sudo and what doesn't????????????
-  #there's a 3% chance this is all gonna work *sobs*
-
   #setup
   head -c 100M /dev/zero > ~/Documents/shield.img
   sudo losetup /dev/loop4 ~/Documents/shield.img #TODO: 0.2%chance need to create a fresh/ready loop device: losetup --find
@@ -1000,7 +1001,6 @@ ENCRYPTED FILESYSTEM WITHIN A FILE USED WITH A "LOOP DEVICE" TO MAINTAIN ITS INT
   sudo umount ~/Documents/shield_mapper_mount
   sudo cryptsetup close shield_map_name
   sudo losetup --detach /dev/loop4
-
 
 DD RESEARCH
   
@@ -1050,11 +1050,11 @@ FFMPEG COMMAND S***
   time ffmpeg -i female_duck_bathing_boyfriend_comes.mp4 -c:v vp9 -b:v 2.2k -c:a opus -strict -2 out2.webm
   ffmpeg -i female_duck_bathing_boyfriend_comes.mp4 -s 640x360 -r 15  resized.mp4
   du -h *.mp4 *.webm
-  #108M	female_duck_bathing_boyfriend_comes.mp4
-  #5.7M	out3.webm
-  #6.0M	out2.webm
-  #27M	female_duck_bathing_boyfriend_comes_resized.mp4
-  #125M	out.webm
+  #108M female_duck_bathing_boyfriend_comes.mp4
+  #5.7M out3.webm
+  #6.0M out2.webm
+  #27M  female_duck_bathing_boyfriend_comes_resized.mp4
+  #125M out.webm
 
   #experimental s***: (haven't tried)
   time ffmpeg -hwaccel vaapi -vaapi_device /dev/dri/renderD128 -i female_duck_bathing_boyfriend_comes.mp4 -c:v vp9 -c:a opus -strict -2 out.webm
@@ -1173,6 +1173,12 @@ COLOR/COLOUR MASSIVE PARALLEL BASH SCRIPT EXECUTING BULL**** PLUS LOCAL MULTI-LI
   #</TODO>
   red=$(tput setaf 1) #notice: no double quotes! Huh. Must be a simple variable declaration.
   reset=$(tput sgr0)
+  printf '4' > jobs_proc_file.txt
+  cat <<EOF454545 > .links
+https://google.com
+https://facebook.com
+https://twitter.com
+EOF454545
 
   do_parallel(){
     local total=100 DL='echo -n wget'
