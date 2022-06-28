@@ -1788,6 +1788,7 @@ python3-tk-debs
 reportbug-debs
 rustc-debs
 steam-debs
+teeworlds-debs
 vim-debs
 w3c-css-validator-debs
 weechat-debs
