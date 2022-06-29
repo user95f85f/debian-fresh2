@@ -49,6 +49,7 @@ essential-debs/info_6.7.0.dfsg.2-6_amd64.deb
 essential-debs/inotify-tools_3.14-8.1_amd64.deb
 essential-debs/install-info_6.7.0.dfsg.2-6_amd64.deb
 essential-debs/iotop_0.6-24-g733f3f8-1.1_amd64.deb
+essential-debs/jnettop_0.13.0-1.1_amd64.deb
 essential-debs/jpegoptim_1.4.6-1_amd64.deb
 essential-debs/jq_1.6-2.1_amd64.deb
 essential-debs/libevent-core-2.1-7_2.1.12-stable-1_amd64.deb

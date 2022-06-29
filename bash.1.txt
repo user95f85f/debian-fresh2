@@ -1,3 +1,8 @@
+
+
+  https://dl.fedoraproject.org/pub/alt/live-respins/
+
+
 YET ANOTHER BULL**** ISO BURNING TO A LIVEOS DEBIAN-BASED S***
 
   https://grml.org/features/
@@ -1212,3 +1217,14 @@ watch-home ()
 { 
     inotifywait --recursive --monitor --quiet --event create ~/.config ~/.local
 }
+
+FASTER GZIP ALTERNATIVE  RESEARCH
+
+  apt install lzop #a faster compression solution VS gzip for streams:
+  echo whatever | lzop > what.lz
+  cat what.lz | lzop -d #should get 'whatever' as output
+
+MASTERFUL TECH/CODING/SOURCE-CODE STUFF RESEARCH
+
+  goog SHA1 site:geekflare.com
+  goog SHA1 collision site:github.com

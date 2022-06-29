@@ -99,6 +99,11 @@ fi
 #!/bin/bash
 
 for i in `apt-mark showmanual`; do rec="$(dpkg-query -f '${Recommends}' -W $i)"; [ -n "$rec" ] && echo "$i: $rec"; done
+
+
+  https://dl.fedoraproject.org/pub/alt/live-respins/
+
+
 YET ANOTHER BULL**** ISO BURNING TO A LIVEOS DEBIAN-BASED S***
 
   https://grml.org/features/
@@ -1314,6 +1319,17 @@ watch-home ()
     inotifywait --recursive --monitor --quiet --event create ~/.config ~/.local
 }
 
+FASTER GZIP ALTERNATIVE  RESEARCH
+
+  apt install lzop #a faster compression solution VS gzip for streams:
+  echo whatever | lzop > what.lz
+  cat what.lz | lzop -d #should get 'whatever' as output
+
+MASTERFUL TECH/CODING/SOURCE-CODE STUFF RESEARCH
+
+  goog SHA1 site:geekflare.com
+  goog SHA1 collision site:github.com
+
 #prevents CTRL+S freezing the tty/virtual-console (ie. until CTRL+Q is hit)
 #see:   stty -a | egrep 'start|stop'
 stty start undef
@@ -1811,6 +1827,7 @@ essential-debs/info_6.7.0.dfsg.2-6_amd64.deb
 essential-debs/inotify-tools_3.14-8.1_amd64.deb
 essential-debs/install-info_6.7.0.dfsg.2-6_amd64.deb
 essential-debs/iotop_0.6-24-g733f3f8-1.1_amd64.deb
+essential-debs/jnettop_0.13.0-1.1_amd64.deb
 essential-debs/jpegoptim_1.4.6-1_amd64.deb
 essential-debs/jq_1.6-2.1_amd64.deb
 essential-debs/libevent-core-2.1-7_2.1.12-stable-1_amd64.deb
