@@ -490,6 +490,15 @@ STDIN READ-IN LINE BY LINE
     echo $myline
   done <<< "$(</etc/apt/sources.list)"
 
+  # a little off-topic but f*** you too
+  # -r: no backslash-escape-literals executed
+  # -a: read the new contents into an array
+  strinigarray=()
+  read -ra strinigarray <<< "$whatever"
+
+  read whatever <<< $(echo stfu bitch) #"stfu bitch" with no newline
+  read whatever <<<'sup' #'sup' with no newlines
+
 USING MAPFILE TO SLURP A FILE INTO A BASH ARRAY
 
   echo 123 > hello.txt; mapfile < <(cat hello.txt); echo "${MAPFILE[@]}"
@@ -1228,3 +1237,10 @@ MASTERFUL TECH/CODING/SOURCE-CODE STUFF RESEARCH
 
   goog SHA1 site:geekflare.com
   goog SHA1 collision site:github.com
+
+SWAP ESCAPE/ESC KEY AND CAPS LOCK TO MAKE IT EASIER TO USE VIM WHILE IN X11
+
+    # this doesn't work while in a tty/virtual-console (even while .. lightdm for example.. is running)
+    DISPLAY=:0.0 setxkbmap -option caps:swapescape
+    # this does iff you're in a Desktop Environment (eg. XFCE or KDE)
+    setxkbmap -option caps:swapescape
