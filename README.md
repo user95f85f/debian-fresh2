@@ -1381,7 +1381,7 @@ alias check-network='bash -c "ip route; curl -IL http://nmcheck.gnome.org/check_
 alias df='df --human-readable --print-type 2>/dev/null'
 alias ffmpeg='/usr/bin/ffmpeg -hide_banner'
 alias ffprobe='/usr/bin/ffprobe -hide_banner'
-alias jpeg='/usr/bin/jpegoptim -s'
+alias jpg='/usr/bin/jpegoptim -s'
 alias lightdm-stop='is_desktop_running && sudo systemctl stop lightdm'
 alias lightdm-start='is_desktop_running || sudo systemctl start lightdm'
 alias myip='bash -c "wget --quiet -O - -4 ifconfig.io; wget --quiet -O - -6 ifconfig.io"'
@@ -1811,6 +1811,7 @@ audacity-debs
 cloc-debs
 epiphany-browser-debs
 essential-debs
+exiftool-debs
 ffmpeg-libdvdcss2-vlc-debs
 git-debs
 gmtp_android-usb-debs

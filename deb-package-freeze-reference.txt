@@ -8,6 +8,7 @@ audacity-debs
 cloc-debs
 epiphany-browser-debs
 essential-debs
+exiftool-debs
 ffmpeg-libdvdcss2-vlc-debs
 git-debs
 gmtp_android-usb-debs
