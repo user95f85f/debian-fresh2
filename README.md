@@ -1341,10 +1341,15 @@ MASTERFUL TECH/CODING/SOURCE-CODE STUFF RESEARCH
 
 SWAP ESCAPE/ESC KEY AND CAPS LOCK TO MAKE IT EASIER TO USE VIM WHILE IN X11
 
-    # this doesn't work while in a tty/virtual-console (even while .. lightdm for example.. is running)
-    DISPLAY=:0.0 setxkbmap -option caps:swapescape
-    # this does iff you're in a Desktop Environment (eg. XFCE or KDE)
-    setxkbmap -option caps:swapescape
+  # this doesn't work while in a tty/virtual-console (even while .. lightdm for example.. is running)
+  DISPLAY=:0.0 setxkbmap -option caps:swapescape
+  # this does iff you're in a Desktop Environment (eg. XFCE or KDE)
+  setxkbmap -option caps:swapescape
+
+IRC BOT RESEARCH
+
+  google: limnoria
+  It's in python3 I guess
 
 #prevents CTRL+S freezing the tty/virtual-console (ie. until CTRL+Q is hit)
 #see:   stty -a | egrep 'start|stop'
@@ -1355,9 +1360,10 @@ export EDITOR=/usr/bin/vim
 export TZ=America/Los_Angeles
 export WINEPREFIX=/media/user/DEB_STUFF/dot-wine
 apt='apt apt-cache apt-file apt-get apt-mark aptitude dpkg dpkg-query' 
+music='/home/user/Documents/mp3s'
+pictures='/home/user/Documents/STATIC-photos'
 shield_mount_dir='/home/user/Documents/shield_mapper_mount'
 urban_url='https://api.urbandictionary.com/v0/define?term'
-weechat_logs='/home/user/.weechat/logs'
 wow='/media/user/DEB_STUFF/dot-wine/drive_c/Program Files (x86)/Battle.net'
 www='/home/user/Documents/Github-repos/localhost-httpd/www'
 youtube='/home/user/Documents/youtube-downloads'
@@ -1366,6 +1372,7 @@ export git='/home/user/Documents/Github-repos'
 export perl_cheatsheet='/home/user/Documents/Github-repos/debian-fresh1/perl-cheat-sheet.txt'
 export python_cheatsheet='/home/user/Documents/Github-repos/debian-fresh1/python-cheat-sheet.txt'
 export todo='/home/user/Documents/TODO/todo.txt'
+export weechat_logs='/home/user/.weechat/logs'
 alias ..='cd ..'
 alias bash++='/usr/bin/perl'
 alias battery='echo acpitool -b'
@@ -1374,9 +1381,11 @@ alias check-network='bash -c "ip route; curl -IL http://nmcheck.gnome.org/check_
 alias df='df --human-readable --print-type 2>/dev/null'
 alias ffmpeg='/usr/bin/ffmpeg -hide_banner'
 alias ffprobe='/usr/bin/ffprobe -hide_banner'
+alias jpeg='/usr/bin/jpegoptim -s'
 alias lightdm-stop='is_desktop_running && sudo systemctl stop lightdm'
 alias lightdm-start='is_desktop_running || sudo systemctl start lightdm'
 alias myip='bash -c "wget --quiet -O - -4 ifconfig.io; wget --quiet -O - -6 ifconfig.io"'
+alias png='/usr/bin/optipng'
 alias suspend='echo systemctl suspend'
 alias tree='/usr/bin/tree -A'
 alias tty-exec-desktop-program='echo "DISPLAY=:0.0 google-chrome http://people.oregonstate.edu"'
@@ -1803,7 +1812,6 @@ cloc-debs
 epiphany-browser-debs
 essential-debs
 ffmpeg-libdvdcss2-vlc-debs
-fotoxx-debs
 git-debs
 gmtp_android-usb-debs
 go-debs

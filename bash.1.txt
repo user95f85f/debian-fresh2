@@ -1240,7 +1240,12 @@ MASTERFUL TECH/CODING/SOURCE-CODE STUFF RESEARCH
 
 SWAP ESCAPE/ESC KEY AND CAPS LOCK TO MAKE IT EASIER TO USE VIM WHILE IN X11
 
-    # this doesn't work while in a tty/virtual-console (even while .. lightdm for example.. is running)
-    DISPLAY=:0.0 setxkbmap -option caps:swapescape
-    # this does iff you're in a Desktop Environment (eg. XFCE or KDE)
-    setxkbmap -option caps:swapescape
+  # this doesn't work while in a tty/virtual-console (even while .. lightdm for example.. is running)
+  DISPLAY=:0.0 setxkbmap -option caps:swapescape
+  # this does iff you're in a Desktop Environment (eg. XFCE or KDE)
+  setxkbmap -option caps:swapescape
+
+IRC BOT RESEARCH
+
+  google: limnoria
+  It's in python3 I guess

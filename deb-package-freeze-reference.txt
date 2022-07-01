@@ -9,7 +9,6 @@ cloc-debs
 epiphany-browser-debs
 essential-debs
 ffmpeg-libdvdcss2-vlc-debs
-fotoxx-debs
 git-debs
 gmtp_android-usb-debs
 go-debs
