@@ -472,6 +472,9 @@ USING NMAP
     sudo nmap -v -O 10.42.0.$ip_end_number
   done
 
+  #RESEARCH: (0% chance works)
+  nmap -oN $out_file -Pn -n -Su -sS VC --top-ports 1-80 -e $interface_name -v
+
 STDIN FROM A FILE
 
   cat < /etc/apt/sources.list
@@ -507,9 +510,16 @@ PRINTF MATH HEXADECIMAL N-BASE ARITHMETIC
 
   hexnum=ee3;decnum=500;printf '0x%08x\n' $(( 16#$hexnum + $decnum )) #0x000010d7
 
-IMAGE MAGICK CONVERT MOGRIFY COMMANDS
+IMAGE MAGICK CONVERT MOGRIFY COMMANDS + SCREENSHOT PRINT SCREEN STUFF
   
   #-flip -flop -grayscale -rotate 90
+  sleep 8
+  n=1
+  while [ $n -lt 10 ]; do
+    import -window root $(printf '%03d' $n).png
+    sleep 0.3
+  done
+  convert -delay 41 *.png -resize 43% animation.gif
 
 WATCH A DIRECTORY FOR CREATED FILES ALL IN ALL OF ITS SUB-DIRECTORIES
 
@@ -898,6 +908,21 @@ CHROOT INTO A GNU/LINUX DISTRIBUTION THAT IS INSTALLED AT AN EXT4 PARTITION ON A
     done
   }
 
+CHROOT RESEARCH NOTES
+
+  mount -o bind /dev /mnt/mysys/dev
+  mount -o bind /dev/pts /mnt/mysys/dev/pts
+  mount -t sysfs /sys /mnt/mysys/sys
+  mount -t proc /proc /mnt/mysys/proc
+  chroot /mnt/mysys /bin/bash
+
+  grub-install
+  update-grub
+
+  exit chroot, umount all, reboot || fix system with LiveOS as-in-the chroot
+
+  rsnyc -aHKSrxv user@sh17system(192.168.0.42):/home/ /home/
+
 WICKED FILE MANAGEMENT OBSERVATION WITHIN DIRECTORIES!! RESEARCH
 
   tree -CAhF --dirsfirst
@@ -1249,3 +1274,7 @@ IRC BOT RESEARCH
 
   google: limnoria
   It's in python3 I guess
+
+BASHRC ALIAS/"FUNCTION" TO QUICKLY SEARCH THE WEB VIA A TTY/VIRTUAL-CONSOLE/TERMINAL "WEB BROWSER"/ONLINE-HTML-VIEWER
+
+  goog(){ local s="$*"; links "https://google.com/search?q=${s// /+}"; }

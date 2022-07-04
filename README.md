@@ -573,6 +573,9 @@ USING NMAP
     sudo nmap -v -O 10.42.0.$ip_end_number
   done
 
+  #RESEARCH: (0% chance works)
+  nmap -oN $out_file -Pn -n -Su -sS VC --top-ports 1-80 -e $interface_name -v
+
 STDIN FROM A FILE
 
   cat < /etc/apt/sources.list
@@ -608,9 +611,16 @@ PRINTF MATH HEXADECIMAL N-BASE ARITHMETIC
 
   hexnum=ee3;decnum=500;printf '0x%08x\n' $(( 16#$hexnum + $decnum )) #0x000010d7
 
-IMAGE MAGICK CONVERT MOGRIFY COMMANDS
+IMAGE MAGICK CONVERT MOGRIFY COMMANDS + SCREENSHOT PRINT SCREEN STUFF
   
   #-flip -flop -grayscale -rotate 90
+  sleep 8
+  n=1
+  while [ $n -lt 10 ]; do
+    import -window root $(printf '%03d' $n).png
+    sleep 0.3
+  done
+  convert -delay 41 *.png -resize 43% animation.gif
 
 WATCH A DIRECTORY FOR CREATED FILES ALL IN ALL OF ITS SUB-DIRECTORIES
 
@@ -999,6 +1009,21 @@ CHROOT INTO A GNU/LINUX DISTRIBUTION THAT IS INSTALLED AT AN EXT4 PARTITION ON A
     done
   }
 
+CHROOT RESEARCH NOTES
+
+  mount -o bind /dev /mnt/mysys/dev
+  mount -o bind /dev/pts /mnt/mysys/dev/pts
+  mount -t sysfs /sys /mnt/mysys/sys
+  mount -t proc /proc /mnt/mysys/proc
+  chroot /mnt/mysys /bin/bash
+
+  grub-install
+  update-grub
+
+  exit chroot, umount all, reboot || fix system with LiveOS as-in-the chroot
+
+  rsnyc -aHKSrxv user@sh17system(192.168.0.42):/home/ /home/
+
 WICKED FILE MANAGEMENT OBSERVATION WITHIN DIRECTORIES!! RESEARCH
 
   tree -CAhF --dirsfirst
@@ -1351,6 +1376,10 @@ IRC BOT RESEARCH
   google: limnoria
   It's in python3 I guess
 
+BASHRC ALIAS/"FUNCTION" TO QUICKLY SEARCH THE WEB VIA A TTY/VIRTUAL-CONSOLE/TERMINAL "WEB BROWSER"/ONLINE-HTML-VIEWER
+
+  goog(){ local s="$*"; links "https://google.com/search?q=${s// /+}"; }
+
 #prevents CTRL+S freezing the tty/virtual-console (ie. until CTRL+Q is hit)
 #see:   stty -a | egrep 'start|stop'
 stty start undef
@@ -1371,6 +1400,7 @@ export bash1='/home/user/Documents/bash.1.txt'
 export git='/home/user/Documents/Github-repos'
 export perl_cheatsheet='/home/user/Documents/Github-repos/debian-fresh1/perl-cheat-sheet.txt'
 export python_cheatsheet='/home/user/Documents/Github-repos/debian-fresh1/python-cheat-sheet.txt'
+export screenshots='/home/user/Documents/screenshots'
 export todo='/home/user/Documents/TODO/todo.txt'
 export weechat_logs='/home/user/.weechat/logs'
 alias ..='cd ..'
@@ -1388,7 +1418,7 @@ alias myip='bash -c "wget --quiet -O - -4 ifconfig.io; wget --quiet -O - -6 ifco
 alias png='/usr/bin/optipng'
 alias suspend='echo systemctl suspend'
 alias tree='/usr/bin/tree -A'
-alias tty-exec-desktop-program='echo "DISPLAY=:0.0 google-chrome http://people.oregonstate.edu"'
+alias tty-exec-desktop-program='echo "DISPLAY=:0.0 epiphany http://people.oregonstate.edu"'
 alias tty-silence-restore='sudo dmesg -n 8'
 alias tty-silence='sudo dmesg -n 1'
 alias udisks='/usr/bin/udisksctl'
@@ -1454,7 +1484,6 @@ apt-non-debian-packages-installed(){
   aptitude search '?narrow(?installed, ?not(?origin(Debian)))'
 }
 lucky(){ s="$*"; [ -z "$s" ] && return 3; echo $s | perl -ne 'BEGIN{undef $/;}if(m#(https?://[a-zA-Z0-9,%=/.:?_&\-]+)#){print $1;}'; }
-goog(){ local s="$*"; links "https://google.com/search?q=${s// /+}"; }
 tarhelp(){
   cat <<EOFFFFFFFF
 1) gz
@@ -1505,6 +1534,12 @@ xclip-cp(){
   [ -z "$1" ] && return 4
   [ -f "$1" ] || return 5
   DISPLAY=:0.0 xclip -selection clipboard "$1"
+}
+watch-port80-ipv4(){
+  while [ 1 ]; do sudo nc -l -p 80 >> ~/whatever.log; sleep 0.2; done
+}
+watch-port80-ipv6(){
+  while [ 1 ]; do sudo nc -l -6 -p 80 >> ~/whatever.log; sleep 0.2; done
 }
 watch-home(){
   inotifywait --recursive --monitor --quiet --event create ~/.config ~/.local
