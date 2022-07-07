@@ -1285,3 +1285,83 @@ IRC BOT RESEARCH
 BASHRC ALIAS/"FUNCTION" TO QUICKLY SEARCH THE WEB VIA A TTY/VIRTUAL-CONSOLE/TERMINAL "WEB BROWSER"/ONLINE-HTML-VIEWER
 
   goog(){ local s="$*"; links "https://google.com/search?q=${s// /+}"; }
+
+OPEN A LIST OF URLs INSTANTLY IN EPIPHANY-BROWSER/EPIPHANY/EPIPHANY(THE-GUI-WEB-BROWSER-THAT-HAS-JAVASCRIPT)
+
+  url_list=(
+http://google.com
+http://yahoo.com
+  )
+  for u in "${url_list[@]}"; do
+    epiphany "$1" &
+  done
+
+DOWNLOAD URLs INTO .TXT FILES INTO PWD
+
+  url_list=(
+http://google.com
+http://yahoo.com
+  )
+
+  n=1
+  while [ -f "$(printf '%03d.txt' $n)" ]; do (( n++ )); done
+  for u in "${url_list[@]}"; do
+    (( n++ ))
+    output_document="$(printf '%03d.txt' $n)"
+    echo wget --tries=1 --timeout=8 "--output-document=$output_document" -- "$u" >> wget.log
+    wget --tries=1 --timeout=8 "--output-document=$output_document" -- "$u" 
+  done
+
+  #<ALTERNATIVE FROM URL-LIST.TXT INSTEAD OF FROM AN ARRAY LIST EMBEDDED IN YOUR BASH SCRIPT>
+  URL_LIST_TXT=~/Downloads/url-list.txt
+  [ -f "$URL_LIST_TXT" ] || exit 30
+  mkdir -p ~/Downloads/downloaded-urls-todo-readme && cd ~/Downloads/downloaded-urls-todo-readme
+  n=1
+  while [ -f "$(printf '%03d.txt' $n)" ]; do (( n++ )); done
+  while read u; do
+    (( n++ ))
+    output_document="$(printf '%03d.txt' $n)"
+    echo wget --tries=1 --timeout=8 "--output-document=$output_document" -- "$u" >> wget.log
+    wget --tries=1 --timeout=8 "--output-document=$output_document" -- "$u"
+  done <<<$(cat "$URL_LIST_TXT")
+
+
+PYTHON3 NEEDS SOME BRACKETS IN ITS SOURCE CODE??????????????????????????????????????????????????????????????????????????????????????????????????????????????????
+
+  #!/usr/bin/perl
+  #          save this program/script/whatever as: /usr/local/bin/python4
+  # put this on top of your "93%" python3 scripts: #!/usr/local/bin/python4
+  #
+  #_____# you can now do something like this:
+  #     if 1 == 1:
+  #     {
+  #       print("Hmmm")
+  #     }
+  #
+  #     #`python3` will execute the (brackets) filtered-out in a "filtered-out [output] file"
+  #     #NOTE: line-numbers for error message output of `python3` is preserved.
+  #
+
+  if(@ARGV == 0){exit 1;}
+  #print 'python4 script: ', $ARGV[0];
+  my $python4_script = $ARGV[0];
+
+  my $python3_script = $python4_script;
+  $python3_script =~ s/(.*)\.py/$1.py.py/ or exit 2;
+
+  open my $FH, "<$python4_script" or die $!;
+  open my $FH2, ">$python3_script" or die $!;
+  while(<$FH>){
+    my $line = $_;
+    $line =~ s/^[{}]$//;
+    printf $FH2 "%s", $line;
+  }
+
+  close $FH;
+  close $FH2; 
+  my @args = (@ARGV);
+  shift @args;
+  for(@args){s#'#'\\''#g;s/^/'/;s/$/'/;}
+  my $args = join ' ', @args;
+  @args = ();
+  system("python3 $python3_script $args");
