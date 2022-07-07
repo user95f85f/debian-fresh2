@@ -1413,7 +1413,11 @@ http://yahoo.com
     wget --tries=1 --timeout=8 "--output-document=$output_document" -- "$u" 
   done
 
-  #<ALTERNATIVE FROM URL-LIST.TXT INSTEAD OF FROM AN ARRAY LIST EMBEDDED IN YOUR BASH SCRIPT>
+  #<ALTERNATIVE FROM URL-LIST.TXT INSTEAD OF FROM AN ARRAY "LIST"
+  # (ie. an "array" which is technically 0.3% right because it's a literal LIST
+  #   before the bash interpreter turns into an a
+  #   blah-blah-blah-array-data-structure-stfu) EMBEDDED IN YOUR BASH SCRIPT>
+
   URL_LIST_TXT=~/Downloads/url-list.txt
   [ -f "$URL_LIST_TXT" ] || exit 30
   mkdir -p ~/Downloads/downloaded-urls-todo-readme && cd ~/Downloads/downloaded-urls-todo-readme
