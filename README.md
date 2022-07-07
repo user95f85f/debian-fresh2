@@ -1499,7 +1499,6 @@ export EDITOR=/usr/bin/vim
 export TZ=America/Los_Angeles
 export WINEPREFIX=/media/user/DEB_STUFF/dot-wine
 apt='apt apt-cache apt-file apt-get apt-mark aptitude dpkg dpkg-query' 
-music='/home/user/Documents/mp3s'
 pictures='/home/user/Documents/STATIC-photos'
 shield_mount_dir='/home/user/Documents/shield_mapper_mount'
 urban_url='https://api.urbandictionary.com/v0/define?term'
@@ -1508,6 +1507,7 @@ www='/home/user/Documents/Github-repos/localhost-httpd/www'
 youtube='/home/user/Documents/youtube-downloads'
 export bash1='/home/user/Documents/bash.1.txt'
 export git='/home/user/Documents/Github-repos'
+export music='/home/user/Documents/mp3s'
 export perl_cheatsheet='/home/user/Documents/Github-repos/debian-fresh1/perl-cheat-sheet.txt'
 export python_cheatsheet='/home/user/Documents/Github-repos/debian-fresh1/python-cheat-sheet.txt'
 export screenshots='/home/user/Documents/screenshots'
@@ -1644,6 +1644,14 @@ xclip-cp(){
   [ -z "$1" ] && return 4
   [ -f "$1" ] || return 5
   DISPLAY=:0.0 xclip -selection clipboard "$1"
+}
+watch-weechat-log-keyword-return-when-changed(){
+  [ -z "$1" ] && return 41
+  current_wc_l="$(ack "$*" | wc -l)"
+  while [ "$(ack "$*" | wc -l)" -eq "$current_wc_l" ]; do
+    sleep 12.2
+  done
+  return 0
 }
 watch-port80-ipv4(){
   while [ 1 ]; do sudo nc -l -p 80 >> ~/whatever.log; sleep 0.2; done
