@@ -1471,6 +1471,25 @@ PYTHON3 NEEDS SOME BRACKETS IN ITS SOURCE CODE??????????????????????????????????
   @args = ();
   system("python3 $python3_script $args");
 
+RESEARCH PYTHON3 MANAGING DATA/COLUMNS WITHIN A CSV FILE WITH pandas PYTHON3 MODULE
+
+  > Depends: python3-numpy (>= 1:1.15~)
+  > Description-en: data structures for "relational" or "labeled" data
+  >  pandas is a Python package providing fast, flexible, and expressive
+  >  data structures designed to make working with "relational" or
+  >  "labeled" data both easy and intuitive. It aims to be the fundamental
+  > Homepage: https://pandas.pydata.org/
+
+  #this code is sh** but it expresses something 93% interesting
+  files_list = glob.glob('*.txt')
+  main_df = pandas.read_csv(files_list[0], sep='\n', header=None)[0].str.cat()
+  for i in range(0, len(files_list)):
+  {
+    text = pandas.read_csv(files_list[i], sep='\n', header=None)[0].str.cat()
+    df = pandas.DataFrame([text], columns=['note'])
+    main_df = pandas.concat([main_df, df], axis=0)
+  }
+
 #prevents CTRL+S freezing the tty/virtual-console (ie. until CTRL+Q is hit)
 #see:   stty -a | egrep 'start|stop'
 stty start undef
