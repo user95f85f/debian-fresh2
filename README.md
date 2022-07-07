@@ -549,6 +549,13 @@ TESTING TO SEE IF YOU'RE IN A TERMINAL RESEARCH
 
 CREATING A TEMPORARY FILE
 
+  unset -v tmp_c_file
+  unset -v tmp_compiled_file
+  tmp_c_file=$(mktemp --tmpdir cfileXXX.c)
+  tmp_compiled_file=$(mktemp --tmpdir compiledXXX)
+  trap '[[ $tmp_c_file ]] && rm -vf -- "$tmp_c_file";[[ $tmp_compiled_file ]] && rm -vf -- "$tmp_compiled_file";' EXIT
+
+  #<HISTORICAL>
   tmpfilename=$( mktemp -t whateverXXX )  #e.g. /tmp/whatever0S8; empty file.
   #-t is for "TEMPLATE" filename. It is a deprecated feature xD
 
@@ -2528,32 +2535,6 @@ translate-shell #google-translate-cli
 17 rustc 
 26 default-jdk
 176 mono-mcs
-#!/usr/bin/perl
-
-
-if(@ARGV == 0){exit 1;}
-#print 'python4 script: ', $ARGV[0];
-my $python4_script = $ARGV[0];
-
-my $python3_script = $python4_script;
-$python3_script =~ s/(.*)\.py/$1.py.py/ or exit 2;
-
-open my $FH, "<$python4_script" or die $!;
-open my $FH2, ">$python3_script" or die $!;
-while(<$FH>){
-  my $line = $_;
-  $line =~ s/^[{}]$//;
-  printf $FH2 "%s", $line;
-}
-
-close $FH;
-close $FH2; 
-my @args = (@ARGV);
-shift @args;
-for(@args){s#'#'\\''#g;s/^/'/;s/$/'/;}
-my $args = join ' ', @args;
-@args = ();
-system("python3 $python3_script $args");
 Congratulations python, you're the leader in malware sh**:    9:deb, 218:pm, 1073:perl, 2238:php, 2809:bash, 4860:html, 5694:C++, 12158:C, 13332:go, 28078:java, 39536:py
 1.6M	dash-0.5.11+git20200708+dd9ef66/
 39M	bash-5.1/

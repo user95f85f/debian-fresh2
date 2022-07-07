@@ -448,6 +448,13 @@ TESTING TO SEE IF YOU'RE IN A TERMINAL RESEARCH
 
 CREATING A TEMPORARY FILE
 
+  unset -v tmp_c_file
+  unset -v tmp_compiled_file
+  tmp_c_file=$(mktemp --tmpdir cfileXXX.c)
+  tmp_compiled_file=$(mktemp --tmpdir compiledXXX)
+  trap '[[ $tmp_c_file ]] && rm -vf -- "$tmp_c_file";[[ $tmp_compiled_file ]] && rm -vf -- "$tmp_compiled_file";' EXIT
+
+  #<HISTORICAL>
   tmpfilename=$( mktemp -t whateverXXX )  #e.g. /tmp/whatever0S8; empty file.
   #-t is for "TEMPLATE" filename. It is a deprecated feature xD
 
