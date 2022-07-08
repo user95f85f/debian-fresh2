@@ -1,0 +1,34 @@
+ёЁ!"№;%:?*()_-+=хХъЪ\/жЖэЭбБюЮ.,/*-+,,,,++--**--*///
+
+йцукенгшщзфывапролдячсмить
+
+ЙЦУКЕНГШЩЗФЫВАПРОЛДЯЧСМИТЬ
+
+OK!
+
+
+#Alright you guys. How close am I to reality [with this code]? (apologies to those that are in a tty[?]/non-unicode-terminal)
+иф( $ин eq 'фр' ){ print("bonjour\n"); }
+
+
+Привет, мир #Hello, world
+
+еспи is 'if' is %D0%B5%D1%81%D0%BF%D0%B8
+
+Путеводитель-для-новичков is
+%D0%9F%D1%83%D1%82%D0%B5%D0%B2%D0%BE%D0%B4%D0%B8%D1%82%D0%B5%D0%BB%D1%8C-%D0%B4%D0%BB%D1%8F-%D0%BD%D0%BE%D0%B2%D0%B8%D1%87%D0%BA%D0%BE%D0%B2
+
+
+#My very first Russian-language test
+РФРФРФРФРФРФРФРФ нуфр ифин нуфр
+POPOPOPOPOPOPOPO hyop nonh hyop #my alphabet-translation
+RFRFRFRFRFRFRFRF nufr ifin nufr #using a special alphabet-translation
+HAHAHAHAHAHAHAHA yeah baby yeah #what I typed in with the same keys
+
+#valid perl!
+use utf8; my  $ин="Привет, мир!"; print $ин
+
+#convert if/eq into Russian-language equivalent in your code
+epiphany https://metacpan.org/pod/Keyword::Declare
+epiphany https://metacpan.org/dist/XS-Parse-Keyword
+epiphany https://metacpan.org/pod/Syntax::Operator::Equ

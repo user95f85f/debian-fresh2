@@ -1330,7 +1330,7 @@ http://yahoo.com
   done <<<$(cat "$URL_LIST_TXT")
 
 
-PYTHON3 NEEDS SOME BRACKETS IN ITS SOURCE CODE??????????????????????????????????????????????????????????????????????????????????????????????????????????????????
+DOES YOUR PYTHON3 NEED SOME BRACKETS IN ITS SOURCE CODE?
 
   #!/usr/bin/perl
   #          save this program/script/whatever as: /usr/local/bin/python4
@@ -1388,3 +1388,98 @@ RESEARCH PYTHON3 MANAGING DATA/COLUMNS WITHIN A CSV FILE WITH pandas PYTHON3 MOD
     df = pandas.DataFrame([text], columns=['note'])
     main_df = pandas.concat([main_df, df], axis=0)
   }
+
+GREP ALTERNATIVE: "DOES THIS FILE HAVE THIS F***ING STRING?"
+
+  #78% good
+  if grep $keyword $filename >/dev/null; then
+    echo matched.
+  fi
+  #blah:
+  if grep -q $keyword $filename; then
+    echo matched.
+  fi
+
+CR** USERAGENTS FOR YOUR CURL AND WGET BU******
+
+  curl --user-agent $this $other_options
+  wget --user-agent=$this $other_options
+
+  #the first one is super old (lol)
+  Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:49.0) Gecko/20100101 Firefox/49.0
+  Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36
+  Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:100.0) Gecko/20100101 Firefox/100.0
+  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.4 Safari/605.1.15
+  Mozilla/5.0 (X11; Linux x86_64; rv:99.0) Gecko/20100101 Firefox/99.0
+  Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.41 Safari/537.36
+  Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36 Edg/100.0.1185.50
+  Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.111 Mobile Safari/537.36
+  Mozilla/5.0 (Android 10; Mobile; rv:68.0) Gecko/68.0 Firefox/68.0
+  Mozilla/5.0 (iPhone; CPU iPhone OS 13_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1 Mobile/15E148 Safari/604.1
+  Mozilla/5.0 (iPhone; CPU iPhone OS 13_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/83.0.4147.71 Mobile/15E148 Safari/604.1
+  Mozilla/5.0 (iPhone; CPU iPhone OS 13_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) FxiOS/28.0 Mobile/15E148 Safari/605.1.15
+
+
+
+BASIC PYTHON3 SCRIPT EXECUTABLE PROGRAM
+
+  #!/usr/bin/python3
+  import sys
+  import time
+  import os
+  def main():
+  {
+    WAIT_SECONDS = 1.2223
+    name = os.getlogin()
+    s = input('\n\nReady %s? (Y/n) ' % name)
+    name = None
+    if s.lower() not in ['', 'y']:
+      return
+    print('please wait %f seconds' % WAIT_SECONDS)
+    time.sleep(WAIT_SECONDS) #in seconds
+    print('Here is the arguments you gave this program:')
+    print(sys.argv)
+  }
+  if __name__ == '__main__':
+    main() 
+
+PYTHON3 WRITE TO AN OPENED PROCESS STDIN
+
+  import os
+  def main():
+  {
+    p = os.popen('/bin/cat', 'w')
+    p.write("To: receiver@example.com\n")
+    p.write("Subject: test\n")
+    p.write("\n")
+    p.write("Some text\n")
+    p.write("some more text\n")
+    ret = p.close()
+    if ret != 0:
+      print("Your `cat` process 0% worked out I guess:", sts)
+  }
+  if __name__ == '__main__':
+    main() 
+
+PYTHON3 SOMEBODY IS ENDING MY SCRIPT PRE-MATURELY
+
+  import math
+  import signal
+  import sys
+  import time
+  UserIsHittingCTRLC(signal, None):
+    print('SIGTERM caught.', signal)
+    sys.exit(42)
+  if __name__ == '__main__':
+    signal.signal(signal.SIGINT, UserIsHittingCTRLC)
+    time.sleep(math.pi)
+
+PYTHON3 FLASK RESEARCH
+
+  run with apache2 server or gunicorn
+
+RESEARCH INTO THE BEST CLI WEBSITE-CREATOR EVER
+
+  The priority was to create a website with CLI in the fastest/easiest/most-flexible way possible within the shortest time period possible..
+  create-website.sh --title='My First Website' --pages=3 --color-scheme=random '--menu=Home,About Me,External Links' --favicon=random --theme-preset=random ~/WebProjects/Website005
+  # and the output website would work on Android phones, Firefox, and Chromium-based browsers at least.
