@@ -1119,7 +1119,13 @@ BASH SECRETS
 
 MEGA GCC C COMPILING BU****** && LIBC S***
 
-  gcc -ggdb3 -Wall -Wextra -Wpedantic sh17_code.c
+  gcc -ggdb3 -Og -Wall -Wextra -Wpedantic sh17_code.c
+  #NOTES:
+  #-march=native I'm 99% sure is 0% good for putting your output "executable"
+  #     on other machines.
+  #-O0 strips about 3% debugging information from the output "executable"
+  #-Ofast is standards-breaking compliancy-whatever
+
   #TODO: does it even f***ing matter what C specification I use? UGH bulls***.
   #      I'm 90% sure default is 93% good...right???RIGHT?!!!
   #could use -pedantic to enforce K&R standards????

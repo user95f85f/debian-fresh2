@@ -43,14 +43,6 @@ alias tty-silence='sudo dmesg -n 1'
 alias udisks='/usr/bin/udisksctl'
 alias vi='/usr/bin/vim'
 alias weechat='echo bitchx'
-etc-hosts-reset(){
-  sudo cp -fv ~/Documents/etc-hosts-updates/hosts_reset.txt /etc/hosts
-}
-etc-hosts-push(){
-  pushd ~/Documents/etc-hosts-updates/ || return 21
-  bash install-etc-hosts.sh --auto
-  popd
-}
 mp3_add(){
   if is_desktop_running; then
     DISPLAY=:0.0 mousepad '/home/user/Documents/youtube-downloads/download.sh' &
@@ -58,8 +50,8 @@ mp3_add(){
     return 9
   fi
 }
-bashrc(){
-  egrep '^(alias|[a-zA-Z_\-]+\(\){)' ~/.bashrc_user | sort
+bashrc-alias-list-function-list-print(){
+  alias -p; compgen -A function | egrep -v ^_
 }
 up(){
   local levels="$1"
@@ -135,9 +127,36 @@ EOFFFFFFFF
   esac
 
 }
+vol-is-good(){
+  local current_volume=$(vol-get-current-float --percent-integer)
+  local VOLUME_THRESHOLD_FOR_MUSIC=26
+  [ -z "$current_volume" ] && return 3
+  [[ "$current_volume" =~ [0-9]{1,3} ]] || return 4
+  [ "$current_volume" -gt "$VOLUME_THRESHOLD_FOR_MUSIC" ] && {
+    printf 'PANIC: Current alsa/pulseaudio volume settings (ie. %d) are 0.2%% good.\nVolume threshold of %d is too high for music/mp3s/ogg/whatever\n' "$current_volume" "$VOLUME_THRESHOLD_FOR_MUSIC"
+    echo '`vol-low-set`'
+    local myv
+    read -n 1 -p '? (Y/n) ' myv
+    echo
+
+    case "$myv" in
+      [Yy]|'') vol-low-set; return 0;;
+    esac
+    return 200
+  } 
+  return 0  
+}
+vol-get-current-float(){
+  local volume_float=$(amixer get Master | perl -ne 'BEGIN{undef $/;} /Limits: Playback 0 - ([0-9]+).*Front Right: Playback ([0-9]+)/s && printf "%0.12f", $2 / $1;')
+  [ -z "$volume_float" ] && return 120
+  [ "$1" = '--percent-integer' ] && { printf '%0.0f' $(printf '%s * 100\n' "$volume_float" | bc); return 0; }
+  echo "$volume_float"
+  return 0
+}
 vol-low-set(){
   echo pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo 20%
   pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo 20%
+  return 0
 }
 vol-up(){
   echo pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo +5%
@@ -147,6 +166,7 @@ vol-up(){
     echo pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo +5%
     pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo +5%
   done
+  return 0
 }
 vol-down(){
   echo pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo -5%
@@ -156,11 +176,13 @@ vol-down(){
     echo pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo -5%
     pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo -5%
   done
+  return 0
 }
 xclip-cp(){
   [ -z "$1" ] && return 4
   [ -f "$1" ] || return 5
   DISPLAY=:0.0 xclip -selection clipboard "$1"
+  return 0
 }
 watch-weechat-log-keyword-return-when-changed(){
   [ -z "$1" ] && return 41
@@ -173,9 +195,11 @@ watch-weechat-log-keyword-return-when-changed(){
 }
 watch-port80-ipv4(){
   while [ 1 ]; do sudo nc -l -p 80 >> ~/whatever.log; sleep 0.2; done
+  return 0
 }
 watch-port80-ipv6(){
   while [ 1 ]; do sudo nc -l -6 -p 80 >> ~/whatever.log; sleep 0.2; done
+  return 0
 }
 watch-home(){
   inotifywait --recursive --monitor --quiet --event create ~/.config ~/.local
@@ -189,6 +213,7 @@ ffplay(){
   local filename="$1"
   local file_extension="${filename##*.}"
   if [[ $file_extension = 'mp3' || $file_extension = 'wav' || $file_extension = 'ogg' || $file_extension = 'm4a' ]]; then
+    vol-is-good || return 44
     /usr/bin/ffplay -nodisp -autoexit -hide_banner -v 40 "$filename"  #the -v 40 is a good verbosity I think
   else
     /usr/bin/ffplay -hide_banner -v 40 "$filename"
@@ -201,7 +226,8 @@ alias ffplayer=ffplay
 #n=1; while read myf; do mv "$myf" "$n.mp3"; (( n++ )); done <<< "$(ls *.mp3)"
 mp3-review(){
   [[ "$(find -maxdepth 1 -type f -name '* *' | wc -l)" -ne 0 ]] && return 3 #any spaces in files? just exit. f*** it.
-  for i in $(echo *.mp3 | tr ' ' '\n' | shuf | tr '\n' ' '); do ffplay $i; read -n 1 -p 'delete? (y/N) ' yn; [[ $yn = 'y' ]] && { echo; rm -v $i; echo; } ;  done
+  for i in $(echo *.mp3 | tr ' ' '\n' | shuf | tr '\n' ' '); do vol-is-good || return 44; ffplay $i; read -n 1 -p 'delete? (y/N) ' yn; [[ $yn = 'y' ]] && { echo; rm -v $i; echo; } ;  done
+  return 0
 }
 alert-me(){
   [ -z "$1" ] && return 3
