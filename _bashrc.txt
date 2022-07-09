@@ -43,11 +43,19 @@ alias tty-silence='sudo dmesg -n 1'
 alias udisks='/usr/bin/udisksctl'
 alias vi='/usr/bin/vim'
 alias weechat='echo bitchx'
+etc-hosts-reset(){
+  sudo cp -fv ~/Documents/etc-hosts-updates/hosts_reset.txt /etc/hosts
+}
+etc-hosts-push(){
+  pushd ~/Documents/etc-hosts-updates/ || return 21
+  bash install-etc-hosts.sh --auto
+  popd
+}
 mp3_add(){
   if is_desktop_running; then
     DISPLAY=:0.0 mousepad '/home/user/Documents/youtube-downloads/download.sh' &
   else
-    exit 9
+    return 9
   fi
 }
 bashrc(){
@@ -156,8 +164,9 @@ xclip-cp(){
 }
 watch-weechat-log-keyword-return-when-changed(){
   [ -z "$1" ] && return 41
-  current_wc_l="$(ack "$*" | wc -l)"
-  while [ "$(ack "$*" | wc -l)" -eq "$current_wc_l" ]; do
+  [ -n "$2" ] && return 42
+  current_wc_l="$(ack "$1" "$weechat_logs" | wc -l)"
+  while [ "$(ack "$*" "$weechat_logs" | wc -l)" -eq "$current_wc_l" ]; do
     sleep 12.2
   done
   return 0
@@ -200,13 +209,6 @@ alert-me(){
   is_desktop_running && {
     DISPLAY=:0.0 zenity --title="$*" --info --text="$*" --no-wrap
   }
-}
-remind-me(){
-  [ $# -ge 2 ] || return 4
-  local sleep_for="$1"
-  shift
-  echo "sleep $sleep_for && alert-me '$*'"
-  sleep "$sleep_for" && alert-me "$*"
 }
 wifi-on(){
   #disable auto-connect on auto-connect-enabled connection(s)

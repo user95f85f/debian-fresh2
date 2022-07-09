@@ -18,8 +18,12 @@ sudo systemctl stop apt-daily-upgrade.timer apt-daily.timer sysstat-summary.time
 sudo systemctl disable apt-daily-upgrade.timer apt-daily.timer sysstat-summary.timer
 
 sudo /usr/sbin/swapon /dev/sda2
+sudo apt-mark hold hddtemp libburn4 libisofs6 libjte2 libqrencode4 libxnvctrl0 linux-compiler-gcc-10-x86 linux-headers-amd64 linux-image-amd64 linux-libc-dev ristretto xfce4-battery-plugin xfce4-clipman xfce4-clipman-plugin xfce4-cpufreq-plugin xfce4-cpugraph-plugin xfce4-datetime-plugin xfce4-diskperf-plugin xfce4-fsguard-plugin xfce4-genmon-plugin xfce4-mailwatch-plugin xfce4-netload-plugin xfce4-places-plugin xfce4-screenshooter xfce4-sensors-plugin xfce4-smartbookmark-plugin xfce4-systemload-plugin xfce4-taskmanager xfce4-timer-plugin xfce4-verve-plugin xfce4-wavelan-plugin xfce4-weather-plugin xfce4-whiskermenu-plugin xfce4-xkb-plugin 
 sudo apt purge $(dpkg -l | egrep -i 'mozi|fox' | awk '{print $2}' | tr '\n' ' ') epiphany-browser konqueror chromium
 sudo apt purge goldendict exfalso parole quodlibet
+sudo apt-mark manual bc
+sudo apt purge cups-daemon cups cups-browsed cups-core-drivers #I'm 93% sure this is right
+sudo apt purge hexchat hexchat-common hexchat-perl hexchat-plugins hexchat-python3
 sudo apt --purge autoremove
 
 #30%sure this is OK
