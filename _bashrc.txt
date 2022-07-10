@@ -45,6 +45,9 @@ alias tty-silence='sudo dmesg -n 1'
 alias udisks='/usr/bin/udisksctl'
 alias vi='/usr/bin/vim'
 alias weechat='echo bitchx'
+cpu-temp(){
+  echo CPU temperature is `c2f $(sensors | grep -E ^CPU | grep -Eo [0-9]+\.[0-9]+)` Fahrenheit
+}
 urban-example(){
   echo 'wget -O - $url_urbandicationary=mouter | jq -C | less -R'
 }

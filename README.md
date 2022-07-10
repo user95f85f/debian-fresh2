@@ -1591,6 +1591,12 @@ RESEARCH INTO THE BEST CLI WEBSITE-CREATOR EVER
   create-website.sh --title='My First Website' --pages=3 --color-scheme=random '--menu=Home,About Me,External Links' --favicon=random --theme-preset=random ~/WebProjects/Website005
   # and the output website would work on Android phones, Firefox, and Chromium-based browsers at least.
 
+VIDEO TO GIF ANIMATION
+
+  #start at 12 seconds, clip 5 seconds total, use FPS of 5 frames per second
+  #use 200 pixel width (30% sure)
+  ffmpeg -i whatever.avi -ss 12 -t 5 -filter_complex "[0:v] fps="5",scale="200":-1" "whatever.gif"
+
 #prevents CTRL+S freezing the tty/virtual-console (ie. until CTRL+Q is hit)
 #see:   stty -a | egrep 'start|stop'
 stty start undef
@@ -1637,6 +1643,9 @@ alias tty-silence='sudo dmesg -n 1'
 alias udisks='/usr/bin/udisksctl'
 alias vi='/usr/bin/vim'
 alias weechat='echo bitchx'
+cpu-temp(){
+  echo CPU temperature is `c2f $(sensors | grep -E ^CPU | grep -Eo [0-9]+\.[0-9]+)` Fahrenheit
+}
 urban-example(){
   echo 'wget -O - $url_urbandicationary=mouter | jq -C | less -R'
 }
