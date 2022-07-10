@@ -1602,7 +1602,8 @@ export WINEPREFIX=/media/user/DEB_STUFF/dot-wine
 apt='apt apt-cache apt-file apt-get apt-mark aptitude dpkg dpkg-query' 
 pictures='/home/user/Documents/STATIC-photos'
 shield_mount_dir='/home/user/Documents/shield_mapper_mount'
-urban_url='https://api.urbandictionary.com/v0/define?term'
+url_urbandictionary='https://api.urbandictionary.com/v0/define?term'
+url_wiktionary='https://en.wiktionary.org/wiki'
 wow='/media/user/DEB_STUFF/dot-wine/drive_c/Program Files (x86)/Battle.net'
 www='/home/user/Documents/Github-repos/localhost-httpd/www'
 youtube='/home/user/Documents/youtube-downloads'
@@ -1618,6 +1619,7 @@ alias ..='cd ..'
 alias bash++='/usr/bin/perl'
 alias battery='echo acpitool -b'
 alias bitchx='/usr/bin/weechat -a -p --plugins irc,logger,alias,exec' #no auto-connect to a server and no plug-ins automatically loaded
+alias check-google='wget -O - https://www.google.com/'
 alias check-network='bash -c "ip route; curl -IL http://nmcheck.gnome.org/check_network_status.txt"'
 alias df='df --human-readable --print-type 2>/dev/null'
 alias ffmpeg='/usr/bin/ffmpeg -hide_banner'
@@ -1635,6 +1637,12 @@ alias tty-silence='sudo dmesg -n 1'
 alias udisks='/usr/bin/udisksctl'
 alias vi='/usr/bin/vim'
 alias weechat='echo bitchx'
+urban-example(){
+  echo 'wget -O - $url_urbandicationary=mouter | jq -C | less -R'
+}
+wiki-example(){
+  echo 'links2 $url_wiktionary/stu'
+}
 mp3_add(){
   if is_desktop_running; then
     DISPLAY=:0.0 mousepad '/home/user/Documents/youtube-downloads/download.sh' &
@@ -1643,6 +1651,13 @@ mp3_add(){
   fi
 }
 bashrc-alias-list-function-list-print(){
+  if [ "$1" = '-2' ]; then
+    local out=$(alias -p)
+    out+="\n$(compgen -A function | egrep -v ^_)"
+    while read line1; do printf '%80s' "$line1       "; read line2; printf '%s\n' "$line2"; done <<<"$out"
+    return 0
+  fi
+
   alias -p; compgen -A function | egrep -v ^_
 }
 up(){
