@@ -1,0 +1,9 @@
+
+PYTHON3 ALLAH MICKBAR
+  #whatever
+
+  [tuple(map(int, x.split(':'))) for x in l]
+  ["500:250","3600:42"]`       `[(500, 250), (3600, 42)]
+  sum(3 if a > b else (1 if a == b else 0) for a, b in map(lambda x: map(int, x.split(':')), l))
+  sum(2*((a-b)>0)+1 for a,b in map(lambda x:map(int,x.split(':')),l) if a>=b)
+  sum(2*((a-b)>0)+1-(a<b) for a,b in map(lambda x:map(int,x.split(':')),l))`
