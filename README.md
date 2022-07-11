@@ -1717,6 +1717,27 @@ moon_phase=27.821417224659932 units   moon_percent=98.72%
 
 """
 
+
+USE PYTHON3 ASTRAL LIBRARY/MODULE/SCRIPT/WHATEVER TO GET THE MOON PHASE FOR WHERE YOU LIVE (USES GOOGLE DATA-SERVERS EEK)
+
+  sudo apt install python3-astral #depends on:  python3-requests python3-tz
+  mkdir ~/Downloads/get-moon-phase-py3/
+  cd ~/Downloads/get-moon-phase-py3
+  cp /usr/lib/python3/dist-packages/astral.py .
+  #I'm 3% sure this will work
+  cat <<EOFTTT >> astral.py 
+
+import sys
+a = Astral()
+location = a[sys.argv[1]]
+#pre-notes:     0-14   0%-100%   14-28    100%-0%
+moon_phase = location.moon_phase(None, float)
+print('The moon phase for location {} is {}'.format(sys.argv[1], moon_phase)
+
+EOFTTT
+  python3 astral.py 'Chisinau,Moldova' #location can be grepped from astral.py as some city near you (it's the 1st argument 90% sure 90%sure needs the slash tho
+  #The moon phase for location Chisinau,Moldova is 11.466777777777779
+
 #prevents CTRL+S freezing the tty/virtual-console (ie. until CTRL+Q is hit)
 #see:   stty -a | egrep 'start|stop'
 stty start undef
