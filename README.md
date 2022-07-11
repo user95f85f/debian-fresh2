@@ -1631,6 +1631,9 @@ CHECKSUMS FOR GNU/LINUX REPORT WHAT THEY ARE
   sha384: ( 96) 5c434c63c8098e5e05e61f5839fd08f8ccd58d6f757cc96e0f45571445c28f08fc5f7189ccf40211f3fae40a81bb9fbb
   sha512: (128) 663fad5bcd324358db08bc078aba90177f7854b26b38fa06f9a1f454ec7001ee8daf46cb52ab0eb776bc747cdc4fe6ad8a3b3124fbe0a39c4e1e8ed01f6b6e9a
 
+
+
+
 PERFECT MATH IN PERL 5
 
   #!/usr/bin/perl
@@ -1645,6 +1648,74 @@ PERFECT MATH IN PERL 5
 
   /;
   print( eval($eval_this), "\n" ); #0
+
+
+VARIOUS MEATS AND FOODS
+
+  turkey, chicken, cow (beef), pig (pork)
+  VS
+  goat, sheep, kavurma, succuk
+
+  chamomile tea, mint tea
+  VS
+  jasmine tea
+
+BASH REDIRECT EVERYTHING (ie. STDOUT AND STDERR) TO A FILE
+
+  $command > "$stderr_and_stdout_output_text_file" 2>&1
+
+  #For example:
+  pydoc -k print > p.txt 2>&1
+
+CONVERT MOON PHASE [0, 28] TO MOON PERCENTAGE [0%, 100%] IN PYTHON3
+
+  #!/usr/bin/python3
+
+  import random
+
+  if __name__ == '__main__':
+    ITERATIONS = 20
+    #pre-notes:     0-14   0%-100%   14-28    100%-0%
+    for _ in range(0,ITERATIONS):
+      _ = None
+      moon_phase = random.uniform(0, 28)      
+      print('%-38s' % ('{}{} units'.format('moon_phase=', moon_phase)), end='')
+      if moon_phase > 14.00000000:
+        pre_moon_percent2 = moon_phase - 14.0
+        super_accurate_almost_moon_percent = 1.0 - ( (28.0 - 14.0 - pre_moon_percent2) / (28.0 - 14.0))
+        pre_moon_percent2 = None
+      else:
+        super_accurate_almost_moon_percent = moon_phase / 14.0
+      moon_phase = None
+
+      print('{}{}'.format('moon_percent=', '%0.2f%%' % (super_accurate_almost_moon_percent * 100.0)))
+      super_accurate_almost_moon_percent = None
+
+"""
+#sample output:
+
+moon_phase=0.4931260130136699 units   moon_percent=3.52%
+moon_phase=0.8105894455562064 units   moon_percent=5.79%
+moon_phase=4.183471367016093 units    moon_percent=29.88%
+moon_phase=4.302431703836977 units    moon_percent=30.73%
+moon_phase=4.863611820742577 units    moon_percent=34.74%
+moon_phase=5.5480365331742405 units   moon_percent=39.63%
+moon_phase=5.992918731701295 units    moon_percent=42.81%
+moon_phase=6.6982896574532615 units   moon_percent=47.84%
+moon_phase=7.1949990059006295 units   moon_percent=51.39%
+moon_phase=9.395560540636705 units    moon_percent=67.11%
+moon_phase=12.417777865338428 units   moon_percent=88.70%
+moon_phase=12.762129317228336 units   moon_percent=91.16%
+moon_phase=13.72199284155047 units    moon_percent=98.01%
+moon_phase=20.32376105689604 units    moon_percent=45.17%
+moon_phase=20.921416577195036 units   moon_percent=49.44%
+moon_phase=21.152651177010114 units   moon_percent=51.09%
+moon_phase=23.167365278262395 units   moon_percent=65.48%
+moon_phase=23.676596602027843 units   moon_percent=69.12%
+moon_phase=23.98537665556813 units    moon_percent=71.32%
+moon_phase=27.821417224659932 units   moon_percent=98.72%
+
+"""
 
 #prevents CTRL+S freezing the tty/virtual-console (ie. until CTRL+Q is hit)
 #see:   stty -a | egrep 'start|stop'
@@ -1696,6 +1767,19 @@ alias tty-silence='sudo dmesg -n 1'
 alias udisks='/usr/bin/udisksctl'
 alias vi='/usr/bin/vim'
 alias weechat='echo bitchx'
+py(){
+  [ -z "$1" ] && return 99
+  [ -f "$1" ] && return 100
+  [[ "$1" =~ \.py$ ]] || return 101
+  cat <<EOFRR2 > "$1"
+#!/usr/bin/python3
+
+if __name__ == '__main__':
+
+EOFRR2
+  [ -f "$1" ] || return 102
+  chmod +x "$1"
+}
 cpu-temp(){
   echo CPU temperature is `c2f $(sensors | grep -E ^CPU | grep -Eo [0-9]+\.[0-9]+)` Fahrenheit
 }
