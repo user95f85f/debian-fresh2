@@ -8,9 +8,11 @@ export EDITOR=/usr/bin/vim
 export TZ=America/Los_Angeles
 export WINEPREFIX=/media/user/DEB_STUFF/dot-wine
 apt='apt apt-cache apt-file apt-get apt-mark aptitude dpkg dpkg-query' 
+dir_killmenow='/home/user/Documents/killmenow'
 pictures='/home/user/Documents/STATIC-photos'
 shield_mount_dir='/home/user/Documents/shield_mapper_mount'
 url_urbandictionary='https://api.urbandictionary.com/v0/define?term'
+url_wikipedia='https://en.wikipedia.org/wiki/Special:Search?search'
 url_wiktionary='https://en.wiktionary.org/wiki'
 wow='/media/user/DEB_STUFF/dot-wine/drive_c/Program Files (x86)/Battle.net'
 www='/home/user/Documents/Github-repos/localhost-httpd/www'
@@ -22,6 +24,7 @@ export perl_cheatsheet='/home/user/Documents/Github-repos/debian-fresh1/perl-che
 export python_cheatsheet='/home/user/Documents/Github-repos/debian-fresh1/python-cheat-sheet.txt'
 export screenshots='/home/user/Documents/screenshots'
 export todo='/home/user/Documents/TODO/todo.txt'
+export txt_killmenow1='/home/user/Documents/killmenow.1.txt'
 export weechat_logs='/home/user/.weechat/logs'
 alias ..='cd ..'
 alias bash++='/usr/bin/perl'
@@ -57,6 +60,7 @@ EOFFFFFUUUUU
 }
 wiki-example(){
   echo 'links2 $url_wiktionary/stu'
+  echo 'links2 $url_wikipedia=thunderbolt+usb'
 }
 mp3_add(){
   if is_desktop_running; then

@@ -1517,3 +1517,30 @@ ANDROID EXECUTE SHELL COMMANDS VIA USB CONNECTION RESEARCH
 OPENING A COMMAND'S OUTPUT AS A TEMPORARY FILE (DESCRIPTOR) IN BASH
 
   vim <(zcat SERVICES.TXT.gz) SYNC.TXT 
+
+CHECKSUMS FOR GNU/LINUX REPORT WHAT THEY ARE
+
+  #256, 384, 512 is 71% good
+  #using multiple is 21% good (especially if your target system only has md5sum like 7zip Windows ie. 30% sure)
+  echo whatever > /tmp/zzz.txt; for i in md5sum sha1sum sha256sum sha384sum sha512sum; do printf '%6s: ' "${i%%sum}"; $i /tmp/zzz.txt | awk '{printf "(%3d) %s\n", length($1), $1}'; done; rm /tmp/zzz.txt
+
+     md5: ( 32) d8d77109f4a24efc3bd53d7cabb7ee35
+    sha1: ( 40) 52e98718f012ca15f876ae405b57848b5c7128dd
+  sha256: ( 64) cd293be6cea034bd45a0352775a219ef5dc7825ce55d1f7dae9762d80ce64411
+  sha384: ( 96) 5c434c63c8098e5e05e61f5839fd08f8ccd58d6f757cc96e0f45571445c28f08fc5f7189ccf40211f3fae40a81bb9fbb
+  sha512: (128) 663fad5bcd324358db08bc078aba90177f7854b26b38fa06f9a1f454ec7001ee8daf46cb52ab0eb776bc747cdc4fe6ad8a3b3124fbe0a39c4e1e8ed01f6b6e9a
+
+PERFECT MATH IN PERL 5
+
+  #!/usr/bin/perl
+
+  use warnings;
+  use strict;
+  my $eval_this = q/
+
+
+0 + 0 * (-1) - ( -0 + ( 0 * -0 + (-1) * ( (-1) * (-1) * 0 + 0 ) ) )
+
+
+  /;
+  print( eval($eval_this), "\n" ); #0

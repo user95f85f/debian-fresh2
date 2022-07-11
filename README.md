@@ -1619,6 +1619,33 @@ OPENING A COMMAND'S OUTPUT AS A TEMPORARY FILE (DESCRIPTOR) IN BASH
 
   vim <(zcat SERVICES.TXT.gz) SYNC.TXT 
 
+CHECKSUMS FOR GNU/LINUX REPORT WHAT THEY ARE
+
+  #256, 384, 512 is 71% good
+  #using multiple is 21% good (especially if your target system only has md5sum like 7zip Windows ie. 30% sure)
+  echo whatever > /tmp/zzz.txt; for i in md5sum sha1sum sha256sum sha384sum sha512sum; do printf '%6s: ' "${i%%sum}"; $i /tmp/zzz.txt | awk '{printf "(%3d) %s\n", length($1), $1}'; done; rm /tmp/zzz.txt
+
+     md5: ( 32) d8d77109f4a24efc3bd53d7cabb7ee35
+    sha1: ( 40) 52e98718f012ca15f876ae405b57848b5c7128dd
+  sha256: ( 64) cd293be6cea034bd45a0352775a219ef5dc7825ce55d1f7dae9762d80ce64411
+  sha384: ( 96) 5c434c63c8098e5e05e61f5839fd08f8ccd58d6f757cc96e0f45571445c28f08fc5f7189ccf40211f3fae40a81bb9fbb
+  sha512: (128) 663fad5bcd324358db08bc078aba90177f7854b26b38fa06f9a1f454ec7001ee8daf46cb52ab0eb776bc747cdc4fe6ad8a3b3124fbe0a39c4e1e8ed01f6b6e9a
+
+PERFECT MATH IN PERL 5
+
+  #!/usr/bin/perl
+
+  use warnings;
+  use strict;
+  my $eval_this = q/
+
+
+0 + 0 * (-1) - ( -0 + ( 0 * -0 + (-1) * ( (-1) * (-1) * 0 + 0 ) ) )
+
+
+  /;
+  print( eval($eval_this), "\n" ); #0
+
 #prevents CTRL+S freezing the tty/virtual-console (ie. until CTRL+Q is hit)
 #see:   stty -a | egrep 'start|stop'
 stty start undef
@@ -1628,9 +1655,11 @@ export EDITOR=/usr/bin/vim
 export TZ=America/Los_Angeles
 export WINEPREFIX=/media/user/DEB_STUFF/dot-wine
 apt='apt apt-cache apt-file apt-get apt-mark aptitude dpkg dpkg-query' 
+dir_killmenow='/home/user/Documents/killmenow'
 pictures='/home/user/Documents/STATIC-photos'
 shield_mount_dir='/home/user/Documents/shield_mapper_mount'
 url_urbandictionary='https://api.urbandictionary.com/v0/define?term'
+url_wikipedia='https://en.wikipedia.org/wiki/Special:Search?search'
 url_wiktionary='https://en.wiktionary.org/wiki'
 wow='/media/user/DEB_STUFF/dot-wine/drive_c/Program Files (x86)/Battle.net'
 www='/home/user/Documents/Github-repos/localhost-httpd/www'
@@ -1642,6 +1671,7 @@ export perl_cheatsheet='/home/user/Documents/Github-repos/debian-fresh1/perl-che
 export python_cheatsheet='/home/user/Documents/Github-repos/debian-fresh1/python-cheat-sheet.txt'
 export screenshots='/home/user/Documents/screenshots'
 export todo='/home/user/Documents/TODO/todo.txt'
+export txt_killmenow1='/home/user/Documents/killmenow.1.txt'
 export weechat_logs='/home/user/.weechat/logs'
 alias ..='cd ..'
 alias bash++='/usr/bin/perl'
@@ -1677,6 +1707,7 @@ EOFFFFFUUUUU
 }
 wiki-example(){
   echo 'links2 $url_wiktionary/stu'
+  echo 'links2 $url_wikipedia=thunderbolt+usb'
 }
 mp3_add(){
   if is_desktop_running; then
