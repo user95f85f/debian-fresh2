@@ -128,6 +128,7 @@ essential-2of2-debs/libinotifytools0_3.14-8.1_amd64.deb
 essential-2of2-debs/libjq1_1.6-2.1_amd64.deb
 essential-2of2-debs/libjs-underscore_1.9.1~dfsg-3_all.deb
 essential-2of2-debs/libonig5_6.9.6-1.1_amd64.deb
+essential-2of2-debs/libsqlite3-mod-impexp_0.9998-2_amd64.deb
 essential-2of2-debs/make-doc_4.3-2_all.deb
 essential-2of2-debs/manpages-posix_2017a-2_all.deb
 essential-2of2-debs/ncal_12.1.7+nmu3_amd64.deb
@@ -144,6 +145,8 @@ essential-2of2-debs/perl-doc_5.32.1-4+deb11u2_all.deb
 essential-2of2-debs/pinfo_0.6.13-1.1_amd64.deb
 essential-2of2-debs/python3-astral_1.6.1-2_all.deb
 essential-2of2-debs/python3-tz_2021.1-1_all.deb
+essential-2of2-debs/sqlite3_3.34.1-3_amd64.deb
+essential-2of2-debs/sqlite3-doc_3.34.1-3_all.deb
 essential-2of2-debs/strace_5.10-1_amd64.deb
 essential-2of2-debs/tcpdump_4.99.0-2_amd64.deb
 essential-2of2-debs/tmux_3.3a-1_bpo11+1_amd64.deb

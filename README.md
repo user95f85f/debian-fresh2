@@ -1597,6 +1597,28 @@ VIDEO TO GIF ANIMATION
   #use 200 pixel width (30% sure)
   ffmpeg -i whatever.avi -ss 12 -t 5 -filter_complex "[0:v] fps="5",scale="200":-1" "whatever.gif"
 
+270 CHARACTER LINUX FILESYSTEM FILENAME
+
+  #OH YEAHHHHHHHH (tmpfs [ie. RAM/liveOS/overlay mount/filesystem] & ext4)
+  mkdir ~/does_not_exist && cd ~/does_not_exist && { touch $(printf '%s' {1..119}).txt; printf '%s' *.txt; printf '%s' *.txt | wc -c ; } #270
+  #123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119.txt
+
+CREATE A FILE IN A PRE-DETERMINED FILESIZE (THAT IS MOST LIKELY GONNA BE ZEROED OUT)
+
+  #XXX I'm 96% sure a 1024 byte file is a 1 KiB file
+  #and then a 1000 byte file is a KB (ie. 'kilo', which means 1000 of something, which in this case is bytes) file
+  HOW_BIG_DO_YOU_WANT_THE_FILE_IN_BYTES=1024; printf '%x: 00\n' $(( $HOW_BIG_DO_YOU_WANT_THE_FILE_IN_BYTES - 1 )) | xxd -r > one_KiB_file.txt
+
+ANDROID EXECUTE SHELL COMMANDS VIA USB CONNECTION RESEARCH
+
+  1) enable USB debugging in Developer Options
+  2) sudo apt install adb
+  3) adb shell <<<"echo hello; exit" | sed 's/hello/sup/' > output_from_android_phone.txt
+
+OPENING A COMMAND'S OUTPUT AS A TEMPORARY FILE (DESCRIPTOR) IN BASH
+
+  vim <(zcat SERVICES.TXT.gz) SYNC.TXT 
+
 #prevents CTRL+S freezing the tty/virtual-console (ie. until CTRL+Q is hit)
 #see:   stty -a | egrep 'start|stop'
 stty start undef
@@ -1630,6 +1652,7 @@ alias check-network='bash -c "ip route; curl -IL http://nmcheck.gnome.org/check_
 alias df='df --human-readable --print-type 2>/dev/null'
 alias ffmpeg='/usr/bin/ffmpeg -hide_banner'
 alias ffprobe='/usr/bin/ffprobe -hide_banner'
+alias find-biggest-dirs='du -h | sort -h'
 alias jpg='/usr/bin/jpegoptim -s'
 alias lightdm-stop='is_desktop_running && sudo systemctl stop lightdm'
 alias lightdm-start='is_desktop_running || sudo systemctl start lightdm'
@@ -1647,7 +1670,10 @@ cpu-temp(){
   echo CPU temperature is `c2f $(sensors | grep -E ^CPU | grep -Eo [0-9]+\.[0-9]+)` Fahrenheit
 }
 urban-example(){
-  echo 'wget -O - $url_urbandicationary=mouter | jq -C | less -R'
+  cat <<EOFFFFFUUUUU
+wget -O - \$url_urbandicationary=mouter | jq -C | less -R
+wget -O - \$url_urbandictionary=boomer | jq --monochrome-output '.list[]["definition","example"]'
+EOFFFFFUUUUU
 }
 wiki-example(){
   echo 'links2 $url_wiktionary/stu'
@@ -2237,6 +2263,7 @@ essential-2of2-debs/libinotifytools0_3.14-8.1_amd64.deb
 essential-2of2-debs/libjq1_1.6-2.1_amd64.deb
 essential-2of2-debs/libjs-underscore_1.9.1~dfsg-3_all.deb
 essential-2of2-debs/libonig5_6.9.6-1.1_amd64.deb
+essential-2of2-debs/libsqlite3-mod-impexp_0.9998-2_amd64.deb
 essential-2of2-debs/make-doc_4.3-2_all.deb
 essential-2of2-debs/manpages-posix_2017a-2_all.deb
 essential-2of2-debs/ncal_12.1.7+nmu3_amd64.deb
@@ -2253,6 +2280,8 @@ essential-2of2-debs/perl-doc_5.32.1-4+deb11u2_all.deb
 essential-2of2-debs/pinfo_0.6.13-1.1_amd64.deb
 essential-2of2-debs/python3-astral_1.6.1-2_all.deb
 essential-2of2-debs/python3-tz_2021.1-1_all.deb
+essential-2of2-debs/sqlite3_3.34.1-3_amd64.deb
+essential-2of2-debs/sqlite3-doc_3.34.1-3_all.deb
 essential-2of2-debs/strace_5.10-1_amd64.deb
 essential-2of2-debs/tcpdump_4.99.0-2_amd64.deb
 essential-2of2-debs/tmux_3.3a-1_bpo11+1_amd64.deb

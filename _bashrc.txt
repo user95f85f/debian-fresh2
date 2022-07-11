@@ -32,6 +32,7 @@ alias check-network='bash -c "ip route; curl -IL http://nmcheck.gnome.org/check_
 alias df='df --human-readable --print-type 2>/dev/null'
 alias ffmpeg='/usr/bin/ffmpeg -hide_banner'
 alias ffprobe='/usr/bin/ffprobe -hide_banner'
+alias find-biggest-dirs='du -h | sort -h'
 alias jpg='/usr/bin/jpegoptim -s'
 alias lightdm-stop='is_desktop_running && sudo systemctl stop lightdm'
 alias lightdm-start='is_desktop_running || sudo systemctl start lightdm'
@@ -49,7 +50,10 @@ cpu-temp(){
   echo CPU temperature is `c2f $(sensors | grep -E ^CPU | grep -Eo [0-9]+\.[0-9]+)` Fahrenheit
 }
 urban-example(){
-  echo 'wget -O - $url_urbandicationary=mouter | jq -C | less -R'
+  cat <<EOFFFFFUUUUU
+wget -O - \$url_urbandicationary=mouter | jq -C | less -R
+wget -O - \$url_urbandictionary=boomer | jq --monochrome-output '.list[]["definition","example"]'
+EOFFFFFUUUUU
 }
 wiki-example(){
   echo 'links2 $url_wiktionary/stu'
