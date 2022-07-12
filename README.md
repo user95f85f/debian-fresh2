@@ -1759,6 +1759,16 @@ VIM FOR WHEN YOUR BUFFERS NEED TO UPDATE EASIER
 
   :se autoread
 
+OUTPUT YOUR NEWLINED-SEGREGATED OUTPUT INTO A NICE TABLE TABULAR OUTPUT IN BASH ON YOUR TTY/VIRTUAL-TERMINAL YAAAAAAY
+
+  printf '%s ' {1..200} | column --output-width "$(tput cols)"
+
+  #REAL EXAMPLE:
+
+  # both of these do the exact same thing:
+  python3 -c "import os;print('\n'.join([f for f in os.listdir('/usr/bin') if os.path.islink('/usr/bin/{}'.format(f))]), end='')" | column --output-width "$(tput cols)"
+  { for i in /usr/bin/*; do [ -L "$i" ] && printf '%s\n' "${i##*/}"; done ; } | column --output-width "$(tput cols)"
+
 #prevents CTRL+S freezing the tty/virtual-console (ie. until CTRL+Q is hit)
 #see:   stty -a | egrep 'start|stop'
 stty start undef
