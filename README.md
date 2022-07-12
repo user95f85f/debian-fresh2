@@ -1755,7 +1755,7 @@ export EDITOR=/usr/bin/vim
 export TZ=America/Los_Angeles
 export WINEPREFIX=/media/user/DEB_STUFF/dot-wine
 apt='apt apt-cache apt-file apt-get apt-mark aptitude dpkg dpkg-query' 
-dir_killmenow='/home/user/Documents/killmenow'
+dir_lorem_ipsum='/home/user/Documents/lorem-ipsum'
 pictures='/home/user/Documents/STATIC-photos'
 shield_mount_dir='/home/user/Documents/shield_mapper_mount'
 url_urbandictionary='https://api.urbandictionary.com/v0/define?term'
@@ -1772,7 +1772,7 @@ export php_cheatsheet='/home/user/Documents/Github-repos/debian-fresh2/php-cheat
 export python_cheatsheet='/home/user/Documents/Github-repos/debian-fresh1/python-cheat-sheet.txt'
 export screenshots='/home/user/Documents/screenshots'
 export todo='/home/user/Documents/TODO/todo.txt'
-export txt_killmenow1='/home/user/Documents/killmenow.1.txt'
+export txt_lorem_ipsum='/home/user/Documents/lorem-ipsum.1.txt'
 export weechat_logs='/home/user/.weechat/logs'
 alias ..='cd ..'
 alias bash++='/usr/bin/perl'
@@ -2600,15 +2600,6 @@ Devices (35)
 | IDE  | seagate-st1000lm... | Seagate          | ST1000LM035-1RK172 1TB              | disk         |
 +------+---------------------+------------------+-------------------------------------+--------------+
 
-
-PYTHON3 ALLAH MICKBAR
-  #whatever
-
-  [tuple(map(int, x.split(':'))) for x in l]
-  ["500:250","3600:42"]`       `[(500, 250), (3600, 42)]
-  sum(3 if a > b else (1 if a == b else 0) for a, b in map(lambda x: map(int, x.split(':')), l))
-  sum(2*((a-b)>0)+1 for a,b in map(lambda x:map(int,x.split(':')),l) if a>=b)
-  sum(2*((a-b)>0)+1-(a<b) for a,b in map(lambda x:map(int,x.split(':')),l))`
 #!/usr/bin/perl
 
 
@@ -2673,6 +2664,22 @@ while(1){
 }
 
 print 'sudo apt download ', join(' ', uniq(sort(@package_names))), "\n";
+
+PYTHON3 ALLAH MICKBAR
+  #whatever
+
+  [tuple(map(int, x.split(':'))) for x in l]
+  ["500:250","3600:42"]`       `[(500, 250), (3600, 42)]
+  sum(3 if a > b else (1 if a == b else 0) for a, b in map(lambda x: map(int, x.split(':')), l))
+  sum(2*((a-b)>0)+1 for a,b in map(lambda x:map(int,x.split(':')),l) if a>=b)
+  sum(2*((a-b)>0)+1-(a<b) for a,b in map(lambda x:map(int,x.split(':')),l))`
+
+SOME GOOD HTML ENTITIES RESEARCH
+
+  &cent;   <!-- US cent sign -->
+  &deg;    <!-- temperature degrees sign -->
+  &hellip; <!-- a 2% more condensed '...' -->
+  &ne;     <!-- not-equal, !=, sign -->
 sudo lsblk --list --output-all /dev/sda | tr '\t' ' ' | sed 's/ \{2,\}/ /g'
 
 
@@ -3094,6 +3101,36 @@ PROPER PHP EOL (INSTEAD OF JUST \n, WHICH WORKS 0 WELL IF YOU WANT DOS-NEWLINES 
     $s = preg_replace("@\\\u([0-9a-z]{3,4})@", "&#x$1;", $s); #Same thing as the first one
     echo $s, PHP_EOL;
   ?>
+
+
+
+
+WHEN TO USE EM-DASH (longer) VERSUS EN-DASH (shorter) HTML-ENTITIES IN YOUR HTML CODE
+
+  <pre>
+  &ndash;   Separate phone number numbers (90% sure regular '-' would work here), extrapolating list of something major (eg. Linux programming&ndash; Bash, Perl 5, Python3.)
+  &mdash;   ${date_whatever}&mdash;\s?Present/${date_whatever+whatever}
+  </pre>
+
+HYPHEN REFERENCE
+
+  <div style="white-space:pre-line">
+  regular dash: -
+  (a little longer)
+  en dash: &ndash; (1.3x longer than regular dash)
+  (much longer)
+  em dash: &mdash; (2.1x longer than en-dash. 3.1x longer than regular dash)
+  (a little longer)
+  horizontal bar: &horbar; (7% longer than em-dash)
+  regular hyphen: --
+  </div>
+
+
+SOME GOOD HTML ENTITIES RESEARCH
+
+  &horbar;
+  &middot; &bull; <!-- bull is for bullet, which is a x2 thicker middot -->
+  &uarr; &darr; &larr; &rarr;
 
 w3c-linkchecker w3c-markup-validator #requires apache2, ugh.
 translate-shell #google-translate-cli

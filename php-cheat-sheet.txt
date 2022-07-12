@@ -40,3 +40,33 @@ PROPER PHP EOL (INSTEAD OF JUST \n, WHICH WORKS 0 WELL IF YOU WANT DOS-NEWLINES 
     $s = preg_replace("@\\\u([0-9a-z]{3,4})@", "&#x$1;", $s); #Same thing as the first one
     echo $s, PHP_EOL;
   ?>
+
+
+
+
+WHEN TO USE EM-DASH (longer) VERSUS EN-DASH (shorter) HTML-ENTITIES IN YOUR HTML CODE
+
+  <pre>
+  &ndash;   Separate phone number numbers (90% sure regular '-' would work here), extrapolating list of something major (eg. Linux programming&ndash; Bash, Perl 5, Python3.)
+  &mdash;   ${date_whatever}&mdash;\s?Present/${date_whatever+whatever}
+  </pre>
+
+HYPHEN REFERENCE
+
+  <div style="white-space:pre-line">
+  regular dash: -
+  (a little longer)
+  en dash: &ndash; (1.3x longer than regular dash)
+  (much longer)
+  em dash: &mdash; (2.1x longer than en-dash. 3.1x longer than regular dash)
+  (a little longer)
+  horizontal bar: &horbar; (7% longer than em-dash)
+  regular hyphen: --
+  </div>
+
+
+SOME GOOD HTML ENTITIES RESEARCH
+
+  &horbar;
+  &middot; &bull; <!-- bull is for bullet, which is a x2 thicker middot -->
+  &uarr; &darr; &larr; &rarr;

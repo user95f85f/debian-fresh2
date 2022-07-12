@@ -7,3 +7,10 @@ PYTHON3 ALLAH MICKBAR
   sum(3 if a > b else (1 if a == b else 0) for a, b in map(lambda x: map(int, x.split(':')), l))
   sum(2*((a-b)>0)+1 for a,b in map(lambda x:map(int,x.split(':')),l) if a>=b)
   sum(2*((a-b)>0)+1-(a<b) for a,b in map(lambda x:map(int,x.split(':')),l))`
+
+SOME GOOD HTML ENTITIES RESEARCH
+
+  &cent;   <!-- US cent sign -->
+  &deg;    <!-- temperature degrees sign -->
+  &hellip; <!-- a 2% more condensed '...' -->
+  &ne;     <!-- not-equal, !=, sign -->
