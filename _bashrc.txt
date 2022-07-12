@@ -50,6 +50,16 @@ alias tty-silence='sudo dmesg -n 1'
 alias udisks='/usr/bin/udisksctl'
 alias vi='/usr/bin/vim'
 alias weechat='echo bitchx'
+utfcode2all-character-info(){
+  [ -n "$1" ] || return 33
+  [[ "$1" =~ ^[0-9]+$ ]] || return 44
+  lynx -force_html <(wget -O - https://www.compart.com/en/unicode/U+"$1")
+}
+utfcode2htmlentities-possibilities(){
+  [ -n "$1" ] || return 33
+  [[ "$1" =~ ^[0-9]+$ ]] || return 44
+  wget -O - https://www.compart.com/en/unicode/U+"$1" | grep -Eo '&amp;[^;]+;' | sort | uniq | sed 's/&amp;/\&/'
+}
 py(){
   [ -z "$1" ] && return 99
   [ -f "$1" ] && return 100
