@@ -507,21 +507,25 @@ ULTIMATE SINGLE-CHARACTER INPUT HANDLING
     [Nn]*)   echo everything has been saved.;;
   esac
 
+PRINT OUT ALL DIRECTORIES (ie. DIRECTORY NAMES) IN PWD
 
-THIS IS SAFE EVEN IF THE DIRECTORIES IN PWD HAVE WHITESPACE
-
-  n=0
-  for myf in */; do
-    (( n++ ))
-    echo "$n) $myf" 
+  #this is safe even if the directories in pwd have whitespace
+  for d in */; do
+    printf '%s\n' "$d"
   done
 
-THIS IS SAFE EVEN IF THE FILES/DIR IN PWD HAVE WHITESPACE
+PRINT OUT ALL FILES IN ALL DIRECTORIES IN PWD
 
-  n=0
-  for myf in *; do
-    (( n++ ))
-    echo "$n) $myf" 
+  #this is safe even if the directories in pwd have whitespace
+  for a_file_or_directory_within in */*; do
+    printf '%s\n' "$a_file_or_directory_within"
+  done
+
+PRINT OUT ALL FILES AND DIRECTORY NAMES IN PWD
+
+  #this is safe even if any file in PWD has whitespace
+  for f in *; do
+    printf '%s\n' "$f" 
   done
 
 COMMAND ARGUMENT AS MULTI-LINED HERE-DOC
@@ -1741,10 +1745,19 @@ EOFTTT
 
 
 
-UTF-8 WHATEVER TO SOMETHING REAL
+UTF-8/UTF-16[?] CODE TO STRING OUTPUT IN BASH, FOR EXAMPLE
 
-  \u2019 is just apostrophe: '
+  printf '%s\n' $'\u2015'   #horizontal bar
+  printf '%s\n' $'\u2019'; echo "'"; echo '`' #99% similar
 
+ALTERNATIVE TO `strace` FOR DETECTING WHAT A PROGRAM IS DOING, ACTUALLY IN THIS CASE IT'S WHY CPU IS 100% RESEARCH
+
+  perf record -g $command
+  perf report -g
+
+VIM FOR WHEN YOUR BUFFERS NEED TO UPDATE EASIER
+
+  :se autoread
 
 #prevents CTRL+S freezing the tty/virtual-console (ie. until CTRL+Q is hit)
 #see:   stty -a | egrep 'start|stop'
@@ -2673,13 +2686,23 @@ PYTHON3 ALLAH MICKBAR
   sum(3 if a > b else (1 if a == b else 0) for a, b in map(lambda x: map(int, x.split(':')), l))
   sum(2*((a-b)>0)+1 for a,b in map(lambda x:map(int,x.split(':')),l) if a>=b)
   sum(2*((a-b)>0)+1-(a<b) for a,b in map(lambda x:map(int,x.split(':')),l))`
+  re.sub(r'\$(matchThis)', lambda m: m.group(1).upper(), 'something 1 2 3 $var1')
 
 SOME GOOD HTML ENTITIES RESEARCH
 
-  &cent;   <!-- US cent sign -->
-  &deg;    <!-- temperature degrees sign -->
-  &hellip; <!-- a 2% more condensed '...' -->
-  &ne;     <!-- not-equal, !=, sign -->
+  &cent;    <!-- US cent sign -->
+  &deg;     <!-- temperature degrees sign -->
+  &hellip;  <!-- a 2% more condensed '...' -->
+  &ne;      <!-- not-equal, !=, sign -->
+  &ge;      <!-- >= in one character -->
+  &le;      <!-- <= in one character -->
+  &brvbar;  <!-- | with a space in the middle -->
+  &Theta;   <!-- O with a line through the middle -->
+  &Pi;      <!-- a tall math.PI symbol -->
+  &OElig;   <!-- a capital C condensed with a capital E -->
+  &egrave;  <!-- yet another engraved lower-case e -->
+  &sub;     <!-- the @set to the left is LESS-THAN/WITHIN @super_set to the right -->
+
 sudo lsblk --list --output-all /dev/sda | tr '\t' ' ' | sed 's/ \{2,\}/ /g'
 
 
@@ -3112,6 +3135,10 @@ WHEN TO USE EM-DASH (longer) VERSUS EN-DASH (shorter) HTML-ENTITIES IN YOUR HTML
   &mdash;   ${date_whatever}&mdash;\s?Present/${date_whatever+whatever}
   </pre>
 
+ALL OF THESE HTML ENTITIES ARE THE SAME THING
+
+  &#8213; &#x2015; &horbar; (horizontal bar UTF-16 character 3.1x longer than '-')
+
 HYPHEN REFERENCE
 
   <div style="white-space:pre-line">
@@ -3128,9 +3155,43 @@ HYPHEN REFERENCE
 
 SOME GOOD HTML ENTITIES RESEARCH
 
+  &aelig; <!-- ae in one character -->
+  &AElig; <!-- AE in one character -->
   &horbar;
   &middot; &bull; <!-- bull is for bullet, which is a x2 thicker middot -->
   &uarr; &darr; &larr; &rarr;
+
+JAVASCRIPT INSTANTIATE MORE THAN ONE VARIABLE IN ONE STATEMENT
+
+  var a=1, b=2, c=a+2;
+  var d=document,a='setAttribute',s=d.createElement('script');
+
+JAVASCRIPT DIFFERENCE BETWEEN undefined AND null
+
+  'undefined' is longer
+  undefined !== null
+  undefined == null
+  that's it.
+
+JAVASCRIPT: A FUNCTION IN AN HREF LINK AND CALL IT
+
+  <a href="javascript:void(function(){alert('sup');})();">say sup</a>
+
+DYNAMICALLY LOAD IN A .JS INTO YOUR "DOM"
+
+  var d=document;
+  var tmp='setAttribute';
+  var tag=d.createElement('script');
+  tag[tmp]('type','text/javascript');
+  tag[tmp]('src','/effect.js');
+  tmp = undefined;
+  d.head.appendChild(tag);
+  tag = undefined;
+
+HTML ENTITIES NOTES-RESEARCH
+
+  &#34; to &#9000;
+  space is &#160;
 
 w3c-linkchecker w3c-markup-validator #requires apache2, ugh.
 translate-shell #google-translate-cli

@@ -406,21 +406,25 @@ ULTIMATE SINGLE-CHARACTER INPUT HANDLING
     [Nn]*)   echo everything has been saved.;;
   esac
 
+PRINT OUT ALL DIRECTORIES (ie. DIRECTORY NAMES) IN PWD
 
-THIS IS SAFE EVEN IF THE DIRECTORIES IN PWD HAVE WHITESPACE
-
-  n=0
-  for myf in */; do
-    (( n++ ))
-    echo "$n) $myf" 
+  #this is safe even if the directories in pwd have whitespace
+  for d in */; do
+    printf '%s\n' "$d"
   done
 
-THIS IS SAFE EVEN IF THE FILES/DIR IN PWD HAVE WHITESPACE
+PRINT OUT ALL FILES IN ALL DIRECTORIES IN PWD
 
-  n=0
-  for myf in *; do
-    (( n++ ))
-    echo "$n) $myf" 
+  #this is safe even if the directories in pwd have whitespace
+  for a_file_or_directory_within in */*; do
+    printf '%s\n' "$a_file_or_directory_within"
+  done
+
+PRINT OUT ALL FILES AND DIRECTORY NAMES IN PWD
+
+  #this is safe even if any file in PWD has whitespace
+  for f in *; do
+    printf '%s\n' "$f" 
   done
 
 COMMAND ARGUMENT AS MULTI-LINED HERE-DOC
@@ -1640,7 +1644,16 @@ EOFTTT
 
 
 
-UTF-8 WHATEVER TO SOMETHING REAL
+UTF-8/UTF-16[?] CODE TO STRING OUTPUT IN BASH, FOR EXAMPLE
 
-  \u2019 is just apostrophe: '
+  printf '%s\n' $'\u2015'   #horizontal bar
+  printf '%s\n' $'\u2019'; echo "'"; echo '`' #99% similar
 
+ALTERNATIVE TO `strace` FOR DETECTING WHAT A PROGRAM IS DOING, ACTUALLY IN THIS CASE IT'S WHY CPU IS 100% RESEARCH
+
+  perf record -g $command
+  perf report -g
+
+VIM FOR WHEN YOUR BUFFERS NEED TO UPDATE EASIER
+
+  :se autoread

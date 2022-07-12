@@ -51,6 +51,10 @@ WHEN TO USE EM-DASH (longer) VERSUS EN-DASH (shorter) HTML-ENTITIES IN YOUR HTML
   &mdash;   ${date_whatever}&mdash;\s?Present/${date_whatever+whatever}
   </pre>
 
+ALL OF THESE HTML ENTITIES ARE THE SAME THING
+
+  &#8213; &#x2015; &horbar; (horizontal bar UTF-16 character 3.1x longer than '-')
+
 HYPHEN REFERENCE
 
   <div style="white-space:pre-line">
@@ -67,6 +71,40 @@ HYPHEN REFERENCE
 
 SOME GOOD HTML ENTITIES RESEARCH
 
+  &aelig; <!-- ae in one character -->
+  &AElig; <!-- AE in one character -->
   &horbar;
   &middot; &bull; <!-- bull is for bullet, which is a x2 thicker middot -->
   &uarr; &darr; &larr; &rarr;
+
+JAVASCRIPT INSTANTIATE MORE THAN ONE VARIABLE IN ONE STATEMENT
+
+  var a=1, b=2, c=a+2;
+  var d=document,a='setAttribute',s=d.createElement('script');
+
+JAVASCRIPT DIFFERENCE BETWEEN undefined AND null
+
+  'undefined' is longer
+  undefined !== null
+  undefined == null
+  that's it.
+
+JAVASCRIPT: A FUNCTION IN AN HREF LINK AND CALL IT
+
+  <a href="javascript:void(function(){alert('sup');})();">say sup</a>
+
+DYNAMICALLY LOAD IN A .JS INTO YOUR "DOM"
+
+  var d=document;
+  var tmp='setAttribute';
+  var tag=d.createElement('script');
+  tag[tmp]('type','text/javascript');
+  tag[tmp]('src','/effect.js');
+  tmp = undefined;
+  d.head.appendChild(tag);
+  tag = undefined;
+
+HTML ENTITIES NOTES-RESEARCH
+
+  &#34; to &#9000;
+  space is &#160;
