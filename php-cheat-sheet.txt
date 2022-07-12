@@ -1,0 +1,42 @@
+JAVASCRIPT COPY TEXT TO CLIPBOARD IN AN INPUT FIELD RESEARCH
+
+  var inp = document.getElementById('txtUsername');
+  if (inp && inp.select)
+  {
+    inp.select(); // select all text
+    try {
+      document.execCommand('copy');
+      inp.blur(); // unfocus
+    }
+    catch(err){}
+  }
+
+
+JAVASCRIPT TIMEOUT QUICKIE
+
+  setTimeout(function() { alert('I am 1 minute in the future!'; }, 60 * 60);
+
+JAVASCRIPT HTML5 DOM ACCESS ANY INPUT FIELD WITHIN ANY FORM WITHIN YOUR HTML5 DOCUMENT RESEARCH
+  
+  document.form.txtAddress.value = '';
+
+PHP USE WARNINGS;
+  
+  // I'm 70% sure this is always enabled
+  error_reporting(E_ALL);
+  ini_set('display_errors', 1);
+
+VIEW HTML FILES GENERATED FROM PHP PAGES QUICKLY AS POSSIBLE HOWEVER I THINK LYNX IS THE ONLY ONE...................
+
+  lynx -force_html <(php some-test-php.php)
+
+PROPER PHP EOL (INSTEAD OF JUST \n, WHICH WORKS 0 WELL IF YOU WANT DOS-NEWLINES FOR NOTEPAD.EXE ON WINDOWS 10 HEHE)
+  AND PREG_REPLACE LIKE WITH PERL YOU CAN USE COOL REGEX SYMBOLS TO REPRESENT REGEX EXPRESSION BOUNDARIES
+  AND CONVERT A UNICODE UTF-16 CODE-NAME U+2015 INTO A ACTUAL GOOD HTMLENTITIES VALID HTML-CHARACTER-OUTPUT/HTML-ENTITY EXPRESSION (ie. &#x2015;)
+
+  <?php
+    $s = 'hello\u2015bye';
+    $s = preg_replace("/\\\u([0-9a-z]{3,4})/", "&#x$1;", $s);
+    $s = preg_replace("@\\\u([0-9a-z]{3,4})@", "&#x$1;", $s); #Same thing as the first one
+    echo $s, PHP_EOL;
+  ?>

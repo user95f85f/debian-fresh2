@@ -21,6 +21,7 @@ export bash1='/home/user/Documents/bash.1.txt'
 export git='/home/user/Documents/Github-repos'
 export music='/home/user/Documents/mp3s'
 export perl_cheatsheet='/home/user/Documents/Github-repos/debian-fresh1/perl-cheat-sheet.txt'
+export php_cheatsheet='/home/user/Documents/Github-repos/debian-fresh2/php-cheat-sheet.txt'
 export python_cheatsheet='/home/user/Documents/Github-repos/debian-fresh1/python-cheat-sheet.txt'
 export screenshots='/home/user/Documents/screenshots'
 export todo='/home/user/Documents/TODO/todo.txt'
@@ -141,7 +142,7 @@ Z(){
 apt-non-debian-packages-installed(){
   aptitude search '?narrow(?installed, ?not(?origin(Debian)))'
 }
-lucky(){ s="$*"; [ -z "$s" ] && return 3; echo $s | perl -ne 'BEGIN{undef $/;}if(m#(https?://[a-zA-Z0-9,%=/.:?_&\-]+)#){print $1;}'; }
+lucky(){ s="$*"; [ -z "$s" ] && return 3; echo $s | perl -ne 'BEGIN{undef $/;}if(m#(https?://[a-zA-Z0-9,%=/.:?_+&\-]+)#){print $1;}'; }
 tarhelp(){
   cat <<EOFFFFFFFF
 1) gz

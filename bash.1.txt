@@ -1636,3 +1636,11 @@ print('The moon phase for location {} is {}'.format(sys.argv[1], moon_phase)
 EOFTTT
   python3 astral.py 'Chisinau,Moldova' #location can be grepped from astral.py as some city near you (it's the 1st argument 90% sure 90%sure needs the slash tho
   #The moon phase for location Chisinau,Moldova is 11.466777777777779
+
+
+
+
+UTF-8 WHATEVER TO SOMETHING REAL
+
+  \u2019 is just apostrophe: '
+

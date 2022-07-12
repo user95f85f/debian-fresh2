@@ -1738,6 +1738,14 @@ EOFTTT
   python3 astral.py 'Chisinau,Moldova' #location can be grepped from astral.py as some city near you (it's the 1st argument 90% sure 90%sure needs the slash tho
   #The moon phase for location Chisinau,Moldova is 11.466777777777779
 
+
+
+
+UTF-8 WHATEVER TO SOMETHING REAL
+
+  \u2019 is just apostrophe: '
+
+
 #prevents CTRL+S freezing the tty/virtual-console (ie. until CTRL+Q is hit)
 #see:   stty -a | egrep 'start|stop'
 stty start undef
@@ -1760,6 +1768,7 @@ export bash1='/home/user/Documents/bash.1.txt'
 export git='/home/user/Documents/Github-repos'
 export music='/home/user/Documents/mp3s'
 export perl_cheatsheet='/home/user/Documents/Github-repos/debian-fresh1/perl-cheat-sheet.txt'
+export php_cheatsheet='/home/user/Documents/Github-repos/debian-fresh2/php-cheat-sheet.txt'
 export python_cheatsheet='/home/user/Documents/Github-repos/debian-fresh1/python-cheat-sheet.txt'
 export screenshots='/home/user/Documents/screenshots'
 export todo='/home/user/Documents/TODO/todo.txt'
@@ -1880,7 +1889,7 @@ Z(){
 apt-non-debian-packages-installed(){
   aptitude search '?narrow(?installed, ?not(?origin(Debian)))'
 }
-lucky(){ s="$*"; [ -z "$s" ] && return 3; echo $s | perl -ne 'BEGIN{undef $/;}if(m#(https?://[a-zA-Z0-9,%=/.:?_&\-]+)#){print $1;}'; }
+lucky(){ s="$*"; [ -z "$s" ] && return 3; echo $s | perl -ne 'BEGIN{undef $/;}if(m#(https?://[a-zA-Z0-9,%=/.:?_+&\-]+)#){print $1;}'; }
 tarhelp(){
   cat <<EOFFFFFFFF
 1) gz
@@ -3033,6 +3042,48 @@ echo 'sudo dpkg --force-depends --remove xfburn xfce4-dict xfce4-goodies'
 echo sudo 'apt-mark hold $packages_that_can_be_autoremoved-get_from_apt-finstall_output'
 echo
 echo you might need to set your timezone in XFCE
+JAVASCRIPT COPY TEXT TO CLIPBOARD IN AN INPUT FIELD RESEARCH
+
+  var inp = document.getElementById('txtUsername');
+  if (inp && inp.select)
+  {
+    inp.select(); // select all text
+    try {
+      document.execCommand('copy');
+      inp.blur(); // unfocus
+    }
+    catch(err){}
+  }
+
+
+JAVASCRIPT TIMEOUT QUICKIE
+
+  setTimeout(function() { alert('I am 1 minute in the future!'; }, 60 * 60);
+
+JAVASCRIPT HTML5 DOM ACCESS ANY INPUT FIELD WITHIN ANY FORM WITHIN YOUR HTML5 DOCUMENT RESEARCH
+  
+  document.form.txtAddress.value = '';
+
+PHP USE WARNINGS;
+  
+  // I'm 70% sure this is always enabled
+  error_reporting(E_ALL);
+  ini_set('display_errors', 1);
+
+VIEW HTML FILES GENERATED FROM PHP PAGES QUICKLY AS POSSIBLE HOWEVER I THINK LYNX IS THE ONLY ONE...................
+
+  lynx -force_html <(php some-test-php.php)
+
+PROPER PHP EOL (INSTEAD OF JUST \n, WHICH WORKS 0 WELL IF YOU WANT DOS-NEWLINES FOR NOTEPAD.EXE ON WINDOWS 10 HEHE)
+  AND PREG_REPLACE LIKE WITH PERL YOU CAN USE COOL REGEX SYMBOLS TO REPRESENT REGEX EXPRESSION BOUNDARIES
+  AND CONVERT A UNICODE UTF-16 CODE-NAME U+2015 INTO A ACTUAL GOOD HTMLENTITIES VALID HTML-CHARACTER-OUTPUT/HTML-ENTITY EXPRESSION (ie. &#x2015;)
+
+  <?php
+    $s = 'hello\u2015bye';
+    $s = preg_replace("/\\\u([0-9a-z]{3,4})/", "&#x$1;", $s);
+    $s = preg_replace("@\\\u([0-9a-z]{3,4})@", "&#x$1;", $s); #Same thing as the first one
+    echo $s, PHP_EOL;
+  ?>
 
 w3c-linkchecker w3c-markup-validator #requires apache2, ugh.
 translate-shell #google-translate-cli
