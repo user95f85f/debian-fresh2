@@ -56,7 +56,7 @@ funny-GUI-alert(){
     wait_this_long="$(( RANDOM % 10 + 1 ))m"
     echo sleep "$wait_this_long"
     sleep "$wait_this_long"
-    DISPLAY=:0.0 xterm -T sup -e sh -c 'echo hey, fuck you; sleep 10'
+    DISPLAY=:0.0 xterm -T sup -e sh -c 'echo hey, fuck you; sleep 9.39'
   done
 }
 utfcode2all-character-info(){

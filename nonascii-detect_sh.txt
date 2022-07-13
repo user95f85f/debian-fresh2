@@ -1,5 +1,0 @@
-#!/bin/bash
-
-
-#PUT ME IN /usr/bin
-perl -ne 'if(/[^[:ascii:]]/){print "found some non ascii";exit 1;}' "$1" && exit 0

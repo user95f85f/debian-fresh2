@@ -1878,7 +1878,7 @@ funny-GUI-alert(){
     wait_this_long="$(( RANDOM % 10 + 1 ))m"
     echo sleep "$wait_this_long"
     sleep "$wait_this_long"
-    DISPLAY=:0.0 xterm -T sup -e sh -c 'echo hey, fuck you; sleep 10'
+    DISPLAY=:0.0 xterm -T sup -e sh -c 'echo hey, fuck you; sleep 9.39'
   done
 }
 utfcode2all-character-info(){
@@ -2271,6 +2271,9 @@ You're doing it wrong; I'm 3%sure you are 900%right
 Your browser must be caching the old content; what" | shuf -n 1
 }
 
+1.6M	dash-0.5.11+git20200708+dd9ef66/
+39M	bash-5.1/
+109M	perl-5.32.1/
 
 
 
@@ -2887,16 +2890,6 @@ NAME KNAME PATH MAJ:MIN FSAVAIL FSSIZE FSTYPE FSUSED FSUSE% FSVER MOUNTPOINT LAB
 sda sda /dev/sda 8:0 01ea0b1e-a254-44c5-b3df-061b4120bd39 gpt 128 0 0 0 ST1000LM035-1RK172 WL127AV7 931.5G running root disk brw-rw---- 0 4096 0 4096 512 1 mq-deadline 64 disk 0 0B 0B 0 0B 0x5000c500b919327a 1 0:0:0:0 sata block:scsi:pci SDM3 ATA none 0
 sda1 sda1 /dev/sda1 8:1 76.6G 287.9G ext4 196.6G 68% 1.0 /media/user/DEB_STUFF DEB_STUFF 15753af0-daad-4cbd-bd97-0ac76cb6dbbe 01ea0b1e-a254-44c5-b3df-061b4120bd39 gpt 0fc63daf-8483-4772-8e79-3d69d8477de4 Linux filesystem DEB_STUFF b239907a-b449-4189-a365-e3cd8bd0ec03 128 0 0 0 293G root disk brw-rw---- 0 4096 0 4096 512 1 mq-deadline 64 part 0 0B 0B 0 0B 0x5000c500b919327a 1 sda block:scsi:pci none 0
 sda2 sda2 /dev/sda2 8:2 swap 1 [SWAP] DEB_SWAP 87e82457-cfe9-427e-8d60-e8abc41f2fd4 01ea0b1e-a254-44c5-b3df-061b4120bd39 gpt 0657fd6d-a4ab-43c4-84e5-0933c84b4f4f Linux swap DEB_SWAP c1352856-794d-47ed-8cf9-819133a923c1 128 0 0 0 9.8G root disk brw-rw---- 0 4096 0 4096 512 1 mq-deadline 64 part 0 0B 0B 0 0B 0x5000c500b919327a 1 sda block:scsi:pci none 0
-#!/bin/bash
-
-
-#PUT ME IN /usr/bin
-perl -ne 'if(/[^[:ascii:]]/){print "found some non ascii";exit 1;}' "$1" && exit 0
-#!/bin/bash
-
-
-#PUT ME IN /usr/bin/
-perl -pi~ -e 's/[^[:ascii:]]+//g' "$1"
 'e' at boot menu -->  ^linux .* systemd.unit=multi-user.target
                                 nomodeset                       (maybe)
 apt -s install nvidia-tesla-460-driver
@@ -3416,9 +3409,6 @@ epiphany https://metacpan.org/pod/Keyword::Declare
 epiphany https://metacpan.org/dist/XS-Parse-Keyword
 epiphany https://metacpan.org/pod/Syntax::Operator::Equ
 Congratulations python, you're the leader in malware sh**:    9:deb, 218:pm, 1073:perl, 2238:php, 2809:bash, 4860:html, 5694:C++, 12158:C, 13332:go, 28078:java, 39536:py
-1.6M	dash-0.5.11+git20200708+dd9ef66/
-39M	bash-5.1/
-109M	perl-5.32.1/
 
 
 unbind C-b
