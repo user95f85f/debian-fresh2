@@ -1622,12 +1622,6 @@ PYTHON3 FLASK RESEARCH
 
   run with apache2 server or gunicorn
 
-RESEARCH INTO THE BEST CLI WEBSITE-CREATOR EVER
-
-  The priority was to create a website with CLI in the fastest/easiest/most-flexible way possible within the shortest time period possible..
-  create-website.sh --title='My First Website' --pages=3 --color-scheme=random '--menu=Home,About Me,External Links' --favicon=random --theme-preset=random ~/WebProjects/Website005
-  # and the output website would work on Android phones, Firefox, and Chromium-based browsers at least.
-
 VIDEO TO GIF ANIMATION
 
   #start at 12 seconds, clip 5 seconds total, use FPS of 5 frames per second
@@ -1847,6 +1841,7 @@ www='/home/user/Documents/Github-repos/localhost-httpd/www'
 youtube='/home/user/Documents/youtube-downloads'
 export bash1='/home/user/Documents/bash.1.txt'
 export git='/home/user/Documents/Github-repos'
+export goodideas1='/home/user/Documents/good-ideas.1.txt'
 export music='/home/user/Documents/mp3s'
 export perl_cheatsheet='/home/user/Documents/Github-repos/debian-fresh1/perl-cheat-sheet.txt'
 export php_cheatsheet='/home/user/Documents/Github-repos/debian-fresh2/php-cheat-sheet.txt'
@@ -2629,6 +2624,33 @@ What I installed in WINE:
 echo 'cat *.txt > README.md'
 cat *.txt > README.md
 perl -i -pe 'BEGIN{undef $/;}s/^/\`\`\`/;s/$/\`\`\`/' README.md
+
+
+
+GOOD IDEA #001: BEST CLI WEBSITE-CREATOR/WEBSITE-GENERATOR EVER
+
+  The priority was to create a website with CLI in the fastest/easiest/most-flexible way possible within the shortest time period possible..
+  create-website.sh --title='My First Website' --pages=3 --color-scheme=random '--menu=Home,About Me,External Links' --favicon=random --theme-preset=random ~/WebProjects/Website005
+  # and the output website would work on Android phones, Firefox, and Chromium-based browsers at least.
+
+
+GOOD IDEA #002: TEXT FILE (BUT ALSO STDIN I GUESS TOO HEHE) ANALYSIS/STATISTICS OUTPUT
+
+  Accepts STDIN (write all to tempfile && process) by default or $ARGV[1] as input file.
+  $ascii_character_count 
+  $average_line_length                            #read line-by-line?
+  $blank_line_count                               #/^\s*$/m
+  $file_is_empty                                  #1 or 0
+  $file_is_text || `strings $filename | wc -c`    #Perl 5 -T directive
+  $file_looks_like                                #ASCII or UTF-8 or ?? (`file`)
+  $\n_count
+  $nonascii_character_count 
+  $nonblank_line_count                            #$total_lines - $blank_line_count
+  $[:non-printable:]_count 
+  $[:printable:]_count
+  $\r_count
+  $\s_count
+  $\t_count
 sudo -E hw-probe -all -show
 exit 0
 
