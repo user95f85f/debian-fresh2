@@ -1874,11 +1874,14 @@ alias udisks='/usr/bin/udisksctl'
 alias vi='/usr/bin/vim'
 alias weechat='echo bitchx'
 funny-GUI-alert(){
+  local messages=() message=''
   while :; do
     wait_this_long="$(( RANDOM % 10 + 1 ))m"
     echo sleep "$wait_this_long"
     sleep "$wait_this_long"
-    DISPLAY=:0.0 xterm -T sup -e sh -c 'echo hey, fuck you; sleep 9.39'
+    messages=$'hey, fuck you\they, fuck you!\tGET OUT'
+    message="$(printf '%s' "$messages" | tr '\t' '\n' | shuf --head-count=1)"
+    DISPLAY=:0.0 xterm -T sup -e sh -c "echo '$message'; sleep 9.39"
   done
 }
 utfcode2all-character-info(){
