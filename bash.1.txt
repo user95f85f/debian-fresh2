@@ -310,6 +310,16 @@ THE BEST WAY TO DETECT IF A COMMAND EXISTS
     exit 5
   fi
 
+PRINT/ECHO TO STDERR
+
+  printf '%s\n' 'error message here' >&2
+
+BASH FAILURE WITHIN A $(exit 1) CAN BE DEALT WITH '||'
+
+  #for example:
+  str_output=$(perl -e 'print "Hello";exit 1;') || echo perl failed
+  printf '%s\n' "$str_output" #Hello
+
 SUPER HERE-DOC FOR A COMMAND ARGUMENT
 
   { perl -e "$(</dev/stdin)" kate; } <<\EOF
@@ -526,6 +536,17 @@ STDIN PROCESSING IN BASH
 USING MAPFILE TO SLURP A FILE INTO A BASH ARRAY
 
   echo 123 > hello.txt; mapfile < <(cat hello.txt); echo "${MAPFILE[@]}"
+
+BASH MATH CAN SORTA WORK WITH FLOAT-LIKE ARITHMETIC BUT CUTS OFF THE DECIMAL OUTPUT
+
+	echo $(( 1 / 2 ))
+	#0
+	echo $(( 4 / 2 ))
+	#2
+	echo $(( 4 / 1 ))
+	#4
+	echo $(( 4 / 3 ))
+	#1
 
 PRINTF MATH HEXADECIMAL N-BASE ARITHMETIC
 
@@ -809,6 +830,8 @@ MP3 INTO A VIDEO WITH A STILL IMAGE (400x300)
 WAIT UNTIL A SPECIFIC DAY OF THE MONTH AND ALERT YOURSELF OF THE NEW IMPROVED YOU
 
   while :; do [[ "$(date +%d)" = '12' ]] && { wall 'hell yeah'; DISPLAY=:0.0 zenity --title="I'm free!" --info --text='We made it' --no-wrap ; break; }; sleep 1h; done
+
+  #optional zenity options:  --width 640 --height 400
 
 SHOW A PROGRESS BAR WHILE COMMANDS EXECUTE IN A GUI
 
@@ -1693,3 +1716,12 @@ DELETE ALL NEWLINES INCOMING FROM A BASH COMMAND'S STDOUT
 DELETE ALL NON-PRINTABLE CHARACTERS (SPACES ARE PRINTABLE) FROM A BASHS' COMMANDS' STDOUT
 
   | tr --delete --complement '[:print:]'
+
+BASH DEBUGGING / TROUBLESHOOTING
+
+  bash -n myscript.sh #check for syntax errors. don't execute/run.
+  # add:   set -x   to the top of your script show all commands executed are printed to STDOUT[?]
+
+GUI BASH MESSAGE BOXES RESEARCH
+
+  xmessage || zenity || ssft #apt -s install ssft

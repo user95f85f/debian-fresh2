@@ -65,3 +65,41 @@ BASH BULL****
   man col
   man cut
   man xargs
+  man bash | grep -iF --color=always expansion | less -R
+  man bash | grep -iF --color=always substitution | less -R
+  man bash | grep -iE -A 2 --color=always '-e|-w|-x|-nt|-ot' | less -R
+  man bash | grep -iE -A 2 --color=always '-eq|-ge|-gt|-lt|-le|-ne' | less -R
+
+  #BASH metacharacters: ) < ; > & ( | 
+  #BASH whitespace for the for loop: '\n', ' '  (98% correct)
+
+BASH DETECT HARD LINKS
+
+  [ "$file1" -ef "$file2" ] && echo hardlinked
+
+BASH WHATEVER NAME SORT ALGORITHM COMPARISON FOR STRINGS
+
+  [[ a < b ]] && echo yes a is before b
+
+BASH TODO
+
+  #what if I go like this:
+  true && true && true || true || true && true && echo hello world
+
+PID OF CURRENT BASH/SHELL PROCESS
+
+  echo $$ #for example: 1229301
+
+PID OF BACKGROUND JOB PROCESS
+
+  sleep 8& echo $! #for example: 1229320 
+
+GREAT MORE SH** COMMANDS
+
+  apt -s install bsdmainutils
+  apt -s install moreutils
+  apt -s install whiptail #`newt` UI dialog boxes
+
+TRANSLATION RESEARCH
+
+  apt -s install gettext

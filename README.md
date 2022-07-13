@@ -411,6 +411,16 @@ THE BEST WAY TO DETECT IF A COMMAND EXISTS
     exit 5
   fi
 
+PRINT/ECHO TO STDERR
+
+  printf '%s\n' 'error message here' >&2
+
+BASH FAILURE WITHIN A $(exit 1) CAN BE DEALT WITH '||'
+
+  #for example:
+  str_output=$(perl -e 'print "Hello";exit 1;') || echo perl failed
+  printf '%s\n' "$str_output" #Hello
+
 SUPER HERE-DOC FOR A COMMAND ARGUMENT
 
   { perl -e "$(</dev/stdin)" kate; } <<\EOF
@@ -627,6 +637,17 @@ STDIN PROCESSING IN BASH
 USING MAPFILE TO SLURP A FILE INTO A BASH ARRAY
 
   echo 123 > hello.txt; mapfile < <(cat hello.txt); echo "${MAPFILE[@]}"
+
+BASH MATH CAN SORTA WORK WITH FLOAT-LIKE ARITHMETIC BUT CUTS OFF THE DECIMAL OUTPUT
+
+	echo $(( 1 / 2 ))
+	#0
+	echo $(( 4 / 2 ))
+	#2
+	echo $(( 4 / 1 ))
+	#4
+	echo $(( 4 / 3 ))
+	#1
 
 PRINTF MATH HEXADECIMAL N-BASE ARITHMETIC
 
@@ -910,6 +931,8 @@ MP3 INTO A VIDEO WITH A STILL IMAGE (400x300)
 WAIT UNTIL A SPECIFIC DAY OF THE MONTH AND ALERT YOURSELF OF THE NEW IMPROVED YOU
 
   while :; do [[ "$(date +%d)" = '12' ]] && { wall 'hell yeah'; DISPLAY=:0.0 zenity --title="I'm free!" --info --text='We made it' --no-wrap ; break; }; sleep 1h; done
+
+  #optional zenity options:  --width 640 --height 400
 
 SHOW A PROGRESS BAR WHILE COMMANDS EXECUTE IN A GUI
 
@@ -1795,6 +1818,15 @@ DELETE ALL NON-PRINTABLE CHARACTERS (SPACES ARE PRINTABLE) FROM A BASHS' COMMAND
 
   | tr --delete --complement '[:print:]'
 
+BASH DEBUGGING / TROUBLESHOOTING
+
+  bash -n myscript.sh #check for syntax errors. don't execute/run.
+  # add:   set -x   to the top of your script show all commands executed are printed to STDOUT[?]
+
+GUI BASH MESSAGE BOXES RESEARCH
+
+  xmessage || zenity || ssft #apt -s install ssft
+
 #prevents CTRL+S freezing the tty/virtual-console (ie. until CTRL+Q is hit)
 #see:   stty -a | egrep 'start|stop'
 stty start undef
@@ -1846,6 +1878,14 @@ alias tty-silence='sudo dmesg -n 1'
 alias udisks='/usr/bin/udisksctl'
 alias vi='/usr/bin/vim'
 alias weechat='echo bitchx'
+funny-GUI-alert(){
+  while :; do
+    wait_this_long="$(( RANDOM % 10 + 1 ))m"
+    echo sleep "$wait_this_long"
+    sleep "$wait_this_long"
+    DISPLAY=:0.0 xterm -T sup -e sh -c 'echo hey, fuck you; sleep 10'
+  done
+}
 utfcode2all-character-info(){
   [ -n "$1" ] || return 33
   [[ "$1" =~ ^[0-9]+$ ]] || return 44
@@ -2780,6 +2820,44 @@ BASH BULL****
   man col
   man cut
   man xargs
+  man bash | grep -iF --color=always expansion | less -R
+  man bash | grep -iF --color=always substitution | less -R
+  man bash | grep -iE -A 2 --color=always '-e|-w|-x|-nt|-ot' | less -R
+  man bash | grep -iE -A 2 --color=always '-eq|-ge|-gt|-lt|-le|-ne' | less -R
+
+  #BASH metacharacters: ) < ; > & ( | 
+  #BASH whitespace for the for loop: '\n', ' '  (98% correct)
+
+BASH DETECT HARD LINKS
+
+  [ "$file1" -ef "$file2" ] && echo hardlinked
+
+BASH WHATEVER NAME SORT ALGORITHM COMPARISON FOR STRINGS
+
+  [[ a < b ]] && echo yes a is before b
+
+BASH TODO
+
+  #what if I go like this:
+  true && true && true || true || true && true && echo hello world
+
+PID OF CURRENT BASH/SHELL PROCESS
+
+  echo $$ #for example: 1229301
+
+PID OF BACKGROUND JOB PROCESS
+
+  sleep 8& echo $! #for example: 1229320 
+
+GREAT MORE SH** COMMANDS
+
+  apt -s install bsdmainutils
+  apt -s install moreutils
+  apt -s install whiptail #`newt` UI dialog boxes
+
+TRANSLATION RESEARCH
+
+  apt -s install gettext
 sudo lsblk --list --output-all /dev/sda | tr '\t' ' ' | sed 's/ \{2,\}/ /g'
 
 
