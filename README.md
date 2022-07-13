@@ -587,10 +587,6 @@ USING NMAP
   #RESEARCH: (0% chance works)
   nmap -oN $out_file -Pn -n -Su -sS VC --top-ports 1-80 -e $interface_name -v
 
-STDIN FROM A FILE
-
-  cat < /etc/apt/sources.list
-
 SLURP A FILE INTO A VARIABLE
 
   file_get_contents_var=$(<my_file_name.txt)  #the quotes are 0%necessary for simple assignment.
@@ -599,20 +595,34 @@ THIS SCRIPTS CONTENTS
 
   this_scripts_file_contents_string=$(<$0)
 
-STDIN READ-IN LINE BY LINE
+REM IN BASH 0 (IS STDIN) 1 (IS STDOUT) 2 (IS STDERR)
 
-  while read myline; do
-    echo $myline
-  done <<< "$(</etc/apt/sources.list)"
+STDIN PROCESSING IN BASH
 
-  # a little off-topic but f*** you too
+  ar_input=('line 1' 'line 2' 'line 3')
+  str_input=$(printf '%s\n%s\n%s' "${ar_input[@]}")
+  filename_input=~/dlt
+  printf '%s' "$str_input" > "$filename_input"
+  str_line=''
+  ar_lines=()
+
+  # FILE contents As-BASH string 2 line-by-line read string
+  while read str_line; do
+    printf '%s\n' "$str_line"
+  done <<< "$(<"$filename_input")"
+
+  # BASH string As-STDIN 2 BASH array research
   # -r: no backslash-escape-literals executed
   # -a: read the new contents into an array
-  strinigarray=()
-  read -ra strinigarray <<< "$whatever"
+  ar_lines=()
+  read -ra ar_lines <<< "$str_input"
 
-  read whatever <<< $(echo stfu bitch) #"stfu bitch" with no newline
-  read whatever <<<'sup' #'sup' with no newlines
+  # BASH command 2/as BASH string 2 BASH string as a line
+  read str_line <<< $(printf '%s' "$str_input") #no newline even with echo
+  read whatever <<<'const string'
+
+  # FILE contents As-STDIN 2 BASH command STDIN
+  pager <"$filename_input" 
 
 USING MAPFILE TO SLURP A FILE INTO A BASH ARRAY
 
@@ -1769,6 +1779,22 @@ OUTPUT YOUR NEWLINED-SEGREGATED OUTPUT INTO A NICE TABLE TABULAR OUTPUT IN BASH 
   python3 -c "import os;print('\n'.join([f for f in os.listdir('/usr/bin') if os.path.islink('/usr/bin/{}'.format(f))]), end='')" | column --output-width "$(tput cols)"
   { for i in /usr/bin/*; do [ -L "$i" ] && printf '%s\n' "${i##*/}"; done ; } | column --output-width "$(tput cols)"
 
+
+
+CONVERT ALL 3-BEGINNING-SPACES TO TABS AND THEN CONVERT THE TABS TO 2 SPACES
+  
+  | unexpand --first-only --tabs=3 | expand --tabs=2
+
+
+DELETE ALL NEWLINES INCOMING FROM A BASH COMMAND'S STDOUT
+
+  | tr --delete '\n'
+
+
+DELETE ALL NON-PRINTABLE CHARACTERS (SPACES ARE PRINTABLE) FROM A BASHS' COMMANDS' STDOUT
+
+  | tr --delete --complement '[:print:]'
+
 #prevents CTRL+S freezing the tty/virtual-console (ie. until CTRL+Q is hit)
 #see:   stty -a | egrep 'start|stop'
 stty start undef
@@ -2713,6 +2739,47 @@ SOME GOOD HTML ENTITIES RESEARCH
   &egrave;  <!-- yet another engraved lower-case e -->
   &sub;     <!-- the @set to the left is LESS-THAN/WITHIN @super_set to the right -->
 
+
+RECORD YOUR BASH SESSION COMMAND-SESSION
+
+  script #file ``typescript'' gets created in PWD until you CTRL+D or whatever
+
+RFC2822 compliant date string for current date
+
+  date -R
+  #Tue, 12 Jul 2022 16:16:32 -0700
+
+BASH STDIN ACCEPTING COMMANDS EXTRAS
+
+  # FILE contents As-STDIN 2 BASH command STDIN
+  <"$filename_input" $command
+  
+  #for example:
+  </etc/hosts pager
+
+
+USING/OPENING STREAMS/SPECIAL-FILE-DESCRIPTORS TO ATTACH/USE IN YOUR BASH PROCESS 
+
+  echo testString >~/dlt
+  #open special file descriptors for this bash process
+  exec 9<~/dlt 4>~/from_dlt    
+  #accept file descriptor 9 as STDIN and output file descriptor 4 as STDOUT
+  cat <&9 >&4                  
+  #close file-descriptor 4 as an OUTPUT and close file-descriptor 9 as an INPUT stream/file
+  exec 4>&- 9<&-              
+  head ~/from_dlt
+  #testString
+  shred --verbose -u ~/dlt ~/from_dlt
+
+DELETE ALL CARRIAGE RETURN CHARACTERS IN BASH FROM STDOUT OF A PREVIOUS BASH COMMAND EXECUTION
+
+  | tr --delete '\r'
+
+BASH BULL****
+
+  man col
+  man cut
+  man xargs
 sudo lsblk --list --output-all /dev/sda | tr '\t' ' ' | sed 's/ \{2,\}/ /g'
 
 
