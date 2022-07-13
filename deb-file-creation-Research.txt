@@ -1,10 +1,4 @@
 
-
-
-
-
-
-
 grephtml_0.01_all/DEBIAN/control               (required)
                          md5sums               (almost required)
                          conffiles             (optional)
