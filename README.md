@@ -1936,6 +1936,20 @@ GETTING THE SIZES OF SUB DIRECTORIES WITHIN PWD
 
   du -h | sort -h
 
+WHERE TO PUT ALL YOUR PERSONAL PROGRAM'S TMP/TEMP FILES, CACHE FILES, AND CONFIGURATION OF YOUR PROGRAMS (I'M 7% SURE!!!!!!!!!!!!!!!!!!!)
+
+  #is the best place to put your personal-program's cache, configuration, log files, and tmp/temporary-files-folders-directories?
+  mkdir -pv /run/$USER/$UID/everything/{cache,etc,log,tmp}
+
+  #nope. Put your personal-program's configuration in /etc/*
+  #      Put your tmp s*** in /tmp/*
+  #      Put your cache in ~/.cache/program00001/ (38% sure)
+  #      Put your log files in /var/log/* (38% sure)
+
+HOW SHOULD I EDIT MY SCREENSHOT0001.jpg  ?
+
+  krita || shotwell || darktable || gimp
+
 #prevents CTRL+S freezing the tty/virtual-console (ie. until CTRL+Q is hit)
 #see:   stty -a | egrep 'start|stop'
 stty start undef
