@@ -209,6 +209,8 @@ MOUNT A PARTITION WITHIN A FILESYSTEM BUT YOU CAN'T REMEMBER IF IT'S EXT4 or FAT
 CLEAR/RESET/EMPTY A FILE
 
   #this is like:    echo -n '' > ~/hello.txt
+  #this is like:    printf '' > ~/hello.txt
+  #this is like:    rm ~/hello.txt; touch ~/hello.txt
   :>~/hello.txt
 
 GO THROUGH INSIDE OF ONE-LEVEL SUBDIR AND DO SOMETHING
@@ -1749,3 +1751,11 @@ BASH DEBUGGING / TROUBLESHOOTING
 GUI BASH MESSAGE BOXES RESEARCH
 
   xmessage || zenity || ssft #apt -s install ssft
+
+GETTING THE SIZES OF FILES IN PWD
+
+  ls -laS
+
+GETTING THE SIZES OF SUB DIRECTORIES WITHIN PWD
+
+  du -h | sort -h

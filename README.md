@@ -385,6 +385,8 @@ MOUNT A PARTITION WITHIN A FILESYSTEM BUT YOU CAN'T REMEMBER IF IT'S EXT4 or FAT
 CLEAR/RESET/EMPTY A FILE
 
   #this is like:    echo -n '' > ~/hello.txt
+  #this is like:    printf '' > ~/hello.txt
+  #this is like:    rm ~/hello.txt; touch ~/hello.txt
   :>~/hello.txt
 
 GO THROUGH INSIDE OF ONE-LEVEL SUBDIR AND DO SOMETHING
@@ -1926,6 +1928,14 @@ GUI BASH MESSAGE BOXES RESEARCH
 
   xmessage || zenity || ssft #apt -s install ssft
 
+GETTING THE SIZES OF FILES IN PWD
+
+  ls -laS
+
+GETTING THE SIZES OF SUB DIRECTORIES WITHIN PWD
+
+  du -h | sort -h
+
 #prevents CTRL+S freezing the tty/virtual-console (ie. until CTRL+Q is hit)
 #see:   stty -a | egrep 'start|stop'
 stty start undef
@@ -1985,7 +1995,7 @@ funny-GUI-alert(){
     wait_this_long="$(( RANDOM % 10 + 1 ))m"
     echo sleep "$wait_this_long"
     sleep "$wait_this_long"
-    message="$(printf '%s' $'hey, fuck you\they, fuck you!\tGET OUT' | tr '\t' '\n' | shuf --head-count=1)"
+    message="$(printf '%s' $'hey, fuck you\they, fuck you!\tGET OUT\tgoto PRISON\tgoto HOMELESS SHELTER\tFEED GRASS' | tr '\t' '\n' | shuf --head-count=1)"
     DISPLAY=:0.0 xterm -T sup -e sh -c "echo '$message'; sleep 9.39"
   done
 }
