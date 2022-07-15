@@ -1,4 +1,67 @@
 
+BASH TERMINAL-TTY HOW DO I EASILY REPLACE OR APPEND TYPED-UP TEXT INTO MY TEXT FILE?????
+
+  #I guess this: TODO: I need more actual examples.
+  tee whatever.txt >/dev/null <<EOF
+line 1
+line 2
+line 3
+EOF
+  tee -a whatever.txt >/dev/null <<EOF
+line 4
+line 5
+line 6
+EOF
+
+BASH DECLARE BLAAAAAAAAAhhhhhhh
+
+	declare -p varp #equivalent to: echo -E, printf %q, TODO: tryme
+	declare -- varp="1 2 3
+4 5 6"
+	read -d '' varp << 'EOFREWQ'
+1 2 3
+4 5 6
+EOFREWQ
+
+APPLE USES zsh AS ITS TERMINAL SHELL
+
+	surprise!!!! within the last 5 years.
+
+C COMPILER (.c -> .s 90% sure) ASSEMBLER (.s -> .o) OPTIMIZATION RANDOM RESEARCH FOR generic-x86 ARCHITECTURE OR TARGET TUNING
+
+    clang optimization IR?????
+    is IR optimization for the clang --compiler-target=generic-x86
+    clang --target-architecture --target-tune #might provide IR optimization
+    s/generic-x86/haswell|sandybridge/ #for clang, TODO: 0% portable?
+
+*sigh* BASHRC FUNCTION TO CONVERT A STRING INPUT-ARGUMENT INTO MATCHED HTTP URL ADDRESSES
+
+  lucky(){ s="$*"; [ -z "$s" ] && return 3; printf '%s' "$s" | perl -ne 'BEGIN{undef $/;}if(m#(https?://[a-zA-Z0-9,%\#=/.:?_+&\-]+)#){print $1;}'; }
+
+SIMPLIFIED bash.1.txt RECORDING SCREENSHOTS TO A VIDEO USING IMAGEMAGICK
+
+  sleep 8
+  n=1
+  while [ $n -lt 10 ]; do
+    import -window root $(printf '%03d' $n).png
+    sleep 0.3
+  done
+  convert -delay 41 *.png -resize 43% animation.gif
+
+C COMPILING
+
+  c preprocessor -> compiler -> c preprocessor -> assembler -> linker
+  .s -> assembler -> .o -> linker -> executable
+
+  sometimes:      .c, .s, .o
+  sometimes:      .S, .s, .o
+  sometimes:      .c, .S
+  TODO: wtf?
+
+  compiler:   .c into .s
+  assembler:  .s into .o
+  linker:     .o into .exe
+
 PYTHON3 ALLAH MICKBAR
   #whatever
 

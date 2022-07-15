@@ -506,19 +506,39 @@ THIS SCRIPTS CONTENTS
 
 REM IN BASH 0 (IS STDIN) 1 (IS STDOUT) 2 (IS STDERR)
 
-STDIN PROCESSING IN BASH
+STDIN PROCESSING IN BASH + USING BASH ARRAYS
 
-  ar_input=('line 1' 'line 2' 'line 3')
+  ar_input=('line 1' 'line 2' 'line 3')   #XXX these two paragraphs need to get cleaned up
   str_input=$(printf '%s\n%s\n%s' "${ar_input[@]}")
   filename_input=~/dlt
   printf '%s' "$str_input" > "$filename_input"
   str_line=''
   ar_lines=()
 
+  ar=('line 1' 'line 2' 'line 3')
+  for i in "${ar[@]}"; do  #this does good.
+    printf '%s\n' "$i"
+  done
+  printf '%s\n' "${ar[@]}"   #this does good
+  printf '%s\n' "${ar[@]}" | while read myline; do printf '%s\n' "$myline"; done   #this does good too
+
   # FILE contents As-BASH string 2 line-by-line read string
   while read str_line; do
     printf '%s\n' "$str_line"
   done <<< "$(<"$filename_input")"
+
+  # SLURP a variable's contents INTO a BASH string variable
+ 	read -d '' str_all <<<$'blah\nblah\nblah'
+	echo $str_all
+	#blah blah blah
+	echo "$str_all"
+	#blah
+	#blah
+	#blah 
+	printf '%s' "$str_all" #no newline at end-end-end
+	#blah
+	#blah
+	#blah
 
   # BASH string As-STDIN 2 BASH array research
   # -r: no backslash-escape-literals executed
@@ -552,15 +572,25 @@ PRINTF MATH HEXADECIMAL N-BASE ARITHMETIC
 
   hexnum=ee3;decnum=500;printf '0x%08x\n' $(( 16#$hexnum + $decnum )) #0x000010d7
 
-IMAGE MAGICK CONVERT MOGRIFY COMMANDS + SCREENSHOT PRINT SCREEN STUFF
+IMAGE MAGICK/IMAGEMAGICK CONVERT/IMPORT COMMANDS + SCREENSHOT PRINT SCREEN STUFF[?]
   
-  #-flip -flop -grayscale -rotate 90
-  sleep 8
-  n=1
-  while [ $n -lt 10 ]; do
+  RECORD_FOR_HOW_LONG_IN_SECONDS=12 #must be a whole number
+
+  echo sleep 3.2
+  sleep 3.2
+
+  n=0
+  now="$(date +%s)"
+  while :; do
+    (( n++ ))
+    echo import -window root $(printf '%03d' $n).png
     import -window root $(printf '%03d' $n).png
-    sleep 0.3
+    sleep 0.08
+    [ $(( $(date +%s) - $now )) -gt $RECORD_FOR_HOW_LONG_IN_SECONDS ] && break
   done
+
+  #-flip -flop -grayscale -rotate 90
+  echo convert -delay 41 *.png -resize 43% animation.gif
   convert -delay 41 *.png -resize 43% animation.gif
 
 WATCH A DIRECTORY FOR CREATED FILES ALL IN ALL OF ITS SUB-DIRECTORIES
@@ -1681,9 +1711,9 @@ ALTERNATIVE TO `strace` FOR DETECTING WHAT A PROGRAM IS DOING, ACTUALLY IN THIS 
   perf record -g $command
   perf report -g
 
-VIM FOR WHEN YOUR BUFFERS NEED TO UPDATE EASIER
+VIM FOR WHEN VIEWING LOGS TO AUTO-UPDATE AND CAN'T WRITE TO THEM
 
-  :se autoread
+  :se autoread readonly
 
 OUTPUT YOUR NEWLINED-SEGREGATED OUTPUT INTO A NICE TABLE TABULAR OUTPUT IN BASH ON YOUR TTY/VIRTUAL-TERMINAL YAAAAAAY
 

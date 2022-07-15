@@ -1,0 +1,150 @@
+
+
+
+#XXX FAQ 001: How can I prevent a Segmentation Fault if I know my program is going to crash?
+gdb run-program #OR:
+echo exit syscall >> assembly-code.s #OR:
+echo 'jmp $' >> assembly-code.s #for/as an infinite loop and then CTRL+C to exit program. OR:
+echo 'mov eax, 60; syscall' >> assembly-code.s #OR:
+echo 'main function:...ret 0' #and link to libc the program exits! OR:
+gdb --set-breakpoint-when-sxx-register-variable-equals=3 run-program #FIXME. OR:
+gdb --set-breakpoint-in-code[?????????????????????????????????????????????????????]_line_uuuhh_address_uuuhhhWUT_FIXME=000040 run-program
+
+
+#NASM >2010 for AMD64 target CPU generation/architecture and you're good to go
+# why 64-bit? more registers, more fun.
+
+#nasm standard instructions
+AAA        CMC        INT[O]     LOOPNE    POPFQ      SHL[D]
+AAD        CMP        IRET[D]    LOOPNZ    PUSH[AD]   SHR[D]
+AAM        CMPSB      IRETW      LOOPZ     PUSHAW     STC
+AAS        CMPSD      IRETQ      LSS       PUSHF[D]   STD
+ADC        CMPSW      JCXZ       MOVSB     PUSHFW     STOSB
+ADD        CMPSQ      JECXZ      MOVSD     PUSHFQ     STOSD
+AND        CMPXCHG    JMP        MOVSW     RCL        STOSW
+BOUND      CMPXCHG8B  LAHF       MOVSX     RCR        STOSQ
+BSF        CPUID      LDS        MOVSQ     RETF       SUB
+BSR        CWD[E]     LEA        MOVZX     RET[N]     TEST
+BSWAP      CQO        LEAVE      MUL       ROL        XADD
+BT[C]      DAA        LES        NEG       ROR        XCHG
+BTR        DAS        LFS        NOP       SAHF       XLATB
+BTS        DEC        LGS        NOT       SAL        XOR
+CALL       DIV        LODSB      OR        SAR        LFENCE
+CBW        ENTER      LODSD      POPA[D]   SBB        MFENCE
+CDQ        IDIV       LODSQ      POPAW     SCASB      SFENCE
+CLC        IMUL       LODSW      POPF[D]   SCASD
+CLD        INC        LOOP[E]    POPFW     SCASW
+
+#nasm constants
+__LINE__         #XXX k
+__FILE__         #XXX k
+__NASM_VERSION__ #XXX k
+__NASM_MAJOR__
+__NASM_MINOR__
+__TIME__
+__BITS__
+__FORMAT__
+__DATE__        #XXX what format?
+
+
+#nasm types
+FASTCALL
+NONE
+STDCALL
+BYTE
+  WORD
+  DWORD
+  QWORD
+  DHWORD [?]
+  DQWORD [?]
+  HWORD  [?]
+  TWORD  [?]
+CDECL     [?]
+PASCAL    [?]
+
+
+TODO: NASM VS GCC GAS?
+You can see the .c go to the .s with `gcc`!
+You can convert your intel-NASM Assembler/Assembly .s code into GCC-gas with:
+  apt -s install intel2gas
+  # intel2gas #which 0% works so far
+
+TODO: what is GCC PIE? How to get GCC to disable PIE?
+TODO: default 'rel' for the assembler (ie. .s to .o) is 0% good?
+
+apt -s install fasm #fast assembler
+apt -s install fcml #yet another assembler
+apt -s install yasm #?????????????????????????????????????????
+apt -s install sasm #IDE for gcc-gas, nasm (ie. intel), and fasm assembler code ???????????????????
+
+`cc` defaults to `gcc` on GNU/Linux Debian 11.4
+
+You cannot write 16-bit x86 Assembly code in an Intel i7 CPU directly.
+  However, I'm 98% sure you can tell the Assembly code linker to accept your Assembly code in 16-bit x86 "mode" (TODO: how?)
+
+
+
+
+
+cat /etc/issue.net
+Debian GNU/Linux 11
+
+nasm --version
+NASM version 2.15.05
+
+ld --version | head -1
+GNU ld (GNU Binutils for Debian) 2.35.2
+
+cat my-first.nasm
+  bits 64
+  default rel   ; Use RIP relative addressing.
+
+  section .rodata
+
+msg: db `Hello\n`
+msg_len equ $ - msg
+
+  section .text
+
+  global writemsg
+writemsg:
+  mov eax,1    ; EAX, instead of RAX will zero upper 32 bits.
+  mov edi,eax  ; RDI=STDOUT_FILENO (upper 32 bits zeroed).
+  lea rsi,[msg] ; Need to load RSI (because it is a pointer). LEA because 'msg' is RIP relative.
+  mov edx,msg_len ; RDX (upper 32 bits zeroed).
+  syscall
+  ret
+
+nasm -felf64 my-first.nasm  #to include more '.nasm' assembly files you can offer a -I~/nasm_includes/ command option! (TODO: how do you import though in the code?) (TODO: do the imported assembly files have to have the .asm extension, or is .nasm OK?) (TODO: is gnu error reporting better??? -X gnu)
+
+file my-first.o
+my-first.o: ELF 64-bit LSB relocatable, x86-64, version 1 (SYSV), not stripped
+
+ld --output=my-first my-first.o
+ld: warning: cannot find entry symbol _start; defaulting to 0000000000401000
+
+file my-first
+my-first: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), statically linked, not stripped
+
+
+objdump -D my-first.o       #no STDERR output
+my-first.o:     file format elf64-x86-64
+
+Disassembly of section .rodata:
+
+0000000000000000 <msg>:
+   0:	48                   	rex.W
+   1:	65 6c                	gs insb (%dx),%es:(%rdi)
+   3:	6c                   	insb   (%dx),%es:(%rdi)
+   4:	6f                   	outsl  %ds:(%rsi),(%dx)
+   5:	0a                   	.byte 0xa
+
+Disassembly of section .text:
+
+0000000000000000 <writemsg>:
+   0:	b8 01 00 00 00       	mov    $0x1,%eax
+   5:	89 c7                	mov    %eax,%edi
+   7:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # e <writemsg+0xe>
+   e:	ba 06 00 00 00       	mov    $0x6,%edx
+  13:	0f 05                	syscall 
+  15:	c3                   	retq   

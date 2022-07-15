@@ -117,6 +117,7 @@ essential-2of2-debs/gparted-common_1.2.0-1_all.deb
 essential-2of2-debs/info_6.7.0.dfsg.2-6_amd64.deb
 essential-2of2-debs/inotify-tools_3.14-8.1_amd64.deb
 essential-2of2-debs/install-info_6.7.0.dfsg.2-6_amd64.deb
+essential-2of2-debs/intel2gas_1.3.3-17+b1_amd64.deb
 essential-2of2-debs/iotop_0.6-24-g733f3f8-1.1_amd64.deb
 essential-2of2-debs/jnettop_0.13.0-1.1_amd64.deb
 essential-2of2-debs/jpegoptim_1.4.6-1_amd64.deb
@@ -131,6 +132,7 @@ essential-2of2-debs/libonig5_6.9.6-1.1_amd64.deb
 essential-2of2-debs/libsqlite3-mod-impexp_0.9998-2_amd64.deb
 essential-2of2-debs/make-doc_4.3-2_all.deb
 essential-2of2-debs/manpages-posix_2017a-2_all.deb
+essential-2of2-debs/nasm_2.15.05-1_amd64.deb
 essential-2of2-debs/ncal_12.1.7+nmu3_amd64.deb
 essential-2of2-debs/netcat_1.10-46_all.deb
 essential-2of2-debs/netcat-openbsd_1.217-3_amd64.deb

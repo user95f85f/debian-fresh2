@@ -50,6 +50,7 @@ alias tty-silence-restore='sudo dmesg -n 8'
 alias tty-silence='sudo dmesg -n 1'
 alias udisks='/usr/bin/udisksctl'
 alias vi='/usr/bin/vim'
+alias vim2='/usr/bin/vim "+set autoread readonly"'
 alias weechat='echo bitchx'
 funny-GUI-alert(){
   local messages=() message=''
@@ -163,7 +164,8 @@ Z(){
 apt-non-debian-packages-installed(){
   aptitude search '?narrow(?installed, ?not(?origin(Debian)))'
 }
-lucky(){ s="$*"; [ -z "$s" ] && return 3; echo $s | perl -ne 'BEGIN{undef $/;}if(m#(https?://[a-zA-Z0-9,%=/.:?_+&\-]+)#){print $1;}'; }
+dice(){ ack "https?://.*$*" $weechat_logs | tail -1 | perl -ne 'BEGIN{undef $/;}if(m#(https?://[a-zA-Z0-9,%\#=/.:?_+&\-]+)#){print $1;}'; }
+
 tarhelp(){
   cat <<EOFFFFFFFF
 1) gz
@@ -245,10 +247,16 @@ xclip-cp(){
   DISPLAY=:0.0 xclip -selection clipboard "$1"
   return 0
 }
+watch-weechat-log-user-update-return-when-changed(){
+  [ -z "$1" ] && return 41
+  touch "$weechat_logs/$1"
+  while [ ! -f "$weechat_logs/irc.libera.$1.weechatlog" -o "$weechat_logs/irc.libera.$1.weechatlog" -ot "$weechat_logs/$1" ]; do
+    sleep 31.2;
+  done
+}
 watch-weechat-log-keyword-return-when-changed(){
   [ -z "$1" ] && return 41
-  [ -n "$2" ] && return 42
-  current_wc_l="$(ack "$1" "$weechat_logs" | wc -l)"
+  current_wc_l="$(ack "$*" "$weechat_logs" | wc -l)"
   while [ "$(ack "$*" "$weechat_logs" | wc -l)" -eq "$current_wc_l" ]; do
     sleep 12.2
   done
@@ -325,129 +333,7 @@ wifi-connect(){
 date-toilet(){
   date | toilet --font term --gay
 }
-excuse(){
-  echo "Actually, that's a feature; I 0.000000000000%agree
-Don't worry, that value is only wrong half of the time; I 98%agree
-Even though it doesn't work, how does it feel?; LMAO
-Everything looks fine my end; I 0.2%agree
-How is that possible?; *silence*
-I broke that deliberately to do some testing; *silence*
-I can have a look but there's a lot of if statements in that code!; *silence*
-I can't make that a priority right now; 17%agreed
-I can't test everything; *silence*
-I couldn't find any examples of how that can be done anywhere else in the project; 17%true
-I couldn't find any examples of how that can be done anywhere online; 19%true
-I couldn't find any library that can even do that; lol
-I did a quick fix last time but it broke when we rebooted; rofl
-I didn't anticipate that I would make any errors; lol
-I didn't create that part of the program; what?
-I didn't receive a ticket for it; hmm...
-I forgot to commit the code that fixes that; lol
-I had to do the project backwards as people demanded results out of order; ok?
-I have never seen that before in my life
-I haven't been able to reproduce that
-I haven't had any experience with that before
-I haven't had the chance to run that code yet
-I haven't touched that code in weeks
-I must not have understood what you were asking for
-I thought I finished that
-I thought I fixed that
-I thought he knew the context of what I was talking about
-I thought you signed off on that?
-I told you yesterday it would be done by the end of today
-I usually get a notification when that happens
-I was just fixing that
-I'm not familiar with it so I didn't fix it in case I made it worse
-I'm not getting any error codes
-I'm not sure as I've never had a look at how that works before
-I'm still working on that as we speak
-I'm surprised it works as well as it does
-In the interest of efficiency I only check my email for that on a Friday
-It must be a firewall issue
-It must be because of a leap second
-It probably won't happen again
-It was working in my head
-It worked yesterday
-It works, but it's not been tested
-It would have taken twice as long to build it properly
-It would take too long to rewrite the code from scratch
-It's a browser compatibility issue
-It's a character encoding issue
-It's a known bug with the programming language
-It's a known bug with the server software
-It's a remote vendor issue
-It's a third party application issue
-It's an unexpected emergent behaviour of several last minute abstractions
-It's just some unlucky coincidence
-It's never done that before
-It's never shown unexpected behaviour like this before
-It's not a code problem - our users need more training
-Maybe somebody forgot to pay our hosting company
-My time was split in a way that meant I couldn't do either project properly
-No one told me so I was forced to assume which way to do that
-Nobody asked me how long it would actually take
-Nobody has ever complained about it
-Oh, that was just a temporary fix
-Oh, that was only supposed to be a placeholder
-Oh, you said you DIDN'T want that to happen?
-Our code quality is no worse than anyone else in the industry
-Our hardware is too slow to cope with demand
-Our internet connection must not be working
-Our redundant systems must have failed as well
-Somebody must have changed my code
-That behaviour is in the original specification
-That code seemed so simple I didn't think it needed testing
-That code was written by the last guy
-That error means it was successful
-That feature would be outside of the scope
-That isn't covered by my job description
-That process requires human oversight that nobody was providing
-That was literally a one in a million error
-That wasn't in the original specification
-That worked perfectly when I developed it
-That's already fixed it just hasn't taken effect yet
-That's interesting, how did you manage to make it do that?
-That's not a bug it's a configuration issue
-That's the fault of the graphic designer
-The WYSIWYG must have produced an invalid output
-The client must have been hacked
-The client wanted it changed at the last minute
-The code is compiling
-The download must have been corrupted
-The existing design makes it difficult to do the right thing; I 7% agree
-The marketing department made us put that there
-The original specification contained conflicting requirements
-The person responsible doesn't work here anymore
-The problem seems to be with our legacy software
-The program has never collected that information
-The project manager said no one would want that feature
-The project manager told me to do it that way
-The specifications were ambiguous
-The third party API is not responding
-The third party documentation doesn't exist
-The third party documentation is wrong
-The unit test doesn't cover that eventuality
-The user must not know how to use it
-There must be something strange in your data
-There were too many developers working on that same thing
-There's currently a problem with our hosting company
-This code was not supposed to go in to production yet
-This is a previously known bug you told me not to work on yet
-We didn't have enough time to peer review the final changes; lol
-We outsourced that months ago; lol
-We should have updated our software years ago; eh
-We spent three months debugging it because we only had one month to build it; eesh
-Well at least we know not to try that again; :(
-Well done, you found my easter egg!; eegh
-Well, at least it displays a very pretty error; lol
-Well, that's a first; *silence*
-What did you type in wrong to get it to crash?; what to crash?
-Where were you when the program blew up?; lol
-You can't use that version on your system; for 93% of all men you're average 71%right
-You must be missing some of the dependencies; I'm 3%sure that is right
-You must have done something wrong; I'm 0%sure of that
-You must have the wrong version; ok?
-You're doing it wrong; I'm 3%sure you are 900%right
-Your browser must be caching the old content; what" | shuf -n 1
+check-wifi-hardware-logs(){
+  local i=''
+  for i in NetworkManager.service systemd-networkd.service; do sudo journalctl --unit=$i | tail -40; sleep 10; done
 }
-

@@ -1,6 +1,179 @@
-```#!/bin/bash
+```
+#
+# __COPYRIGHT__
+#
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
+#
+# The above copyright notice and this permission notice shall be included
+# in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
+# KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+# WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+# LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+# OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+# WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+#!/bin/bash
 
 for i in `apt-mark showmanual`; do rec="$(dpkg-query -f '${Recommends}' -W $i)"; [ -n "$rec" ] && echo "$i: $rec"; done
+
+
+
+#XXX FAQ 001: How can I prevent a Segmentation Fault if I know my program is going to crash?
+gdb run-program #OR:
+echo exit syscall >> assembly-code.s #OR:
+echo 'jmp $' >> assembly-code.s #for/as an infinite loop and then CTRL+C to exit program. OR:
+echo 'mov eax, 60; syscall' >> assembly-code.s #OR:
+echo 'main function:...ret 0' #and link to libc the program exits! OR:
+gdb --set-breakpoint-when-sxx-register-variable-equals=3 run-program #FIXME. OR:
+gdb --set-breakpoint-in-code[?????????????????????????????????????????????????????]_line_uuuhh_address_uuuhhhWUT_FIXME=000040 run-program
+
+
+#NASM >2010 for AMD64 target CPU generation/architecture and you're good to go
+# why 64-bit? more registers, more fun.
+
+#nasm standard instructions
+AAA        CMC        INT[O]     LOOPNE    POPFQ      SHL[D]
+AAD        CMP        IRET[D]    LOOPNZ    PUSH[AD]   SHR[D]
+AAM        CMPSB      IRETW      LOOPZ     PUSHAW     STC
+AAS        CMPSD      IRETQ      LSS       PUSHF[D]   STD
+ADC        CMPSW      JCXZ       MOVSB     PUSHFW     STOSB
+ADD        CMPSQ      JECXZ      MOVSD     PUSHFQ     STOSD
+AND        CMPXCHG    JMP        MOVSW     RCL        STOSW
+BOUND      CMPXCHG8B  LAHF       MOVSX     RCR        STOSQ
+BSF        CPUID      LDS        MOVSQ     RETF       SUB
+BSR        CWD[E]     LEA        MOVZX     RET[N]     TEST
+BSWAP      CQO        LEAVE      MUL       ROL        XADD
+BT[C]      DAA        LES        NEG       ROR        XCHG
+BTR        DAS        LFS        NOP       SAHF       XLATB
+BTS        DEC        LGS        NOT       SAL        XOR
+CALL       DIV        LODSB      OR        SAR        LFENCE
+CBW        ENTER      LODSD      POPA[D]   SBB        MFENCE
+CDQ        IDIV       LODSQ      POPAW     SCASB      SFENCE
+CLC        IMUL       LODSW      POPF[D]   SCASD
+CLD        INC        LOOP[E]    POPFW     SCASW
+
+#nasm constants
+__LINE__         #XXX k
+__FILE__         #XXX k
+__NASM_VERSION__ #XXX k
+__NASM_MAJOR__
+__NASM_MINOR__
+__TIME__
+__BITS__
+__FORMAT__
+__DATE__        #XXX what format?
+
+
+#nasm types
+FASTCALL
+NONE
+STDCALL
+BYTE
+  WORD
+  DWORD
+  QWORD
+  DHWORD [?]
+  DQWORD [?]
+  HWORD  [?]
+  TWORD  [?]
+CDECL     [?]
+PASCAL    [?]
+
+
+TODO: NASM VS GCC GAS?
+You can see the .c go to the .s with `gcc`!
+You can convert your intel-NASM Assembler/Assembly .s code into GCC-gas with:
+  apt -s install intel2gas
+  # intel2gas #which 0% works so far
+
+TODO: what is GCC PIE? How to get GCC to disable PIE?
+TODO: default 'rel' for the assembler (ie. .s to .o) is 0% good?
+
+apt -s install fasm #fast assembler
+apt -s install fcml #yet another assembler
+apt -s install yasm #?????????????????????????????????????????
+apt -s install sasm #IDE for gcc-gas, nasm (ie. intel), and fasm assembler code ???????????????????
+
+`cc` defaults to `gcc` on GNU/Linux Debian 11.4
+
+You cannot write 16-bit x86 Assembly code in an Intel i7 CPU directly.
+  However, I'm 98% sure you can tell the Assembly code linker to accept your Assembly code in 16-bit x86 "mode" (TODO: how?)
+
+
+
+
+
+cat /etc/issue.net
+Debian GNU/Linux 11
+
+nasm --version
+NASM version 2.15.05
+
+ld --version | head -1
+GNU ld (GNU Binutils for Debian) 2.35.2
+
+cat my-first.nasm
+  bits 64
+  default rel   ; Use RIP relative addressing.
+
+  section .rodata
+
+msg: db `Hello\n`
+msg_len equ $ - msg
+
+  section .text
+
+  global writemsg
+writemsg:
+  mov eax,1    ; EAX, instead of RAX will zero upper 32 bits.
+  mov edi,eax  ; RDI=STDOUT_FILENO (upper 32 bits zeroed).
+  lea rsi,[msg] ; Need to load RSI (because it is a pointer). LEA because 'msg' is RIP relative.
+  mov edx,msg_len ; RDX (upper 32 bits zeroed).
+  syscall
+  ret
+
+nasm -felf64 my-first.nasm  #to include more '.nasm' assembly files you can offer a -I~/nasm_includes/ command option! (TODO: how do you import though in the code?) (TODO: do the imported assembly files have to have the .asm extension, or is .nasm OK?) (TODO: is gnu error reporting better??? -X gnu)
+
+file my-first.o
+my-first.o: ELF 64-bit LSB relocatable, x86-64, version 1 (SYSV), not stripped
+
+ld --output=my-first my-first.o
+ld: warning: cannot find entry symbol _start; defaulting to 0000000000401000
+
+file my-first
+my-first: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), statically linked, not stripped
+
+
+objdump -D my-first.o       #no STDERR output
+my-first.o:     file format elf64-x86-64
+
+Disassembly of section .rodata:
+
+0000000000000000 <msg>:
+   0:	48                   	rex.W
+   1:	65 6c                	gs insb (%dx),%es:(%rdi)
+   3:	6c                   	insb   (%dx),%es:(%rdi)
+   4:	6f                   	outsl  %ds:(%rsi),(%dx)
+   5:	0a                   	.byte 0xa
+
+Disassembly of section .text:
+
+0000000000000000 <writemsg>:
+   0:	b8 01 00 00 00       	mov    $0x1,%eax
+   5:	89 c7                	mov    %eax,%edi
+   7:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # e <writemsg+0xe>
+   e:	ba 06 00 00 00       	mov    $0x6,%edx
+  13:	0f 05                	syscall 
+  15:	c3                   	retq   
 
 
   https://dl.fedoraproject.org/pub/alt/live-respins/
@@ -509,19 +682,39 @@ THIS SCRIPTS CONTENTS
 
 REM IN BASH 0 (IS STDIN) 1 (IS STDOUT) 2 (IS STDERR)
 
-STDIN PROCESSING IN BASH
+STDIN PROCESSING IN BASH + USING BASH ARRAYS
 
-  ar_input=('line 1' 'line 2' 'line 3')
+  ar_input=('line 1' 'line 2' 'line 3')   #XXX these two paragraphs need to get cleaned up
   str_input=$(printf '%s\n%s\n%s' "${ar_input[@]}")
   filename_input=~/dlt
   printf '%s' "$str_input" > "$filename_input"
   str_line=''
   ar_lines=()
 
+  ar=('line 1' 'line 2' 'line 3')
+  for i in "${ar[@]}"; do  #this does good.
+    printf '%s\n' "$i"
+  done
+  printf '%s\n' "${ar[@]}"   #this does good
+  printf '%s\n' "${ar[@]}" | while read myline; do printf '%s\n' "$myline"; done   #this does good too
+
   # FILE contents As-BASH string 2 line-by-line read string
   while read str_line; do
     printf '%s\n' "$str_line"
   done <<< "$(<"$filename_input")"
+
+  # SLURP a variable's contents INTO a BASH string variable
+ 	read -d '' str_all <<<$'blah\nblah\nblah'
+	echo $str_all
+	#blah blah blah
+	echo "$str_all"
+	#blah
+	#blah
+	#blah 
+	printf '%s' "$str_all" #no newline at end-end-end
+	#blah
+	#blah
+	#blah
 
   # BASH string As-STDIN 2 BASH array research
   # -r: no backslash-escape-literals executed
@@ -555,15 +748,25 @@ PRINTF MATH HEXADECIMAL N-BASE ARITHMETIC
 
   hexnum=ee3;decnum=500;printf '0x%08x\n' $(( 16#$hexnum + $decnum )) #0x000010d7
 
-IMAGE MAGICK CONVERT MOGRIFY COMMANDS + SCREENSHOT PRINT SCREEN STUFF
+IMAGE MAGICK/IMAGEMAGICK CONVERT/IMPORT COMMANDS + SCREENSHOT PRINT SCREEN STUFF[?]
   
-  #-flip -flop -grayscale -rotate 90
-  sleep 8
-  n=1
-  while [ $n -lt 10 ]; do
+  RECORD_FOR_HOW_LONG_IN_SECONDS=12 #must be a whole number
+
+  echo sleep 3.2
+  sleep 3.2
+
+  n=0
+  now="$(date +%s)"
+  while :; do
+    (( n++ ))
+    echo import -window root $(printf '%03d' $n).png
     import -window root $(printf '%03d' $n).png
-    sleep 0.3
+    sleep 0.08
+    [ $(( $(date +%s) - $now )) -gt $RECORD_FOR_HOW_LONG_IN_SECONDS ] && break
   done
+
+  #-flip -flop -grayscale -rotate 90
+  echo convert -delay 41 *.png -resize 43% animation.gif
   convert -delay 41 *.png -resize 43% animation.gif
 
 WATCH A DIRECTORY FOR CREATED FILES ALL IN ALL OF ITS SUB-DIRECTORIES
@@ -1684,9 +1887,9 @@ ALTERNATIVE TO `strace` FOR DETECTING WHAT A PROGRAM IS DOING, ACTUALLY IN THIS 
   perf record -g $command
   perf report -g
 
-VIM FOR WHEN YOUR BUFFERS NEED TO UPDATE EASIER
+VIM FOR WHEN VIEWING LOGS TO AUTO-UPDATE AND CAN'T WRITE TO THEM
 
-  :se autoread
+  :se autoread readonly
 
 OUTPUT YOUR NEWLINED-SEGREGATED OUTPUT INTO A NICE TABLE TABULAR OUTPUT IN BASH ON YOUR TTY/VIRTUAL-TERMINAL YAAAAAAY
 
@@ -1774,6 +1977,7 @@ alias tty-silence-restore='sudo dmesg -n 8'
 alias tty-silence='sudo dmesg -n 1'
 alias udisks='/usr/bin/udisksctl'
 alias vi='/usr/bin/vim'
+alias vim2='/usr/bin/vim "+set autoread readonly"'
 alias weechat='echo bitchx'
 funny-GUI-alert(){
   local messages=() message=''
@@ -1887,7 +2091,8 @@ Z(){
 apt-non-debian-packages-installed(){
   aptitude search '?narrow(?installed, ?not(?origin(Debian)))'
 }
-lucky(){ s="$*"; [ -z "$s" ] && return 3; echo $s | perl -ne 'BEGIN{undef $/;}if(m#(https?://[a-zA-Z0-9,%=/.:?_+&\-]+)#){print $1;}'; }
+dice(){ ack "https?://.*$*" $weechat_logs | tail -1 | perl -ne 'BEGIN{undef $/;}if(m#(https?://[a-zA-Z0-9,%\#=/.:?_+&\-]+)#){print $1;}'; }
+
 tarhelp(){
   cat <<EOFFFFFFFF
 1) gz
@@ -1969,10 +2174,16 @@ xclip-cp(){
   DISPLAY=:0.0 xclip -selection clipboard "$1"
   return 0
 }
+watch-weechat-log-user-update-return-when-changed(){
+  [ -z "$1" ] && return 41
+  touch "$weechat_logs/$1"
+  while [ ! -f "$weechat_logs/irc.libera.$1.weechatlog" -o "$weechat_logs/irc.libera.$1.weechatlog" -ot "$weechat_logs/$1" ]; do
+    sleep 31.2;
+  done
+}
 watch-weechat-log-keyword-return-when-changed(){
   [ -z "$1" ] && return 41
-  [ -n "$2" ] && return 42
-  current_wc_l="$(ack "$1" "$weechat_logs" | wc -l)"
+  current_wc_l="$(ack "$*" "$weechat_logs" | wc -l)"
   while [ "$(ack "$*" "$weechat_logs" | wc -l)" -eq "$current_wc_l" ]; do
     sleep 12.2
   done
@@ -2049,131 +2260,59 @@ wifi-connect(){
 date-toilet(){
   date | toilet --font term --gay
 }
-excuse(){
-  echo "Actually, that's a feature; I 0.000000000000%agree
-Don't worry, that value is only wrong half of the time; I 98%agree
-Even though it doesn't work, how does it feel?; LMAO
-Everything looks fine my end; I 0.2%agree
-How is that possible?; *silence*
-I broke that deliberately to do some testing; *silence*
-I can have a look but there's a lot of if statements in that code!; *silence*
-I can't make that a priority right now; 17%agreed
-I can't test everything; *silence*
-I couldn't find any examples of how that can be done anywhere else in the project; 17%true
-I couldn't find any examples of how that can be done anywhere online; 19%true
-I couldn't find any library that can even do that; lol
-I did a quick fix last time but it broke when we rebooted; rofl
-I didn't anticipate that I would make any errors; lol
-I didn't create that part of the program; what?
-I didn't receive a ticket for it; hmm...
-I forgot to commit the code that fixes that; lol
-I had to do the project backwards as people demanded results out of order; ok?
-I have never seen that before in my life
-I haven't been able to reproduce that
-I haven't had any experience with that before
-I haven't had the chance to run that code yet
-I haven't touched that code in weeks
-I must not have understood what you were asking for
-I thought I finished that
-I thought I fixed that
-I thought he knew the context of what I was talking about
-I thought you signed off on that?
-I told you yesterday it would be done by the end of today
-I usually get a notification when that happens
-I was just fixing that
-I'm not familiar with it so I didn't fix it in case I made it worse
-I'm not getting any error codes
-I'm not sure as I've never had a look at how that works before
-I'm still working on that as we speak
-I'm surprised it works as well as it does
-In the interest of efficiency I only check my email for that on a Friday
-It must be a firewall issue
-It must be because of a leap second
-It probably won't happen again
-It was working in my head
-It worked yesterday
-It works, but it's not been tested
-It would have taken twice as long to build it properly
-It would take too long to rewrite the code from scratch
-It's a browser compatibility issue
-It's a character encoding issue
-It's a known bug with the programming language
-It's a known bug with the server software
-It's a remote vendor issue
-It's a third party application issue
-It's an unexpected emergent behaviour of several last minute abstractions
-It's just some unlucky coincidence
-It's never done that before
-It's never shown unexpected behaviour like this before
-It's not a code problem - our users need more training
-Maybe somebody forgot to pay our hosting company
-My time was split in a way that meant I couldn't do either project properly
-No one told me so I was forced to assume which way to do that
-Nobody asked me how long it would actually take
-Nobody has ever complained about it
-Oh, that was just a temporary fix
-Oh, that was only supposed to be a placeholder
-Oh, you said you DIDN'T want that to happen?
-Our code quality is no worse than anyone else in the industry
-Our hardware is too slow to cope with demand
-Our internet connection must not be working
-Our redundant systems must have failed as well
-Somebody must have changed my code
-That behaviour is in the original specification
-That code seemed so simple I didn't think it needed testing
-That code was written by the last guy
-That error means it was successful
-That feature would be outside of the scope
-That isn't covered by my job description
-That process requires human oversight that nobody was providing
-That was literally a one in a million error
-That wasn't in the original specification
-That worked perfectly when I developed it
-That's already fixed it just hasn't taken effect yet
-That's interesting, how did you manage to make it do that?
-That's not a bug it's a configuration issue
-That's the fault of the graphic designer
-The WYSIWYG must have produced an invalid output
-The client must have been hacked
-The client wanted it changed at the last minute
-The code is compiling
-The download must have been corrupted
-The existing design makes it difficult to do the right thing; I 7% agree
-The marketing department made us put that there
-The original specification contained conflicting requirements
-The person responsible doesn't work here anymore
-The problem seems to be with our legacy software
-The program has never collected that information
-The project manager said no one would want that feature
-The project manager told me to do it that way
-The specifications were ambiguous
-The third party API is not responding
-The third party documentation doesn't exist
-The third party documentation is wrong
-The unit test doesn't cover that eventuality
-The user must not know how to use it
-There must be something strange in your data
-There were too many developers working on that same thing
-There's currently a problem with our hosting company
-This code was not supposed to go in to production yet
-This is a previously known bug you told me not to work on yet
-We didn't have enough time to peer review the final changes; lol
-We outsourced that months ago; lol
-We should have updated our software years ago; eh
-We spent three months debugging it because we only had one month to build it; eesh
-Well at least we know not to try that again; :(
-Well done, you found my easter egg!; eegh
-Well, at least it displays a very pretty error; lol
-Well, that's a first; *silence*
-What did you type in wrong to get it to crash?; what to crash?
-Where were you when the program blew up?; lol
-You can't use that version on your system; for 93% of all men you're average 71%right
-You must be missing some of the dependencies; I'm 3%sure that is right
-You must have done something wrong; I'm 0%sure of that
-You must have the wrong version; ok?
-You're doing it wrong; I'm 3%sure you are 900%right
-Your browser must be caching the old content; what" | shuf -n 1
+check-wifi-hardware-logs(){
+  local i=''
+  for i in NetworkManager.service systemd-networkd.service; do sudo journalctl --unit=$i | tail -40; sleep 10; done
 }
+Copyright Notices
+
+  Copyright (C) 1997 Fvzba Gngunz and Whyvna Unyy
+  Copyright (C) 2000 by Naqerj Mnobybgal
+  Copyright (C) 1990-1997 FpvGrpu Fbsgjner, Inc.
+  Copyright 1995-2022 The ANFZ Authors
+  Copyright 1999-2002, B'Ervyyl & Associates
+  Copyright (c) 1994,98 Whyvna Unyy. All rights reserved.
+  Copyright (c) 2001 ERG & PBZ Research.
+  Copyright (C) 1999-2002 by QbbZ Yrtnpl Team.
+  Copyright (C) 1997 Wbua F. Svar
+
+  ANFZ is now licensed under the GNU GPLv2 or greater license.
+
+  Copyright 1995-2022 the ANFZ Authors - All rights reserved.
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following
+  conditions are met:
+
+  * Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  * Redistributions in binary form must reproduce the above
+    copyright notice, this list of conditions and the following
+    disclaimer in the documentation and/or other materials provided
+    with the distribution.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
+  CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+  INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+  CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+  NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+  HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+  CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+The Yvahk packaging is copyright (C) 1995-2000 Ivaprag Eraneqvnf, (C)
+1998-2003 Zngrw Iryn, (C) 2002 Vib Gvzzreznaf, (C) 2004 Puevfgvna
+Xrffryurvz, (C) 2022 Navony Zbafnyir Fnynmne and also released under
+the terms of the GNU General Public License; version 2, or any later
+version.
+
+On the Internet, the complete text of the GNU General Public License
+can be found by Googling 'GPLv2 or greater.'
 
 1.6M	dash-0.5.11+git20200708+dd9ef66/
 39M	bash-5.1/
@@ -2572,6 +2711,7 @@ essential-2of2-debs/gparted-common_1.2.0-1_all.deb
 essential-2of2-debs/info_6.7.0.dfsg.2-6_amd64.deb
 essential-2of2-debs/inotify-tools_3.14-8.1_amd64.deb
 essential-2of2-debs/install-info_6.7.0.dfsg.2-6_amd64.deb
+essential-2of2-debs/intel2gas_1.3.3-17+b1_amd64.deb
 essential-2of2-debs/iotop_0.6-24-g733f3f8-1.1_amd64.deb
 essential-2of2-debs/jnettop_0.13.0-1.1_amd64.deb
 essential-2of2-debs/jpegoptim_1.4.6-1_amd64.deb
@@ -2586,6 +2726,7 @@ essential-2of2-debs/libonig5_6.9.6-1.1_amd64.deb
 essential-2of2-debs/libsqlite3-mod-impexp_0.9998-2_amd64.deb
 essential-2of2-debs/make-doc_4.3-2_all.deb
 essential-2of2-debs/manpages-posix_2017a-2_all.deb
+essential-2of2-debs/nasm_2.15.05-1_amd64.deb
 essential-2of2-debs/ncal_12.1.7+nmu3_amd64.deb
 essential-2of2-debs/netcat_1.10-46_all.deb
 essential-2of2-debs/netcat-openbsd_1.217-3_amd64.deb
@@ -2676,6 +2817,69 @@ while(1){
 }
 
 print 'sudo apt download ', join(' ', uniq(sort(@package_names))), "\n";
+
+BASH TERMINAL-TTY HOW DO I EASILY REPLACE OR APPEND TYPED-UP TEXT INTO MY TEXT FILE?????
+
+  #I guess this: TODO: I need more actual examples.
+  tee whatever.txt >/dev/null <<EOF
+line 1
+line 2
+line 3
+EOF
+  tee -a whatever.txt >/dev/null <<EOF
+line 4
+line 5
+line 6
+EOF
+
+BASH DECLARE BLAAAAAAAAAhhhhhhh
+
+	declare -p varp #equivalent to: echo -E, printf %q, TODO: tryme
+	declare -- varp="1 2 3
+4 5 6"
+	read -d '' varp << 'EOFREWQ'
+1 2 3
+4 5 6
+EOFREWQ
+
+APPLE USES zsh AS ITS TERMINAL SHELL
+
+	surprise!!!! within the last 5 years.
+
+C COMPILER (.c -> .s 90% sure) ASSEMBLER (.s -> .o) OPTIMIZATION RANDOM RESEARCH FOR generic-x86 ARCHITECTURE OR TARGET TUNING
+
+    clang optimization IR?????
+    is IR optimization for the clang --compiler-target=generic-x86
+    clang --target-architecture --target-tune #might provide IR optimization
+    s/generic-x86/haswell|sandybridge/ #for clang, TODO: 0% portable?
+
+*sigh* BASHRC FUNCTION TO CONVERT A STRING INPUT-ARGUMENT INTO MATCHED HTTP URL ADDRESSES
+
+  lucky(){ s="$*"; [ -z "$s" ] && return 3; printf '%s' "$s" | perl -ne 'BEGIN{undef $/;}if(m#(https?://[a-zA-Z0-9,%\#=/.:?_+&\-]+)#){print $1;}'; }
+
+SIMPLIFIED bash.1.txt RECORDING SCREENSHOTS TO A VIDEO USING IMAGEMAGICK
+
+  sleep 8
+  n=1
+  while [ $n -lt 10 ]; do
+    import -window root $(printf '%03d' $n).png
+    sleep 0.3
+  done
+  convert -delay 41 *.png -resize 43% animation.gif
+
+C COMPILING
+
+  c preprocessor -> compiler -> c preprocessor -> assembler -> linker
+  .s -> assembler -> .o -> linker -> executable
+
+  sometimes:      .c, .s, .o
+  sometimes:      .S, .s, .o
+  sometimes:      .c, .S
+  TODO: wtf?
+
+  compiler:   .c into .s
+  assembler:  .s into .o
+  linker:     .o into .exe
 
 PYTHON3 ALLAH MICKBAR
   #whatever
@@ -3370,6 +3574,26 @@ translate-shell #google-translate-cli
 17 rustc 
 26 default-jdk
 176 mono-mcs
+
+
+Gaming phrases:
+ахаххахаха = Ahahhaha
+дa = yes
+еспи  = if
+иэтчи = lachi           #ie. an asshole
+ку    = 13%cool/12%pussy-shit = cUUkoo #(2)ie. the sound of a cuckoo, "having -3% good for 0.2% good"
+мэтч  = match
+мэтчи = matches
+ПИЗДА = 96%PUSSY = being seriously damaged  #I'm 2% sure this translation is right.
+пиэда = 12%pedophile = 2%cunt    #(2) I'm 3% sure this translation is right. 
+твoя  = TV = your             #(1) I'm 0.2%% sure it means "abusing the TV" (2) female form. (I'm 3% sure this translation is right)
+че еспи = that espa     #ie. that eat-shit-please-asshole
+Что если = what if
+ээ    = oops = I am collecting my thoughts give me a few seconds = I am detecting blah blah blah blah
+
+
+
+
 ёЁ!"№;%:?*()_-+=хХъЪ\/жЖэЭбБюЮ.,/*-+,,,,++--**--*///
 
 йцукенгшщзфывапролдячсмить
