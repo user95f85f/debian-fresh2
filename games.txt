@@ -1,0 +1,10 @@
+Native game(s):
+  Teeworlds (`teeworlds` 0.7.5-1 aka vanilla teeworlds client)
+Steam games:
+  Left 4 Dead 2
+  Saints Row 2 (actually runs native!)
+  Team Fortress 2 (FREE)
+  Torchlight 2
+Wine games:
+  World of Warcraft (through Battle.net app)
+  Diablo II (ie. LoD version 1.14d)

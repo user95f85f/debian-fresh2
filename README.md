@@ -2514,14 +2514,16 @@ Disk /dev/loop0: 2.09 GiB, 2240999424 bytes, 4376952 sectors
 Units: sectors of 1 * 512 = 512 bytes
 Sector size (logical/physical): 512 bytes / 512 bytes
 I/O size (minimum/optimal): 512 bytes / 512 bytes
-What I installed in Steam:
-  Team Fortress 2 (FREE)
+Native game(s):
+  Teeworlds (`teeworlds` 0.7.5-1 aka vanilla teeworlds client)
+Steam games:
   Left 4 Dead 2
-  Torchlight 2
   Saints Row 2 (actually runs native!)
-What I installed in WINE:
-  Battle.net app and then through that got World of Warcraft working
-  I plan on installing Diablo II && Diablo II: LoD
+  Team Fortress 2 (FREE)
+  Torchlight 2
+Wine games:
+  World of Warcraft (through Battle.net app)
+  Diablo II (ie. LoD version 1.14d)
 #!/bin/bash
 
 [ -f ~/README.md ] && exit 2
