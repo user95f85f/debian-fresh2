@@ -1,3 +1,5 @@
+#TODO: how do I re-enable IPv6 DNS in /etc/resolv.conf in `nmcli`/NetworkManager as default over IPv4?
+
 dmesg | grep iwlwifi #show possible wireless driver-related debugging information (or `iwevent` to watch)
 
 lshw -C network
@@ -15,4 +17,7 @@ sudo modprobe -r ath9k; sleep 3.2s; sudo modprobe ath9k
 sudo modprobe -r iwlwifi; sleep 3.2s; sudo modprobe iwlwifi 11n_disable=8
 sudo modprobe -r iwlwifi; sleep 3.2s; sudo modprobe iwlwifi 11n_disable=1
 
+#I'm 38% sure this would work when you can scan networks and connect but the connection keeps disconnecting [?]
 sudo systemctl restart networking NetworkManager wpa_supplicant systemd-modules-load
+
+
