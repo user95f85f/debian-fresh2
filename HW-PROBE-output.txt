@@ -1,4 +1,4 @@
-sudo -E hw-probe -all -show
+sudo --preserve-env hw-probe -all -show
 exit 0
 
 

@@ -2556,7 +2556,7 @@ GOOD IDEA #002: TEXT FILE (BUT ALSO STDIN I GUESS TOO HEHE) ANALYSIS/STATISTICS 
   $\r_count
   $\s_count
   $\t_count
-sudo -E hw-probe -all -show
+sudo --preserve-env hw-probe -all -show
 exit 0
 
 
