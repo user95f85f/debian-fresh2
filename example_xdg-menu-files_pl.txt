@@ -9,7 +9,7 @@ sub exec2appname{
   my $appname = $exec;
   undef $exec;
   $appname =~ s# .*$##; 
-  (undef,$appname) = ($appname =~ m{^(.*/)?(.*)}s); #ripped from /usr/share/perl/5.32.1/File/Basename.pm
+  (undef,$appname) = ($appname =~ m!^(.*/)?(.*)!s);
   return $appname;
 }
 

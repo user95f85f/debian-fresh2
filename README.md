@@ -2386,6 +2386,75 @@ paragraph here again
 paragraph here again2
 
 *paste LICENSE here*
+#!/bin/bash
+
+
+
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+#!/usr/bin/perl
+
+
+use strict;
+use warnings;
+#use Data::Dumper;
+#$Data::Dumper::Maxdepth = 1;
+use AptPkg::Cache;
+use autodie;
+use List::Util qw/uniq/;
+
+
+#<config>
+my $package_name = $ARGV[0] || 'kate';
+my $target_arch = 'amd64';
+#</config>
+
+my $cache = AptPkg::Cache->new();
+
+sub get_pkgname_depends_list{
+  my ($_pkgname) = @_;
+  if(!defined($_pkgname)){
+    warn "WARNING: package name is undefined........\n";
+    return ();
+  }
+  if(length($_pkgname) == 0){
+    warn "WARNING: package name is empty...........\n";
+    return ();
+  }
+  my $version_list = $cache->get($_pkgname)->{'VersionList'};
+  if(!defined($version_list)){
+    warn "WARNING: Version list for package name $_pkgname is undefined.\n";
+    return ();
+  }
+  if(scalar(@{$version_list}) == 0){
+    warn "WARNING: Version list for package name $_pkgname is empty.\n";
+    return ();
+  }
+  my $dependencies = $version_list->[0]->{'DependsList'};
+  if(!defined($dependencies)){
+    warn "WARNING: Dependencies list for package name $_pkgname is undefined.\n";
+    return ();
+  }
+  if(scalar(@{$dependencies}) == 0){
+    warn "WARNING: Dependencies list for package name $_pkgname is empty.\n";
+    return ();
+  }
+  return @{$dependencies};
+}
+
+
+my @dependencies = get_pkgname_depends_list($package_name);
+my @package_names = ($package_name);
+while(1){
+  $_ = shift(@dependencies) or last;
+  if($_->{'DepType'} ne 'Depends'){next;}
+  my $target_pkg = $_->{'TargetPkg'};
+  if($target_pkg->{'Arch'} ne $target_arch){next;}
+  if($target_pkg->{'CurrentState'} eq 'Installed'){next;}
+  push(@package_names, $target_pkg->{'Name'});
+  push(@dependencies, get_pkgname_depends_list($target_pkg->{'Name'}));
+}
+
+print 'sudo apt download ', join(' ', uniq(sort(@package_names))), "\n";
 #!/usr/bin/perl
 
 use warnings;
@@ -2397,7 +2466,7 @@ sub exec2appname{
   my $appname = $exec;
   undef $exec;
   $appname =~ s# .*$##; 
-  (undef,$appname) = ($appname =~ m{^(.*/)?(.*)}s); #ripped from /usr/share/perl/5.32.1/File/Basename.pm
+  (undef,$appname) = ($appname =~ m!^(.*/)?(.*)!s);
   return $appname;
 }
 
@@ -2438,11 +2507,6 @@ for my $desktop_filename (@desktop_files){
   }
   print qq/$appname, $icon\n/;
 }
-#!/bin/bash
-
-
-
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo fdisk -l
 
 
@@ -2475,8 +2539,6 @@ Wine games:
   World of Warcraft (through Battle.net app)
   Diablo II (ie. LoD version 1.14d)
 #!/bin/bash
-
-[ -f ~/README.md ] && exit 2
 
 echo 'cat *.txt > README.md'
 cat *.txt > README.md
@@ -2729,70 +2791,6 @@ essential-2of2-debs/weechat-doc_3.0-1+deb11u1_all.deb
 essential-2of2-debs/wget_1.21-1+deb11u1_amd64.deb
 essential-2of2-debs/whois_5.5.10_amd64.deb
 essential-2of2-debs/xclip_0.13-2_amd64.deb
-#!/usr/bin/perl
-
-
-use strict;
-use warnings;
-#use Data::Dumper;
-#$Data::Dumper::Maxdepth = 1;
-use AptPkg::Cache;
-use autodie;
-use List::Util qw/uniq/;
-
-
-#<config>
-my $package_name = $ARGV[0] || 'kate';
-my $target_arch = 'amd64';
-#</config>
-
-my $cache = AptPkg::Cache->new();
-
-sub get_pkgname_depends_list{
-  my ($_pkgname) = @_;
-  if(!defined($_pkgname)){
-    warn "WARNING: package name is undefined........\n";
-    return ();
-  }
-  if(length($_pkgname) == 0){
-    warn "WARNING: package name is empty...........\n";
-    return ();
-  }
-  my $version_list = $cache->get($_pkgname)->{'VersionList'};
-  if(!defined($version_list)){
-    warn "WARNING: Version list for package name $_pkgname is undefined.\n";
-    return ();
-  }
-  if(scalar(@{$version_list}) == 0){
-    warn "WARNING: Version list for package name $_pkgname is empty.\n";
-    return ();
-  }
-  my $dependencies = $version_list->[0]->{'DependsList'};
-  if(!defined($dependencies)){
-    warn "WARNING: Dependencies list for package name $_pkgname is undefined.\n";
-    return ();
-  }
-  if(scalar(@{$dependencies}) == 0){
-    warn "WARNING: Dependencies list for package name $_pkgname is empty.\n";
-    return ();
-  }
-  return @{$dependencies};
-}
-
-
-my @dependencies = get_pkgname_depends_list($package_name);
-my @package_names = ($package_name);
-while(1){
-  $_ = shift(@dependencies) or last;
-  if($_->{'DepType'} ne 'Depends'){next;}
-  my $target_pkg = $_->{'TargetPkg'};
-  if($target_pkg->{'Arch'} ne $target_arch){next;}
-  if($target_pkg->{'CurrentState'} eq 'Installed'){next;}
-  push(@package_names, $target_pkg->{'Name'});
-  push(@dependencies, get_pkgname_depends_list($target_pkg->{'Name'}));
-}
-
-print 'sudo apt download ', join(' ', uniq(sort(@package_names))), "\n";
 
 BASH TERMINAL-TTY HOW DO I EASILY REPLACE OR APPEND TYPED-UP TEXT INTO MY TEXT FILE?????
 
