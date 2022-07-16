@@ -1,11 +1,20 @@
 
 
-" :syntax on    to enable syntax highlighting supposidly
-:se ts=2
-:se sw=2
-:se expandtab
+"TODO: how do I translate a source code file into HTML [highlighted]?
 
-"I love the arrow keys.
+" :syntax on    to enable syntax highlighting supposidly (if not already enabled automatically/by-default :|)
+
+
+"\t shows as 2 spaces
+:set tabstop=2
+
+"how many spaces you should move when you move visually selected text with >>
+:set shiftwidth=2
+
+"your typed-in <tab> is now "expanded" as $tabstop spaces 30% sure
+:set expandtab
+
+"I love the arrow keys to go up and down and next buffer and previous buffer
 noremap <right> :bn<CR>
 noremap <left> :bp<CR>
 noremap <up> <PageUp>
