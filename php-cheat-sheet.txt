@@ -108,3 +108,54 @@ HTML ENTITIES NOTES-RESEARCH
 
   &#34; to &#9000;
   space is &#160;
+
+JAVASCRIPT USE STRICT LIKE PERL
+
+  'use strict';
+  n = 1;        //autodie
+  var n2 = 2;   //better
+
+WEB BROWSERS RESEARCH
+
+  #SUPER re-inserts passwords into your inputs as-needed:
+  google-chrome
+
+  #alts to chrome
+  chromium
+
+  #a little bit of a step down:
+  epiphany
+
+  #Super basic GUI-based non-JavaScript web browsers:
+  dillo
+  netsurf
+
+  #TTY/virtual-console/terminal non-JavaScript non-Image-viewing web browsers:
+  lynx
+  links2
+  links
+
+
+OPEN A LIST OF URLs INSTANTLY IN EPIPHANY-BROWSER/EPIPHANY/EPIPHANY(THE-GUI-WEB-BROWSER-THAT-HAS-JAVASCRIPT)
+
+  url_list=(
+http://google.com
+http://yahoo.com
+  )
+  for u in "${url_list[@]}"; do
+    epiphany "$1" &
+  done
+
+CURL VS WGET SUPER EQUIVALENCY EXAMPLES
+
+  #the wget is +30% (more) verbose
+  wget --output-document=- http://localhost:8080/wget-curl-me.php | grep Hello
+  curl --output - http://localhost:8080/wget-curl-me.php | grep Hello
+
+  wget --quiet  --output-document=- http://localhost:8080/wget-curl-me.php | grep Hello
+  curl --silent --output - http://localhost:8080/wget-curl-me.php | grep Hello
+
+  wget --quiet  --output-document=- http://localhost:8080/DNE.php | grep Hello
+  echo $? #1
+  curl --silent --output - http://localhost:8080/DNE.php | grep Hello
+  echo $? #1

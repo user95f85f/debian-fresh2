@@ -413,20 +413,6 @@ CURL _VS_ WGET EQUIVALENCY COMPARISON
   #wget: --timestamping   TODO set the mod file date/time to whatever it is on the server???????
   wget --quiet --timestamping --output-document=tmp_output_file.dat
 
-CURL VS WGET SUPER EQUIVALENCY EXAMPLES
-
-  #the wget is +30% (more) verbose
-  wget --output-document=- http://localhost:8080/wget-curl-me.php | grep Hello
-  curl --output - http://localhost:8080/wget-curl-me.php | grep Hello
-
-  wget --quiet  --output-document=- http://localhost:8080/wget-curl-me.php | grep Hello
-  curl --silent --output - http://localhost:8080/wget-curl-me.php | grep Hello
-
-  wget --quiet  --output-document=- http://localhost:8080/DNE.php | grep Hello
-  echo $? #1
-  curl --silent --output - http://localhost:8080/DNE.php | grep Hello
-  echo $? #1
-
 GET ALL OF THE CAMERA STATS AND PHOTO/IMAGE EDITOR STATS OF A JPEG MAYBE A PNG
 
   curl -s http://a.domain.com/bigfile.jpg | exiftool -
@@ -822,12 +808,6 @@ GITHUB SH**
   username = ${GITHUB_USERNAME}
 EOF
 
-
-JAVASCRIPT USE STRICT LIKE PERL
-
-  'use strict';
-  n = 1;        //autodie
-  var n2 = 2;   //better
 
 IMGUR UPLOAD
 
@@ -1287,26 +1267,6 @@ SECURE / LIGHTWEIGHT LINUX STUFF RESEARCH
 
   https://musl.libc.org/
 
-WEB BROWSERS RESEARCH
-
-  #SUPER re-inserts passwords into your inputs as-needed:
-  google-chrome
-
-  #alts to chrome
-  chromium
-
-  #a little bit of a step down:
-  epiphany
-
-  #Super basic GUI-based non-JavaScript web browsers:
-  dillo
-  netsurf
-
-  #TTY/virtual-console/terminal non-JavaScript non-Image-viewing web browsers:
-  lynx
-  links2
-  links
-
 BEST RECURSIVE GREP
 
   sudo grep -EIrni --extended-regex --binary-files=without-match --recursive --line-number --ignore-case 'libinput|synaptic' /var/log
@@ -1513,16 +1473,6 @@ IRC BOT RESEARCH
 BASHRC ALIAS/"FUNCTION" TO QUICKLY SEARCH THE WEB VIA A TTY/VIRTUAL-CONSOLE/TERMINAL "WEB BROWSER"/ONLINE-HTML-VIEWER
 
   goog(){ local s="$*"; links "https://google.com/search?q=${s// /+}"; }
-
-OPEN A LIST OF URLs INSTANTLY IN EPIPHANY-BROWSER/EPIPHANY/EPIPHANY(THE-GUI-WEB-BROWSER-THAT-HAS-JAVASCRIPT)
-
-  url_list=(
-http://google.com
-http://yahoo.com
-  )
-  for u in "${url_list[@]}"; do
-    epiphany "$1" &
-  done
 
 DOWNLOAD URLs INTO .TXT FILES INTO PWD
 
@@ -3588,6 +3538,57 @@ HTML ENTITIES NOTES-RESEARCH
 
   &#34; to &#9000;
   space is &#160;
+
+JAVASCRIPT USE STRICT LIKE PERL
+
+  'use strict';
+  n = 1;        //autodie
+  var n2 = 2;   //better
+
+WEB BROWSERS RESEARCH
+
+  #SUPER re-inserts passwords into your inputs as-needed:
+  google-chrome
+
+  #alts to chrome
+  chromium
+
+  #a little bit of a step down:
+  epiphany
+
+  #Super basic GUI-based non-JavaScript web browsers:
+  dillo
+  netsurf
+
+  #TTY/virtual-console/terminal non-JavaScript non-Image-viewing web browsers:
+  lynx
+  links2
+  links
+
+
+OPEN A LIST OF URLs INSTANTLY IN EPIPHANY-BROWSER/EPIPHANY/EPIPHANY(THE-GUI-WEB-BROWSER-THAT-HAS-JAVASCRIPT)
+
+  url_list=(
+http://google.com
+http://yahoo.com
+  )
+  for u in "${url_list[@]}"; do
+    epiphany "$1" &
+  done
+
+CURL VS WGET SUPER EQUIVALENCY EXAMPLES
+
+  #the wget is +30% (more) verbose
+  wget --output-document=- http://localhost:8080/wget-curl-me.php | grep Hello
+  curl --output - http://localhost:8080/wget-curl-me.php | grep Hello
+
+  wget --quiet  --output-document=- http://localhost:8080/wget-curl-me.php | grep Hello
+  curl --silent --output - http://localhost:8080/wget-curl-me.php | grep Hello
+
+  wget --quiet  --output-document=- http://localhost:8080/DNE.php | grep Hello
+  echo $? #1
+  curl --silent --output - http://localhost:8080/DNE.php | grep Hello
+  echo $? #1
 
 w3c-linkchecker w3c-markup-validator #requires apache2, ugh.
 translate-shell #google-translate-cli
