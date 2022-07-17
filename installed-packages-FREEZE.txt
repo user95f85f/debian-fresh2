@@ -111,6 +111,7 @@ essential-2of2-debs/gawk_1%3a5.1.0-1_amd64.deb
 essential-2of2-debs/gcc-10-doc_10.2.0-1_all.deb
 essential-2of2-debs/gcc-doc_5%3a10.1.0-1_amd64.deb
 essential-2of2-debs/gcc-doc-base_10.1.0-1_all.deb
+essential-2of2-debs/gifsicle_1.92-2+b1_amd64.deb
 essential-2of2-debs/glibc-doc-reference_2.31-1_all.deb
 essential-2of2-debs/gparted_1.2.0-1_amd64.deb
 essential-2of2-debs/gparted-common_1.2.0-1_all.deb

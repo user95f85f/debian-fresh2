@@ -9,7 +9,8 @@ export TZ=America/Los_Angeles
 export WINEPREFIX=/media/user/DEB_STUFF/dot-wine
 apt='apt apt-cache apt-file apt-get apt-mark aptitude dpkg dpkg-query' 
 dir_lorem_ipsum='/home/user/Documents/lorem-ipsum'
-pictures='/home/user/Documents/STATIC-photos'
+photos='/home/user/Documents/STATIC-photos'
+pictures=$photos
 shield_mount_dir='/home/user/Documents/shield_mapper_mount'
 url_urbandictionary='https://api.urbandictionary.com/v0/define?term'
 url_wikipedia='https://en.wikipedia.org/wiki/Special:Search?search'
@@ -53,6 +54,13 @@ alias udisks='/usr/bin/udisksctl'
 alias vi='/usr/bin/vim'
 alias vim2='/usr/bin/vim "+set autoread readonly"'
 alias weechat='echo bitchx'
+gcc2(){
+  [ -z "$1" ] && return 22
+  [ -f "$1" ] || return 23
+  file "$1" | grep -qF 'C source' || return 24
+  /usr/bin/gcc -ggdb3 -Og -Wall -Wextra -Wpedantic "$1" && ./a.out
+  rm -vf a.out
+}
 funny-GUI-alert(){
   local messages=() message=''
   while :; do
@@ -77,10 +85,17 @@ py(){
   [ -z "$1" ] && return 99
   [ -f "$1" ] && return 100
   [[ "$1" =~ \.py$ ]] || return 101
-  cat <<EOFRR2 > "$1"
+  cat <<'EOFRR2' > "$1"
 #!/usr/bin/python3
-
+import sys
 if __name__ == '__main__':
+  if len(sys.argv) > 1:
+    str_input = sys.argv[1]
+  else:
+    str_input = sys.stdin.read()
+
+  print('Input:', str_input)
+
 
 EOFRR2
   [ -f "$1" ] || return 102

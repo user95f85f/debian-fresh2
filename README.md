@@ -1430,22 +1430,11 @@ SUPER SYSTEM SUSTAIN/BACKUP
 
   rsync -aAXHSv /* /path/to/shared/folder \
     --exclude={/dev/*,/proc/*,/sys/*,/tmp/*,/run/*,/mnt/*,/media/*,/lost+found,/home/*/.gvfs}
-sudo tcpdump -i any -U 'src port 53 or dst port 53' > out.dat
-#!/bin/bash
 
+GET TCPDUMP TO TELL ME THE DOMAIN-DNS REQUESTS SEND TO MY MODEM ISP/DNS-PROVIDER-SERVER
 
-
-tail -f out.dat | grep --line-buffered -E 'my\.jetpack\.domain.* (A\?|AAAA\?|CNAME) ' | cut --characters=24-
-watch-logs-global-journalctl is a function
-watch-logs-global-journalctl () 
-{ 
-    sudo journalctl -n30 --follow
-}
-watch-home is a function
-watch-home () 
-{ 
-    inotifywait --recursive --monitor --quiet --event create ~/.config ~/.local
-}
+  sudo tcpdump -i any -U 'src port 53 or dst port 53' > out.dat
+  tail -f out.dat | grep --line-buffered -E 'my\.jetpack\.domain.* (A\?|AAAA\?|CNAME) ' | cut --characters=24-
 
 FASTER GZIP ALTERNATIVE  RESEARCH
 
@@ -1877,6 +1866,30 @@ HOW SHOULD I EDIT MY SCREENSHOT0001.jpg  ?
 
   krita || shotwell || darktable || gimp
 
+WHERE CAN I DOWNLOAD WIKIS INTO MY COMPUTARZ?
+
+  kiwix
+
+WGET GET ME ONLY HTML FILES, IGNORE robots.txt WITHOUT DOWNLOADING THE WHOLE WEBSITE
+
+  wget --accept '*.html' -e robots=off --relative --mirror $URL
+
+  #for example:
+  wget --mirror -e robots=off --relative --accept '*.html' https://download.kiwix.org/zim/
+
+A FUN WAY TO LOOK AT A MANUAL PAGE (98% SURE INFO TOO) BY LOOKING ONLY AT ITS AVAILABLE OPTIONS/OPTION-ARGUMENTS
+
+  man gpg | wc -l #2330 oh shit
+  #that's better:
+  man gpg | grep -F ' -' | less
+
+FU**ING PYTHON 3
+
+  # DANGER python3 programmers DANGER
+  perl5:   $n=2;$n = 2 & $n > 0; #0
+  C:       n=2;n = 2 & n > 0; /* 0 */
+  python3: n=2;n = 2 & n > 0 #True
+
 #prevents CTRL+S freezing the tty/virtual-console (ie. until CTRL+Q is hit)
 #see:   stty -a | egrep 'start|stop'
 stty start undef
@@ -1887,7 +1900,8 @@ export TZ=America/Los_Angeles
 export WINEPREFIX=/media/user/DEB_STUFF/dot-wine
 apt='apt apt-cache apt-file apt-get apt-mark aptitude dpkg dpkg-query' 
 dir_lorem_ipsum='/home/user/Documents/lorem-ipsum'
-pictures='/home/user/Documents/STATIC-photos'
+photos='/home/user/Documents/STATIC-photos'
+pictures=$photos
 shield_mount_dir='/home/user/Documents/shield_mapper_mount'
 url_urbandictionary='https://api.urbandictionary.com/v0/define?term'
 url_wikipedia='https://en.wikipedia.org/wiki/Special:Search?search'
@@ -1931,6 +1945,13 @@ alias udisks='/usr/bin/udisksctl'
 alias vi='/usr/bin/vim'
 alias vim2='/usr/bin/vim "+set autoread readonly"'
 alias weechat='echo bitchx'
+gcc2(){
+  [ -z "$1" ] && return 22
+  [ -f "$1" ] || return 23
+  file "$1" | grep -qF 'C source' || return 24
+  /usr/bin/gcc -ggdb3 -Og -Wall -Wextra -Wpedantic "$1" && ./a.out
+  rm -vf a.out
+}
 funny-GUI-alert(){
   local messages=() message=''
   while :; do
@@ -1955,10 +1976,17 @@ py(){
   [ -z "$1" ] && return 99
   [ -f "$1" ] && return 100
   [[ "$1" =~ \.py$ ]] || return 101
-  cat <<EOFRR2 > "$1"
+  cat <<'EOFRR2' > "$1"
 #!/usr/bin/python3
-
+import sys
 if __name__ == '__main__':
+  if len(sys.argv) > 1:
+    str_input = sys.argv[1]
+  else:
+    str_input = sys.stdin.read()
+
+  print('Input:', str_input)
+
 
 EOFRR2
   [ -f "$1" ] || return 102
@@ -2537,8 +2565,8 @@ Steam games:
   Team Fortress 2 (FREE)
   Torchlight 2
 Wine games:
-  World of Warcraft (through Battle.net app)
   Diablo II (ie. LoD version 1.14d)
+  World of Warcraft (through Battle.net app)
 #!/bin/bash
 
 echo 'cat *.txt > README.md'
@@ -2744,6 +2772,7 @@ essential-2of2-debs/gawk_1%3a5.1.0-1_amd64.deb
 essential-2of2-debs/gcc-10-doc_10.2.0-1_all.deb
 essential-2of2-debs/gcc-doc_5%3a10.1.0-1_amd64.deb
 essential-2of2-debs/gcc-doc-base_10.1.0-1_all.deb
+essential-2of2-debs/gifsicle_1.92-2+b1_amd64.deb
 essential-2of2-debs/glibc-doc-reference_2.31-1_all.deb
 essential-2of2-debs/gparted_1.2.0-1_amd64.deb
 essential-2of2-debs/gparted-common_1.2.0-1_all.deb
@@ -3318,6 +3347,9 @@ sudo systemctl disable sysstat-collect.timer sysstat-collect
 
 #XFCE4 auto-services are disabled/removed-from-start-of-lightdm-service
 for i in calamares-desktop-icon geoclue-demo-agent orca-autostart print-applet xdg-user-dirs xfce4-clipman-plugin-autostart xscreensaver; do sudo rm -iv /etc/xdg/autostart/$i.desktop; done
+
+sudo cp -iv /etc/services /etc/ports
+sudo sh -c 'cat service-names-port-numbers.txt >> /etc/ports'
 
 rmdir ~/Documents
 ln -s /media/user/DEB_STUFF/Documents ~/Documents

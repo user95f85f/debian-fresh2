@@ -33,6 +33,9 @@ sudo systemctl disable sysstat-collect.timer sysstat-collect
 #XFCE4 auto-services are disabled/removed-from-start-of-lightdm-service
 for i in calamares-desktop-icon geoclue-demo-agent orca-autostart print-applet xdg-user-dirs xfce4-clipman-plugin-autostart xscreensaver; do sudo rm -iv /etc/xdg/autostart/$i.desktop; done
 
+sudo cp -iv /etc/services /etc/ports
+sudo sh -c 'cat service-names-port-numbers.txt >> /etc/ports'
+
 rmdir ~/Documents
 ln -s /media/user/DEB_STUFF/Documents ~/Documents
 echo 'now go to /media/user/DEB_STUFF and install all of the software you want'

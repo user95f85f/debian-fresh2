@@ -1277,22 +1277,11 @@ SUPER SYSTEM SUSTAIN/BACKUP
 
   rsync -aAXHSv /* /path/to/shared/folder \
     --exclude={/dev/*,/proc/*,/sys/*,/tmp/*,/run/*,/mnt/*,/media/*,/lost+found,/home/*/.gvfs}
-sudo tcpdump -i any -U 'src port 53 or dst port 53' > out.dat
-#!/bin/bash
 
+GET TCPDUMP TO TELL ME THE DOMAIN-DNS REQUESTS SEND TO MY MODEM ISP/DNS-PROVIDER-SERVER
 
-
-tail -f out.dat | grep --line-buffered -E 'my\.jetpack\.domain.* (A\?|AAAA\?|CNAME) ' | cut --characters=24-
-watch-logs-global-journalctl is a function
-watch-logs-global-journalctl () 
-{ 
-    sudo journalctl -n30 --follow
-}
-watch-home is a function
-watch-home () 
-{ 
-    inotifywait --recursive --monitor --quiet --event create ~/.config ~/.local
-}
+  sudo tcpdump -i any -U 'src port 53 or dst port 53' > out.dat
+  tail -f out.dat | grep --line-buffered -E 'my\.jetpack\.domain.* (A\?|AAAA\?|CNAME) ' | cut --characters=24-
 
 FASTER GZIP ALTERNATIVE  RESEARCH
 
@@ -1723,3 +1712,27 @@ WHERE TO PUT ALL YOUR PERSONAL PROGRAM'S TMP/TEMP FILES, CACHE FILES, AND CONFIG
 HOW SHOULD I EDIT MY SCREENSHOT0001.jpg  ?
 
   krita || shotwell || darktable || gimp
+
+WHERE CAN I DOWNLOAD WIKIS INTO MY COMPUTARZ?
+
+  kiwix
+
+WGET GET ME ONLY HTML FILES, IGNORE robots.txt WITHOUT DOWNLOADING THE WHOLE WEBSITE
+
+  wget --accept '*.html' -e robots=off --relative --mirror $URL
+
+  #for example:
+  wget --mirror -e robots=off --relative --accept '*.html' https://download.kiwix.org/zim/
+
+A FUN WAY TO LOOK AT A MANUAL PAGE (98% SURE INFO TOO) BY LOOKING ONLY AT ITS AVAILABLE OPTIONS/OPTION-ARGUMENTS
+
+  man gpg | wc -l #2330 oh shit
+  #that's better:
+  man gpg | grep -F ' -' | less
+
+FU**ING PYTHON 3
+
+  # DANGER python3 programmers DANGER
+  perl5:   $n=2;$n = 2 & $n > 0; #0
+  C:       n=2;n = 2 & n > 0; /* 0 */
+  python3: n=2;n = 2 & n > 0 #True
