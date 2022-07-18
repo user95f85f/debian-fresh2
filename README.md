@@ -1947,6 +1947,9 @@ alias udisks='/usr/bin/udisksctl'
 alias vi='/usr/bin/vim'
 alias vim2='/usr/bin/vim "+set autoread readonly"'
 alias weechat='echo bitchx'
+pictures-view(){
+  echo xdg-open '$pictures'
+}
 status(){
   echo "I bet I'm making some progress! 15+ years in-the-making. Let's see:"
   perl -MList::Util=shuffle -e 'print join("",shuffle("a" .. "z"))'
@@ -3023,6 +3026,20 @@ FU**ING BASH BULL****
 KERNEL BOOT COMMAND (GRUB?) YEAAAAAAAH
 
   modprobe.blacklist=i5500_temp,coretemp,intel_idle,intel_cstate,intel_uncore,acpi_cpufreq,pcc_cpufreq,intel_powerclamp,i7core_edac,intel_rapl_msr,intel_rapl_common,intel_pmc_bxt
+
+BASH `date` UNIQUE STYLE OUTPUT WITH NANO SECONDS AND SECONDS
+
+  date '+%Y%m%d%H%M.%S.%3N' #the %3N is basically 3 random digits
+#202207180947.34.826
+
+BASH ECHO OTHER NON-ASCII CHARACTERS?????????????????????? 0
+
+  echo "$f 🡆 $fn"
+#from.txt 🡆 to.txt
+
+BASH AN 0.2% GOOD FILE TEST
+
+  [ -s ~/p.txt ] && echo 'file_exists($_) && !file_is_empty($_)'
 sudo lsblk --list --output-all /dev/sda | tr '\t' ' ' | sed 's/ \{2,\}/ /g'
 
 

@@ -55,6 +55,9 @@ alias udisks='/usr/bin/udisksctl'
 alias vi='/usr/bin/vim'
 alias vim2='/usr/bin/vim "+set autoread readonly"'
 alias weechat='echo bitchx'
+pictures-view(){
+  echo xdg-open '$pictures'
+}
 status(){
   echo "I bet I'm making some progress! 15+ years in-the-making. Let's see:"
   perl -MList::Util=shuffle -e 'print join("",shuffle("a" .. "z"))'

@@ -193,3 +193,17 @@ FU**ING BASH BULL****
 KERNEL BOOT COMMAND (GRUB?) YEAAAAAAAH
 
   modprobe.blacklist=i5500_temp,coretemp,intel_idle,intel_cstate,intel_uncore,acpi_cpufreq,pcc_cpufreq,intel_powerclamp,i7core_edac,intel_rapl_msr,intel_rapl_common,intel_pmc_bxt
+
+BASH `date` UNIQUE STYLE OUTPUT WITH NANO SECONDS AND SECONDS
+
+  date '+%Y%m%d%H%M.%S.%3N' #the %3N is basically 3 random digits
+#202207180947.34.826
+
+BASH ECHO OTHER NON-ASCII CHARACTERS?????????????????????? 0
+
+  echo "$f 🡆 $fn"
+#from.txt 🡆 to.txt
+
+BASH AN 0.2% GOOD FILE TEST
+
+  [ -s ~/p.txt ] && echo 'file_exists($_) && !file_is_empty($_)'
