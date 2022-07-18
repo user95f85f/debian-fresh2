@@ -1947,6 +1947,10 @@ alias udisks='/usr/bin/udisksctl'
 alias vi='/usr/bin/vim'
 alias vim2='/usr/bin/vim "+set autoread readonly"'
 alias weechat='echo bitchx'
+status(){
+  echo "I bet I'm making some progress! 15+ years in-the-making. Let's see:"
+  perl -MList::Util=shuffle -e 'print join("",shuffle("a" .. "z"))'
+}
 gcc2(){
   [ -z "$1" ] && return 22
   [ -f "$1" ] || return 23
@@ -2992,6 +2996,33 @@ GREAT MORE SH** COMMANDS
 TRANSLATION RESEARCH
 
   apt -s install gettext
+
+FU**ING BASH BULL****
+
+  printf -v 'variable_name' 'value_of_variable'
+
+  #expansion variable-name bull****
+  bye=bye
+  hello=bye
+  echo ${!hello}
+#bye
+
+  hello=012345
+  echo ${hello:2}
+#2345
+
+  sub(){ echo "${@:2}"; } ; sub 'arg 1' 'arg 2' 'arg 3'
+#arg 2 arg 3
+
+  a='1 1' b='2 2' c='3 3'
+  declare -p a b c | paste - - -
+#declare -- a="1 1"	declare -- b="2 2"	declare -- c="3 3"
+  declare -p a b c | column #same as the paste - - - above
+#declare -- a="1 1"	declare -- b="2 2"	declare -- c="3 3"
+
+KERNEL BOOT COMMAND (GRUB?) YEAAAAAAAH
+
+  modprobe.blacklist=i5500_temp,coretemp,intel_idle,intel_cstate,intel_uncore,acpi_cpufreq,pcc_cpufreq,intel_powerclamp,i7core_edac,intel_rapl_msr,intel_rapl_common,intel_pmc_bxt
 sudo lsblk --list --output-all /dev/sda | tr '\t' ' ' | sed 's/ \{2,\}/ /g'
 
 

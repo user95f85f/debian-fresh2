@@ -166,3 +166,30 @@ GREAT MORE SH** COMMANDS
 TRANSLATION RESEARCH
 
   apt -s install gettext
+
+FU**ING BASH BULL****
+
+  printf -v 'variable_name' 'value_of_variable'
+
+  #expansion variable-name bull****
+  bye=bye
+  hello=bye
+  echo ${!hello}
+#bye
+
+  hello=012345
+  echo ${hello:2}
+#2345
+
+  sub(){ echo "${@:2}"; } ; sub 'arg 1' 'arg 2' 'arg 3'
+#arg 2 arg 3
+
+  a='1 1' b='2 2' c='3 3'
+  declare -p a b c | paste - - -
+#declare -- a="1 1"	declare -- b="2 2"	declare -- c="3 3"
+  declare -p a b c | column #same as the paste - - - above
+#declare -- a="1 1"	declare -- b="2 2"	declare -- c="3 3"
+
+KERNEL BOOT COMMAND (GRUB?) YEAAAAAAAH
+
+  modprobe.blacklist=i5500_temp,coretemp,intel_idle,intel_cstate,intel_uncore,acpi_cpufreq,pcc_cpufreq,intel_powerclamp,i7core_edac,intel_rapl_msr,intel_rapl_common,intel_pmc_bxt
