@@ -207,3 +207,12 @@ BASH ECHO OTHER NON-ASCII CHARACTERS?????????????????????? 0
 BASH AN 0.2% GOOD FILE TEST
 
   [ -s ~/p.txt ] && echo 'file_exists($_) && !file_is_empty($_)'
+
+YET ANOTHER PLACE TO UPLOAD YOUR PNG/JPG (90% sure JPG) IMAGE FILES
+
+  https://postimg.cc/
+
+  #For example:
+  https://postimg.cc/8Q8AA8aq   #fake URL
+  #Which has the raw image at:
+  https://i.postimg.cc/9qmmBQiz/astring-20220718-120000.png #noon. fake URL
