@@ -1890,6 +1890,7 @@ FU**ING PYTHON 3
   C:       n=2;n = 2 & n > 0; /* 0 */
   python3: n=2;n = 2 & n > 0 #True
 
+
 #prevents CTRL+S freezing the tty/virtual-console (ie. until CTRL+Q is hit)
 #see:   stty -a | egrep 'start|stop'
 stty start undef
@@ -1920,6 +1921,7 @@ export screenshots='/home/user/Documents/screenshots'
 export todo='/home/user/Documents/TODO/todo.txt'
 export txt_lorem_ipsum='/home/user/Documents/lorem-ipsum.1.txt'
 export weechat_logs='/home/user/.weechat/logs'
+export wireless_cheatsheet='/home/user/Documents/Github-repos/debian-fresh2/wireless-cheat-sheet.txt'
 alias ..='cd ..'
 alias bash++='/usr/bin/perl'
 alias battery='echo acpitool -b'
@@ -1958,7 +1960,7 @@ funny-GUI-alert(){
     wait_this_long="$(( RANDOM % 10 + 1 ))m"
     echo sleep "$wait_this_long"
     sleep "$wait_this_long"
-    message="$(printf '%s' $'hey, fuck you\they, fuck you!\tGET OUT\tgoto PRISON\tgoto HOMELESS SHELTER\tFEED GRASS' | tr '\t' '\n' | shuf --head-count=1)"
+    message="$(printf '%s' $'GET OUT\tgoto PRISON\tgoto HOMELESS SHELTER\tFEED GRASS\tBECOME A CLOUD' | tr '\t' '\n' | shuf --head-count=1)"
     DISPLAY=:0.0 xterm -T sup -e sh -c "echo '$message'; sleep 9.39"
   done
 }
@@ -1978,14 +1980,15 @@ py(){
   [[ "$1" =~ \.py$ ]] || return 101
   cat <<'EOFRR2' > "$1"
 #!/usr/bin/python3
-import sys
 if __name__ == '__main__':
-  if len(sys.argv) > 1:
-    str_input = sys.argv[1]
+  from sys import argv
+  del argv[0]
+  if len(sys.argv) > 0:
+    ar_input = argv[0:]
   else:
-    str_input = sys.stdin.read()
+    ar_input = sys.stdin.read().split(' ')
 
-  print('Input:', str_input)
+  print(ar_input)
 
 
 EOFRR2
@@ -3621,6 +3624,12 @@ CURL VS WGET SUPER EQUIVALENCY EXAMPLES
   curl --silent --output - http://localhost:8080/DNE.php | grep Hello
   echo $? #1
 
+USING CURL TO POST JSON DATA TO A PHP FILE ON A F***ING HTTP SERVER
+
+	curl http://localhost:42/post-json-stuff-on-me.php --request POST \
+		--header 'content-type: application/json' \
+		--data '{ "key1":"value1", "key2":"value2", "key3":"value3", "key4":[] }'
+
 w3c-linkchecker w3c-markup-validator #requires apache2, ugh.
 translate-shell #google-translate-cli
 
@@ -3724,6 +3733,25 @@ noremap <down> <PageDown>
 
 "searching in your file should be case insensitive
 :se ignorecase
+
+
+HOW TO GET DEVICES (ie. lo, wlp1s0 e.g.)
+  WHAT IS LOCALHOST IP-RANGE (ie. 127.0.0.0-127.254.255.255 [at least by ping])
+    WHAT IS WIRELESS AP-CONNECTED LAN IP AS A CLIENT OF THE AP (ie. eg. 192.168.1.42)
+      WHAT IS WIRELESS AP-CONNECTED LAN IP RANGE FOR ALL AP CLIENTS (ie. eg. 192.168.1.0-192.168.1.255)
+
+  ip -oneline -brief address
+
+
+HOW TO GET ACCESS POINT ADDRESS ON THE WIRELESS CARD'S LAN CONNECTION?
+
+  ip route 
+
+  #or even better:
+  read mess < <(ip -json route | jq --raw-output '.[]|select(.dst=="192.168.5.0/24" and .dev=="wlP5z2")|"\(.prefsrc) on \(.dev)"'); echo $mess
+192.168.1.100 on wlP5z2
+
+
 
 #TODO: how do I re-enable IPv6 DNS in /etc/resolv.conf in `nmcli`/NetworkManager as default over IPv4?
 

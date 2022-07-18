@@ -29,6 +29,7 @@ export screenshots='/home/user/Documents/screenshots'
 export todo='/home/user/Documents/TODO/todo.txt'
 export txt_lorem_ipsum='/home/user/Documents/lorem-ipsum.1.txt'
 export weechat_logs='/home/user/.weechat/logs'
+export wireless_cheatsheet='/home/user/Documents/Github-repos/debian-fresh2/wireless-cheat-sheet.txt'
 alias ..='cd ..'
 alias bash++='/usr/bin/perl'
 alias battery='echo acpitool -b'
@@ -67,7 +68,7 @@ funny-GUI-alert(){
     wait_this_long="$(( RANDOM % 10 + 1 ))m"
     echo sleep "$wait_this_long"
     sleep "$wait_this_long"
-    message="$(printf '%s' $'hey, fuck you\they, fuck you!\tGET OUT\tgoto PRISON\tgoto HOMELESS SHELTER\tFEED GRASS' | tr '\t' '\n' | shuf --head-count=1)"
+    message="$(printf '%s' $'GET OUT\tgoto PRISON\tgoto HOMELESS SHELTER\tFEED GRASS\tBECOME A CLOUD' | tr '\t' '\n' | shuf --head-count=1)"
     DISPLAY=:0.0 xterm -T sup -e sh -c "echo '$message'; sleep 9.39"
   done
 }
@@ -87,14 +88,15 @@ py(){
   [[ "$1" =~ \.py$ ]] || return 101
   cat <<'EOFRR2' > "$1"
 #!/usr/bin/python3
-import sys
 if __name__ == '__main__':
-  if len(sys.argv) > 1:
-    str_input = sys.argv[1]
+  from sys import argv
+  del argv[0]
+  if len(sys.argv) > 0:
+    ar_input = argv[0:]
   else:
-    str_input = sys.stdin.read()
+    ar_input = sys.stdin.read().split(' ')
 
-  print('Input:', str_input)
+  print(ar_input)
 
 
 EOFRR2

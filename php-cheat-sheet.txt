@@ -159,3 +159,9 @@ CURL VS WGET SUPER EQUIVALENCY EXAMPLES
   echo $? #1
   curl --silent --output - http://localhost:8080/DNE.php | grep Hello
   echo $? #1
+
+USING CURL TO POST JSON DATA TO A PHP FILE ON A F***ING HTTP SERVER
+
+	curl http://localhost:42/post-json-stuff-on-me.php --request POST \
+		--header 'content-type: application/json' \
+		--data '{ "key1":"value1", "key2":"value2", "key3":"value3", "key4":[] }'

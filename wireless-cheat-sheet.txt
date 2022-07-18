@@ -1,3 +1,22 @@
+
+HOW TO GET DEVICES (ie. lo, wlp1s0 e.g.)
+  WHAT IS LOCALHOST IP-RANGE (ie. 127.0.0.0-127.254.255.255 [at least by ping])
+    WHAT IS WIRELESS AP-CONNECTED LAN IP AS A CLIENT OF THE AP (ie. eg. 192.168.1.42)
+      WHAT IS WIRELESS AP-CONNECTED LAN IP RANGE FOR ALL AP CLIENTS (ie. eg. 192.168.1.0-192.168.1.255)
+
+  ip -oneline -brief address
+
+
+HOW TO GET ACCESS POINT ADDRESS ON THE WIRELESS CARD'S LAN CONNECTION?
+
+  ip route 
+
+  #or even better:
+  read mess < <(ip -json route | jq --raw-output '.[]|select(.dst=="192.168.5.0/24" and .dev=="wlP5z2")|"\(.prefsrc) on \(.dev)"'); echo $mess
+192.168.1.100 on wlP5z2
+
+
+
 #TODO: how do I re-enable IPv6 DNS in /etc/resolv.conf in `nmcli`/NetworkManager as default over IPv4?
 
 dmesg | grep iwlwifi #show possible wireless driver-related debugging information (or `iwevent` to watch)
