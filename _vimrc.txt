@@ -23,3 +23,9 @@ noremap <down> <PageDown>
 "searching in your file should be case insensitive
 :se ignorecase
 
+function! Fuckyouuu()
+  :exe '!rm ' . shellescape(expand('%'))
+endfunction
+
+:com! Fuckyou call Fuckyouuu()
+

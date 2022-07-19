@@ -1761,3 +1761,9 @@ BASH: ARE WE RUNNING AS root?
   sudo bash -c '[ $EUID -eq 0 -a $HOME = "/root" ] && echo we must be root'   #<-- FOR REAL
   #TODO: what if EUID is empty in the `test`?
   #TODO: what if EUID is a non-number non-empty? Does the test fail silently and we're good? Or does the shell script become a syntax error and the whole script goes down in flames?
+
+ALLOW A USER ON YOUR GNU/LINUX OS TO USE SUDO FOR EVERYTHING LIKE A SUPER HERO
+
+  usermod --append --groups sudo $USER
+  #OR:
+  printf '\n\n%s\n\n' "$USER ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee --append /etc/sudoers

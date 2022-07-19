@@ -1915,6 +1915,12 @@ BASH: ARE WE RUNNING AS root?
   #TODO: what if EUID is empty in the `test`?
   #TODO: what if EUID is a non-number non-empty? Does the test fail silently and we're good? Or does the shell script become a syntax error and the whole script goes down in flames?
 
+ALLOW A USER ON YOUR GNU/LINUX OS TO USE SUDO FOR EVERYTHING LIKE A SUPER HERO
+
+  usermod --append --groups sudo $USER
+  #OR:
+  printf '\n\n%s\n\n' "$USER ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee --append /etc/sudoers
+
 #prevents CTRL+S freezing the tty/virtual-console (ie. until CTRL+Q is hit)
 #see:   stty -a | egrep 'start|stop'
 stty start undef
@@ -3854,6 +3860,12 @@ noremap <down> <PageDown>
 
 "searching in your file should be case insensitive
 :se ignorecase
+
+function! Fuckyouuu()
+  :exe '!rm ' . shellescape(expand('%'))
+endfunction
+
+:com! Fuckyou call Fuckyouuu()
 
 
 HOW TO GET DEVICES (ie. lo, wlp1s0 e.g.)
