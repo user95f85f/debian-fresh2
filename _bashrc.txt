@@ -55,6 +55,10 @@ alias udisks='/usr/bin/udisksctl'
 alias vi='/usr/bin/vim'
 alias vim2='/usr/bin/vim "+set autoread readonly"'
 alias weechat='echo bitchx'
+coffee(){
+  echo you: sips some coffee..
+  echo mm yum
+}
 pictures-view(){
   echo xdg-open '$pictures'
 }
@@ -88,6 +92,23 @@ utfcode2htmlentities-possibilities(){
   [ -n "$1" ] || return 33
   [[ "$1" =~ ^[0-9]+$ ]] || return 44
   wget -O - https://www.compart.com/en/unicode/U+"$1" | grep -Eo '&amp;[^;]+;' | sort | uniq | sed 's/&amp;/\&/'
+}
+c(){
+  [ -z "$1" ] && return 99
+  [ -f "$1" ] && return 100
+  [[ "$1" =~ \.c$ ]] || return 101
+  cat <<'EOFMYC' > "$1"
+
+#include <stdio.h>
+
+int main(int _argc, char *_argv[]){
+  puts("Hello, World!");
+  return 0;
+}
+
+EOFMYC
+  [ -f "$1" ] || return 102
+  $EDITOR "$1"
 }
 py(){
   [ -z "$1" ] && return 99
@@ -173,7 +194,7 @@ cd2(){
   fi
 }
 is_desktop_running(){
-  if systemctl status --no-pager lightdm; then return 0; else return 1; fi
+  if systemctl status --no-pager display-manager.service; then return 0; else return 1; fi
 }
 eject(){
   if [ -d /media/user/MYFAT34 ]; then
@@ -184,7 +205,7 @@ eject(){
   fi
 }
 Z(){
-  cd ~/Documents && unzip Z.zip && shred -uv Z.zip && $EDITOR Z && zip --encrypt Z.zip Z && shred -uv Z
+  cd ~/Documents && unzip Z.zip && shred -uv Z.zip && /usr/bin/vim -n Z && zip --encrypt Z.zip Z && shred -uv Z
 }
 apt-non-debian-packages-installed(){
   aptitude search '?narrow(?installed, ?not(?origin(Debian)))'

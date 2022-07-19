@@ -1291,6 +1291,9 @@ FFMPEG COMMAND S***
   #experimental s***: (haven't tried)
   time ffmpeg -hwaccel vaapi -vaapi_device /dev/dri/renderD128 -i female_duck_bathing_boyfriend_comes.mp4 -c:v vp9 -c:a opus -strict -2 out.webm
 
+  #convert sh** to VCD on DVD. FIXME: is the audiobitrate 56K necessary? audio rate 22Khz necessary? video bitrate 500Kb/sec necessary? for VCD video bullsh**?
+  ffmpeg -i whatever_video_file.avi -ab 56 -r 25 -ar 22050 -b 500 -s 352×240 VCD_video_01.mpg
+
 BASH SECRETS
   
   #these ASCII characters are OK in bash without quotes (ie. single or double):
@@ -1890,6 +1893,27 @@ FU**ING PYTHON 3
   C:       n=2;n = 2 & n > 0; /* 0 */
   python3: n=2;n = 2 & n > 0 #True
 
+FUNNY (PUT THIS AT THE TOP OF ALL OF YOUR SHELL SCRIPTS [THAT MAY TURN NON-POSIX WITHIN 20 DAYS]) (F*** ZSH)
+
+  #!/usr/bin/env bash
+  [[ $(</etc/issue.net) == 'Debian GNU/Linux 11' ]] || { exit 255; }
+  . /etc/os-release; [[ $NAME == 'Arch Linux' ]] || { exit 255; }
+
+BASH: WHAT THE F*** IS HAPPENING
+
+  perl -e 'warn "stderr 1\nstderr 2\n";print "stdout 1\nstdout 2\n"' > >(sed 's/^/from perl: /') 3>&1 2> >(perl -ne 'print "ERROR line: $_"' >&3);
+#from perl: stdout 1
+#from perl: stdout 2
+#from perl: ERROR line: stderr 1
+#from perl: ERROR line: stderr 2
+
+BASH: ARE WE RUNNING AS root?
+
+  #bash -c '[ $EUID -eq 0 -a $HOME = "/root" ] && echo we must be root'
+  #sudo -E bash -c '[ $EUID -eq 0 -a $HOME = "/root" ] && echo we must be root'
+  sudo bash -c '[ $EUID -eq 0 -a $HOME = "/root" ] && echo we must be root'   #<-- FOR REAL
+  #TODO: what if EUID is empty in the `test`?
+  #TODO: what if EUID is a non-number non-empty? Does the test fail silently and we're good? Or does the shell script become a syntax error and the whole script goes down in flames?
 
 #prevents CTRL+S freezing the tty/virtual-console (ie. until CTRL+Q is hit)
 #see:   stty -a | egrep 'start|stop'
@@ -1947,6 +1971,10 @@ alias udisks='/usr/bin/udisksctl'
 alias vi='/usr/bin/vim'
 alias vim2='/usr/bin/vim "+set autoread readonly"'
 alias weechat='echo bitchx'
+coffee(){
+  echo you: sips some coffee..
+  echo mm yum
+}
 pictures-view(){
   echo xdg-open '$pictures'
 }
@@ -1980,6 +2008,23 @@ utfcode2htmlentities-possibilities(){
   [ -n "$1" ] || return 33
   [[ "$1" =~ ^[0-9]+$ ]] || return 44
   wget -O - https://www.compart.com/en/unicode/U+"$1" | grep -Eo '&amp;[^;]+;' | sort | uniq | sed 's/&amp;/\&/'
+}
+c(){
+  [ -z "$1" ] && return 99
+  [ -f "$1" ] && return 100
+  [[ "$1" =~ \.c$ ]] || return 101
+  cat <<'EOFMYC' > "$1"
+
+#include <stdio.h>
+
+int main(int _argc, char *_argv[]){
+  puts("Hello, World!");
+  return 0;
+}
+
+EOFMYC
+  [ -f "$1" ] || return 102
+  $EDITOR "$1"
 }
 py(){
   [ -z "$1" ] && return 99
@@ -2065,7 +2110,7 @@ cd2(){
   fi
 }
 is_desktop_running(){
-  if systemctl status --no-pager lightdm; then return 0; else return 1; fi
+  if systemctl status --no-pager display-manager.service; then return 0; else return 1; fi
 }
 eject(){
   if [ -d /media/user/MYFAT34 ]; then
@@ -2076,7 +2121,7 @@ eject(){
   fi
 }
 Z(){
-  cd ~/Documents && unzip Z.zip && shred -uv Z.zip && $EDITOR Z && zip --encrypt Z.zip Z && shred -uv Z
+  cd ~/Documents && unzip Z.zip && shred -uv Z.zip && /usr/bin/vim -n Z && zip --encrypt Z.zip Z && shred -uv Z
 }
 apt-non-debian-packages-installed(){
   aptitude search '?narrow(?installed, ?not(?origin(Debian)))'
@@ -3049,6 +3094,25 @@ YET ANOTHER PLACE TO UPLOAD YOUR PNG/JPG (90% sure JPG) IMAGE FILES
   https://postimg.cc/8Q8AA8aq   #fake URL
   #Which has the raw image at:
   https://i.postimg.cc/9qmmBQiz/astring-20220718-120000.png #noon. fake URL
+
+C PROGRAMMING UINT LIMITS
+
+  /* FIXME TODO try the limits.h whatever the f*** */
+  #include <stdio.h>
+
+  int main(int _argc, char *_argv[]){
+    printf("%u\n", (~(unsigned int)0)); /* 4294967295 TODO: how do we get a bigger integer? */
+    return 0;
+  }
+
+FFMPEG FIXME ARE ALL THESE BASICALLY THE SAME F***ING THING?
+
+  NO_VIDEO=-vn
+  ffmpeg -i a.aac $NO_VIDEO -acodec libmp3lame a.mp3
+  ffmpeg -i a.aac $NO_VIDEO a.mp3
+  ffmpeg -i a.aac $NO_VIDEO -ab a.mp3
+  ffmpeg -i a.aac $NO_VIDEO -aq 6 a.mp3
+  ffmpeg -i a.aac $NO_VIDEO -ar 44100 -ac 2 -ab 128000 a.mp3
 sudo lsblk --list --output-all /dev/sda | tr '\t' ' ' | sed 's/ \{2,\}/ /g'
 
 
