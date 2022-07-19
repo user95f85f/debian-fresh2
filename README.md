@@ -1921,6 +1921,18 @@ ALLOW A USER ON YOUR GNU/LINUX OS TO USE SUDO FOR EVERYTHING LIKE A SUPER HERO
   #OR:
   printf '\n\n%s\n\n' "$USER ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee --append /etc/sudoers
 
+BASH PRO-TIP (FUNNY)
+
+  #Use these variables as your go-to variables to use interactively in your shell command-line when needing a variable name or a for loop variable name
+  $BASH $BASHOPTS $HOSTNAME $UID $BASH_VERSION $LINES $OSTYPE
+
+GRUB CONFIG STUFF LIKE vmlinuz OPTIONS
+
+  #nocomponents="xscreensaver" means disable-xscreensaver-locking-screen-for-lightdm 3% chance this will work
+  nocomponents="xscreensaver" nosplash quiet systemd.unit=multi-user.target timezone=US/Pacific toram user-fullname="Live Debian user"
+  #get the timezone list from
+  find -mindepth 1 /usr/share/zoneinfo/ | less
+
 #prevents CTRL+S freezing the tty/virtual-console (ie. until CTRL+Q is hit)
 #see:   stty -a | egrep 'start|stop'
 stty start undef
@@ -3119,6 +3131,36 @@ FFMPEG FIXME ARE ALL THESE BASICALLY THE SAME F***ING THING?
   ffmpeg -i a.aac $NO_VIDEO -ab a.mp3
   ffmpeg -i a.aac $NO_VIDEO -aq 6 a.mp3
   ffmpeg -i a.aac $NO_VIDEO -ar 44100 -ac 2 -ab 128000 a.mp3
+
+WHAT THE F*** DO THESE COMMANDS ON GNU/LINUX (OR JUST ARCH LINUX) DO?
+
+  cpio, i3, ncdu #cpio is suppose to be an alternative to `rsync`
+
+AND WHAT THE F*** DOES THIS DO IN BASH, HUH?
+
+  echo whatever >| ~/del.txt #I'm not fu**ing testing this sh**
+
+LIKE AN EAR TEST BUT BETTER
+
+  speaker-test --test sine --channels 2 --speaker 2 --frequency 740
+
+grub.cfg CONFIG STUFF LIKE vmlinuz OPTIONS SH**
+
+  components config edd=on locales=en_US.UTF-8 noeject nomodeset nopersistence nopersistent noprompt username=root 
+  $linux_src_code/linux/Documentation/admin-guide/kernel-parameters.txt
+
+  if [ -f (ext4/some-root)/boot/grub_replacement_and_ignore_this_cfg_file.cfg ]; then
+    configfile (ex4/some-root)/boot/grub_replacement_and_ignore_this_cfg_file.cfg
+  fi
+
+  TODO: how the fu** do you get Unicode tty/virtual-console (30% sure it's called a 'virtual console' fonts in Debian loaded-up?
+
+
+WUT A BUNCH OF BULLSH**
+
+  TZ=America/Shipwreck_Cove date; date -u
+  #Tue 19 Jul 2022 11:33:58 PM America
+  #Tue 19 Jul 2022 11:33:58 PM UTC
 sudo lsblk --list --output-all /dev/sda | tr '\t' ' ' | sed 's/ \{2,\}/ /g'
 
 
@@ -3863,6 +3905,7 @@ noremap <down> <PageDown>
 
 function! Fuckyouuu()
   :exe '!rm ' . shellescape(expand('%'))
+  :bd
 endfunction
 
 :com! Fuckyou call Fuckyouuu()

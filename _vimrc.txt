@@ -25,6 +25,7 @@ noremap <down> <PageDown>
 
 function! Fuckyouuu()
   :exe '!rm ' . shellescape(expand('%'))
+  :bd
 endfunction
 
 :com! Fuckyou call Fuckyouuu()

@@ -235,3 +235,33 @@ FFMPEG FIXME ARE ALL THESE BASICALLY THE SAME F***ING THING?
   ffmpeg -i a.aac $NO_VIDEO -ab a.mp3
   ffmpeg -i a.aac $NO_VIDEO -aq 6 a.mp3
   ffmpeg -i a.aac $NO_VIDEO -ar 44100 -ac 2 -ab 128000 a.mp3
+
+WHAT THE F*** DO THESE COMMANDS ON GNU/LINUX (OR JUST ARCH LINUX) DO?
+
+  cpio, i3, ncdu #cpio is suppose to be an alternative to `rsync`
+
+AND WHAT THE F*** DOES THIS DO IN BASH, HUH?
+
+  echo whatever >| ~/del.txt #I'm not fu**ing testing this sh**
+
+LIKE AN EAR TEST BUT BETTER
+
+  speaker-test --test sine --channels 2 --speaker 2 --frequency 740
+
+grub.cfg CONFIG STUFF LIKE vmlinuz OPTIONS SH**
+
+  components config edd=on locales=en_US.UTF-8 noeject nomodeset nopersistence nopersistent noprompt username=root 
+  $linux_src_code/linux/Documentation/admin-guide/kernel-parameters.txt
+
+  if [ -f (ext4/some-root)/boot/grub_replacement_and_ignore_this_cfg_file.cfg ]; then
+    configfile (ex4/some-root)/boot/grub_replacement_and_ignore_this_cfg_file.cfg
+  fi
+
+  TODO: how the fu** do you get Unicode tty/virtual-console (30% sure it's called a 'virtual console' fonts in Debian loaded-up?
+
+
+WUT A BUNCH OF BULLSH**
+
+  TZ=America/Shipwreck_Cove date; date -u
+  #Tue 19 Jul 2022 11:33:58 PM America
+  #Tue 19 Jul 2022 11:33:58 PM UTC

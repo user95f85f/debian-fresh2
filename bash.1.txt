@@ -1767,3 +1767,15 @@ ALLOW A USER ON YOUR GNU/LINUX OS TO USE SUDO FOR EVERYTHING LIKE A SUPER HERO
   usermod --append --groups sudo $USER
   #OR:
   printf '\n\n%s\n\n' "$USER ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee --append /etc/sudoers
+
+BASH PRO-TIP (FUNNY)
+
+  #Use these variables as your go-to variables to use interactively in your shell command-line when needing a variable name or a for loop variable name
+  $BASH $BASHOPTS $HOSTNAME $UID $BASH_VERSION $LINES $OSTYPE
+
+GRUB CONFIG STUFF LIKE vmlinuz OPTIONS
+
+  #nocomponents="xscreensaver" means disable-xscreensaver-locking-screen-for-lightdm 3% chance this will work
+  nocomponents="xscreensaver" nosplash quiet systemd.unit=multi-user.target timezone=US/Pacific toram user-fullname="Live Debian user"
+  #get the timezone list from
+  find -mindepth 1 /usr/share/zoneinfo/ | less
