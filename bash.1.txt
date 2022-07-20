@@ -1790,3 +1790,9 @@ ULTIMATE VARIABLE DNE (ie. DOES NOT EXIST) ERROR/BAIL_THE_ENTIRE_BASH_SESSION (l
   #NEVER ever happens:
   #going
   #hello
+
+USING SED TO HIGHLIGHT STDIN WITH COLOR
+
+  cat highlight-a-string-through-pipe.sh
+  #!/bin/sh
+  sed "s/\($1\)/\x1b[31m\\1\x1b[39m/g"

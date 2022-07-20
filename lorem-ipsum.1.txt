@@ -291,3 +291,19 @@ FUNNY MY NEW COMPILER PROGRAMMING LANGUAGE YAAAAAAAAAAAAAAEEEEEHAAHAHAHAHAYYAEHA
     gcc -o compiled_by_user9d_plus_plus temp.c
     rm -v temp.c
   fi
+
+WHAT DOES THIS DO?
+
+  git reflog #shows nothing when nothing new in the current local repo-dir-whatever?
+
+DEBIAN VERIFY THE INTEGRITY OF YOUR PACKAGE-INSTALLED FILES
+
+  debsums
+
+DIFF BINARY-BLOB FILES BYTE BY BYTE
+
+  cmp
+
+KERNEL AND LIBC/GLIBC RESEARCH
+
+  #TODO: how is libc communicating with the kernel?

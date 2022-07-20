@@ -1944,6 +1944,12 @@ ULTIMATE VARIABLE DNE (ie. DOES NOT EXIST) ERROR/BAIL_THE_ENTIRE_BASH_SESSION (l
   #going
   #hello
 
+USING SED TO HIGHLIGHT STDIN WITH COLOR
+
+  cat highlight-a-string-through-pipe.sh
+  #!/bin/sh
+  sed "s/\($1\)/\x1b[31m\\1\x1b[39m/g"
+
 #prevents CTRL+S freezing the tty/virtual-console (ie. until CTRL+Q is hit)
 #see:   stty -a | egrep 'start|stop'
 stty start undef
@@ -3198,6 +3204,22 @@ FUNNY MY NEW COMPILER PROGRAMMING LANGUAGE YAAAAAAAAAAAAAAEEEEEHAAHAHAHAHAYYAEHA
     gcc -o compiled_by_user9d_plus_plus temp.c
     rm -v temp.c
   fi
+
+WHAT DOES THIS DO?
+
+  git reflog #shows nothing when nothing new in the current local repo-dir-whatever?
+
+DEBIAN VERIFY THE INTEGRITY OF YOUR PACKAGE-INSTALLED FILES
+
+  debsums
+
+DIFF BINARY-BLOB FILES BYTE BY BYTE
+
+  cmp
+
+KERNEL AND LIBC/GLIBC RESEARCH
+
+  #TODO: how is libc communicating with the kernel?
 sudo lsblk --list --output-all /dev/sda | tr '\t' ' ' | sed 's/ \{2,\}/ /g'
 
 
