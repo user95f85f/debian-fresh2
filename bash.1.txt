@@ -1779,3 +1779,14 @@ GRUB CONFIG STUFF LIKE vmlinuz OPTIONS
   nocomponents="xscreensaver" nosplash quiet systemd.unit=multi-user.target timezone=US/Pacific toram user-fullname="Live Debian user"
   #get the timezone list from
   find -mindepth 1 /usr/share/zoneinfo/ | less
+
+ULTIMATE VARIABLE DNE (ie. DOES NOT EXIST) ERROR/BAIL_THE_ENTIRE_BASH_SESSION (lol)
+  
+  #this function embedded into the bash interactive shell command-line and ran you will basically exit out of the entire shell..
+  #this function in .bashrc and called you basically exit out of the entire shell. (same)
+  tryme(){ echo going; echo ${var3:?}; echo going; } ; tryme; echo blank:  $var2;echo ${var2:?}; echo hello
+  #blank:
+  #going
+  #NEVER ever happens:
+  #going
+  #hello

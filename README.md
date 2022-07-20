@@ -1933,6 +1933,17 @@ GRUB CONFIG STUFF LIKE vmlinuz OPTIONS
   #get the timezone list from
   find -mindepth 1 /usr/share/zoneinfo/ | less
 
+ULTIMATE VARIABLE DNE (ie. DOES NOT EXIST) ERROR/BAIL_THE_ENTIRE_BASH_SESSION (lol)
+  
+  #this function embedded into the bash interactive shell command-line and ran you will basically exit out of the entire shell..
+  #this function in .bashrc and called you basically exit out of the entire shell. (same)
+  tryme(){ echo going; echo ${var3:?}; echo going; } ; tryme; echo blank:  $var2;echo ${var2:?}; echo hello
+  #blank:
+  #going
+  #NEVER ever happens:
+  #going
+  #hello
+
 #prevents CTRL+S freezing the tty/virtual-console (ie. until CTRL+Q is hit)
 #see:   stty -a | egrep 'start|stop'
 stty start undef
@@ -3146,6 +3157,7 @@ LIKE AN EAR TEST BUT BETTER
 
 grub.cfg CONFIG STUFF LIKE vmlinuz OPTIONS SH**
 
+  #what does mitigations=off do and what is the minimum kernel version to use??????????????????? thank you! FIXME
   components config edd=on locales=en_US.UTF-8 noeject nomodeset nopersistence nopersistent noprompt username=root 
   $linux_src_code/linux/Documentation/admin-guide/kernel-parameters.txt
 
@@ -3161,6 +3173,11 @@ WUT A BUNCH OF BULLSH**
   TZ=America/Shipwreck_Cove date; date -u
   #Tue 19 Jul 2022 11:33:58 PM America
   #Tue 19 Jul 2022 11:33:58 PM UTC
+
+HTML ENTITIES THAT YOU'LL 0.0000000000000000000000000000000000000000000000000 EVER USE (YAAAAAAAAAAYYYYYYYY!!!!!!!!!!!!!!!!!!!!)
+
+  &#xA;   \n
+  &#xD;   \r
 sudo lsblk --list --output-all /dev/sda | tr '\t' ' ' | sed 's/ \{2,\}/ /g'
 
 
