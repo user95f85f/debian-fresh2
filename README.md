@@ -3178,6 +3178,26 @@ HTML ENTITIES THAT YOU'LL 0.0000000000000000000000000000000000000000000000000 EV
 
   &#xA;   \n
   &#xD;   \r
+
+SOURCE CODE READING FUNNY FUN TIMES LET THE GOOD TIMES ROLL
+
+  mkdir ~/Downloads/src-code && cd ~/Downloads/src-code && apt source kernel balh blah blah
+  ack -o '#.*' $perl5_files_dir | less
+  ack -o '//.*' $cpp_files_dir | less
+  ack --color --group "$(cat ~/swear-words-words-list.txt | tr '\n' '|')" $all_source_code_dir | less -R
+
+FUNNY MY NEW COMPILER PROGRAMMING LANGUAGE YAAAAAAAAAAAAAAEEEEEHAAHAHAHAHAYYAEHAIHSANHIW
+
+  #!/usr/bin/env bash
+  if [ -s "$1" ]; then
+    printf '%s\n%s' '#include <stdio.h>' 'int main(void){puts("Hello World");return 0;}' > temp.c
+    gcc -o compiled_by_user9d_plus_plus temp.c
+    rm -v temp.c
+  else
+    printf '%s\n%s\n%s' '#include <stdio.h>' '#include <stdlib.h>' 'int main(void){while(1){}free(NULL);return 0;}' > temp.c
+    gcc -o compiled_by_user9d_plus_plus temp.c
+    rm -v temp.c
+  fi
 sudo lsblk --list --output-all /dev/sda | tr '\t' ' ' | sed 's/ \{2,\}/ /g'
 
 
