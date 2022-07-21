@@ -1815,3 +1815,55 @@ OBSERVATION: GNU/LINUX MANUAL SIZES [SMALL] COMPARISON
 
   info --all find | wc --lines | tr '\n' ';'; man find | wc --lines
   #2537;1685 #compared to 3897 lines to view in `man bash` command
+
+DASH/SH SHELL (SCRIPT[?]) COMPARISON WITHOUT A '[[' ``test'' AT-ALL?
+
+  #!/usr/bin/dash
+
+  does_exist=1
+  does_exist2=22
+  [ $does_exist -ne 0 -a $does_exist2 -ne 1 ] && echo okay1         #GOOD
+  [ "$does_exist" -ne 0 -a "$does_exist2" -ne 1 ] && echo okay2     #GOOD
+  [ $does_exist != aaaa -a $does_exist2 != bbbb ] && echo okay3     #GOOD
+  [ $does_exist != 'aaaa' -a $does_exist2 != 'bbbb' ] && echo okay4 #GOOD
+
+  exit 0
+
+
+  #./dash.sh: 14: [: Illegal number: 
+  [ "$dne1" -ne 0 -a "$dne2" -ne 1 ] && echo okay5
+
+
+  exit 0
+
+  #./dash.sh: 7: [: Illegal number: aaaa
+  does_exist2=aaaa
+  [ $does_exist -ne 0 -a $does_exist2 -ne 1 ] && echo okay1
+
+  exit 0
+
+  does_exist=1
+
+  #./dash.sh: 5: [: -ne: unexpected operator
+  [ $does_exist -ne 0 -a $dne -ne 1 ] && echo okay1
+
+  #./dash.sh: 7: [: =: unexpected operator
+  [ $does_exist != aaaa -a $dne = bbbb ] && echo okay2
+
+  #./dash.sh: 9: [[: not found
+  [[ $does_exist != aaaa && $dne -ne 0 ]] && echo okay3
+
+
+  exit 0
+
+  #[: -ne: unexpected operator
+  [ $dne -ne 0 -a $dne2 -ne 1 ] && echo okay1
+
+  #[: !=: unexpected operator
+  [ $dne != aaaa -a $dne2 = bbbb ] && echo okay2
+
+  #[[: not found
+  [[ $dne != aaaa && $dne2 -ne 0 ]] && echo okay3
+
+
+
