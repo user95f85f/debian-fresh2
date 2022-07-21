@@ -194,6 +194,14 @@ GNU/LINUX USER/GROUP MANAGMENT BULLS***
   #add a new group to the system
   man groupadd | grep groupadd
 
+  #Well wtf
+  sudo adduser senior_sargeant_masterchief_business_ceo_director_of_development_manager
+  #groupadd: 'senior_sargeant_masterchief_business_ceo_director_of_development_manager' is not a valid group name
+
+  sudo addgroup yetanothergroup
+  sudo adduser --ingroup yetanothergroup ss_mc_business_cd_of_dm
+  #Senior Sargeant MC Buz CEO Dir. of Dev Mgr
+
 DIFFERENCE PWD and CWD
   
   CWD (ie. CURRENT WORKING DIRECTORY) can change (ie. is dynamic) in/within the process that is ran.
@@ -1796,3 +1804,14 @@ USING SED TO HIGHLIGHT STDIN WITH COLOR
   cat highlight-a-string-through-pipe.sh
   #!/bin/sh
   sed "s/\($1\)/\x1b[31m\\1\x1b[39m/g"
+
+TEEWORLDS MULTI-BIND TO mouse1 INSTEAD OF JUST +fire
+
+  #press F1 in-game and type:
+  bind mouse1 "+fire;emote 2"
+  #FIXME: can I use single-quotes?
+
+OBSERVATION: GNU/LINUX MANUAL SIZES [SMALL] COMPARISON
+
+  info --all find | wc --lines | tr '\n' ';'; man find | wc --lines
+  #2537;1685 #compared to 3897 lines to view in `man bash` command

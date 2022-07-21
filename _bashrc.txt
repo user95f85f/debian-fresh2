@@ -327,7 +327,7 @@ ffplay(){
   [ -f "$1" ] || return 2
   local filename="$1"
   local file_extension="${filename##*.}"
-  if [[ $file_extension = 'mp3' || $file_extension = 'wav' || $file_extension = 'ogg' || $file_extension = 'm4a' ]]; then
+  if [[ $file_extension = 'mp3' || $file_extension = 'wav' || $file_extension = 'wv' || $file_extension = 'ogg' || $file_extension = 'm4a' ]]; then
     vol-is-good || return 44
     /usr/bin/ffplay -nodisp -autoexit -hide_banner -v 40 "$filename"  #the -v 40 is a good verbosity I think
   else

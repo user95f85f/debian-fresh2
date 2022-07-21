@@ -307,3 +307,7 @@ DIFF BINARY-BLOB FILES BYTE BY BYTE
 KERNEL AND LIBC/GLIBC RESEARCH
 
   #TODO: how is libc communicating with the kernel?
+
+IRC RESEARCH
+
+  bitlbee pidgin konversation znc convos

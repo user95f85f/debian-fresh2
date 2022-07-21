@@ -347,6 +347,14 @@ GNU/LINUX USER/GROUP MANAGMENT BULLS***
   #add a new group to the system
   man groupadd | grep groupadd
 
+  #Well wtf
+  sudo adduser senior_sargeant_masterchief_business_ceo_director_of_development_manager
+  #groupadd: 'senior_sargeant_masterchief_business_ceo_director_of_development_manager' is not a valid group name
+
+  sudo addgroup yetanothergroup
+  sudo adduser --ingroup yetanothergroup ss_mc_business_cd_of_dm
+  #Senior Sargeant MC Buz CEO Dir. of Dev Mgr
+
 DIFFERENCE PWD and CWD
   
   CWD (ie. CURRENT WORKING DIRECTORY) can change (ie. is dynamic) in/within the process that is ran.
@@ -1950,6 +1958,17 @@ USING SED TO HIGHLIGHT STDIN WITH COLOR
   #!/bin/sh
   sed "s/\($1\)/\x1b[31m\\1\x1b[39m/g"
 
+TEEWORLDS MULTI-BIND TO mouse1 INSTEAD OF JUST +fire
+
+  #press F1 in-game and type:
+  bind mouse1 "+fire;emote 2"
+  #FIXME: can I use single-quotes?
+
+OBSERVATION: GNU/LINUX MANUAL SIZES [SMALL] COMPARISON
+
+  info --all find | wc --lines | tr '\n' ';'; man find | wc --lines
+  #2537;1685 #compared to 3897 lines to view in `man bash` command
+
 #prevents CTRL+S freezing the tty/virtual-console (ie. until CTRL+Q is hit)
 #see:   stty -a | egrep 'start|stop'
 stty start undef
@@ -2278,7 +2297,7 @@ ffplay(){
   [ -f "$1" ] || return 2
   local filename="$1"
   local file_extension="${filename##*.}"
-  if [[ $file_extension = 'mp3' || $file_extension = 'wav' || $file_extension = 'ogg' || $file_extension = 'm4a' ]]; then
+  if [[ $file_extension = 'mp3' || $file_extension = 'wav' || $file_extension = 'wv' || $file_extension = 'ogg' || $file_extension = 'm4a' ]]; then
     vol-is-good || return 44
     /usr/bin/ffplay -nodisp -autoexit -hide_banner -v 40 "$filename"  #the -v 40 is a good verbosity I think
   else
@@ -3220,6 +3239,10 @@ DIFF BINARY-BLOB FILES BYTE BY BYTE
 KERNEL AND LIBC/GLIBC RESEARCH
 
   #TODO: how is libc communicating with the kernel?
+
+IRC RESEARCH
+
+  bitlbee pidgin konversation znc convos
 sudo lsblk --list --output-all /dev/sda | tr '\t' ' ' | sed 's/ \{2,\}/ /g'
 
 
