@@ -2824,7 +2824,6 @@ echo *-debs essential-1of2-debs/* essential-2of2-debs/* | tr ' ' '\n'
 
 
 
-apt-container-debs
 atool-debs
 audacity-debs
 cloc-debs
@@ -2840,19 +2839,15 @@ imagemagick-debs
 jdk-debs
 links-links2-lynx-debs
 mono-cs-debs
-mpv-debs
 nmap-debs
 php-debs
 python3-doc-debs
 python3-tk-debs
 reportbug-debs
-rustc-debs
-steam-debs
 teeworlds-debs
 vim-debs
 w3c-css-validator-debs
 weechat-debs
-wine-debs
 xchm-debs
 essential-1of2-debs/base-files_11.1+deb11u4_amd64.deb
 essential-1of2-debs/bash_5.1-2+deb11u1_amd64.deb
@@ -2924,7 +2919,6 @@ essential-1of2-debs/xz-utils_5.2.5-2.1~deb11u1_amd64.deb
 essential-1of2-debs/zlib1g_1%3a1.2.11.dfsg-2+deb11u1_amd64.deb
 essential-2of2-debs/ack_3.4.0-1_all.deb
 essential-2of2-debs/acpitool_0.5.1-6_amd64.deb
-essential-2of2-debs/apt-show-versions_0.22.12_all.deb
 essential-2of2-debs/bind9-dnsutils_1%3a9.16.27-1~deb11u1_amd64.deb
 essential-2of2-debs/dillo_3.0.5-7_amd64.deb
 essential-2of2-debs/doc-rfc-experimental_20201128-1_all.deb
@@ -2952,6 +2946,7 @@ essential-2of2-debs/libinotifytools0_3.14-8.1_amd64.deb
 essential-2of2-debs/libjq1_1.6-2.1_amd64.deb
 essential-2of2-debs/libjs-underscore_1.9.1~dfsg-3_all.deb
 essential-2of2-debs/libonig5_6.9.6-1.1_amd64.deb
+essential-2of2-debs/libsigsegv2_2.13-1_amd64.deb
 essential-2of2-debs/libsqlite3-mod-impexp_0.9998-2_amd64.deb
 essential-2of2-debs/make-doc_4.3-2_all.deb
 essential-2of2-debs/manpages-posix_2017a-2_all.deb
@@ -2973,7 +2968,6 @@ essential-2of2-debs/python3-tz_2021.1-1_all.deb
 essential-2of2-debs/sqlite3_3.34.1-3_amd64.deb
 essential-2of2-debs/sqlite3-doc_3.34.1-3_all.deb
 essential-2of2-debs/strace_5.10-1_amd64.deb
-essential-2of2-debs/tcpdump_4.99.0-2_amd64.deb
 essential-2of2-debs/tmux_3.3a-1_bpo11+1_amd64.deb
 essential-2of2-debs/toilet_0.3-1.3_amd64.deb
 essential-2of2-debs/toilet-fonts_0.3-1.3_all.deb
@@ -3624,49 +3618,57 @@ Conf libopengl0:i386 (1.3.2-1 Debian:11.3/stable [i386])
 #'e' at boot menu -->  ^linux .* systemd.unit=multi-user.target toram pcie_aspm=off
 #the first custom option avoids `sudo systemctl start lightdm` which allows you to set things up before starting the X server
 
-cat /media/user/DEB_STUFF/_bashrc >> ~/.bashrc_user
+sudo bash -c ':>/etc/motd'
+echo 'US/Pacific' | sudo tee /etc/timezone
+cp -v /media/user/DEB_STUFF/_bashrc ~/.bashrc_user
 echo -e "\n\n\n[ -f ~/.bashrc_user ] && . ~/.bashrc_user\n\n\n" >> ~/.bashrc
-cp /media/user/DEB_STUFF/_vimrc >> ~/.vimrc
-sudo cp /media/user/DEB_STUFF/python4.pl /usr/bin/python4.pl
-ln -s /media/user/DEB_STUFF/dot_steam ~/.steam
-ln -s /media/user/DEB_STUFF/dot_local_share_Steam ~/.local/share/Steam
-ln -s /media/user/DEB_STUFF/dot_cache_mesa_shader_cache ~/.cache/mesa_shader_cache
-ln -s /media/user/DEB_STUFF/dot_local_share_volition ~/.local/share/volition
-sudo dpkg --add-architecture i386
+cp -v /media/user/DEB_STUFF/_vimrc ~/.vimrc
+
+#ln -s /media/user/DEB_STUFF/dot_steam ~/.steam
+#ln -s /media/user/DEB_STUFF/dot_local_share_Steam ~/.local/share/Steam
+#ln -s /media/user/DEB_STUFF/dot_cache_mesa_shader_cache ~/.cache/mesa_shader_cache
+#ln -s /media/user/DEB_STUFF/dot_local_share_volition ~/.local/share/volition
+#sudo dpkg --add-architecture i386
 sudo systemctl stop cups exim4 cups-browsed avahi-daemon avahi-daemon.socket cron anacron.timer
 sudo systemctl stop bluetooth && sudo systemctl disable bluetooth
 sudo systemctl stop apt-daily-upgrade.timer apt-daily.timer sysstat-summary.timer
 sudo systemctl disable apt-daily-upgrade.timer apt-daily.timer sysstat-summary.timer
-
-sudo /usr/sbin/swapon /dev/sda2
-sudo apt-mark hold hddtemp libburn4 libisofs6 libjte2 libqrencode4 libxnvctrl0 linux-compiler-gcc-10-x86 linux-headers-amd64 linux-image-amd64 linux-libc-dev ristretto xfce4-battery-plugin xfce4-clipman xfce4-clipman-plugin xfce4-cpufreq-plugin xfce4-cpugraph-plugin xfce4-datetime-plugin xfce4-diskperf-plugin xfce4-fsguard-plugin xfce4-genmon-plugin xfce4-mailwatch-plugin xfce4-netload-plugin xfce4-places-plugin xfce4-screenshooter xfce4-sensors-plugin xfce4-smartbookmark-plugin xfce4-systemload-plugin xfce4-taskmanager xfce4-timer-plugin xfce4-verve-plugin xfce4-wavelan-plugin xfce4-weather-plugin xfce4-whiskermenu-plugin xfce4-xkb-plugin 
-sudo apt purge $(dpkg -l | egrep -i 'mozi|fox' | awk '{print $2}' | tr '\n' ' ') epiphany-browser konqueror chromium
-sudo apt purge goldendict exfalso parole quodlibet
-sudo apt-mark manual bc
-sudo apt purge cups-daemon cups cups-browsed cups-core-drivers #I'm 93% sure this is right
-sudo apt purge hexchat hexchat-common hexchat-perl hexchat-plugins hexchat-python3
-sudo apt --purge autoremove
-
-#30%sure this is OK
 sudo systemctl stop sysstat-collect.timer sysstat-collect
 sudo systemctl disable sysstat-collect.timer sysstat-collect
+
+sudo /usr/sbin/swapon /dev/sda2
+sudo apt-mark manual bc javascript-common
+sudo apt-mark hold hddtemp libburn4 libisofs6 libjte2 libqrencode4 libxnvctrl0 linux-compiler-gcc-10-x86 linux-headers-amd64 linux-image-amd64 linux-libc-dev ristretto xfce4-battery-plugin xfce4-clipman xfce4-clipman-plugin xfce4-cpufreq-plugin xfce4-cpugraph-plugin xfce4-datetime-plugin xfce4-diskperf-plugin xfce4-fsguard-plugin xfce4-genmon-plugin xfce4-mailwatch-plugin xfce4-netload-plugin xfce4-places-plugin xfce4-screenshooter xfce4-sensors-plugin xfce4-smartbookmark-plugin xfce4-systemload-plugin xfce4-taskmanager xfce4-timer-plugin xfce4-verve-plugin xfce4-wavelan-plugin xfce4-weather-plugin xfce4-whiskermenu-plugin xfce4-xkb-plugin 
+sudo apt purge light-locker
+sudo apt purge $(dpkg -l | egrep -i 'mozi|fox' | awk '{print $2}' | tr '\n' ' ') epiphany-browser konqueror chromium
+sudo apt purge goldendict exfalso parole quodlibet
+sudo apt purge cups-daemon cups cups-browsed cups-core-drivers #I'm 93% sure this is right
+sudo apt --purge autoremove
 
 #XFCE4 auto-services are disabled/removed-from-start-of-lightdm-service
 for i in calamares-desktop-icon geoclue-demo-agent orca-autostart print-applet xdg-user-dirs xfce4-clipman-plugin-autostart xscreensaver; do sudo rm -iv /etc/xdg/autostart/$i.desktop; done
 
 sudo cp -iv /etc/services /etc/ports
-sudo sh -c 'cat service-names-port-numbers.txt >> /etc/ports'
+sudo sh -c 'cat /media/user/DEB_STUFF/service-names-port-numbers.txt >> /etc/ports'
 
 rmdir ~/Documents
 ln -s /media/user/DEB_STUFF/Documents ~/Documents
+echo 'so what I just did: bashrc && vimrc && disable open ports && disable timers && swapon && prep 11.4 && rm firefox && ~/Documents is great'
 echo 'now go to /media/user/DEB_STUFF and install all of the software you want'
-echo 'oh yeah, change your wallpaper, remove Desktop icons, and get rid of some ~/ directories'
+echo 'oh yeah, change your wallpaper, set XFCE4 timezone somehow, remove Desktop icons, and get rid of some ~/ directories'
 echo
+#FIXME: TODO: install-setup-git pushing (ie. account, username, email, and token)
 echo
 echo 'sudo dpkg --force-depends --remove xfburn xfce4-dict xfce4-goodies'
 echo sudo 'apt-mark hold $packages_that_can_be_autoremoved-get_from_apt-finstall_output'
 echo
-echo you might need to set your timezone in XFCE
+echo
+
+for i in essential-1of2-debs essential-2of2-debs vim-debs weechat-debs epiphany-browser-debs exiftool-debs imagemagick-debs atool-debs audacity-debs ffmpeg-libdvdcss2-mpv-vlc-debs teeworlds-debs git-debs; do
+  printf '%s\n' "sudo dpkg -iR $i"
+  read -p '? '
+  sudo dpkg -iR "$i"
+done
 #!/bin/bash
 
 #this is a 10%-31% comprehensive debian package management reference.
