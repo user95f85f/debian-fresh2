@@ -2027,6 +2027,8 @@ stty start undef
 stty stop undef
 
 export EDITOR=/usr/bin/vim
+export GREPHTML_GREPPER_EXEC=/usr/bin/ack
+export GREPHTML_GREPPER_OPTIONS='-i'
 export TZ=America/Los_Angeles
 export WINEPREFIX=/media/user/DEB_STUFF/dot-wine
 apt='apt apt-cache apt-file apt-get apt-mark aptitude dpkg dpkg-query' 
@@ -3317,6 +3319,14 @@ KERNEL AND LIBC/GLIBC RESEARCH
 IRC RESEARCH
 
   bitlbee pidgin konversation znc convos
+
+HISTORICAL PERL ONE-LINER FOR grep -ER OUTPUT
+
+  #30% sure this will work
+  browser_could_use=lynx
+  read -p 'search what? ' search_string
+  read -p 'search what directory? ' search_dir
+  egrep -R "$search_string" "$search_dir" | perl -e 'BEGIN{undef $/;} $_=<>;@s=split /\n/;foreach(@s){s/txt/html/;s/txt/html/;s/^/'$browser_could_use' /;} print(join("\n",@s));'
 sudo lsblk --list --output-all /dev/sda | tr '\t' ' ' | sed 's/ \{2,\}/ /g'
 
 

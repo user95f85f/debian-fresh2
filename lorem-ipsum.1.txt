@@ -311,3 +311,11 @@ KERNEL AND LIBC/GLIBC RESEARCH
 IRC RESEARCH
 
   bitlbee pidgin konversation znc convos
+
+HISTORICAL PERL ONE-LINER FOR grep -ER OUTPUT
+
+  #30% sure this will work
+  browser_could_use=lynx
+  read -p 'search what? ' search_string
+  read -p 'search what directory? ' search_dir
+  egrep -R "$search_string" "$search_dir" | perl -e 'BEGIN{undef $/;} $_=<>;@s=split /\n/;foreach(@s){s/txt/html/;s/txt/html/;s/^/'$browser_could_use' /;} print(join("\n",@s));'

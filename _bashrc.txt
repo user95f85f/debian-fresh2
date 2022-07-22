@@ -5,6 +5,8 @@ stty start undef
 stty stop undef
 
 export EDITOR=/usr/bin/vim
+export GREPHTML_GREPPER_EXEC=/usr/bin/ack
+export GREPHTML_GREPPER_OPTIONS='-i'
 export TZ=America/Los_Angeles
 export WINEPREFIX=/media/user/DEB_STUFF/dot-wine
 apt='apt apt-cache apt-file apt-get apt-mark aptitude dpkg dpkg-query' 
