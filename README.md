@@ -2412,7 +2412,7 @@ custom programs I put into:
 
 
 
-apt-MEGA                              reference sheet basically for dpkg* apt* commands (ie. for package management)
+APT                                   reference sheet basically for dpkg* apt* commands (ie. for package management)
 chomp                                 gets rid of file($ARG1) '\n' at the end of the text file.
 etc-hosts-push.sh                     puts all of the blocked domain names into /etc/hosts
 etc-hosts-reset.sh                    frees /etc/hosts so I can visit youtube
