@@ -10,6 +10,7 @@ essential-1of2-debs
 essential-2of2-debs
 exiftool-debs
 ffmpeg-libdvdcss2-mpv-vlc-debs
+gimp-debs
 git-debs
 gmtp_android-usb-debs
 go-debs

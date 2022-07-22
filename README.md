@@ -2063,8 +2063,8 @@ alias ffmpeg='/usr/bin/ffmpeg -hide_banner'
 alias ffprobe='/usr/bin/ffprobe -hide_banner'
 alias find-biggest-dirs='du -h | sort -h'
 alias jpg='/usr/bin/jpegoptim -s'
-alias lightdm-stop='is_desktop_running && sudo systemctl stop lightdm'
-alias lightdm-start='is_desktop_running || sudo systemctl start lightdm'
+alias dm-stop='is_desktop_running && sudo systemctl stop display-manager.service'
+alias dm-start='is_desktop_running || sudo systemctl start display-manager.service'
 alias myip='bash -c "wget --quiet -O - -4 ifconfig.io; wget --quiet -O - -6 ifconfig.io"'
 alias png='/usr/bin/optipng'
 alias rm2='/usr/bin/shred --remove=wipesync --verbose'
@@ -2859,6 +2859,7 @@ essential-1of2-debs
 essential-2of2-debs
 exiftool-debs
 ffmpeg-libdvdcss2-mpv-vlc-debs
+gimp-debs
 git-debs
 gmtp_android-usb-debs
 go-debs
@@ -3647,9 +3648,15 @@ Conf libopengl0:i386 (1.3.2-1 Debian:11.3/stable [i386])
 
 sudo bash -c ':>/etc/motd'
 echo 'US/Pacific' | sudo tee /etc/timezone
+sudo modprobe -r r8169 #we're not using ethernet
+cat <<EOF_APTSOURCES | sudo tee /etc/apt/sources.list
+deb https://debian.osuosl.org/debian/ bullseye main contrib non-free
+deb-src https://debian.osuosl.org/debian/ bullseye main contrib non-free
+EOF_APTSOURCES
 cp -v /media/user/DEB_STUFF/_bashrc ~/.bashrc_user
 echo -e "\n\n\n[ -f ~/.bashrc_user ] && . ~/.bashrc_user\n\n\n" >> ~/.bashrc
 cp -v /media/user/DEB_STUFF/_vimrc ~/.vimrc
+
 
 #ln -s /media/user/DEB_STUFF/dot_steam ~/.steam
 #ln -s /media/user/DEB_STUFF/dot_local_share_Steam ~/.local/share/Steam
@@ -3670,6 +3677,7 @@ sudo apt purge light-locker
 sudo apt purge $(dpkg -l | egrep -i 'mozi|fox' | awk '{print $2}' | tr '\n' ' ') epiphany-browser konqueror chromium
 sudo apt purge goldendict exfalso parole quodlibet
 sudo apt purge cups-daemon cups cups-browsed cups-core-drivers #I'm 93% sure this is right
+sudo apt purge 'libreoffice-*'
 sudo apt --purge autoremove
 
 #XFCE4 auto-services are disabled/removed-from-start-of-lightdm-service
@@ -3691,7 +3699,7 @@ echo sudo 'apt-mark hold $packages_that_can_be_autoremoved-get_from_apt-finstall
 echo
 echo
 
-for i in essential-1of2-debs essential-2of2-debs vim-debs weechat-debs epiphany-browser-debs exiftool-debs imagemagick-debs atool-debs audacity-debs ffmpeg-libdvdcss2-mpv-vlc-debs teeworlds-debs git-debs links-links2-lynx-debs; do
+for i in essential-1of2-debs essential-2of2-debs vim-debs weechat-debs epiphany-browser-debs exiftool-debs imagemagick-debs atool-debs audacity-debs ffmpeg-libdvdcss2-mpv-vlc-debs teeworlds-debs git-debs links-links2-lynx-debs gimp-debs; do
   printf '%s\n' "sudo dpkg -iR $i"
   read -p '? '
   sudo dpkg -iR "$i"
