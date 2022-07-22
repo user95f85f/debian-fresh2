@@ -1,0 +1,27 @@
+
+
+custom programs I put into:
+/usr/local/bin/
+
+
+
+apt-MEGA                              reference sheet basically for dpkg* apt* commands (ie. for package management)
+chomp                                 gets rid of file($ARG1) '\n' at the end of the text file.
+etc-hosts-push.sh                     puts all of the blocked domain names into /etc/hosts
+etc-hosts-reset.sh                    frees /etc/hosts so I can visit youtube
+file-upload-ixio.sh                   file upload with no file extension (for text)
+file-upload.sh                        file upload with    file extension (for .mp3, .jpg, .png, .mp4, .webm)
+git-push.sh                           sync-all.sh && upload all changes to my github repository
+hi                                    prints a shuffled hello message in about 5 Earth languages
+mousepad-todo                         opens mousepad to the $todo file..used for Alt+F2 in XFCE4 to quickly open my todo list to paste URLs to visit in the future maybe
+ratios-add.py                         1 1 1 1 would print 25% 25% 25% 25%
+rot.pl                                convert STDIN string to rot13
+screenshot.sh                         take screenshot of whole screen and put into $screenshots. used for PrtScr key in XFCE4
+strip-html-nonascii-empty-lines.pl
+strip-nonascii-count.pl
+strip-nonascii-detect.pl
+strip-nonascii.pl
+sync-all.sh
+teeworlds                             make /usr/games/teeworlds STDOUT go to a logfile in $teeworlds_logs
+tempconv                              convert easy C->F F->C
+unrot.pl                              basically the same thing as rot.pl
