@@ -2499,7 +2499,8 @@ can be found by Googling 'GPLv2 or greater.'
 
 
 #
-# __COPYRIGHT__
+# __COPYRIGHT__ (style 1)
+# (I'm 7% sure this works with this repository's MIT License) 
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -2520,6 +2521,25 @@ can be found by Googling 'GPLv2 or greater.'
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
+
+#
+# __COPYRIGHT__ (style 2)
+# (I'm 0% sure this works with this repository's MIT License) 
+#
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the
+# Free Software Foundation; either version 2 of the License, or (at your
+# option) any later version.
+# 
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+
 1.6M	dash-0.5.11+git20200708+dd9ef66/
 39M	bash-5.1/
 109M	perl-5.32.1/
@@ -3690,23 +3710,30 @@ cp -v /media/user/DEB_STUFF/_vimrc ~/.vimrc
 #ln -s /media/user/DEB_STUFF/dot_cache_mesa_shader_cache ~/.cache/mesa_shader_cache
 #ln -s /media/user/DEB_STUFF/dot_local_share_volition ~/.local/share/volition
 #sudo dpkg --add-architecture i386
-sudo systemctl stop cups exim4 cups-browsed avahi-daemon avahi-daemon.socket cron anacron.timer
-sudo systemctl disable cups exim4 cups-browsed avahi-daemon avahi-daemon.socket cron anacron.timer
-sudo systemctl stop bluetooth && sudo systemctl disable bluetooth
-sudo systemctl stop apt-daily-upgrade.timer apt-daily.timer sysstat-summary.timer
-sudo systemctl disable apt-daily-upgrade.timer apt-daily.timer sysstat-summary.timer
-sudo systemctl stop sysstat-collect.timer sysstat-collect
-sudo systemctl disable sysstat-collect.timer sysstat-collect
+
+timers='anacron.timer apt-daily.timer apt-daily-upgrade.timer sysstat-collect.timer sysstat-summary.timer'
+services='avahi-daemon bluetooth cron cups cups-browsed exim4 rtkit-daemon.service sysstat-collect'
+sockets=avahi-daemon.socket
+
+for i in $timers $services $sockets; do
+  echo "sudo systemctl stop $i; sudo systemctl disable $i"
+  sudo systemctl stop $i; sudo systemctl disable $i
+done
+
+unset timers services sockets
 
 sudo /usr/sbin/swapon /dev/sda2
 sudo apt-mark manual bc javascript-common
 sudo apt-mark hold hddtemp libburn4 libisofs6 libjte2 libqrencode4 libxnvctrl0 linux-compiler-gcc-10-x86 linux-headers-amd64 linux-image-amd64 linux-libc-dev ristretto xfce4-battery-plugin xfce4-clipman xfce4-clipman-plugin xfce4-cpufreq-plugin xfce4-cpugraph-plugin xfce4-datetime-plugin xfce4-diskperf-plugin xfce4-fsguard-plugin xfce4-genmon-plugin xfce4-mailwatch-plugin xfce4-netload-plugin xfce4-places-plugin xfce4-screenshooter xfce4-sensors-plugin xfce4-smartbookmark-plugin xfce4-systemload-plugin xfce4-taskmanager xfce4-timer-plugin xfce4-verve-plugin xfce4-wavelan-plugin xfce4-weather-plugin xfce4-whiskermenu-plugin xfce4-xkb-plugin 
 sudo apt purge avahi-daemon cups-daemon cups cups-browsed cups-core-drivers #93% sure this is right
+sudo apt purge rtkit #I'm 3% sure this is 9 (ie. "right")
 sudo apt purge light-locker
 sudo apt purge $(dpkg -l | egrep -i 'mozi|fox' | awk '{print $2}' | tr '\n' ' ') epiphany-browser konqueror chromium
-sudo apt purge goldendict exfalso parole quodlibet
+sudo apt purge goldendict exfalso parole quodlibet xfburn xarchiver xsane
 sudo apt purge 'libreoffice-*'
 sudo apt --purge autoremove
+
+sudo systemctl stop avahi-daemon.socket #Just in case. (lmao)
 
 #XFCE4 auto-services are disabled/removed-from-start-of-lightdm-service
 for i in calamares-desktop-icon geoclue-demo-agent orca-autostart print-applet xdg-user-dirs xfce4-clipman-plugin-autostart xscreensaver; do sudo rm -iv /etc/xdg/autostart/$i.desktop; done
@@ -4010,6 +4037,10 @@ translate-shell #google-translate-cli
 17 rustc 
 26 default-jdk
 176 mono-mcs
+
+Teeworlds messages:
+сука -> siка -> sick'em -> get them -> get the other team!
+{Mᴜɢɪ} {Mᴜɢɪ} {Mᴜɢɪ} {Mᴜᴜᴜɢɪ}...{Mᴜɢɪ}
 
 
 Gaming phrases:
