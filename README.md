@@ -3369,6 +3369,22 @@ HISTORICAL IDEA
 TEST PENDRIVE/THUMB-DRIVE/USB-THINGY
 
   f3write f3read #to test the validity of your pendrive's true volume size ??????????????????????????????????????????????? -3 (ie. "Bulls***")
+
+POSSIBLE HARDWARE DATA THAT WOULD DO GOOD FOR OUTPUT TO SHOW TO PEOPLE TO SHOW THEM HOW ULTRA POWERFUL I REALLY AM
+
+  apt-file list hwloc-nox | grep -F /usr/sbin/hwloc-dump-hwdata
+
+VALIDATE CSS???????????????????
+
+  w3c-markup-validator #requires apache2, ugh.
+
+CHECK THOSE F***ING LINKS ON THE WEBSITE I GUESS
+
+  w3c-linkchecker  #requires apache2, ugh.
+
+DO GOOGLE TRANSLATE WITHOUT A BROWSER?????? CLI?!!! OH MY GAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+  translate-shell #google-translate-cli
 sudo lsblk --list --output-all /dev/sda | tr '\t' ' ' | sed 's/ \{2,\}/ /g'
 
 
@@ -4031,9 +4047,6 @@ USING CURL TO POST JSON DATA TO A PHP FILE ON A F***ING HTTP SERVER
 	curl http://localhost:42/post-json-stuff-on-me.php --request POST \
 		--header 'content-type: application/json' \
 		--data '{ "key1":"value1", "key2":"value2", "key3":"value3", "key4":[] }'
-
-w3c-linkchecker w3c-markup-validator #requires apache2, ugh.
-translate-shell #google-translate-cli
 
 0 firefox
 0 perl5
