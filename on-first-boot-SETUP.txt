@@ -21,6 +21,7 @@ cp -v /media/user/DEB_STUFF/_vimrc ~/.vimrc
 #ln -s /media/user/DEB_STUFF/dot_local_share_volition ~/.local/share/volition
 #sudo dpkg --add-architecture i386
 sudo systemctl stop cups exim4 cups-browsed avahi-daemon avahi-daemon.socket cron anacron.timer
+sudo systemctl disable cups exim4 cups-browsed avahi-daemon avahi-daemon.socket cron anacron.timer
 sudo systemctl stop bluetooth && sudo systemctl disable bluetooth
 sudo systemctl stop apt-daily-upgrade.timer apt-daily.timer sysstat-summary.timer
 sudo systemctl disable apt-daily-upgrade.timer apt-daily.timer sysstat-summary.timer
@@ -30,10 +31,10 @@ sudo systemctl disable sysstat-collect.timer sysstat-collect
 sudo /usr/sbin/swapon /dev/sda2
 sudo apt-mark manual bc javascript-common
 sudo apt-mark hold hddtemp libburn4 libisofs6 libjte2 libqrencode4 libxnvctrl0 linux-compiler-gcc-10-x86 linux-headers-amd64 linux-image-amd64 linux-libc-dev ristretto xfce4-battery-plugin xfce4-clipman xfce4-clipman-plugin xfce4-cpufreq-plugin xfce4-cpugraph-plugin xfce4-datetime-plugin xfce4-diskperf-plugin xfce4-fsguard-plugin xfce4-genmon-plugin xfce4-mailwatch-plugin xfce4-netload-plugin xfce4-places-plugin xfce4-screenshooter xfce4-sensors-plugin xfce4-smartbookmark-plugin xfce4-systemload-plugin xfce4-taskmanager xfce4-timer-plugin xfce4-verve-plugin xfce4-wavelan-plugin xfce4-weather-plugin xfce4-whiskermenu-plugin xfce4-xkb-plugin 
+sudo apt purge avahi-daemon cups-daemon cups cups-browsed cups-core-drivers #93% sure this is right
 sudo apt purge light-locker
 sudo apt purge $(dpkg -l | egrep -i 'mozi|fox' | awk '{print $2}' | tr '\n' ' ') epiphany-browser konqueror chromium
 sudo apt purge goldendict exfalso parole quodlibet
-sudo apt purge cups-daemon cups cups-browsed cups-core-drivers #I'm 93% sure this is right
 sudo apt purge 'libreoffice-*'
 sudo apt --purge autoremove
 
