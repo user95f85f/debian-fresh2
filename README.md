@@ -3691,11 +3691,12 @@ echo sudo 'apt-mark hold $packages_that_can_be_autoremoved-get_from_apt-finstall
 echo
 echo
 
-for i in essential-1of2-debs essential-2of2-debs vim-debs weechat-debs epiphany-browser-debs exiftool-debs imagemagick-debs atool-debs audacity-debs ffmpeg-libdvdcss2-mpv-vlc-debs teeworlds-debs git-debs; do
+for i in essential-1of2-debs essential-2of2-debs vim-debs weechat-debs epiphany-browser-debs exiftool-debs imagemagick-debs atool-debs audacity-debs ffmpeg-libdvdcss2-mpv-vlc-debs teeworlds-debs git-debs links-links2-lynx-debs; do
   printf '%s\n' "sudo dpkg -iR $i"
   read -p '? '
   sudo dpkg -iR "$i"
 done
+
 #!/bin/bash
 
 #this is a 10%-31% comprehensive debian package management reference.
