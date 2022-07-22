@@ -57,6 +57,19 @@ alias udisks='/usr/bin/udisksctl'
 alias vi='/usr/bin/vim'
 alias vim2='/usr/bin/vim "+set autoread readonly"'
 alias weechat='echo bitchx'
+readme(){
+  local arg1="$1"
+  if [ -z "$arg1" ] ; then
+    arg1=1
+  else
+    [[ "$arg1" =~ ^[0-9]+$ ]] || return 44
+  fi
+  while [ $arg1 -gt 0 ]; do
+    /usr/local/bin/readme.sh
+    (( arg1-- ))
+  done
+  return 0
+}
 coffee(){
   echo you: sips some coffee..
   echo mm yum

@@ -2079,6 +2079,19 @@ alias udisks='/usr/bin/udisksctl'
 alias vi='/usr/bin/vim'
 alias vim2='/usr/bin/vim "+set autoread readonly"'
 alias weechat='echo bitchx'
+readme(){
+  local arg1="$1"
+  if [ -z "$arg1" ] ; then
+    arg1=1
+  else
+    [[ "$arg1" =~ ^[0-9]+$ ]] || return 44
+  fi
+  while [ $arg1 -gt 0 ]; do
+    /usr/local/bin/readme.sh
+    (( arg1-- ))
+  done
+  return 0
+}
 coffee(){
   echo you: sips some coffee..
   echo mm yum
@@ -3327,6 +3340,10 @@ HISTORICAL PERL ONE-LINER FOR grep -ER OUTPUT
   read -p 'search what? ' search_string
   read -p 'search what directory? ' search_dir
   egrep -R "$search_string" "$search_dir" | perl -e 'BEGIN{undef $/;} $_=<>;@s=split /\n/;foreach(@s){s/txt/html/;s/txt/html/;s/^/'$browser_could_use' /;} print(join("\n",@s));'
+
+HISTORICAL IDEA
+
+  the ugly truth about programming is that PHP?/HTML/CSS/JavaScript (in a browser) and below is 99% of all you'll ever really need.
 sudo lsblk --list --output-all /dev/sda | tr '\t' ' ' | sed 's/ \{2,\}/ /g'
 
 
