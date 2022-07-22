@@ -2886,6 +2886,7 @@ echo *-debs essential-1of2-debs/* essential-2of2-debs/* | tr ' ' '\n'
 
 
 
+apt-file-debs
 atool-debs
 audacity-debs
 cloc-debs
@@ -3364,6 +3365,10 @@ HISTORICAL PERL ONE-LINER FOR grep -ER OUTPUT
 HISTORICAL IDEA
 
   the ugly truth about programming is that PHP?/HTML/CSS/JavaScript (in a browser) and below is 99% of all you'll ever really need.
+
+TEST PENDRIVE/THUMB-DRIVE/USB-THINGY
+
+  f3write f3read #to test the validity of your pendrive's true volume size ??????????????????????????????????????????????? -3 (ie. "Bulls***")
 sudo lsblk --list --output-all /dev/sda | tr '\t' ' ' | sed 's/ \{2,\}/ /g'
 
 
@@ -3746,6 +3751,7 @@ ln -s /media/user/DEB_STUFF/Documents ~/Documents
 echo 'so what I just did: bashrc && vimrc && disable open ports && disable timers && swapon && prep 11.4 && rm firefox && ~/Documents is great'
 echo 'now go to /media/user/DEB_STUFF and install all of the software you want'
 echo 'oh yeah, change your wallpaper, set XFCE4 timezone somehow, remove Desktop icons, and get rid of some ~/ directories'
+echo 'when you get on the Internet: sudo apt update && sudo apt-file update'
 echo
 #FIXME: TODO: install-setup-git pushing (ie. account, username, email, and token)
 echo
@@ -3754,7 +3760,7 @@ echo sudo 'apt-mark hold $packages_that_can_be_autoremoved-get_from_apt-finstall
 echo
 echo
 
-for i in essential-1of2-debs essential-2of2-debs vim-debs weechat-debs epiphany-browser-debs exiftool-debs imagemagick-debs atool-debs audacity-debs ffmpeg-libdvdcss2-mpv-vlc-debs teeworlds-debs git-debs links-links2-lynx-debs gimp-debs; do
+for i in essential-1of2-debs essential-2of2-debs vim-debs weechat-debs epiphany-browser-debs exiftool-debs imagemagick-debs atool-debs audacity-debs ffmpeg-libdvdcss2-mpv-vlc-debs teeworlds-debs git-debs links-links2-lynx-debs gimp-debs apt-file-debs; do
   printf '%s\n' "sudo dpkg -iR $i"
   read -p '? '
   sudo dpkg -iR "$i"

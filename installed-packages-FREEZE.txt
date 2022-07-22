@@ -2,6 +2,7 @@ echo *-debs essential-1of2-debs/* essential-2of2-debs/* | tr ' ' '\n'
 
 
 
+apt-file-debs
 atool-debs
 audacity-debs
 cloc-debs
