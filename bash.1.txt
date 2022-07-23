@@ -908,9 +908,10 @@ TMUX QUICK REFERENCE GUIDE
 RUST CARGO "CRATE" BULLSH**
 
   #assuming the source code you want to compile is in ~/source-code.c
-  cat ~/source-code.c | xclip -selection clipboard
-  epiphany https://rust2c.com   #CTRL+V code in here
+  cat ~/source-code.c | xclip -selection clipboard    #OR: DISPLAY=:0.0 xclip -selection clipboard ~/source-code.c
+  epiphany https://rust2c.com &  #CTRL+V code in here
                                 #put code ~/source-code.rs
+  sleep 20; printf '' | DISPLAY=:0.0 xclip -selection clipboard #clear the clipboard
   cd ~ && {
     sed -i '/register_tool/d;/feature(main/d;/^#\[main\]$/d' source-code.rs && \
     cargo new temp1111 && \
@@ -1810,6 +1811,11 @@ TEEWORLDS MULTI-BIND TO mouse1 INSTEAD OF JUST +fire
   #press F1 in-game and type:
   bind mouse1 "+fire;emote 2"
   #FIXME: can I use single-quotes?
+
+TEEWORLDS TIP (AS A SPECTATOR)
+
+  It's -1 2 [excessive:] 1 to chat while being a spectator.
+  So the rule is if you want to chat as a spectator you wait until another spectator starts chatting xD
 
 OBSERVATION: GNU/LINUX MANUAL SIZES [SMALL] COMPARISON
 

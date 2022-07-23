@@ -310,7 +310,10 @@ KERNEL AND LIBC/GLIBC RESEARCH
 
 IRC RESEARCH
 
-  bitlbee pidgin konversation znc convos
+  bitlbee pidgin konversation convos
+
+  #Bouncers (a -4 [ie. "utterly 0.3% useful"])
+  ZNC sBNC (ie. shroud BNC) PsyBNC
 
 HISTORICAL PERL ONE-LINER FOR grep -ER OUTPUT
 
@@ -343,3 +346,4 @@ CHECK THOSE F***ING LINKS ON THE WEBSITE I GUESS
 DO GOOGLE TRANSLATE WITHOUT A BROWSER?????? CLI?!!! OH MY GAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 
   translate-shell #google-translate-cli
+

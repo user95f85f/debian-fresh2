@@ -1061,9 +1061,10 @@ TMUX QUICK REFERENCE GUIDE
 RUST CARGO "CRATE" BULLSH**
 
   #assuming the source code you want to compile is in ~/source-code.c
-  cat ~/source-code.c | xclip -selection clipboard
-  epiphany https://rust2c.com   #CTRL+V code in here
+  cat ~/source-code.c | xclip -selection clipboard    #OR: DISPLAY=:0.0 xclip -selection clipboard ~/source-code.c
+  epiphany https://rust2c.com &  #CTRL+V code in here
                                 #put code ~/source-code.rs
+  sleep 20; printf '' | DISPLAY=:0.0 xclip -selection clipboard #clear the clipboard
   cd ~ && {
     sed -i '/register_tool/d;/feature(main/d;/^#\[main\]$/d' source-code.rs && \
     cargo new temp1111 && \
@@ -1964,6 +1965,11 @@ TEEWORLDS MULTI-BIND TO mouse1 INSTEAD OF JUST +fire
   bind mouse1 "+fire;emote 2"
   #FIXME: can I use single-quotes?
 
+TEEWORLDS TIP (AS A SPECTATOR)
+
+  It's -1 2 [excessive:] 1 to chat while being a spectator.
+  So the rule is if you want to chat as a spectator you wait until another spectator starts chatting xD
+
 OBSERVATION: GNU/LINUX MANUAL SIZES [SMALL] COMPARISON
 
   info --all find | wc --lines | tr '\n' ';'; man find | wc --lines
@@ -2054,6 +2060,7 @@ export todo='/home/user/Documents/TODO/todo.txt'
 export txt_lorem_ipsum='/home/user/Documents/lorem-ipsum.1.txt'
 export weechat_logs='/home/user/.weechat/logs'
 export wireless_cheatsheet='/home/user/Documents/Github-repos/debian-fresh2/wireless-cheat-sheet.txt'
+export words=/usr/share/dict/american-english
 alias ..='cd ..'
 alias bash++='/usr/bin/perl'
 alias battery='echo acpitool -b'
@@ -2169,7 +2176,7 @@ EOFRR2
   chmod +x "$1"
 }
 cpu-temp(){
-  echo CPU temperature is `c2f $(sensors | grep -E ^CPU | grep -Eo [0-9]+\.[0-9]+)` Fahrenheit
+  echo CPU temperature is `tempconv $(sensors | grep -E ^CPU | grep -Eo [0-9]+\.[0-9]+)`
 }
 urban-example(){
   cat <<EOFFFFFUUUUU
@@ -2368,6 +2375,7 @@ ffplay(){
     vol-is-good || return 44
     /usr/bin/ffplay -nodisp -autoexit -hide_banner -v 40 "$filename"  #the -v 40 is a good verbosity I think
   else
+    [ -v DISPLAY ] || return 55
     /usr/bin/ffplay -hide_banner -v 40 "$filename"
   fi
 }
@@ -3352,7 +3360,10 @@ KERNEL AND LIBC/GLIBC RESEARCH
 
 IRC RESEARCH
 
-  bitlbee pidgin konversation znc convos
+  bitlbee pidgin konversation convos
+
+  #Bouncers (a -4 [ie. "utterly 0.3% useful"])
+  ZNC sBNC (ie. shroud BNC) PsyBNC
 
 HISTORICAL PERL ONE-LINER FOR grep -ER OUTPUT
 
@@ -3385,6 +3396,7 @@ CHECK THOSE F***ING LINKS ON THE WEBSITE I GUESS
 DO GOOGLE TRANSLATE WITHOUT A BROWSER?????? CLI?!!! OH MY GAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 
   translate-shell #google-translate-cli
+
 sudo lsblk --list --output-all /dev/sda | tr '\t' ' ' | sed 's/ \{2,\}/ /g'
 
 
@@ -3752,6 +3764,7 @@ sudo apt purge light-locker
 sudo apt purge $(dpkg -l | egrep -i 'mozi|fox' | awk '{print $2}' | tr '\n' ' ') epiphany-browser konqueror chromium
 sudo apt purge goldendict exfalso parole quodlibet xfburn xarchiver xsane
 sudo apt purge 'libreoffice-*'
+sudo apt purge bluetooth bluez
 sudo apt --purge autoremove
 
 sudo systemctl stop avahi-daemon.socket #Just in case. (lmao)

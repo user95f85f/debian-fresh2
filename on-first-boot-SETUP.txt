@@ -41,6 +41,7 @@ sudo apt purge light-locker
 sudo apt purge $(dpkg -l | egrep -i 'mozi|fox' | awk '{print $2}' | tr '\n' ' ') epiphany-browser konqueror chromium
 sudo apt purge goldendict exfalso parole quodlibet xfburn xarchiver xsane
 sudo apt purge 'libreoffice-*'
+sudo apt purge bluetooth bluez
 sudo apt --purge autoremove
 
 sudo systemctl stop avahi-daemon.socket #Just in case. (lmao)
