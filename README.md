@@ -2434,7 +2434,6 @@ custom programs I put into:
 /usr/local/bin/
 
 
-
 APT                                   reference sheet basically for dpkg* apt* commands (ie. for package management)
 chomp                                 gets rid of file($ARG1) '\n' at the end of the text file.
 etc-hosts-push.sh                     puts all of the blocked domain names into /etc/hosts
@@ -2444,6 +2443,7 @@ file-upload.sh                        file upload with    file extension (for .m
 git-push.sh                           sync-all.sh && upload all changes to my github repository
 hi                                    prints a shuffled hello message in about 5 Earth languages
 mousepad-todo                         opens mousepad to the $todo file..used for Alt+F2 in XFCE4 to quickly open my todo list to paste URLs to visit in the future maybe
+ratios-2arg-gain.py                   1 2 would print +200%
 ratios-add.py                         1 1 1 1 would print 25% 25% 25% 25%
 rot.pl                                convert STDIN string to rot13
 screenshot.sh                         take screenshot of whole screen and put into $screenshots. used for PrtScr key in XFCE4
@@ -3686,6 +3686,7 @@ Conf libopengl0:i386 (1.3.2-1 Debian:11.3/stable [i386])
 sudo bash -c ':>/etc/motd'
 echo 'US/Pacific' | sudo tee /etc/timezone
 sudo modprobe -r r8169 #we're not using ethernet
+sudo chown user /usr/local/bin
 cat <<EOF_APTSOURCES | sudo tee /etc/apt/sources.list
 deb https://debian.osuosl.org/debian/ bullseye main contrib non-free
 deb-src https://debian.osuosl.org/debian/ bullseye main contrib non-free
@@ -3714,14 +3715,14 @@ unset timers services sockets
 
 sudo /usr/sbin/swapon /dev/sda2
 sudo apt-mark manual bc javascript-common
-sudo apt-mark hold hddtemp libburn4 libisofs6 libjte2 libqrencode4 libxnvctrl0 linux-compiler-gcc-10-x86 linux-headers-amd64 linux-image-amd64 linux-libc-dev ristretto xfce4-battery-plugin xfce4-clipman xfce4-clipman-plugin xfce4-cpufreq-plugin xfce4-cpugraph-plugin xfce4-datetime-plugin xfce4-diskperf-plugin xfce4-fsguard-plugin xfce4-genmon-plugin xfce4-mailwatch-plugin xfce4-netload-plugin xfce4-places-plugin xfce4-screenshooter xfce4-sensors-plugin xfce4-smartbookmark-plugin xfce4-systemload-plugin xfce4-taskmanager xfce4-timer-plugin xfce4-verve-plugin xfce4-wavelan-plugin xfce4-weather-plugin xfce4-whiskermenu-plugin xfce4-xkb-plugin 
-sudo apt purge avahi-daemon cups-daemon cups cups-browsed cups-core-drivers #93% sure this is right
-sudo apt purge rtkit #I'm 3% sure this is 9 (ie. "right")
-sudo apt purge light-locker
-sudo apt purge $(dpkg -l | egrep -i 'mozi|fox' | awk '{print $2}' | tr '\n' ' ') epiphany-browser konqueror chromium
-sudo apt purge goldendict exfalso parole quodlibet xfburn xarchiver xsane
-sudo apt purge 'libreoffice-*'
-sudo apt purge bluetooth bluez
+sudo apt-mark hold hddtemp libburn4 libisofs6 libjte2 libqrencode4 libxnvctrl0 linux-compiler-gcc-10-x86 linux-headers-amd64 linux-image-amd64 linux-libc-dev ristretto xfce4-battery-plugin xfce4-clipman xfce4-clipman-plugin xfce4-cpufreq-plugin xfce4-cpugraph-plugin xfce4-datetime-plugin xfce4-diskperf-plugin xfce4-fsguard-plugin xfce4-genmon-plugin xfce4-mailwatch-plugin xfce4-netload-plugin xfce4-places-plugin xfce4-screenshooter xfce4-sensors-plugin xfce4-smartbookmark-plugin xfce4-systemload-plugin xfce4-taskmanager xfce4-timer-plugin xfce4-verve-plugin xfce4-wavelan-plugin xfce4-weather-plugin xfce4-whiskermenu-plugin xfce4-xkb-plugin
+sudo apt --assume-yes purge avahi-daemon cups-daemon cups cups-browsed cups-core-drivers #93% sure this is right
+sudo apt --assume-yes purge rtkit #I'm 3% sure this is 9 (ie. "right")
+sudo apt --assume-yes purge light-locker
+sudo apt --assume-yes purge $(dpkg -l | egrep -i 'mozi|fox' | awk '{print $2}' | tr '\n' ' ') epiphany-browser konqueror chromium
+sudo apt --assume-yes purge goldendict exfalso parole quodlibet xfburn xarchiver xsane
+sudo apt --assume-yes purge 'libreoffice-*'
+sudo apt --assume-yes purge bluetooth bluez
 sudo apt --purge autoremove
 
 sudo systemctl stop avahi-daemon.socket #Just in case. (lmao)
@@ -3746,10 +3747,13 @@ echo sudo 'apt-mark hold $packages_that_can_be_autoremoved-get_from_apt-finstall
 echo
 echo
 
+
+echo
+echo ~/dpkg-apt-install-log.log
 for i in essential-1of2-debs essential-2of2-debs vim-debs weechat-debs epiphany-browser-debs exiftool-debs imagemagick-debs atool-debs audacity-debs ffmpeg-libdvdcss2-mpv-vlc-debs teeworlds-debs git-debs links-links2-lynx-debs gimp-debs apt-file-debs; do
   printf '%s\n' "sudo dpkg -iR $i"
-  read -p '? '
-  sudo dpkg -iR "$i"
+  read -p 'CTRL+C to abort or ENTER to continue? '
+  sudo dpkg -iR "$i" | tee -a ~/dpkg-apt-install-log.log
 done
 
 #!/bin/bash
