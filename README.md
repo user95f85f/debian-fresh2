@@ -265,14 +265,38 @@ VERIZON AIRSPEED JETPACK
       (or it just chooses something automatically)
     - it does IPv6 + IPv4
     - it has a default IPv4 DNS and IPv6 DNS
+
+  Using USB..
+    - it's best to use it just as as charger.
     - you can use the charger's head (ie. the power plug-in part) and take
       it off to have a USB 2.0 [?] connection to plug-in to a
       laptop/computer/PC to connect to the Internet without
       wifi/802.*/2.4GHz/5GHz/SSID/password
         (to enable this feature login to the Jetpack's website & go
-        System->Power Saving->USB Mode
+        System -> Power Saving -> USB Mode
         to activate this setting (because the default is to use the plug-in
-        as a Charger, not an Internet providing "service")
+        as a Charger, not an Internet providing "service" [+ charger/charging])
+        .. the ping is improved by +9.943% with the USB connection [USB3?] VS
+        WiFi [2.4Ghz + 13ft away])
+    - However, your Access Point Name (ie. APN) (for the device) is: vzwinternet
+      The default APN for NetworkManager is: vzwims
+      With vzwims APN your options for the configuration for the connection is:
+      Number=*99#
+      Username=
+      Password=
+      APN=vzwims
+      Network_ID=
+      And magically your IPv6 works for at least a day until your IPv4 address gets dropped completely and you can't connect to _any_ IPv4 address (ie. you'll get a [basically] "Network connection impossible" error message).
+      So it seems the right idea is to switch to your APN of "vzwinternet" as used by your modem [USBmodem] [USB-4G-modem] however from `sudo journalctl --follow` you'll get something like this:
+...ppp-manager: pppd pid 143811 exited with error 16: A modem hung up the phone
+      You can try changing the "Number:" in NetworkManager to your Verizon Number..you still get the same problem. So what are we missing to connect to your "vzwinternet" APN? Or is "vzwims" as an APN the right call [because my modem already knows your APN is "vzwinternet"]?
+      So as you can see this is the problem:
+      Number=*99# OR $yourVerizonNumber
+      Username=??????????????
+      Password=
+      APN=vzwims OR vzwinternet OR vzwapp
+      Network_ID=??????????????
+      See the problem with using the USB to connect to the [Verizon] ISP with the Verizon Airspeed Jetpack 4G Prepaid Modem? Better stick with the 2.4Ghz WiFi. Leave the USB for charging-only.
   
   Setup: insert battery. The thing 90%sure will just auto-turn-on...I guess?
          Otherwise hold power button on the side for 2 seconds
@@ -2492,6 +2516,7 @@ sync-all.sh
 teeworlds                             make /usr/games/teeworlds STDOUT go to a logfile in $teeworlds_logs
 tempconv                              convert easy C->F F->C
 unrot.pl                              basically the same thing as rot.pl
+xclip2.sh                             is `xclip` with '-selection clipboard' appended and you can use it in a tty/virtual-console !
 Copyright Notices
 
   Copyright (C) 1997 Fvzba Gngunz and Whyvna Unyy
@@ -3037,6 +3062,7 @@ essential-2of2-debs/strace_5.10-1_amd64.deb
 essential-2of2-debs/tmux_3.3a-1_bpo11+1_amd64.deb
 essential-2of2-debs/toilet_0.3-1.3_amd64.deb
 essential-2of2-debs/toilet-fonts_0.3-1.3_all.deb
+essential-2of2-debs/traceroute_1%3a2.1.0-2+b1_amd64.deb
 essential-2of2-debs/tree_1.8.0-1+b1_amd64.deb
 essential-2of2-debs/weechat-doc_3.0-1+deb11u1_all.deb
 essential-2of2-debs/wget_1.21-1+deb11u1_amd64.deb
@@ -3394,6 +3420,11 @@ DO GOOGLE TRANSLATE WITHOUT A BROWSER?????? CLI?!!! OH MY GAAAAAAAAAAAAAAAAAAAAA
 NOTE TO SELF ABOUT HARDWARE
 
   Avoid LG monitors (ie. dead pixel report) and Samsung monitors (ie. Syncmaster flatscreen LCD monitor had a weird line through part of it)
+
+TARGET ALL CHARACTERS THAT ARE NOT a-zA-Z[:cyrillic:] -
+
+  [\w \u0400-\u04FF-]+
+  FIXME: why does this also target Russian UTF-8 characters but not characters like @ or $ or #? (30% sure)
 sudo lsblk --list --output-all /dev/sda | tr '\t' ' ' | sed 's/ \{2,\}/ /g'
 
 
@@ -4062,6 +4093,16 @@ USING CURL TO POST JSON DATA TO A PHP FILE ON A F***ING HTTP SERVER
 		--header 'content-type: application/json' \
 		--data '{ "key1":"value1", "key2":"value2", "key3":"value3", "key4":[] }'
 
+DOMAIN NAME REGISTRATION RESEARCH
+
+	user7b.website (50cents/year) ($25/year)
+	user7b.org ($1/year) ($20/year)
+	https://www.ionos.com/
+	FREE https:// (ie. SSL-enabled) domain-names I guess
+	FREE privacy I guess (for most domain extensions 30% sure)
+	FREE email!!!!!!!! YEAHHHHHHH (but under the domain name?)
+		(how does that work if the domain names points to a whatever server??)
+
 0 firefox
 0 perl5
 0 python3
@@ -4071,6 +4112,47 @@ USING CURL TO POST JSON DATA TO A PHP FILE ON A F***ING HTTP SERVER
 26 default-jdk
 176 mono-mcs
 
+
+
+
+<USEFUL `teeworlds` chat messages in Russian>
+  Привет, мир #Hello, world
+  Я не знаю русский .. вроде.           I do not Russian know.. Sort of. (90% sure)
+  Лол = Lol?
+  дa = yes
+  пока   (bye)
+</USEFUL>
+
+
+<MOST RECENT TRANSLATIONS>
+  Сайт    Place/site/website (30%: "that" place within "whatever")
+  ку      ku (ie. the sound of a cuckoo) (FIXME: why when where)
+</MOST RECENT>
+
+
+<100% RESOLVED in `teeworlds` chat>
+3 на 2                                3 to 2
+аб                                    Ab (short fr Aboba)
+абоба                                 Aboba [a bot]
+атвичяй                               отвечай (answer)                    ATVICHY (ie. get-going [ie. give me something]) (ie. "I want a response")
+а ты чо не разгавариваеш              а ты что не разговариваешь (what are you talking about)   and you don't solve (ie. "you mistranslate [you don't understand me and why you exist [here with me]]")
+ГАМНО                                 говно (shit)                        Gamno
+ДАЖП                                  дамп (sweep)       даже (even)      Dazhp or "Let" (?????????????????)
+КАК                                   HOW
+НЕЧЕСНО 2 НА 1                        SOS 2 on 1
+паддайся                              Get down
+ПАКА                                  пока ([[byte/]]bye)    ПОКА (BYE)   Punish/Pak
+ПИРИЗАЙДИ                             перезайди (overhang)                Piesi/Pyrizaids (ie. the overhang)
+сос                                   SOS
+СОС                                   SOS
+член                                  member
+Я НА ВЕРХУ                            I'm at the top
+Я НЕЗНАЮ АНГЛИСКИЙ                    I DO NOT KNOW ENGLISH
+Я не знаю русский .. вроде.           I DO NOT KNOW RUSSIAN.. Sort of.
+</100% RESOLVED>
+
+
+
 Teeworlds messages:
 сука -> siка -> sick'em -> get them -> get the other team!
 {Mᴜɢɪ} {Mᴜɢɪ} {Mᴜɢɪ} {Mᴜᴜᴜɢɪ}...{Mᴜɢɪ}
@@ -4078,7 +4160,7 @@ Teeworlds messages:
 
 Gaming phrases:
 ахаххахаха = Ahahhaha
-дa = yes
+
 еспи  = if
 иэтчи = lachi           #ie. an asshole
 ку    = 13%cool/12%pussy-shit = cUUkoo #(2)ie. the sound of a cuckoo, "having -3% good for 0.2% good"
@@ -4107,7 +4189,7 @@ OK!
 иф( $ин eq 'фр' ){ print("bonjour\n"); }
 
 
-Привет, мир #Hello, world
+
 
 еспи is 'if' is %D0%B5%D1%81%D0%BF%D0%B8
 
@@ -4128,6 +4210,23 @@ use utf8; my  $ин="Привет, мир!"; print $ин
 epiphany https://metacpan.org/pod/Keyword::Declare
 epiphany https://metacpan.org/dist/XS-Parse-Keyword
 epiphany https://metacpan.org/pod/Syntax::Operator::Equ
+
+
+
+<0% RESOLVED in `teeworlds` chat>
+  А                                     BUT
+  АЛОЛА                                 (needs context) (Alla?)       ОЛОЛО (Oid)   ЛОЛ/Лол (LOL/Lol [might be Serbian rather than Russian])  О (?)
+  а ты будеш меня на шыпы ронять        and you will wake me on the shypes/ships
+  е                                     e
+  КТО                                   WHO
+  н                                     n (short for black man)
+  негр ты                               You are a black man
+  П                                     P
+  поддайся пожжалуйста                  "please allow to defeat you" (Get to pay a lot)
+  помидор                               tomato
+  ты                                    you
+  ЭТО                                   THIS IS
+</0% RESOLVED>
 Congratulations python, you're the leader in malware sh**:    9:deb, 218:pm, 1073:perl, 2238:php, 2809:bash, 4860:html, 5694:C++, 12158:C, 13332:go, 28078:java, 39536:py
 
 
@@ -4174,6 +4273,11 @@ endfunction
 
 :com! Fuckyou call Fuckyouuu()
 
+
+SERIOUS WIRELESS TROUBLESHOOTING
+
+  sudo rm -iv /etc/NetworkManager/system-connections/*
+  sudo systemctl restart wpa_supplicant NetworkManager ModemManager networking
 
 HOW TO GET DEVICES (ie. lo, wlp1s0 e.g.)
   WHAT IS LOCALHOST IP-RANGE (ie. 127.0.0.0-127.254.255.255 [at least by ping])

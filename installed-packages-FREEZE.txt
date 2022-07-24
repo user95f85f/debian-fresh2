@@ -151,6 +151,7 @@ essential-2of2-debs/strace_5.10-1_amd64.deb
 essential-2of2-debs/tmux_3.3a-1_bpo11+1_amd64.deb
 essential-2of2-debs/toilet_0.3-1.3_amd64.deb
 essential-2of2-debs/toilet-fonts_0.3-1.3_all.deb
+essential-2of2-debs/traceroute_1%3a2.1.0-2+b1_amd64.deb
 essential-2of2-debs/tree_1.8.0-1+b1_amd64.deb
 essential-2of2-debs/weechat-doc_3.0-1+deb11u1_all.deb
 essential-2of2-debs/wget_1.21-1+deb11u1_amd64.deb

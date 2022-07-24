@@ -25,3 +25,4 @@ sync-all.sh
 teeworlds                             make /usr/games/teeworlds STDOUT go to a logfile in $teeworlds_logs
 tempconv                              convert easy C->F F->C
 unrot.pl                              basically the same thing as rot.pl
+xclip2.sh                             is `xclip` with '-selection clipboard' appended and you can use it in a tty/virtual-console !

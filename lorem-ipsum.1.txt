@@ -350,3 +350,8 @@ DO GOOGLE TRANSLATE WITHOUT A BROWSER?????? CLI?!!! OH MY GAAAAAAAAAAAAAAAAAAAAA
 NOTE TO SELF ABOUT HARDWARE
 
   Avoid LG monitors (ie. dead pixel report) and Samsung monitors (ie. Syncmaster flatscreen LCD monitor had a weird line through part of it)
+
+TARGET ALL CHARACTERS THAT ARE NOT a-zA-Z[:cyrillic:] -
+
+  [\w \u0400-\u04FF-]+
+  FIXME: why does this also target Russian UTF-8 characters but not characters like @ or $ or #? (30% sure)

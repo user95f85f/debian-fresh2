@@ -1,0 +1,116 @@
+
+
+
+
+<USEFUL `teeworlds` chat messages in Russian>
+  Привет, мир #Hello, world
+  Я не знаю русский .. вроде.           I do not Russian know.. Sort of. (90% sure)
+  Лол = Lol?
+  дa = yes
+  пока   (bye)
+</USEFUL>
+
+
+<MOST RECENT TRANSLATIONS>
+  Сайт    Place/site/website (30%: "that" place within "whatever")
+  ку      ku (ie. the sound of a cuckoo) (FIXME: why when where)
+</MOST RECENT>
+
+
+<100% RESOLVED in `teeworlds` chat>
+3 на 2                                3 to 2
+аб                                    Ab (short fr Aboba)
+абоба                                 Aboba [a bot]
+атвичяй                               отвечай (answer)                    ATVICHY (ie. get-going [ie. give me something]) (ie. "I want a response")
+а ты чо не разгавариваеш              а ты что не разговариваешь (what are you talking about)   and you don't solve (ie. "you mistranslate [you don't understand me and why you exist [here with me]]")
+ГАМНО                                 говно (shit)                        Gamno
+ДАЖП                                  дамп (sweep)       даже (even)      Dazhp or "Let" (?????????????????)
+КАК                                   HOW
+НЕЧЕСНО 2 НА 1                        SOS 2 on 1
+паддайся                              Get down
+ПАКА                                  пока ([[byte/]]bye)    ПОКА (BYE)   Punish/Pak
+ПИРИЗАЙДИ                             перезайди (overhang)                Piesi/Pyrizaids (ie. the overhang)
+сос                                   SOS
+СОС                                   SOS
+член                                  member
+Я НА ВЕРХУ                            I'm at the top
+Я НЕЗНАЮ АНГЛИСКИЙ                    I DO NOT KNOW ENGLISH
+Я не знаю русский .. вроде.           I DO NOT KNOW RUSSIAN.. Sort of.
+</100% RESOLVED>
+
+
+
+Teeworlds messages:
+сука -> siка -> sick'em -> get them -> get the other team!
+{Mᴜɢɪ} {Mᴜɢɪ} {Mᴜɢɪ} {Mᴜᴜᴜɢɪ}...{Mᴜɢɪ}
+
+
+Gaming phrases:
+ахаххахаха = Ahahhaha
+
+еспи  = if
+иэтчи = lachi           #ie. an asshole
+ку    = 13%cool/12%pussy-shit = cUUkoo #(2)ie. the sound of a cuckoo, "having -3% good for 0.2% good"
+мэтч  = match
+мэтчи = matches
+ПИЗДА = 96%PUSSY = being seriously damaged  #I'm 2% sure this translation is right.
+пиэда = 12%pedophile = 2%cunt    #(2) I'm 3% sure this translation is right. 
+твoя  = TV = your             #(1) I'm 0.2%% sure it means "abusing the TV" (2) female form. (I'm 3% sure this translation is right)
+че еспи = that espa     #ie. that eat-shit-please-asshole
+Что если = what if
+ээ    = oops = I am collecting my thoughts give me a few seconds = I am detecting blah blah blah blah
+
+
+
+
+ёЁ!"№;%:?*()_-+=хХъЪ\/жЖэЭбБюЮ.,/*-+,,,,++--**--*///
+
+йцукенгшщзфывапролдячсмить
+
+ЙЦУКЕНГШЩЗФЫВАПРОЛДЯЧСМИТЬ
+
+OK!
+
+
+#Alright you guys. How close am I to reality [with this code]? (apologies to those that are in a tty[?]/non-unicode-terminal)
+иф( $ин eq 'фр' ){ print("bonjour\n"); }
+
+
+
+
+еспи is 'if' is %D0%B5%D1%81%D0%BF%D0%B8
+
+Путеводитель-для-новичков is
+%D0%9F%D1%83%D1%82%D0%B5%D0%B2%D0%BE%D0%B4%D0%B8%D1%82%D0%B5%D0%BB%D1%8C-%D0%B4%D0%BB%D1%8F-%D0%BD%D0%BE%D0%B2%D0%B8%D1%87%D0%BA%D0%BE%D0%B2
+
+
+#My very first Russian-language test
+РФРФРФРФРФРФРФРФ нуфр ифин нуфр
+POPOPOPOPOPOPOPO hyop nonh hyop #my alphabet-translation
+RFRFRFRFRFRFRFRF nufr ifin nufr #using a special alphabet-translation
+HAHAHAHAHAHAHAHA yeah baby yeah #what I typed in with the same keys
+
+#valid perl!
+use utf8; my  $ин="Привет, мир!"; print $ин
+
+#convert if/eq into Russian-language equivalent in your code
+epiphany https://metacpan.org/pod/Keyword::Declare
+epiphany https://metacpan.org/dist/XS-Parse-Keyword
+epiphany https://metacpan.org/pod/Syntax::Operator::Equ
+
+
+
+<0% RESOLVED in `teeworlds` chat>
+  А                                     BUT
+  АЛОЛА                                 (needs context) (Alla?)       ОЛОЛО (Oid)   ЛОЛ/Лол (LOL/Lol [might be Serbian rather than Russian])  О (?)
+  а ты будеш меня на шыпы ронять        and you will wake me on the shypes/ships
+  е                                     e
+  КТО                                   WHO
+  н                                     n (short for black man)
+  негр ты                               You are a black man
+  П                                     P
+  поддайся пожжалуйста                  "please allow to defeat you" (Get to pay a lot)
+  помидор                               tomato
+  ты                                    you
+  ЭТО                                   THIS IS
+</0% RESOLVED>

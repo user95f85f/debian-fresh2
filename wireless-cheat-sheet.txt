@@ -1,4 +1,9 @@
 
+SERIOUS WIRELESS TROUBLESHOOTING
+
+  sudo rm -iv /etc/NetworkManager/system-connections/*
+  sudo systemctl restart wpa_supplicant NetworkManager ModemManager networking
+
 HOW TO GET DEVICES (ie. lo, wlp1s0 e.g.)
   WHAT IS LOCALHOST IP-RANGE (ie. 127.0.0.0-127.254.255.255 [at least by ping])
     WHAT IS WIRELESS AP-CONNECTED LAN IP AS A CLIENT OF THE AP (ie. eg. 192.168.1.42)

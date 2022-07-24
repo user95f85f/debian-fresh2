@@ -165,3 +165,13 @@ USING CURL TO POST JSON DATA TO A PHP FILE ON A F***ING HTTP SERVER
 	curl http://localhost:42/post-json-stuff-on-me.php --request POST \
 		--header 'content-type: application/json' \
 		--data '{ "key1":"value1", "key2":"value2", "key3":"value3", "key4":[] }'
+
+DOMAIN NAME REGISTRATION RESEARCH
+
+	user7b.website (50cents/year) ($25/year)
+	user7b.org ($1/year) ($20/year)
+	https://www.ionos.com/
+	FREE https:// (ie. SSL-enabled) domain-names I guess
+	FREE privacy I guess (for most domain extensions 30% sure)
+	FREE email!!!!!!!! YEAHHHHHHH (but under the domain name?)
+		(how does that work if the domain names points to a whatever server??)

@@ -112,14 +112,38 @@ VERIZON AIRSPEED JETPACK
       (or it just chooses something automatically)
     - it does IPv6 + IPv4
     - it has a default IPv4 DNS and IPv6 DNS
+
+  Using USB..
+    - it's best to use it just as as charger.
     - you can use the charger's head (ie. the power plug-in part) and take
       it off to have a USB 2.0 [?] connection to plug-in to a
       laptop/computer/PC to connect to the Internet without
       wifi/802.*/2.4GHz/5GHz/SSID/password
         (to enable this feature login to the Jetpack's website & go
-        System->Power Saving->USB Mode
+        System -> Power Saving -> USB Mode
         to activate this setting (because the default is to use the plug-in
-        as a Charger, not an Internet providing "service")
+        as a Charger, not an Internet providing "service" [+ charger/charging])
+        .. the ping is improved by +9.943% with the USB connection [USB3?] VS
+        WiFi [2.4Ghz + 13ft away])
+    - However, your Access Point Name (ie. APN) (for the device) is: vzwinternet
+      The default APN for NetworkManager is: vzwims
+      With vzwims APN your options for the configuration for the connection is:
+      Number=*99#
+      Username=
+      Password=
+      APN=vzwims
+      Network_ID=
+      And magically your IPv6 works for at least a day until your IPv4 address gets dropped completely and you can't connect to _any_ IPv4 address (ie. you'll get a [basically] "Network connection impossible" error message).
+      So it seems the right idea is to switch to your APN of "vzwinternet" as used by your modem [USBmodem] [USB-4G-modem] however from `sudo journalctl --follow` you'll get something like this:
+...ppp-manager: pppd pid 143811 exited with error 16: A modem hung up the phone
+      You can try changing the "Number:" in NetworkManager to your Verizon Number..you still get the same problem. So what are we missing to connect to your "vzwinternet" APN? Or is "vzwims" as an APN the right call [because my modem already knows your APN is "vzwinternet"]?
+      So as you can see this is the problem:
+      Number=*99# OR $yourVerizonNumber
+      Username=??????????????
+      Password=
+      APN=vzwims OR vzwinternet OR vzwapp
+      Network_ID=??????????????
+      See the problem with using the USB to connect to the [Verizon] ISP with the Verizon Airspeed Jetpack 4G Prepaid Modem? Better stick with the 2.4Ghz WiFi. Leave the USB for charging-only.
   
   Setup: insert battery. The thing 90%sure will just auto-turn-on...I guess?
          Otherwise hold power button on the side for 2 seconds
