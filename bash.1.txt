@@ -26,6 +26,34 @@ INITIALIZE GIT ON YOUR SYSTEM OPTION 2/2 (PUT THIS INTO A [TEMPORARY] BASH SCRIP
 EOFGIT
 
 
+WGET/CURL ${HOSTNAME} OR ${HOSTNAME}. AND YOU WILL BE SURPRISED AT THE TARGET IP ADDRESS
+
+  wget ${HOSTNAME}        #your localhost-loop IP address as-written in /etc/hosts "symlinked" to "localhost"
+  --2022-07-23 20:02:53--  http://debian/
+  Resolving debian (debian)... 127.0.0.1
+  Connecting to debian (debian)|127.0.0.1|:80... failed: Connection refused.
+
+  wget ${HOSTNAME}.       #your AP-givenered LAN's IP address
+  --2022-07-23 20:02:53--  http://debian./
+  Resolving debian. (debian.)... 192.168.1.172
+  Connecting to debian. (debian.)|192.168.1.172|:80... failed: Connection refused.
+
+
+  #Question: what about IPv6?
+  
+  wget -6 ${HOSTNAME}        #oh sh** this is my actual ISP endowed IPv6 address (first one). Second one is my AP-"assigned" LAN's IP address?
+  --2022-07-23 20:04:52--  http://debian/
+  Resolving debian (debian)... 2600:100f:b138:cd84:f915:4241:e0e7:7a8f, fe80::d5a7:7bd2:9871:2902
+  Connecting to debian (debian)|2600:100f:b138:cd84:f915:4241:e0e7:7a8f|:80... failed: Connection refused.
+  Connecting to debian (debian)|fe80::d5a7:7bd2:9871:2902|:80... failed: Invalid argument.
+
+  wget -6 ${HOSTNAME}.       #well this is a 300% surprise. ISP/Internet IP +++++++ my LAN-based-given one. Well f*** me.
+  --2022-07-23 20:04:53--  http://debian./
+  Resolving debian. (debian.)... 2600:100f:b138:cd84:f915:4241:e0e7:7a8f, fe80::d5a7:7bd2:9871:2902
+  Connecting to debian. (debian.)|2600:100f:b138:cd84:f915:4241:e0e7:7a8f|:80... failed: Connection refused.
+  Connecting to debian. (debian.)|fe80::d5a7:7bd2:9871:2902|:80... failed: Invalid argument.
+
+  
 
 BINARY FILE SERVER WEBSITES TO UPLOAD TO EASILY WITH CLI/SHELL/CURL/WGET
 
