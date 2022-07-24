@@ -1932,5 +1932,7 @@ DASH/SH SHELL (SCRIPT[?]) COMPARISON WITHOUT A '[[' ``test'' AT-ALL?
   #[[: not found
   [[ $dne != aaaa && $dne2 -ne 0 ]] && echo okay3
 
+DETECT CHANGES IN /var/log/* AND $HOME IN FILES AS EASILY AS POSSIBLE
 
+  touch ~/ref.txt; while :; do read -p 'press ENTER to see changed files'; clear; sudo find /var/log $HOME -type f -newer ~/ref.txt; done
 
