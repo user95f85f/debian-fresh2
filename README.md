@@ -152,13 +152,33 @@ Disassembly of section .text:
   13:	0f 05                	syscall 
   15:	c3                   	retq   
 
+INITIALIZE GIT ON YOUR SYSTEM OPTION 1/2
 
-  https://dl.fedoraproject.org/pub/alt/live-respins/
+  git config --global credential.username 'user95f85f'
+  git config --global user.name 'user95f85f_cli'
+  git config --global core.askPass '/path/to/executable/that/echos/the/password/hehe.sh' 
+  git config --global user.email 'user9de1d@gmail.com' #--required on the github for contributions to show up on your main page to show your activity on github
+
+INITIALIZE GIT ON YOUR SYSTEM OPTION 2/2 (PUT THIS INTO A [TEMPORARY] BASH SCRIPT AND EXECUTE IT)
+
+  #your global git config settings:
+  #your name is your requested name to be called while uploading your pushes to the online-git repository-system
+  #your name, password, and username are required (email is not) for pushing to work
+  GITHUB_USERNAME=user95f85f
+  GITHUB_REGISTERED_EMAIL_FOR_CONTRIBUTION_ON_GITHUB_TRACKING='user9de1d@gmail.com'
+  CHMOD_X_STDOUT_YOUR_TOKEN=/path/to/executable/that/stdout/echos/prints/printfs/the/password/hehehehehAHAHAHAAAHEHEHEHEHEeeeeeeeNO_NEWLINES_IN_STDOUT.sh 
+  #note the beginning/leading tab for the leading space(s) in the .gitconfig file
+  cat <<EOFGIT >~/.gitconfig
+[user]
+	name = ${GITHUB_USERNAME}_cli
+	email = ${GITHUB_REGISTERED_EMAIL_FOR_CONTRIBUTION_ON_GITHUB_TRACKING}
+[core]
+	askPass = ${CHMOD_X_STDOUT_YOUR_TOKEN}
+[credential]
+	username = ${GITHUB_USERNAME}
+EOFGIT
 
 
-YET ANOTHER BULL**** ISO BURNING TO A LIVEOS DEBIAN-BASED S***
-
-  https://grml.org/features/
 
 BINARY FILE SERVER WEBSITES TO UPLOAD TO EASILY WITH CLI/SHELL/CURL/WGET
 
@@ -528,16 +548,6 @@ MAN2TXT RESEARCH
   man bash > bash.1.txt #TODO: need to test
   zcat `man --where bash` | groff -t -e -mandoc -Tascii - | less -R #has special escapes in the text *shrugs*
 
-POSSIBLY USEFUL GIT COMMANDS
-
-  git clone https://github.com/whatever_person/whatever_repo
-  git commit -m 'commit message' #3%sure this will work
-  git push #7%sure this will work
-  git pull #update local files in case the remote updated
-  git log #view changes (3%chance will work)
-  git config #???
-
-
 PASSIVE FOR LOOP WITH ARRAY AS AN ARGUMENT
 
   files_in_pwd=(*)  #this is a file glob.
@@ -788,7 +798,6 @@ PYTHON3 SLURP AND PROCESS A BINARY FILE'S CONTENTS
     print(all_data_bytearray.hex())
   }
 
-
 GITHUB SH**
 
   git clone https://github.com/user95f85f/fresh-debian2
@@ -804,23 +813,16 @@ GITHUB SH**
   #git whatchanged
   #git pull
   #git restore LICENSE on-first-boot.txt preREADME.txt
-  #git config --global user.name 'user95f85f_cli'
   #sudo git config --system user.name 'user95f85f_cli'
-  #git config --global core.askPass '/path/to/executable/that/echos/the/password/hehe.sh' 
-  #git config --global credential.username 'user95f85f'
-  #git config --global user.email 'user9de1d@gmail.com' #--required on the github for contributions to show up on your main page to show your activity on github
 
-  #your global git config settings:
-  cat <<EOF >~/.gitconfig
-[user]
-  name = ${GITHUB_USERNAME}_cli
-  email = ${GITHUB_REGISTERED_EMAIL_FOR_CONTRIBUTION_ON_GITHUB_TRACKING}
-[core]
-  askPass = ${CHMOD_X_STDOUT_YOUR_TOKEN}
-[credential]
-  username = ${GITHUB_USERNAME}
-EOF
+POSSIBLY USEFUL GIT COMMANDS RESEARCH
 
+  git clone https://github.com/whatever_person/whatever_repo
+  git commit -m 'commit message' #3%sure this will work
+  git push #7%sure this will work
+  git pull #update local files in case the remote updated
+  git log #view changes (3%chance will work)
+  git config #???
 
 IMGUR UPLOAD
 
@@ -1450,7 +1452,9 @@ SUPER SYSTEM SUSTAIN/BACKUP
 
 GET TCPDUMP TO TELL ME THE DOMAIN-DNS REQUESTS SEND TO MY MODEM ISP/DNS-PROVIDER-SERVER
 
-  sudo tcpdump -i any -U 'src port 53 or dst port 53' > out.dat
+  sudo tcpdump -i any -U 'src port 53 or dst port 53' > ~/tcpdump.log
+  tail -f ~/tcpdump.log #and hit 'F' to watch
+
   tail -f out.dat | grep --line-buffered -E 'my\.jetpack\.domain.* (A\?|AAAA\?|CNAME) ' | cut --characters=24-
 
 FASTER GZIP ALTERNATIVE  RESEARCH
@@ -3359,6 +3363,9 @@ DO GOOGLE TRANSLATE WITHOUT A BROWSER?????? CLI?!!! OH MY GAAAAAAAAAAAAAAAAAAAAA
 
   translate-shell #google-translate-cli
 
+NOTE TO SELF ABOUT HARDWARE
+
+  Avoid LG monitors (ie. dead pixel report) and Samsung monitors (ie. Syncmaster flatscreen LCD monitor had a weird line through part of it)
 sudo lsblk --list --output-all /dev/sda | tr '\t' ' ' | sed 's/ \{2,\}/ /g'
 
 

@@ -347,3 +347,6 @@ DO GOOGLE TRANSLATE WITHOUT A BROWSER?????? CLI?!!! OH MY GAAAAAAAAAAAAAAAAAAAAA
 
   translate-shell #google-translate-cli
 
+NOTE TO SELF ABOUT HARDWARE
+
+  Avoid LG monitors (ie. dead pixel report) and Samsung monitors (ie. Syncmaster flatscreen LCD monitor had a weird line through part of it)
