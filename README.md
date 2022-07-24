@@ -3425,6 +3425,15 @@ TARGET ALL CHARACTERS THAT ARE NOT a-zA-Z[:cyrillic:] -
 
   [\w \u0400-\u04FF-]+
   FIXME: why does this also target Russian UTF-8 characters but not characters like @ or $ or #? (30% sure)
+
+INSTALL PRINTERS IN UUUHH DEBIAN
+
+  install system-config-printer OR
+  http://localhost:631/     #with cupsd running [i guess]
+
+GET ALL DOMAIN NAMES YOU EVER ACCESSED WITH epiphany-browser IN DEBIAN (SAD AF)
+
+  strings /home/user/.local/share/epiphany/itp/observations.db-wal
 sudo lsblk --list --output-all /dev/sda | tr '\t' ' ' | sed 's/ \{2,\}/ /g'
 
 
@@ -4127,6 +4136,7 @@ DOMAIN NAME REGISTRATION RESEARCH
 <MOST RECENT TRANSLATIONS>
   Сайт    Place/site/website (30%: "that" place within "whatever")
   ку      ku (ie. the sound of a cuckoo) (FIXME: why when where)
+  сука  
 </MOST RECENT>
 
 
