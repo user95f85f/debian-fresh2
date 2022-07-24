@@ -462,6 +462,11 @@ THE BEST WAY TO DETECT IF A COMMAND EXISTS
 PRINT/ECHO TO STDERR
 
   printf '%s\n' 'error message here' >&2
+  echo stderr >&2
+
+PIPE STDERR + STDOUT INTO A COMMAND'S STDIN
+
+  perl -e 'print "stdin\n";print STDERR "stderr\n"' 2>&1 | tee ~/all-out.txt
 
 BASH FAILURE WITHIN A $(exit 1) CAN BE DEALT WITH '||'
 
@@ -3753,7 +3758,7 @@ echo ~/dpkg-apt-install-log.log
 for i in essential-1of2-debs essential-2of2-debs vim-debs weechat-debs epiphany-browser-debs exiftool-debs imagemagick-debs atool-debs audacity-debs ffmpeg-libdvdcss2-mpv-vlc-debs teeworlds-debs git-debs links-links2-lynx-debs gimp-debs apt-file-debs; do
   printf '%s\n' "sudo dpkg -iR $i"
   read -p 'CTRL+C to abort or ENTER to continue? '
-  sudo dpkg -iR "$i" | tee -a ~/dpkg-apt-install-log.log
+  sudo dpkg -iR "$i" 2>&1 | tee -a ~/dpkg-apt-install-log.log
 done
 
 #!/bin/bash

@@ -309,6 +309,11 @@ THE BEST WAY TO DETECT IF A COMMAND EXISTS
 PRINT/ECHO TO STDERR
 
   printf '%s\n' 'error message here' >&2
+  echo stderr >&2
+
+PIPE STDERR + STDOUT INTO A COMMAND'S STDIN
+
+  perl -e 'print "stdin\n";print STDERR "stderr\n"' 2>&1 | tee ~/all-out.txt
 
 BASH FAILURE WITHIN A $(exit 1) CAN BE DEALT WITH '||'
 
